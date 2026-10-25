@@ -370,139 +370,139 @@ function isHistoricalToolMessage(message: ChatMessage): boolean {
 
 const FREEZONE_TOOL_DISPLAY: Record<string, { title: string; description: string }> = {
   freezone_emit_canvas_command: {
-    title: "准备画布操作",
-    description: "生成可执行的画布修改命令",
+    title: "Preparing canvas actions",
+    description: "Generating executable canvas edit commands",
   },
   freezone_create_node: {
-    title: "创建节点",
-    description: "准备创建一个画布节点",
+    title: "Create node",
+    description: "Preparing to create a canvas node",
   },
   freezone_add_next_node: {
-    title: "追加节点",
-    description: "准备在节点后创建下游节点",
+    title: "Append node",
+    description: "Preparing to create a downstream node",
   },
   freezone_update_node_data: {
-    title: "更新节点",
-    description: "准备修改节点数据",
+    title: "Update node",
+    description: "Preparing to modify node data",
   },
   freezone_create_edge: {
-    title: "创建连线",
-    description: "准备连接两个画布节点",
+    title: "Create link",
+    description: "Preparing to connect two canvas nodes",
   },
   freezone_delete_nodes: {
-    title: "删除节点",
-    description: "准备删除画布节点",
+    title: "Delete nodes",
+    description: "Preparing to delete canvas nodes",
   },
   freezone_clear_canvas: {
-    title: "清空画布",
-    description: "准备清空普通画布节点和连接",
+    title: "Clear canvas",
+    description: "Preparing to clear regular canvas nodes and links",
   },
   freezone_delete_edges: {
-    title: "断开连线",
-    description: "准备断开画布连线",
+    title: "Remove link",
+    description: "Preparing to disconnect canvas links",
   },
   freezone_move_nodes: {
-    title: "移动节点",
-    description: "准备移动画布节点",
+    title: "Move nodes",
+    description: "Preparing to move canvas nodes",
   },
   freezone_layout_nodes: {
-    title: "整理布局",
-    description: "准备整理画布节点布局",
+    title: "Arrange layout",
+    description: "Preparing to arrange the canvas node layout",
   },
   freezone_group_nodes: {
-    title: "创建分组",
-    description: "准备把节点放入视觉分组",
+    title: "Create group",
+    description: "Preparing to place nodes in a visual group",
   },
   freezone_select_nodes: {
-    title: "选择节点",
-    description: "准备选中或聚焦画布节点",
+    title: "Select nodes",
+    description: "Preparing to select or focus canvas nodes",
   },
   freezone_run_node_action: {
-    title: "运行节点动作",
-    description: "准备运行节点前端动作",
+    title: "Run node action",
+    description: "Preparing to run a node frontend action",
   },
   freezone_get_canvas_ontology: {
-    title: "读取画布 Ontology",
-    description: "获取当前画布详细 ontology",
+    title: "Read canvas ontology",
+    description: "Fetching the detailed canvas ontology",
   },
   freezone_get_canvas_snapshot: {
-    title: "读取画布",
-    description: "获取当前画布节点和连线信息",
+    title: "Read canvas",
+    description: "Fetching current canvas nodes and links",
   },
   freezone_get_selection: {
-    title: "读取选择",
-    description: "获取当前选中的画布节点",
+    title: "Read selection",
+    description: "Fetching the currently selected canvas nodes",
   },
   freezone_get_node_detail: {
-    title: "读取节点",
-    description: "获取单个节点详情",
+    title: "Read node",
+    description: "Fetching details for a single node",
   },
   freezone_get_neighbor_graph: {
-    title: "读取上下游",
-    description: "获取节点邻近关系",
+    title: "Read neighbors",
+    description: "Fetching neighboring node relationships",
   },
   freezone_get_node_action_catalog: {
-    title: "读取节点能力",
-    description: "获取单个节点可用动作",
+    title: "Read node actions",
+    description: "Fetching actions available for a single node",
   },
   freezone_get_node_create_schema: {
-    title: "读取创建参数",
-    description: "获取节点创建参数",
+    title: "Read create parameters",
+    description: "Fetching node creation parameters",
   },
   freezone_get_audio_voice_options: {
-    title: "读取音色",
-    description: "获取音频节点音色选项",
+    title: "Read voices",
+    description: "Fetching voice options for audio nodes",
   },
   freezone_get_slot_candidates: {
-    title: "读取槽位",
-    description: "获取当前可提交槽位",
+    title: "Read slots",
+    description: "Fetching slots that can currently be submitted",
   },
   freezone_get_mainline_projection_assets: {
-    title: "读取主线资产",
-    description: "获取可映射到画布的主线资产",
+    title: "Read mainline assets",
+    description: "Fetching mainline assets that can map to the canvas",
   },
   freezone_get_canvas_action_catalog: {
-    title: "查询画布能力",
-    description: "获取画布级 action catalog",
+    title: "Query canvas actions",
+    description: "Fetching the canvas-level action catalog",
   },
   freezone_get_canvas_command_catalog: {
-    title: "读取命令规则",
-    description: "获取批量画布命令字段规则",
+    title: "Read command rules",
+    description: "Fetching field rules for batch canvas commands",
   },
   freezone_get_link_type_catalog: {
-    title: "读取连线类型",
-    description: "获取普通节点连线类型",
+    title: "Read link types",
+    description: "Fetching regular node link types",
   },
   freezone_validate_canvas_commands: {
-    title: "校验画布命令",
-    description: "预校验 canvas_chat_commands",
+    title: "Validate canvas commands",
+    description: "Pre-validating canvas_chat_commands",
   },
   freezone_summarize_canvas: {
-    title: "总结画布",
-    description: "整理当前画布结构摘要",
+    title: "Summarize canvas",
+    description: "Preparing a summary of the current canvas structure",
   },
 };
 
 const AGENT_TOOL_TITLE_OVERRIDES: Record<string, string> = {
-  skill: "加载 Skill",
-  list_workflows: "读取可用工作流",
-  "list workflows": "读取可用工作流",
-  freezone_get_workflow_skill: "加载 Workflow Skill",
-  get_workflow_skill: "加载 Workflow Skill",
-  "get workflow skill": "加载 Workflow Skill",
-  freezone_prepare_workflow_draft: "生成工作流草稿",
-  freezone_prepare_workflow_plan_draft: "生成工作流草稿",
-  freezone_confirm_workflow_draft: "提交到画布",
-  freezone_request_user_clarification: "确认生成参数",
-  freezone_list_agent_catalog: "读取 Skill / Recipe 列表",
-  freezone_get_saved_skill: "读取 Skill 配置",
-  freezone_get_saved_recipe: "读取 Recipe 配置",
-  freezone_put_agent_catalog_draft_outline: "整理 Skill 方案",
-  freezone_begin_agent_catalog_draft: "创建 Skill 草稿",
-  freezone_put_agent_catalog_skill: "生成 Skill 配置",
-  freezone_put_agent_catalog_recipe: "生成 Recipe 配置",
-  freezone_patch_agent_catalog_draft: "调整 Skill 草稿",
-  freezone_finish_agent_catalog_draft: "展示 Skill 草稿",
+  skill: "Load Skill",
+  list_workflows: "Read available workflows",
+  "list workflows": "Read available workflows",
+  freezone_get_workflow_skill: "Load Workflow Skill",
+  get_workflow_skill: "Load Workflow Skill",
+  "get workflow skill": "Load Workflow Skill",
+  freezone_prepare_workflow_draft: "Generate workflow draft",
+  freezone_prepare_workflow_plan_draft: "Generate workflow draft",
+  freezone_confirm_workflow_draft: "Submit to canvas",
+  freezone_request_user_clarification: "Confirm generation parameters",
+  freezone_list_agent_catalog: "Read Skill / Recipe list",
+  freezone_get_saved_skill: "Read Skill config",
+  freezone_get_saved_recipe: "Read Recipe config",
+  freezone_put_agent_catalog_draft_outline: "Organize Skill plan",
+  freezone_begin_agent_catalog_draft: "Create Skill draft",
+  freezone_put_agent_catalog_skill: "Generate Skill config",
+  freezone_put_agent_catalog_recipe: "Generate Recipe config",
+  freezone_patch_agent_catalog_draft: "Adjust Skill draft",
+  freezone_finish_agent_catalog_draft: "Show Skill draft",
 };
 
 function toolRawRecord(message: ChatMessage): Record<string, unknown> | null {
@@ -621,24 +621,24 @@ function freezoneToolMeta(message: ChatMessage): string[] {
   const data = result?.data && typeof result.data === "object" ? result.data as Record<string, unknown> : null;
   const project = input?.project_id ?? input?.project ?? rawInput?.project_id ?? rawInput?.project ?? data?.project;
   const canvas = input?.canvas_id ?? input?.canvasId ?? rawInput?.canvas_id ?? rawInput?.canvasId ?? data?.canvas_id;
-  if (typeof project === "string" && project.trim()) values.push(`项目：${project}`);
-  if (typeof canvas === "string" && canvas.trim()) values.push(`画布：${canvas}`);
-  if (Array.isArray(data?.objects)) values.push(`节点：${data.objects.length}`);
-  if (Array.isArray(data?.links)) values.push(`连线：${data.links.length}`);
-  if (toolName === "freezone_get_canvas_ontology") values.push(`读取：${CANVAS_CONTEXT_REQUEST_LABELS.canvas_ontology}`);
-  if (toolName === "freezone_summarize_canvas") values.push(`读取：${CANVAS_CONTEXT_REQUEST_LABELS.canvas_summary}`);
-  if (toolName === "freezone_get_canvas_action_catalog") values.push(`读取：${CANVAS_CONTEXT_REQUEST_LABELS.canvas_action_catalog}`);
-  if (toolName === "freezone_get_canvas_command_catalog") values.push(`读取：${CANVAS_CONTEXT_REQUEST_LABELS.canvas_command_catalog}`);
-  if (toolName === "freezone_get_link_type_catalog") values.push(`读取：${CANVAS_CONTEXT_REQUEST_LABELS.link_type_catalog}`);
-  if (toolName === "freezone_get_selection") values.push(`读取：${CANVAS_CONTEXT_REQUEST_LABELS.selection_detail}`);
-  if (toolName === "freezone_get_node_detail") values.push(`读取：${CANVAS_CONTEXT_REQUEST_LABELS.node_detail}`);
-  if (toolName === "freezone_get_neighbor_graph") values.push(`读取：${CANVAS_CONTEXT_REQUEST_LABELS.neighbor_graph}`);
-  if (toolName === "freezone_get_node_action_catalog") values.push(`读取：${CANVAS_CONTEXT_REQUEST_LABELS.node_action_catalog}`);
-  if (toolName === "freezone_get_node_create_schema") values.push(`读取：${CANVAS_CONTEXT_REQUEST_LABELS.node_create_schema}`);
-  if (toolName === "freezone_get_audio_voice_options") values.push(`读取：${CANVAS_CONTEXT_REQUEST_LABELS.audio_voice_options}`);
-  if (toolName === "freezone_get_slot_candidates") values.push(`读取：${CANVAS_CONTEXT_REQUEST_LABELS.slot_candidates}`);
-  if (toolName === "freezone_get_mainline_projection_assets") values.push(`读取：${CANVAS_CONTEXT_REQUEST_LABELS.mainline_projection_assets}`);
-  if (toolName === "freezone_validate_canvas_commands") values.push(`校验：${CANVAS_CONTEXT_REQUEST_LABELS.validate_canvas_commands}`);
+  if (typeof project === "string" && project.trim()) values.push(`Project: ${project}`);
+  if (typeof canvas === "string" && canvas.trim()) values.push(`Canvas: ${canvas}`);
+  if (Array.isArray(data?.objects)) values.push(`Nodes: ${data.objects.length}`);
+  if (Array.isArray(data?.links)) values.push(`Links: ${data.links.length}`);
+  if (toolName === "freezone_get_canvas_ontology") values.push(`Read: ${CANVAS_CONTEXT_REQUEST_LABELS.canvas_ontology}`);
+  if (toolName === "freezone_summarize_canvas") values.push(`Read: ${CANVAS_CONTEXT_REQUEST_LABELS.canvas_summary}`);
+  if (toolName === "freezone_get_canvas_action_catalog") values.push(`Read: ${CANVAS_CONTEXT_REQUEST_LABELS.canvas_action_catalog}`);
+  if (toolName === "freezone_get_canvas_command_catalog") values.push(`Read: ${CANVAS_CONTEXT_REQUEST_LABELS.canvas_command_catalog}`);
+  if (toolName === "freezone_get_link_type_catalog") values.push(`Read: ${CANVAS_CONTEXT_REQUEST_LABELS.link_type_catalog}`);
+  if (toolName === "freezone_get_selection") values.push(`Read: ${CANVAS_CONTEXT_REQUEST_LABELS.selection_detail}`);
+  if (toolName === "freezone_get_node_detail") values.push(`Read: ${CANVAS_CONTEXT_REQUEST_LABELS.node_detail}`);
+  if (toolName === "freezone_get_neighbor_graph") values.push(`Read: ${CANVAS_CONTEXT_REQUEST_LABELS.neighbor_graph}`);
+  if (toolName === "freezone_get_node_action_catalog") values.push(`Read: ${CANVAS_CONTEXT_REQUEST_LABELS.node_action_catalog}`);
+  if (toolName === "freezone_get_node_create_schema") values.push(`Read: ${CANVAS_CONTEXT_REQUEST_LABELS.node_create_schema}`);
+  if (toolName === "freezone_get_audio_voice_options") values.push(`Read: ${CANVAS_CONTEXT_REQUEST_LABELS.audio_voice_options}`);
+  if (toolName === "freezone_get_slot_candidates") values.push(`Read: ${CANVAS_CONTEXT_REQUEST_LABELS.slot_candidates}`);
+  if (toolName === "freezone_get_mainline_projection_assets") values.push(`Read: ${CANVAS_CONTEXT_REQUEST_LABELS.mainline_projection_assets}`);
+  if (toolName === "freezone_validate_canvas_commands") values.push(`Validate: ${CANVAS_CONTEXT_REQUEST_LABELS.validate_canvas_commands}`);
   return values.slice(0, 4);
 }
 
@@ -653,7 +653,7 @@ function normalizeMessageText(text: string): string {
 const MARKDOWN_REMARK_PLUGINS = [remarkGfm, remarkBreaks];
 
 export function isGenerationSuccessSummaryText(text: string): boolean {
-  return /^生成成功[，,]\s*无失败[。.]?$/.test(text.trim());
+  return /^生成成功[，,]\s*无失败[。.]?$/.test(text.trim()); // i18n-exempt: matches Chinese input
 }
 
 function markdownChildrenText(children: ReactNode): string {
@@ -689,8 +689,8 @@ const MARKDOWN_COMPONENTS: MarkdownComponents = {
       <strong
         className={cn(
           "font-semibold text-foreground",
-          label === "系统声线" && "text-cyan-300",
-          label === "自定义声线" && "text-violet-300",
+          (label === "系统声线" || label === "System voice") && "text-cyan-300", // i18n-exempt: matches Chinese input
+          (label === "自定义声线" || label === "Custom voice") && "text-violet-300", // i18n-exempt: matches Chinese input
         )}
       >
         {children}
@@ -829,17 +829,17 @@ function FreezoneUserMessageText({
 }
 
 const ASSISTANT_ERROR_TEXT_PATTERNS: RegExp[] = [
-  /模型内容安全过滤拦截/u,
-  /Render 任务没有生成可用图片/u,
-  /错误原因：.+/u,
-  /生成.+失败/u,
-  /任务.+失败/u,
-  /没有成功启动/u,
-  /请先根据返回的错误/u,
+  /模型内容安全过滤拦截/u, // i18n-exempt: matches Chinese input
+  /Render 任务没有生成可用图片/u, // i18n-exempt: matches Chinese input
+  /错误原因：.+/u, // i18n-exempt: matches Chinese input
+  /生成.+失败/u, // i18n-exempt: matches Chinese input
+  /任务.+失败/u, // i18n-exempt: matches Chinese input
+  /没有成功启动/u, // i18n-exempt: matches Chinese input
+  /请先根据返回的错误/u, // i18n-exempt: matches Chinese input
   /content filter triggered/i,
   /finish reason:\s*['"]?content_filter/i,
   /returned no content/i,
-  /未返回(?:任何)?内容/u,
+  /未返回(?:任何)?内容/u, // i18n-exempt: matches Chinese input
   /failed[:：]/i,
 ];
 
@@ -850,13 +850,20 @@ function isAssistantErrorReply(message: ChatMessage): boolean {
   return ASSISTANT_ERROR_TEXT_PATTERNS.some((pattern) => pattern.test(text));
 }
 
+const ASSISTANT_COMPLETION_EN_RE = /^\s*(?:✅\s*)?[^.\n!?]{1,100}?\b(?:completed|generated|composed)[.!]/i;
+const ASSISTANT_COMPLETION_EN_NEGATED_RE = /\b(?:not|never|yet to|hasn't|haven't|didn't|failed to)\b[^.\n!?]{0,12}\b(?:completed|generated|composed)\b/i;
+
 export function assistantCompletionPrefix(text: string): string | null {
-  const match = /^\s*(?:✅\s*)?[^。\n！？]{1,100}?(?:已完成|生成完成|合成完成)[。！]/u.exec(text);
-  if (!match) return null;
-  if (/(?:尚未|仍未|并未|未能|没有)[^。\n！？]{0,8}(?:已完成|生成完成|合成完成)/u.test(match[0])) {
-    return null;
+  const match = /^\s*(?:✅\s*)?[^。\n！？]{1,100}?(?:已完成|生成完成|合成完成)[。！]/u.exec(text); // i18n-exempt: matches Chinese input
+  if (match) {
+    if (/(?:尚未|仍未|并未|未能|没有)[^。\n！？]{0,8}(?:已完成|生成完成|合成完成)/u.test(match[0])) { // i18n-exempt: matches Chinese input
+      return null;
+    }
+    return match[0];
   }
-  return match[0];
+  const englishMatch = ASSISTANT_COMPLETION_EN_RE.exec(text);
+  if (!englishMatch || ASSISTANT_COMPLETION_EN_NEGATED_RE.test(englishMatch[0])) return null;
+  return englishMatch[0];
 }
 
 function isAssistantCompletionNotice(message: ChatMessage): boolean {
@@ -1531,8 +1538,8 @@ function StructuredRenderer({
                 size="icon-xs"
                 onClick={() => {
                   void writeClipboardText(JSON.stringify(block.value, null, 2)).then((ok) => {
-                    if (ok) toast.success("已复制");
-                    else toast.error("复制失败");
+                    if (ok) toast.success("Copied");
+                    else toast.error("Copy failed");
                   });
                 }}
                 aria-label="Copy JSON"
@@ -1702,7 +1709,7 @@ function CanvasContextActivityCard({ activity }: { activity: CanvasContextActivi
   const failed = activity.status === "failed";
   const running = activity.status === "running";
   const visualTone = canvasContextActivityVisualTone(activity);
-  const label = activity.labels.length > 0 ? activity.labels.join("、") : "画布上下文";
+  const label = activity.labels.length > 0 ? activity.labels.join(", ") : "canvas context";
   const isThinking = activity.labels.includes(CANVAS_CONTEXT_THINKING_LABEL);
   const isValidation = canvasContextActivityIsValidation(activity);
   const hasErrors = activity.errors.length > 0;
@@ -1710,15 +1717,15 @@ function CanvasContextActivityCard({ activity }: { activity: CanvasContextActivi
     ? CANVAS_CONTEXT_THINKING_LABEL
     : isValidation
       ? running
-        ? "正在校验画布命令"
+        ? "Validating canvas commands"
         : failed
-          ? "画布命令校验失败"
-          : "已校验画布命令"
+          ? "Canvas command validation failed"
+          : "Canvas commands validated"
       : running
-        ? `正在读取${label}`
+        ? `Reading ${label}`
         : failed
-          ? `读取${label}失败`
-          : `已读取${label}`;
+          ? `Failed to read ${label}`
+          : `Read ${label}`;
   const repeatText = activity.repeatCount && activity.repeatCount > 1 ? ` × ${activity.repeatCount}` : "";
   return (
     <div className={cn("mt-2 w-fit max-w-full rounded-md px-0 py-1 text-xs", visualTone === "warning" ? "text-amber-300/90" : "text-muted-foreground")}>
@@ -1766,7 +1773,7 @@ function FreezoneToolActivityCard({ message }: { message: ChatMessage }) {
         )}
         <span className="font-medium">{display.title}</span>
         <span className="text-xs text-muted-foreground">
-          {status === "running" ? "进行中" : status === "failed" ? "失败" : "完成"}
+          {status === "running" ? "In progress" : status === "failed" ? "Failed" : "Done"}
         </span>
       </div>
       <div className="mt-1 text-xs leading-5 text-muted-foreground">
@@ -1789,7 +1796,7 @@ function genericToolTitle(message: ChatMessage): string {
   const normalizedName = name.toLowerCase().split(".").pop() ?? "";
   const override = AGENT_TOOL_TITLE_OVERRIDES[normalizedName];
   if (override) return override;
-  if (!name) return "执行工具";
+  if (!name) return "Run tool";
   return name
     .replace(/^freezone_/u, "")
     .replace(/[_-]+/gu, " ")
@@ -1846,7 +1853,7 @@ function AgentToolActivityCard({ message }: { message: ChatMessage }) {
         )}
         <span className="font-medium">{genericToolTitle(message)}</span>
         <span className="text-xs text-muted-foreground">
-          {status === "running" ? "进行中" : status === "failed" ? "失败" : "完成"}
+          {status === "running" ? "In progress" : status === "failed" ? "Failed" : "Done"}
         </span>
       </div>
       {detail && <div className="mt-1 text-xs leading-5 text-muted-foreground">{detail}</div>}
@@ -1916,9 +1923,9 @@ function agentUsageSummaryFromMessage(message: ChatMessage): AgentUsageSummary |
     .map(([key, value]) => [key, String(value)] as [string, string]);
   if (entries.length === 0) return null;
 
-  const label = "上下文用量";
+  const label = "Context usage";
   const titleLines = [
-    "上下文用量",
+    "Context usage",
     ...entries.map(([key, value]) => `${key}: ${value}`),
   ];
 
@@ -2106,15 +2113,15 @@ function toolStatusRuntimeText(params: {
   const { status, title, toolMessage } = params;
   const raw = toolRawRecord(toolMessage);
   const businessStatus = toolBusinessStatus(toolMessage);
-  if (businessStatus === "clarification_required") return "等待选择生成参数";
-  if (businessStatus === "clarification_frontend_timeout") return "等待回答已暂停";
+  if (businessStatus === "clarification_required") return "Waiting for you to choose generation parameters";
+  if (businessStatus === "clarification_frontend_timeout") return "Paused while waiting for your answer";
   if (
     status === "failed" &&
     (raw?.name === "freezone_put_agent_catalog_draft_outline" ||
       raw?.tool_name === "freezone_put_agent_catalog_draft_outline" ||
       raw?.toolName === "freezone_put_agent_catalog_draft_outline")
   ) {
-    return "待重新整理 Skill 方案";
+    return "Skill plan needs to be reorganized";
   }
   if (
     status === "failed" &&
@@ -2122,11 +2129,11 @@ function toolStatusRuntimeText(params: {
       raw?.tool_name === "freezone_prepare_workflow_draft" ||
       raw?.toolName === "freezone_prepare_workflow_draft")
   ) {
-    return "待重新生成工作流草稿";
+    return "Workflow draft needs to be regenerated";
   }
-  if (status === "running") return `正在${title}`;
-  if (status === "failed") return `${title}失败`;
-  return `已${title}`;
+  if (status === "running") return `${title}…`;
+  if (status === "failed") return `Failed: ${title}`;
+  return `Done: ${title}`;
 }
 
 export const toolStatusRuntimeTextForTest = toolStatusRuntimeText;
@@ -2178,7 +2185,7 @@ function agentThoughtRuntimePresentation(
   const running = event.status === "running";
   const active = options.streaming && running;
   return {
-    label: active ? "思考中" : "思考过程",
+    label: active ? "Thinking" : "Thought process",
     initiallyExpanded: active,
     running,
   };
@@ -2344,14 +2351,14 @@ function AgentRuntimeTimeline({
             <details key={part.id} className="group py-0.5">
               <summary className="flex min-h-5 cursor-pointer list-none items-center gap-2 text-left [&::-webkit-details-marker]:hidden">
                 <ListTree className="size-3.5 shrink-0 text-primary" />
-                <span className="min-w-0 flex-1 truncate font-medium text-foreground/90">执行计划</span>
+                <span className="min-w-0 flex-1 truncate font-medium text-foreground/90">Execution plan</span>
                 <span className="shrink-0 text-[11px] text-muted-foreground/80">{completed}/{entries.length}</span>
                 <ChevronRight className="size-3 shrink-0 transition-transform group-open:rotate-90" />
               </summary>
               <div className="mt-1 space-y-1 border-l border-white/10 pl-4 ml-1.5">
                 {entries.map((entry, index) => {
                   const status = typeof entry.status === "string" ? entry.status : "pending";
-                  const content = typeof entry.content === "string" ? entry.content : `步骤 ${index + 1}`;
+                  const content = typeof entry.content === "string" ? entry.content : `Step ${index + 1}`;
                   return (
                     <div key={`${index}-${content}`} className="flex items-start gap-2 leading-5">
                       {status === "completed" ? (
@@ -2387,7 +2394,7 @@ function agentActivityLabelFromMessage(message: ChatMessage | undefined): string
       const toolMessage = part.event as ChatMessage;
       if (shouldHideInternalToolMessage(toolMessage)) continue;
       if (freezoneToolStatus(toolMessage) !== "running") continue;
-      return `正在${freezoneToolDisplay(toolMessage)?.title ?? genericToolTitle(toolMessage)}`;
+      return `${freezoneToolDisplay(toolMessage)?.title ?? genericToolTitle(toolMessage)}…`;
     }
     if (part.type === "agent_plan" && part.event && typeof part.event === "object" && !Array.isArray(part.event)) {
       const entries = (part.event as Record<string, unknown>).entries;
@@ -2396,12 +2403,12 @@ function agentActivityLabelFromMessage(message: ChatMessage | undefined): string
         Boolean(entry && typeof entry === "object" && !Array.isArray(entry) && (entry as Record<string, unknown>).status === "in_progress"),
       );
       if (active && typeof (active as Record<string, unknown>).content === "string") {
-        return `正在${String((active as Record<string, unknown>).content)}`;
+        return `${String((active as Record<string, unknown>).content)}…`;
       }
     }
     if (part.type === "agent_thought" && part.event && typeof part.event === "object" && !Array.isArray(part.event)) {
       const status = (part.event as Record<string, unknown>).status;
-      if (status === "running") return "正在分析当前信息";
+      if (status === "running") return "Analyzing current information";
     }
   }
   return null;
@@ -2429,7 +2436,7 @@ function CanvasCommandPlanList({ plans }: { plans: CanvasCommandPlan[] | undefin
           )}
         </div>
       ))}
-      {plans.length > 6 && <div className="px-1 text-[11px] text-muted-foreground">还有 {plans.length - 6} 个操作将在确认后一起执行</div>}
+      {plans.length > 6 && <div className="px-1 text-[11px] text-muted-foreground">{plans.length - 6} more actions will run together after confirmation</div>}
     </div>
   );
 }
@@ -2909,7 +2916,7 @@ function textApprovalInitialParams(
       ? catalog.recipeLabel.trim()
       : typeof catalog?.recipeId === "string" && catalog.recipeId.trim()
         ? catalog.recipeId.trim()
-        : "工作流文案 Recipe",
+        : "Workflow copy Recipe",
   };
 }
 
@@ -2932,7 +2939,7 @@ function audioApprovalInitialParams(
         : "Serena",
       voiceLabel: typeof nodeData.voiceLabel === "string" && nodeData.voiceLabel.trim()
         ? nodeData.voiceLabel.trim()
-        : "项目默认声线",
+        : "Project default voice",
       voiceRef: nodeData.voiceRef && typeof nodeData.voiceRef === "object"
         ? nodeData.voiceRef as AudioVoiceRef
         : null,
@@ -3354,7 +3361,7 @@ function CanvasApprovalVideoConfigChip({
         ref={triggerRef}
         type="button"
         disabled={disabled}
-        aria-label={`视频参数：${params.aspectRatio} · ${params.quality} · ${params.durationSec}s · ${audioLabel}`}
+        aria-label={`Video parameters: ${params.aspectRatio} · ${params.quality} · ${params.durationSec}s · ${audioLabel}`}
         onClick={() => setIsOpen((prev) => !prev)}
         className="inline-flex h-6 max-w-full items-center gap-1 rounded-full bg-transparent px-0 text-[11px] font-medium text-foreground outline-none transition-colors hover:text-foreground disabled:opacity-60"
       >
@@ -3378,7 +3385,7 @@ function CanvasApprovalVideoConfigChip({
           onPointerDown={(event) => event.stopPropagation()}
           onClick={(event) => event.stopPropagation()}
         >
-          <div className="mb-1.5 text-[11px] font-medium text-muted-foreground">比例</div>
+          <div className="mb-1.5 text-[11px] font-medium text-muted-foreground">Aspect ratio</div>
           <div className="mb-3 grid grid-cols-4 gap-1.5">
             {aspectOptions.map((ratio) => {
               const isActive = params.aspectRatio === ratio;
@@ -3400,7 +3407,7 @@ function CanvasApprovalVideoConfigChip({
             })}
           </div>
 
-          <div className="mb-1.5 text-[11px] font-medium text-muted-foreground">清晰度</div>
+          <div className="mb-1.5 text-[11px] font-medium text-muted-foreground">Quality</div>
           <div className="mb-3 grid grid-cols-3 gap-1.5">
             {qualityOptions.map((quality) => {
               const isActive = params.quality === quality;
@@ -3423,11 +3430,11 @@ function CanvasApprovalVideoConfigChip({
           </div>
 
           <div className="mb-1.5 flex items-center justify-between text-[11px] font-medium text-muted-foreground">
-            <span>视频时长</span>
+            <span>Video duration</span>
             <span className="text-foreground">{params.durationSec}s</span>
           </div>
           <input
-            aria-label="视频时长"
+            aria-label="Video duration"
             type="range"
             min={durationBounds.min}
             max={durationBounds.max}
@@ -3684,7 +3691,7 @@ function CanvasCommandApprovalCard({
               ? t("freezone.chat.canvasExecuting", { defaultValue: "执行中..." })
               : approval.requiresUserChoice
               ? t("freezone.chat.audioApproval.chooseVoiceTitle", { defaultValue: "请选择旁白声线" })
-              : "待确认的画布操作"}
+              : "Canvas actions awaiting confirmation"}
           </div>
           <p className="mt-1 text-xs leading-5 text-muted-foreground">
             {isExecuting
@@ -3693,32 +3700,32 @@ function CanvasCommandApprovalCard({
               ? t("freezone.chat.audioApproval.chooseVoiceDescription", {
                   defaultValue: "请选择自定义声线；如果暂不选择，本次将跳过旁白生成。",
                 })
-              : `Agent 计划执行 ${approval.commandCount} 个操作，确认后才会应用到画布。`}
+              : `The Agent plans to run ${approval.commandCount} actions. They are applied to the canvas only after you confirm.`}
           </p>
         </div>
-        <Badge variant="outline" className="rounded-md uppercase">{isExecuting ? "执行中" : "确认"}</Badge>
+        <Badge variant="outline" className="rounded-md uppercase">{isExecuting ? "Running" : "Confirm"}</Badge>
       </div>
       <CanvasCommandPlanList plans={approval.plans} />
       {(imageParams.length > 0 || videoParams.length > 0 || audioParams.length > 0) && (
         <div className="flex items-center gap-2 border-t border-amber-400/10 bg-white/[0.025] px-3 py-1.5 text-[11px] font-medium text-foreground/90">
           <SlidersHorizontal className="size-3.5 text-muted-foreground" />
-          生成设置
-          <span className="ml-auto text-[10px] font-normal text-muted-foreground">确认后统一写入节点</span>
+          Generation settings
+          <span className="ml-auto text-[10px] font-normal text-muted-foreground">Written to nodes after you confirm</span>
         </div>
       )}
       {humanReviewNodeIds.length > 0 && (
         <div className="flex items-center justify-between gap-3 border-t border-amber-400/10 bg-amber-400/10 px-3 py-2">
           <div className="min-w-0">
-            <div className="text-xs font-medium text-foreground">输入图片可能包含真人</div>
+            <div className="text-xs font-medium text-foreground">Input images may contain real people</div>
             <div className="mt-0.5 text-[11px] leading-4 text-muted-foreground">
-              检测到 {humanReviewNodeIds.length} 个图片转视频节点，确认后将在模型支持时开启真人审核。
+              {humanReviewNodeIds.length} image-to-video nodes detected. Real-person review will be turned on after you confirm, if the model supports it.
             </div>
           </div>
           <button
             type="button"
             role="switch"
             aria-checked={humanReviewEnabled}
-            aria-label="真人审核"
+            aria-label="Real-person review"
             disabled={isExecuting}
             onClick={() => setHumanReviewEnabled((enabled) => !enabled)}
             className={cn(
@@ -3752,12 +3759,12 @@ function CanvasCommandApprovalCard({
           <div key={`${imageParam.nodeId}:${imageParam.model}`} className="border-t border-amber-400/10 px-3 py-1.5">
             <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1">
             <span className="inline-flex items-center gap-1 text-[11px] font-medium text-foreground">
-              <Image className="size-3" />图片
+              <Image className="size-3" />Image
               {(imageParam.nodeIds?.length ?? 1) > 1 ? ` ×${imageParam.nodeIds?.length}` : ""}
             </span>
             <span className="h-4 w-px bg-white/[0.12]" />
             <CanvasApprovalImageParamSelect
-              ariaLabel="图片模型"
+              ariaLabel="Image model"
               disabled={isExecuting}
               value={imageParam.model}
               onChange={(value) => updateImageParams(imageParamIndex, { model: value })}
@@ -3765,18 +3772,18 @@ function CanvasCommandApprovalCard({
             />
             <span className="h-4 w-px bg-white/[0.12]" />
             <CanvasApprovalImageParamSelect
-              ariaLabel="图片比例"
+              ariaLabel="Image aspect ratio"
               disabled={isExecuting}
               value={imageParam.aspectRatio}
               onChange={(value) => updateImageParams(imageParamIndex, { aspectRatio: value })}
               options={imageAspectOptions.map((option) => ({
                 value: option,
-                label: option === "auto" ? "自动比例" : option,
+                label: option === "auto" ? "Auto ratio" : option,
               }))}
             />
             <span className="h-4 w-px bg-white/[0.12]" />
             <CanvasApprovalImageParamSelect
-              ariaLabel="图片分辨率"
+              ariaLabel="Image resolution"
               disabled={isExecuting}
               value={imageParam.size}
               onChange={(value) => updateImageParams(imageParamIndex, { size: value })}
@@ -3796,11 +3803,11 @@ function CanvasCommandApprovalCard({
             ) : null}
             <span className="h-4 w-px bg-white/[0.12]" />
             <CanvasApprovalImageParamSelect
-              ariaLabel="图片数量"
+              ariaLabel="Image count"
               disabled={isExecuting}
               value={String(imageParam.count)}
               onChange={(value) => updateImageParams(imageParamIndex, { count: Number(value) })}
-              options={CANVAS_APPROVAL_IMAGE_COUNT_OPTIONS.map((option) => ({ value: String(option), label: `${option} 张` }))}
+              options={CANVAS_APPROVAL_IMAGE_COUNT_OPTIONS.map((option) => ({ value: String(option), label: `${option} ${option === 1 ? "image" : "images"}` }))}
             />
             </div>
           </div>
@@ -3819,12 +3826,12 @@ function CanvasCommandApprovalCard({
         <div key={`${videoParam.nodeId}:${videoParam.model}`} className="border-t border-amber-400/10 px-3 py-1">
           <div className="flex min-w-0 flex-wrap items-center gap-x-1.5 gap-y-0.5">
             <span className="inline-flex items-center gap-1 text-[11px] font-medium text-foreground">
-              <Play className="size-3" />视频
+              <Play className="size-3" />Video
               {(videoParam.nodeIds?.length ?? 1) > 1 ? ` ×${videoParam.nodeIds?.length}` : ""}
             </span>
             <span className="h-3.5 w-px bg-white/[0.12]" />
             <CanvasApprovalImageParamSelect
-              ariaLabel="视频模型"
+              ariaLabel="Video model"
               disabled={isExecuting}
               value={videoParam.model}
               onChange={(value) => updateVideoParams(videoParamIndex, { model: value })}
@@ -3842,11 +3849,11 @@ function CanvasCommandApprovalCard({
             />
             <span className="h-3.5 w-px bg-white/[0.12]" />
             <CanvasApprovalImageParamSelect
-              ariaLabel="视频数量"
+              ariaLabel="Video count"
               disabled={isExecuting}
               value={String(videoParam.count)}
               onChange={(value) => updateVideoParams(videoParamIndex, { count: Number(value) as 1 | 2 | 4 })}
-              options={CANVAS_APPROVAL_VIDEO_COUNT_OPTIONS.map((option) => ({ value: String(option), label: `${option} 个` }))}
+              options={CANVAS_APPROVAL_VIDEO_COUNT_OPTIONS.map((option) => ({ value: String(option), label: `${option} ${option === 1 ? "video" : "videos"}` }))}
             />
           </div>
         </div>
@@ -3856,7 +3863,7 @@ function CanvasCommandApprovalCard({
         <div className="border-t border-amber-400/10 px-3 py-1.5">
           <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1">
             <CanvasApprovalImageParamSelect
-              ariaLabel="高清分辨率"
+              ariaLabel="HD resolution"
               disabled={isExecuting}
               value={videoUpscaleParams.resolution}
               onChange={(value) => updateVideoUpscaleParams({
@@ -3924,10 +3931,10 @@ function CanvasCommandApprovalCard({
       <div className="flex flex-wrap items-center justify-end gap-2 border-t border-amber-400/15 px-3 py-2.5">
         {remaining !== null && !isExecuting ? (
           <span className="mr-auto text-[11px] leading-4 text-amber-500">
-            {remaining}s 后自动取消
+            Auto-cancels in {remaining}s
           </span>
         ) : null}
-        <Button size="xs" variant="outline" disabled={isExecuting} onClick={() => onCancel(approval)}>取消</Button>
+        <Button size="xs" variant="outline" disabled={isExecuting} onClick={() => onCancel(approval)}>Cancel</Button>
         <Button
           size="xs"
           disabled={isExecuting}
@@ -3984,7 +3991,7 @@ function canvasCommandFeedbackBackgroundRunning(feedback: CanvasCommandFeedback)
 }
 
 function canvasCommandFeedbackIsInvalidCommand(feedback: CanvasCommandFeedback): boolean {
-  return (feedback.commandResults ?? []).some((step) => step.label === "画布命令无效");
+  return (feedback.commandResults ?? []).some((step) => step.label === "Invalid canvas command");
 }
 
 function canvasCommandFeedbackIsUserCancelled(feedback: CanvasCommandFeedback): boolean {
@@ -3997,7 +4004,7 @@ function canvasCommandFeedbackIsTimeoutCancelled(feedback: CanvasCommandFeedback
 
 type CanvasFeedbackVisualTone = "muted" | "warning" | "destructive" | "success";
 
-const EMPTY_AGENT_REPLY_TEXT = "这轮操作没有收到虾导的有效回复，请稍后重试。";
+const EMPTY_AGENT_REPLY_TEXT = "Manna Director did not send a valid reply this turn. Please try again shortly.";
 
 function canvasContextActivityVisualTone(activity: CanvasContextActivity): CanvasFeedbackVisualTone {
   if (activity.status === "failed") {
@@ -4022,8 +4029,8 @@ export const canvasCommandFeedbackVisualToneForTest = canvasCommandFeedbackVisua
 function canvasCommandFeedbackCompactTitle(feedback: CanvasCommandFeedback, t: TFunction): string {
   const firstFailedStep = (feedback.commandResults ?? []).find((step) => step.status !== "success");
   const firstPlan = feedback.plans?.[0];
-  if (canvasCommandFeedbackIsTimeoutCancelled(feedback)) return "画布操作已过期";
-  if (firstFailedStep?.label === "已取消" || canvasCommandFeedbackIsUserCancelled(feedback)) return "画布操作已取消";
+  if (canvasCommandFeedbackIsTimeoutCancelled(feedback)) return "Canvas action expired";
+  if (firstFailedStep?.label === "Cancelled" || firstFailedStep?.label === "已取消" || canvasCommandFeedbackIsUserCancelled(feedback)) return "Canvas action cancelled"; // i18n-exempt: matches previously persisted Chinese label
   if (canvasCommandFeedbackHasPending(feedback)) {
     if (canvasCommandFeedbackBackgroundRunning(feedback)) {
       return t("freezone.chat.backgroundGenerationRunningLabel", { defaultValue: "后台生成中" });
@@ -4032,15 +4039,15 @@ function canvasCommandFeedbackCompactTitle(feedback: CanvasCommandFeedback, t: T
       ? t("freezone.chat.workflowReconciliationPendingLabel", { defaultValue: "对账中" })
       : t("freezone.chat.workflowOutputSyncPendingLabel", { defaultValue: "产物待同步" });
   }
-  if (firstPlan?.type === "run_node_action" && firstPlan.label.includes("生成图片")) return "生成图片失败";
-  if (firstPlan?.type === "run_node_action" && firstPlan.label.includes("生成视频")) return "生成视频失败";
+  if (firstPlan?.type === "run_node_action" && (firstPlan.label.includes("Generate image") || firstPlan.label.includes("生成图片"))) return "Image generation failed"; // i18n-exempt: matches previously persisted Chinese plan label
+  if (firstPlan?.type === "run_node_action" && (firstPlan.label.includes("Generate video") || firstPlan.label.includes("生成视频"))) return "Video generation failed"; // i18n-exempt: matches previously persisted Chinese plan label
   if (firstFailedStep?.label) return firstFailedStep.label;
-  return "画布操作失败";
+  return "Canvas action failed";
 }
 
 function expiredCanvasApprovalFeedback(approval: PendingCanvasCommandApproval): CanvasCommandFeedback | null {
   if (!approval.autoExpires || !approval.expiresAt || approval.expiresAt > Date.now()) return null;
-  const error = "画布操作等待超时，已自动取消";
+  const error = "The canvas action timed out and was cancelled automatically";
   return {
     applied: 0,
     openedUiActions: 0,
@@ -4050,7 +4057,7 @@ function expiredCanvasApprovalFeedback(approval: PendingCanvasCommandApproval): 
         commandIndex: -1,
         type: "validate",
         status: "error",
-        label: "已取消",
+        label: "Cancelled",
         error,
       },
     ],
@@ -4134,7 +4141,7 @@ function CanvasCommandFeedbackCard({
                 : "text-destructive/90 hover:text-destructive",
         )}
       >
-        <span className="truncate">{collapseSuccessfulDetails ? `画布执行完成，已执行 ${successfulCount} 项` : compactTitle}</span>
+        <span className="truncate">{collapseSuccessfulDetails ? `Canvas run complete, ${successfulCount} executed` : compactTitle}</span>
         <ChevronRight className="size-3.5 shrink-0" />
       </button>
     );
@@ -4157,11 +4164,11 @@ function CanvasCommandFeedbackCard({
     >
       <div className="flex items-center gap-2 border-b border-white/[0.06] px-3 py-2 text-foreground/90">
         <Wrench className="size-3.5" />
-        <span className="font-medium">画布执行</span>
+        <span className="font-medium">Canvas run</span>
         {(initiallyCompact || collapseSuccessfulDetails) && (
-          <button type="button" onClick={() => setExpanded(false)} className="ml-auto rounded-md px-1.5 py-0.5 text-[11px] text-muted-foreground hover:bg-white/[0.06] hover:text-foreground">收起</button>
+          <button type="button" onClick={() => setExpanded(false)} className="ml-auto rounded-md px-1.5 py-0.5 text-[11px] text-muted-foreground hover:bg-white/[0.06] hover:text-foreground">Collapse</button>
         )}
-        {successfulCount > 0 && !pending && <span className={cn("text-[11px] text-muted-foreground", !initiallyCompact && "ml-auto")}>已执行 {successfulCount} 项</span>}
+        {successfulCount > 0 && !pending && <span className={cn("text-[11px] text-muted-foreground", !initiallyCompact && "ml-auto")}>{successfulCount} executed</span>}
       </div>
       {expanded && <CanvasCommandPlanList plans={feedback.plans} />}
       <div className="space-y-1 px-3 py-2">
@@ -4187,9 +4194,9 @@ function CanvasCommandFeedbackCard({
                 {ok && <HtmlArtifactResultCard output={step.output}/>}
                 {(step.createdNodeId || step.nodeId || step.action || step.error) && (
                   <div className="mt-0.5 space-y-0.5 break-words text-[11px] text-muted-foreground">
-                    {step.createdNodeId && <div>新节点：{step.createdNodeId}</div>}
-                    {!step.createdNodeId && step.nodeId && <div>节点：{step.nodeId}</div>}
-                    {step.action && <div>动作：{step.action}</div>}
+                    {step.createdNodeId && <div>New node: {step.createdNodeId}</div>}
+                    {!step.createdNodeId && step.nodeId && <div>Node: {step.nodeId}</div>}
+                    {step.action && <div>Action: {step.action}</div>}
                     {step.error && ok && <div className={invalidCommand || warningFailure ? "text-amber-200/80" : "text-destructive"}>{step.error}</div>}
                   </div>
                 )}
@@ -4200,7 +4207,7 @@ function CanvasCommandFeedbackCard({
         {steps.length === 0 && successfulCount > 0 && (
           <div className="flex items-center gap-2 text-foreground/90">
             <CheckCircle2 className="size-3.5 text-emerald-400" />
-            <span>已应用 {successfulCount} 个画布操作</span>
+            <span>{successfulCount} canvas actions applied</span>
           </div>
         )}
         {feedback.errors.length > 0 && steps.length === 0 && !userFailureMessage && (
@@ -4216,7 +4223,7 @@ function CanvasCommandFeedbackCard({
             onClick={() => onRetry(feedback)}
           >
             <RefreshCw className="mr-1.5 size-3.5 text-amber-300" />
-            重新执行
+            Run again
           </Button>
         </div>
       ) : null}
@@ -5233,31 +5240,31 @@ const skillStudioDraftFieldLabels = {
     id: "ID",
     category: "Category",
     description: "Description",
-    keywords: "触发关键词",
-    inputParameters: "开始前选项",
-    node_scopes: "节点类型",
-    metaPlanningHints: "规划器提示词",
-    promptStyleGuide: "风格指引",
-    behaviorRules: "行为规则",
-    passingScore: "通过分数线",
-    domainRules: "领域规则",
-    ratingBands: "评分档位",
-    visualReviewItems: "视觉评审项",
-    textReviewItems: "文案评审项",
+    keywords: "Trigger keywords",
+    inputParameters: "Options before start",
+    node_scopes: "Node types",
+    metaPlanningHints: "Planner hints",
+    promptStyleGuide: "Style guide",
+    behaviorRules: "Behavior rules",
+    passingScore: "Passing score",
+    domainRules: "Domain rules",
+    ratingBands: "Rating bands",
+    visualReviewItems: "Visual review items",
+    textReviewItems: "Copy review items",
   },
   recipe: {
     id: "ID",
-    name: "名称",
-    output_kind: "生成类型",
-    action_keys: "操作类型",
+    name: "Name",
+    output_kind: "Output type",
+    action_keys: "Action types",
     system_prompt: "System Prompt",
-    must_have_items: "必需元素",
-    planning_prompt: "规划器提示词",
-    result_summary: "输出概述",
-    requires_source_media: "依赖上游多模态输入",
-    enabled: "启用",
-    force_enhancement: "强制增强",
-    skip_detail_check: "跳过细节检查",
+    must_have_items: "Required elements",
+    planning_prompt: "Planner prompt",
+    result_summary: "Output summary",
+    requires_source_media: "Requires upstream multimodal input",
+    enabled: "Enabled",
+    force_enhancement: "Force enhancement",
+    skip_detail_check: "Skip detail check",
   },
 };
 
@@ -5472,10 +5479,10 @@ function parseListText(value: string): string[] {
 
 function listText(value: unknown): string {
   if (Array.isArray(value)) {
-    return value.map((item) => String(item ?? "").trim()).filter(Boolean).join("、");
+    return value.map((item) => String(item ?? "").trim()).filter(Boolean).join(", ");
   }
   if (typeof value === "string") {
-    return parseListText(value).join("、") || value.trim();
+    return parseListText(value).join(", ") || value.trim();
   }
   return "";
 }
@@ -5483,17 +5490,17 @@ function listText(value: unknown): string {
 function skillStudioInputParameterTypeLabel(value: unknown): string {
   switch (value) {
     case "single_select":
-      return "单选";
+      return "Single select";
     case "multi_select":
-      return "多选";
+      return "Multi select";
     case "number":
-      return "数字";
+      return "Number";
     case "boolean":
-      return "开关";
+      return "Toggle";
     case "text":
-      return "文本";
+      return "Text";
     default:
-      return textField(value) || "参数";
+      return textField(value) || "Parameter";
   }
 }
 
@@ -5502,7 +5509,7 @@ function skillStudioInputParameterValueLabel(value: unknown): string {
   if (value === false) return "false";
   if (typeof value === "number" && Number.isFinite(value)) return String(value);
   if (typeof value === "string") return value.trim();
-  if (Array.isArray(value)) return value.map((item) => String(item ?? "").trim()).filter(Boolean).join("、");
+  if (Array.isArray(value)) return value.map((item) => String(item ?? "").trim()).filter(Boolean).join(", ");
   return "";
 }
 
@@ -5578,7 +5585,7 @@ function skillStudioRatingBandList(value: unknown): string[] {
         ? String(item.score)
         : textField(item.score);
       const description = textField(item.description);
-      if (score && description) return `${score}：${description}`;
+      if (score && description) return `${score}: ${description}`;
       return description || score;
     })
     .filter(Boolean);
@@ -5587,7 +5594,7 @@ function skillStudioRatingBandList(value: unknown): string[] {
 function parseSkillStudioRatingBandList(value: string[]): Array<Record<string, unknown>> {
   return value.map((item) => {
     const [scoreText, ...descriptionParts] = item.split(/[：:]/u);
-    const description = descriptionParts.join("：").trim();
+    const description = descriptionParts.join(":").trim();
     const score = Number(scoreText.trim());
     if (Number.isFinite(score) && description) {
       return { score, description };
@@ -5604,8 +5611,8 @@ function skillStudioReviewItemList(value: unknown): string[] {
         ? String(item.weight)
         : textField(item.weight);
       const description = textField(item.description);
-      const prefix = weight ? `${name}（${weight}）` : name;
-      if (prefix && description) return `${prefix}：${description}`;
+      const prefix = weight ? `${name} (${weight})` : name;
+      if (prefix && description) return `${prefix}: ${description}`;
       return description || prefix;
     })
     .filter(Boolean);
@@ -5614,8 +5621,8 @@ function skillStudioReviewItemList(value: unknown): string[] {
 function parseSkillStudioReviewItemList(value: string[]): Array<Record<string, unknown>> {
   return value.map((item) => {
     const [nameAndWeight, ...descriptionParts] = item.split(/[：:]/u);
-    const description = descriptionParts.join("：").trim();
-    const weightMatch = nameAndWeight.match(/^(.*?)（([^）]+)）$/u);
+    const description = descriptionParts.join(":").trim();
+    const weightMatch = nameAndWeight.match(/^(.*?)\s*[（(]([^）)]+)[）)]$/u);
     const name = (weightMatch?.[1] ?? nameAndWeight).trim();
     const weight = weightMatch ? Number(weightMatch[2].trim()) : undefined;
     return {
@@ -5827,7 +5834,7 @@ function SkillStudioListField({
             {editingIndex === index ? (
               <input
                 ref={editInputRef}
-                aria-label={`编辑 ${item}`}
+                aria-label={`Edit ${item}`}
                 value={editingDraft}
                 onChange={(event) => setEditingDraft(event.target.value)}
                 onBlur={commitEditItem}
@@ -5851,7 +5858,7 @@ function SkillStudioListField({
             ) : (
               <button
                 type="button"
-                aria-label={`编辑 ${item}`}
+                aria-label={`Edit ${item}`}
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => beginEditItem(index, item)}
                 className="min-w-0 rounded-sm text-left whitespace-normal break-words leading-4 transition-colors hover:text-cyan-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cyan-300/30"
@@ -5862,7 +5869,7 @@ function SkillStudioListField({
             {!disabled && (
               <button
                 type="button"
-                aria-label={`删除 ${item}`}
+                aria-label={`Delete ${item}`}
                 onClick={() => removeItem(index)}
                 className="grid size-3.5 shrink-0 place-items-center rounded text-muted-foreground transition-colors hover:text-foreground"
               >
@@ -6060,9 +6067,9 @@ function skillStudioSelectionForMode(
 }
 
 function formatSkillStudioOption(option: SkillStudioQuestionOption): string {
-  const label = option.label?.trim() || option.id?.trim() || "未命名选项";
+  const label = option.label?.trim() || option.id?.trim() || "Unnamed option";
   const description = option.description?.trim();
-  return description ? `${label}（${description}）` : label;
+  return description ? `${label} (${description})` : label;
 }
 
 function selectedSkillStudioOptionLabel(
@@ -6078,8 +6085,8 @@ function selectedSkillStudioOptionLabel(
     })
     .filter(Boolean);
   const customText = selection.customText.trim();
-  const parts = [...selectedLabels, ...(customText ? [`补充：${customText}`] : [])];
-  return parts.length > 0 ? parts.join("；") : "未选择";
+  const parts = [...selectedLabels, ...(customText ? [`Additional: ${customText}`] : [])];
+  return parts.length > 0 ? parts.join("; ") : "Not selected";
 }
 
 type SkillStudioQuestionTimelineItem = {
@@ -6090,8 +6097,8 @@ type SkillStudioQuestionTimelineItem = {
 };
 
 function skillStudioQuestionActionSummary(action: string | undefined): string | null {
-  if (action === "skip") return "已跳过";
-  if (action === "recommended") return "已用推荐配置";
+  if (action === "skip") return "Skipped";
+  if (action === "recommended") return "Used recommended settings";
   return null;
 }
 
@@ -6109,8 +6116,8 @@ function buildSkillStudioQuestionTimelineItems(
       const hasAnswer = skillStudioSelectionHasAnswer(selections[key]);
       return {
         key,
-        title: question.title || question.question || `问题 ${index + 1}`,
-        summary: hasAnswer ? selectedSkillStudioOptionLabel(question, index, selections) : actionSummary ?? "未选择",
+        title: question.title || question.question || `Question ${index + 1}`,
+        summary: hasAnswer ? selectedSkillStudioOptionLabel(question, index, selections) : actionSummary ?? "Not selected",
         answered: hasAnswer || Boolean(actionSummary),
       };
     });
@@ -6135,7 +6142,7 @@ function visibleAssistantClarificationTimelineItems(
     )
     .map(({ question, index }) => ({
       key: skillStudioQuestionKey(question, index),
-      title: question.title || question.question || `问题 ${index + 1}`,
+      title: question.title || question.question || `Question ${index + 1}`,
       summary: selectedSkillStudioOptionLabel(question, index, answers),
       answered: true,
     }));
@@ -6149,23 +6156,23 @@ export function buildSkillStudioQuestionResponseForTest(
   selections: SkillStudioQuestionSelections,
 ): string {
   const lines = [
-    "我已在 Skill Studio 问题卡片中完成选择。",
-    event.skill_studio_session_id ? `Skill Studio 会话：${event.skill_studio_session_id}` : "",
-    event.title ? `卡片：${event.title}` : "",
+    "I have made my selections on the Skill Studio question card.",
+    event.skill_studio_session_id ? `Skill Studio session: ${event.skill_studio_session_id}` : "",
+    event.title ? `Card: ${event.title}` : "",
   ].filter(Boolean);
 
   const answers = (event.questions ?? [])
     .map((question, index) => ({ question, index }))
     .filter(({ question }) => (question.options ?? []).length > 0)
     .map(({ question, index }) =>
-      `- ${question.title || question.question || `问题 ${index + 1}`}：${selectedSkillStudioOptionLabel(question, index, selections)}`,
+      `- ${question.title || question.question || `Question ${index + 1}`}: ${selectedSkillStudioOptionLabel(question, index, selections)}`,
     );
 
   return [
     ...lines,
-    "选择如下：",
+    "Selections:",
     ...answers,
-    "用户已完成选择，请结合当前上下文继续。",
+    "The user has finished selecting. Continue using the current context.",
   ].join("\n");
 }
 
@@ -6197,9 +6204,9 @@ export function buildAssistantClarificationResponseForTest(
   answers: AssistantClarificationAnswers,
 ): string {
   const lines = [
-    "我已完成补充信息选择。",
-    event.clarification_id ? `Clarification：${event.clarification_id}` : "",
-    event.title ? `卡片：${event.title}` : "",
+    "I have finished providing the additional information.",
+    event.clarification_id ? `Clarification: ${event.clarification_id}` : "",
+    event.title ? `Card: ${event.title}` : "",
   ].filter(Boolean);
 
   const answerLines = (event.questions ?? [])
@@ -6208,14 +6215,14 @@ export function buildAssistantClarificationResponseForTest(
       skillStudioSelectionHasAnswer(answers[skillStudioQuestionKey(question, index)]),
     )
     .map(({ question, index }) =>
-      `${question.title || question.question || `问题 ${index + 1}`}\n${selectedSkillStudioOptionLabel(question, index, answers)}`,
+      `${question.title || question.question || `Question ${index + 1}`}\n${selectedSkillStudioOptionLabel(question, index, answers)}`,
     );
 
   return [
     ...lines,
-    "回答如下：",
+    "Answers:",
     ...answerLines,
-    "请根据以上补充信息执行下一步。",
+    "Use the information above to carry out the next step.",
   ].join("\n");
 }
 
@@ -6231,13 +6238,13 @@ export function buildAssistantClarificationToolResultForTest(
     buildAssistantClarificationResponseForTest(event, safeAnswers),
     options.skillStudioRevision
       ? [
-          "当前处于 Skill Studio 草稿修订流程。",
-          "只允许把本次回答中的明确选择或补充文本当作修改方向；不要从当前草稿内容、Recipe 结构或你自己的优化判断里推断用户想改什么。",
-          "如果本次回答只是选择了泛泛分类，例如基本信息、输入参数、能力模块内容、约束规则、质量标准、执行流程等，仍然不算具体修改方向；下一步必须继续调用 freezone_request_user_clarification 追问一个更具体的问题。",
-          "只有用户明确给出了具体目标和改法时，下一步才可以调用 freezone_patch_agent_catalog_draft 更新草稿，或用分片草稿工具替换较大的 Skill / Recipe 内容。",
-          "更新后必须调用 freezone_finish_agent_catalog_draft 展示新的可编辑草稿卡。",
-          "不要只回复普通文本，不要只总结修改意图，不要询问是否保存，也不要展示未修改的旧草稿。",
-          "只有修改方向仍不明确时，才再调用 freezone_request_user_clarification 追问一个问题。",
+          "This is a Skill Studio draft revision flow.",
+          "Treat only the explicit selections or added text in this answer as the direction for changes; do not infer what the user wants changed from the current draft content, the Recipe structure, or your own optimization judgment.",
+          "If this answer only picks a broad category, such as basic info, input parameters, capability module content, constraint rules, quality standards, or execution flow, it is still not a concrete direction for changes; the next step must be to call freezone_request_user_clarification again with a more specific question.",
+          "Only when the user has given a concrete goal and a concrete change may the next step call freezone_patch_agent_catalog_draft to update the draft, or use the chunked draft tools to replace larger Skill / Recipe content.",
+          "After updating, you must call freezone_finish_agent_catalog_draft to show the new editable draft card.",
+          "Do not reply with plain text only, do not merely summarize the intended change, do not ask whether to save, and do not show the old unmodified draft.",
+          "Call freezone_request_user_clarification to ask one more question only if the direction for changes is still unclear.",
         ].join("\n")
       : "",
   ].filter(Boolean).join("\n\n");
@@ -6421,11 +6428,11 @@ export function buildSkillStudioDraftToolResultForTest(
     saved_recipe_ids: savedRecipeIds,
     draft: { summary, skill, recipes: dedupedRecipes, warnings },
     message: [
-      "我已在 Skill Studio 草稿卡片中确认添加，已保存为正式 Skill / Recipe。",
-      event.skill_studio_session_id ? `Skill Studio 会话：${event.skill_studio_session_id}` : "",
-      textField(skill.id) ? `Skill：${textField(skill.id)}` : "",
-      savedRecipeIds.length > 0 ? `Recipes：${savedRecipeIds.join("、")}` : "",
-      "该 Skill / Recipe 已写入虾画配置，可立即使用。请不要再要求用户保存为正式能力。",
+      "I confirmed the addition on the Skill Studio draft card; it has been saved as an official Skill / Recipe.",
+      event.skill_studio_session_id ? `Skill Studio session: ${event.skill_studio_session_id}` : "",
+      textField(skill.id) ? `Skill: ${textField(skill.id)}` : "",
+      savedRecipeIds.length > 0 ? `Recipes: ${savedRecipeIds.join(", ")}` : "",
+      "This Skill / Recipe has been written to the Manna Canvas configuration and is ready to use. Do not ask the user to save it as an official capability again.",
     ].filter(Boolean).join("\n"),
   };
 }
@@ -6458,11 +6465,11 @@ export function buildSkillStudioDraftCancelToolResultForTest(
     saved_skill_ids: [],
     saved_recipe_ids: [],
     message: [
-      "用户已取消 Skill Studio 草稿保存。",
-      event.skill_studio_session_id ? `Skill Studio 会话：${event.skill_studio_session_id}` : "",
-      "本次草稿不会写入虾画配置。",
-      "这是用户点击取消按钮，不是修改请求，也不是重新提交请求。",
-      "请只确认取消结果，不要重新提交、重新展示、保存或修改这个草稿。",
+      "The user cancelled saving the Skill Studio draft.",
+      event.skill_studio_session_id ? `Skill Studio session: ${event.skill_studio_session_id}` : "",
+      "This draft will not be written to the Manna Canvas configuration.",
+      "The user clicked the Cancel button; this is not a request to modify or resubmit.",
+      "Only confirm the cancellation result; do not resubmit, re-display, save, or modify this draft.",
     ].filter(Boolean).join("\n"),
     agent_instruction: [
       "The user clicked Cancel on the Skill Studio draft.",
@@ -6504,21 +6511,21 @@ export function buildSkillStudioDraftRevisionToolResultForTest(
     draft,
     draft_ref: draftRef,
     message: [
-      "用户已启动 Skill Studio 草稿修改会话。",
-      event.skill_studio_session_id ? `Skill Studio 会话：${event.skill_studio_session_id}` : "",
-      textField(skill.id) ? `当前草稿：${textField(skill.name) || textField(skill.id)}` : "",
-      "用户已经明确表示需要调整当前草稿，不要再询问是否需要调整。",
-      "不要询问是否保存当前版本，也不要提供 save_now / save_current / confirm_save 这类选项；保存只由页面草稿卡的确认按钮处理。",
-      "这不是继续完成原草稿，也不是要求重新展示当前草稿。",
-      "本次回执提供当前完整 draft，draft 只用于理解被修改对象和后续局部 patch；不要把 draft 内容当成用户修改意图。",
-      "用户还没有提供具体修改方向；下一步必须调用 freezone_request_user_clarification 追问修改方向、范围或偏好。",
-      "这次 clarification 的 questions 数组必须只有一个问题，问题要直接问用户想改哪里或怎么改。",
-      "在用户回答修改方向之前，禁止调用 freezone_begin_agent_catalog_draft / freezone_put_agent_catalog_skill / freezone_put_agent_catalog_recipe / freezone_finish_agent_catalog_draft。",
-      "在用户回答修改方向之前，也禁止调用 freezone_patch_agent_catalog_draft。",
-      "禁止调用 freezone_finish_agent_catalog_draft 原样展示当前草稿。",
-      "用户回答修改方向后，如果回答仍是泛泛分类，继续追问；只有回答包含具体目标和改法时，才基于当前完整草稿进行局部 patch 或分片输出更新草稿。",
-      "不要在单个 tool_call 里传完整 Skill / Recipe catalog。",
-      "不要用普通文本总结修改结果；不要只说明改了什么；未输出更新草稿前不要让用户保存。",
+      "The user has started a Skill Studio draft revision session.",
+      event.skill_studio_session_id ? `Skill Studio session: ${event.skill_studio_session_id}` : "",
+      textField(skill.id) ? `Current draft: ${textField(skill.name) || textField(skill.id)}` : "",
+      "The user has explicitly said the current draft needs adjusting; do not ask again whether it needs adjusting.",
+      "Do not ask whether to save the current version, and do not offer options such as save_now / save_current / confirm_save; saving is handled only by the confirm button on the draft card in the page.",
+      "This is not a request to finish the original draft or to show the current draft again.",
+      "This receipt provides the full current draft. Use it only to understand the object being modified and for later partial patches; do not treat its content as the user's intended change.",
+      "The user has not given a concrete direction for changes yet; the next step must be to call freezone_request_user_clarification to ask about the direction, scope, or preferences for the change.",
+      "The questions array of this clarification must contain exactly one question, asking directly what the user wants to change or how.",
+      "Until the user answers about the direction for changes, do not call freezone_begin_agent_catalog_draft / freezone_put_agent_catalog_skill / freezone_put_agent_catalog_recipe / freezone_finish_agent_catalog_draft.",
+      "Until the user answers about the direction for changes, also do not call freezone_patch_agent_catalog_draft.",
+      "Do not call freezone_finish_agent_catalog_draft to show the current draft unchanged.",
+      "After the user answers about the direction for changes, if the answer is still a broad category, keep asking; only when the answer contains a concrete goal and change should you update the draft with a partial patch or chunked output based on the full current draft.",
+      "Do not pass the full Skill / Recipe catalog in a single tool_call.",
+      "Do not summarize the result of the change in plain text; do not merely describe what changed; do not let the user save before the updated draft has been shown.",
     ].filter(Boolean).join("\n"),
   };
 }
@@ -6532,29 +6539,29 @@ function skillStudioDraftFooterText({
   cancelled: boolean;
   revisionPending: boolean;
 }): string {
-  if (submitted) return "已添加到虾画 Skills / Recipes";
-  if (cancelled) return "已取消，本草稿不会保存";
-  if (revisionPending) return "AI 调整中，请按后续问题补充修改方向";
-  return "保存前可展开各项继续微调";
+  if (submitted) return "Added to Manna Canvas Skills / Recipes";
+  if (cancelled) return "Cancelled; this draft will not be saved";
+  if (revisionPending) return "AI is adjusting; answer the follow-up questions to give the direction for changes";
+  return "Expand any item to fine-tune before saving";
 }
 
 export const skillStudioDraftFooterTextForTest = skillStudioDraftFooterText;
 
 function buildSkillStudioRecommendedResponse(event: Extract<SkillStudioUiEvent, { type: "skill_studio.questions" }>): string {
   return [
-    "请使用推荐配置继续 Skill Studio 流程。",
-    event.skill_studio_session_id ? `Skill Studio 会话：${event.skill_studio_session_id}` : "",
-    event.title ? `卡片：${event.title}` : "",
-    "请基于当前目标直接生成一个可编辑的 Skill / Recipe 草稿。",
+    "Use the recommended settings and continue the Skill Studio flow.",
+    event.skill_studio_session_id ? `Skill Studio session: ${event.skill_studio_session_id}` : "",
+    event.title ? `Card: ${event.title}` : "",
+    "Based on the current goal, directly generate an editable Skill / Recipe draft.",
   ].filter(Boolean).join("\n");
 }
 
 function buildSkillStudioSkipResponse(event: Extract<SkillStudioUiEvent, { type: "skill_studio.questions" }>): string {
   return [
-    "我选择跳过问题卡片，直接进入 Skill Studio 草稿生成。",
-    event.skill_studio_session_id ? `Skill Studio 会话：${event.skill_studio_session_id}` : "",
-    event.title ? `卡片：${event.title}` : "",
-    "请根据已有上下文生成 Skill / Recipe 草稿。",
+    "I chose to skip the question card and go straight to Skill Studio draft generation.",
+    event.skill_studio_session_id ? `Skill Studio session: ${event.skill_studio_session_id}` : "",
+    event.title ? `Card: ${event.title}` : "",
+    "Generate a Skill / Recipe draft from the existing context.",
   ].filter(Boolean).join("\n");
 }
 
@@ -6613,7 +6620,7 @@ function SkillStudioQuestionsCard({
   );
   const submittedSummary = submitted
     ? skillStudioQuestionActionSummary(event.action)
-      ?? `已提交回答 · ${answeredCount} / ${selectableQuestions.length || timelineItems.length} 个`
+      ?? `Answers submitted · ${answeredCount} / ${selectableQuestions.length || timelineItems.length}`
     : "";
   const goToQuestion = useCallback((position: number) => {
     if (selectableQuestions.length === 0) return;
@@ -6676,14 +6683,14 @@ function SkillStudioQuestionsCard({
               <span className="flex size-5 shrink-0 items-center justify-center rounded-md bg-emerald-400/10 text-emerald-100/85">
                 <CheckCircle2 className="size-3.5" />
               </span>
-              <span className="truncate font-medium tracking-normal">{event.title || "Skill Studio 选择"}</span>
+              <span className="truncate font-medium tracking-normal">{event.title || "Skill Studio selection"}</span>
             </div>
             <div className="mt-1 text-[11px] text-muted-foreground">
               {submittedSummary}
             </div>
           </div>
           <span className="shrink-0 rounded-full border border-emerald-300/15 bg-emerald-400/[0.08] px-2 py-0.5 text-[11px] text-emerald-100/75">
-            {skillStudioQuestionActionSummary(event.action) ?? "已提交"}
+            {skillStudioQuestionActionSummary(event.action) ?? "Submitted"}
           </span>
         </div>
         <div className="relative ml-2.5 space-y-0.5">
@@ -6717,7 +6724,7 @@ function SkillStudioQuestionsCard({
           ))}
           {timelineItems.length === 0 && (
             <div className="rounded-xl border border-white/[0.06] bg-black/10 px-3 py-2 text-xs text-muted-foreground">
-              已提交，未包含可展示的问题配置。
+              Submitted, but no displayable question configuration was included.
             </div>
           )}
         </div>
@@ -6733,7 +6740,7 @@ function SkillStudioQuestionsCard({
   const activeSelectedCount = activeSelection.optionIds.length + (activeSelection.customText.trim() ? 1 : 0);
   const hasPrevious = activeQuestionPosition > 0;
   const hasNext = activeQuestionPosition < selectableQuestions.length - 1;
-  const continueLabel = hasNext ? "下一题" : allQuestionsAnswered ? "提交选择" : "用当前选择继续";
+  const continueLabel = hasNext ? "Next question" : allQuestionsAnswered ? "Submit selections" : "Continue with current selections";
   const continueAction = () => {
     if (hasNext) {
       goToQuestion(activeQuestionPosition + 1);
@@ -6747,7 +6754,7 @@ function SkillStudioQuestionsCard({
 	      <div className="mb-2.5 grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3">
 	        <div className="min-w-0">
 	          <div className="line-clamp-2 break-words text-sm font-medium leading-5 text-foreground">
-	            {activeQuestion?.title || activeQuestion?.question || event.title || "需要你补充一点信息"}
+	            {activeQuestion?.title || activeQuestion?.question || event.title || "A little more information is needed"}
 	          </div>
 	          {event.description && (
 	            <div className="mt-1 line-clamp-2 text-xs leading-5 text-muted-foreground">
@@ -6762,7 +6769,7 @@ function SkillStudioQuestionsCard({
               disabled={!hasPrevious}
               className="flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-white/[0.06] hover:text-foreground disabled:pointer-events-none disabled:opacity-35"
               onClick={() => goToQuestion(activeQuestionPosition - 1)}
-              aria-label="上一题"
+              aria-label="Previous question"
             >
               <ChevronLeft className="size-4" />
             </button>
@@ -6772,7 +6779,7 @@ function SkillStudioQuestionsCard({
               disabled={!hasNext}
               className="flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-white/[0.06] hover:text-foreground disabled:pointer-events-none disabled:opacity-35"
               onClick={() => goToQuestion(activeQuestionPosition + 1)}
-              aria-label="下一题"
+              aria-label="Next question"
             >
               <ChevronRight className="size-4" />
             </button>
@@ -6783,10 +6790,10 @@ function SkillStudioQuestionsCard({
         {activeQuestion ? (
           <div className="overflow-hidden rounded-2xl bg-white/[0.035] ring-1 ring-white/[0.07]">
           <div className="flex items-center justify-between gap-2 px-3 py-2 text-[11px] text-muted-foreground/80">
-            <span>{activeSelectionMode === "multiple" ? "可多选，也可以补充" : "选择一个方向，也可以补充"}</span>
+            <span>{activeSelectionMode === "multiple" ? "Select multiple, or add your own" : "Pick a direction, or add your own"}</span>
             {activeSelectionMode === "multiple" && (
               <span className="shrink-0 rounded-full bg-white/[0.05] px-2 py-1 text-[11px] text-muted-foreground">
-                多选
+                Multi-select
               </span>
             )}
           </div>
@@ -6809,7 +6816,7 @@ function SkillStudioQuestionsCard({
 	                  <QuestionOptionSelectionMark selected={selected} mode={activeSelectionMode} />
 	                  <span className="min-w-0 flex-1">
                     <span className="block break-words text-sm leading-5 text-foreground/88">
-                      {option.label || option.id || `选项 ${optionIndex + 1}`}
+                      {option.label || option.id || `Option ${optionIndex + 1}`}
                     </span>
                     {option.description && (
                       <span className="mt-0.5 block line-clamp-2 break-words text-xs leading-4 text-muted-foreground">
@@ -6826,7 +6833,7 @@ function SkillStudioQuestionsCard({
                 <Textarea
                   value={activeSelection.customText}
                   onChange={(changeEvent) => updateCustomText(activeQuestion, activeQuestionIndex, changeEvent.target.value)}
-                  placeholder="其他补充..."
+                  placeholder="Anything else..."
                   className="min-h-11 resize-none rounded-xl border-0 bg-white/[0.05] px-3 py-2 text-sm leading-5 shadow-none placeholder:text-muted-foreground/65 focus-visible:ring-1 focus-visible:ring-white/15"
                 />
               </div>
@@ -6835,13 +6842,13 @@ function SkillStudioQuestionsCard({
           </div>
         ) : (
           <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] px-3 py-6 text-center text-xs text-muted-foreground">
-            暂无可选择的问题
+            No questions to choose from
           </div>
         )}
       </div>
       <div className="mt-2.5 flex shrink-0 flex-wrap items-center justify-between gap-2 border-t border-white/[0.08] pt-2.5">
         <div className="text-xs text-muted-foreground/80">
-          已选择 {activeSelectedCount} 项 · {answeredCount} / {selectableQuestions.length}
+          {activeSelectedCount} selected · {answeredCount} / {selectableQuestions.length}
         </div>
         <div className="flex items-center gap-2">
           {event.allow_skip && (
@@ -6857,7 +6864,7 @@ function SkillStudioQuestionsCard({
                 });
               }}
             >
-              跳过
+              Skip
             </Button>
           )}
           {event.allow_recommended && (
@@ -6873,7 +6880,7 @@ function SkillStudioQuestionsCard({
                 });
               }}
             >
-              使用推荐配置
+              Use recommended settings
             </Button>
           )}
           <Button
@@ -6923,7 +6930,7 @@ function AssistantClarificationSummaryCard({ event }: { event: AssistantClarific
             <span className="flex size-5 shrink-0 items-center justify-center rounded-md bg-emerald-400/10 text-emerald-100/85">
               {cancelled ? <X className="size-3.5" /> : <CheckCircle2 className="size-3.5" />}
             </span>
-            <span className="truncate font-medium tracking-normal">{event.title || "问题回答"}</span>
+            <span className="truncate font-medium tracking-normal">{event.title || "Question answers"}</span>
           </div>
           <div className="mt-1 text-[11px] text-muted-foreground">
             {countLabel}
@@ -7120,10 +7127,10 @@ function AssistantClarificationInputCard({
   const hasNext = activeQuestionPosition < selectableQuestions.length - 1;
   const activeSelectedCount = activeSelection.optionIds.length + (activeSelection.customText.trim() ? 1 : 0);
   const continueLabel = hasNext
-    ? "下一题"
+    ? "Next question"
     : allQuestionsAnswered
-      ? "提交选择"
-      : isGenerationCard ? "请完成所有选择" : "用当前选择继续";
+      ? "Submit selections"
+      : isGenerationCard ? "Complete all selections" : "Continue with current selections";
   const continueAction = () => {
     if (hasNext) {
       goToQuestion(activeQuestionPosition + 1);
@@ -7137,7 +7144,7 @@ function AssistantClarificationInputCard({
 	      <div className="mb-2.5 grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3">
 	        <div className="min-w-0">
 	          <div className="line-clamp-2 break-words text-sm font-medium leading-5 text-foreground">
-	            {activeQuestion?.title || activeQuestion?.question || event.title || "需要你补充一点信息"}
+	            {activeQuestion?.title || activeQuestion?.question || event.title || "A little more information is needed"}
 	          </div>
 	          {event.description && (
 	            <div className="mt-1 line-clamp-2 text-xs leading-5 text-muted-foreground">
@@ -7152,7 +7159,7 @@ function AssistantClarificationInputCard({
               disabled={!hasPrevious}
               className="flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-white/[0.06] hover:text-foreground disabled:pointer-events-none disabled:opacity-35"
               onClick={() => goToQuestion(activeQuestionPosition - 1)}
-              aria-label="上一题"
+              aria-label="Previous question"
             >
               <ChevronLeft className="size-4" />
             </button>
@@ -7162,7 +7169,7 @@ function AssistantClarificationInputCard({
               disabled={!hasNext}
               className="flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-white/[0.06] hover:text-foreground disabled:pointer-events-none disabled:opacity-35"
               onClick={() => goToQuestion(activeQuestionPosition + 1)}
-              aria-label="下一题"
+              aria-label="Next question"
             >
               <ChevronRight className="size-4" />
             </button>
@@ -7172,10 +7179,10 @@ function AssistantClarificationInputCard({
       {activeQuestion ? (
         <div className="overflow-hidden rounded-2xl bg-white/[0.035] ring-1 ring-white/[0.07]">
           <div className="flex items-center justify-between gap-2 px-3 py-2 text-[11px] text-muted-foreground/80">
-            <span>{activeSelectionMode === "multiple" ? "可多选，也可以补充" : "选择一个方向，也可以补充"}</span>
+            <span>{activeSelectionMode === "multiple" ? "Select multiple, or add your own" : "Pick a direction, or add your own"}</span>
             {activeSelectionMode === "multiple" && (
               <span className="shrink-0 rounded-full bg-white/[0.05] px-2 py-1 text-[11px] text-muted-foreground">
-                多选
+                Multi-select
               </span>
             )}
           </div>
@@ -7198,7 +7205,7 @@ function AssistantClarificationInputCard({
 	                  <QuestionOptionSelectionMark selected={selected} mode={activeSelectionMode} />
 	                  <span className="min-w-0 flex-1">
                     <span className="block break-words text-sm leading-5 text-foreground/88">
-                      {option.label || option.id || `选项 ${optionIndex + 1}`}
+                      {option.label || option.id || `Option ${optionIndex + 1}`}
                     </span>
                     {option.description && (
                       <span className="mt-0.5 block line-clamp-2 break-words text-xs leading-4 text-muted-foreground">
@@ -7215,7 +7222,7 @@ function AssistantClarificationInputCard({
                 <Textarea
                   value={activeSelection.customText}
                   onChange={(changeEvent) => updateCustomText(activeQuestion, activeQuestionIndex, changeEvent.target.value)}
-                  placeholder="其他补充..."
+                  placeholder="Anything else..."
                   className="min-h-11 resize-none rounded-xl border-0 bg-white/[0.05] px-3 py-2 text-sm leading-5 shadow-none placeholder:text-muted-foreground/65 focus-visible:ring-1 focus-visible:ring-white/15"
                 />
               </div>
@@ -7224,7 +7231,7 @@ function AssistantClarificationInputCard({
         </div>
       ) : (
         <div className="rounded-2xl border border-white/[0.08] bg-white/[0.025] px-3 py-6 text-center text-xs text-muted-foreground">
-          暂无可选择的问题
+          No questions to choose from
         </div>
       )}
       {generationCatalogIssue && (
@@ -7234,7 +7241,7 @@ function AssistantClarificationInputCard({
       )}
       <div className="mt-2.5 flex flex-wrap items-center justify-between gap-2">
         <div className="text-xs text-muted-foreground/80">
-          已选择 {activeSelectedCount} 项 · {answeredCount} / {selectableQuestions.length}
+          {activeSelectedCount} selected · {answeredCount} / {selectableQuestions.length}
         </div>
         <div className="flex items-center gap-2">
           {event.allow_skip && (
@@ -7248,7 +7255,7 @@ function AssistantClarificationInputCard({
                 void submitResponse({ __action: "skip" });
               }}
             >
-              跳过
+              Skip
             </Button>
           )}
           {!generationCatalogIssue && assistantClarificationShowsRecommended(
@@ -7264,7 +7271,7 @@ function AssistantClarificationInputCard({
                 void submitResponse({ ...recommendedAnswers, __action: "recommended" });
               }}
             >
-              使用推荐配置
+              Use recommended settings
             </Button>
           )}
           <Button
@@ -7274,7 +7281,7 @@ function AssistantClarificationInputCard({
             disabled={!onSubmit || isSubmitting || (hasNext ? false : !canSubmit)}
             onClick={continueAction}
           >
-            {isSubmitting ? "提交中…" : continueLabel}
+            {isSubmitting ? "Submitting…" : continueLabel}
           </Button>
         </div>
       </div>
@@ -7392,11 +7399,11 @@ function SkillStudioDraftCard({
     try {
       parsed = JSON.parse(draftText);
     } catch {
-      setJsonError("JSON 格式不正确，请检查后再提交");
+      setJsonError("Invalid JSON format. Check it and submit again");
       return;
     }
     if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-      setJsonError("草稿必须是 JSON 对象");
+      setJsonError("The draft must be a JSON object");
       return;
     }
     setJsonError(null);
@@ -7416,11 +7423,11 @@ function SkillStudioDraftCard({
     try {
       parsed = JSON.parse(draftText);
     } catch {
-      setJsonError("JSON 格式不正确，请检查后再调整");
+      setJsonError("Invalid JSON format. Check it and adjust again");
       return;
     }
     if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-      setJsonError("草稿必须是 JSON 对象");
+      setJsonError("The draft must be a JSON object");
       return;
     }
     setJsonError(null);
@@ -7452,10 +7459,10 @@ function SkillStudioDraftCard({
         <span className="flex size-6 items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.04] text-emerald-100/90">
           <Package className="size-3.5" />
         </span>
-        <span className="font-medium">{incomplete ? "Skill 草稿未完成" : "Skill / Recipe 草稿"}</span>
+        <span className="font-medium">{incomplete ? "Skill draft incomplete" : "Skill / Recipe draft"}</span>
         {event.mode && (
           <Badge variant="outline" className="h-5 rounded-md border-white/[0.1] px-1.5 text-[10px] text-muted-foreground">
-            {event.mode === "edit" ? "编辑" : "新建"}
+            {event.mode === "edit" ? "Edit" : "New"}
           </Badge>
         )}
       </div>
@@ -7464,12 +7471,12 @@ function SkillStudioDraftCard({
       )}
       {incomplete && (
         <div className="mb-3 rounded-lg border border-amber-300/20 bg-amber-300/[0.055] px-3 py-2 text-xs leading-5 text-amber-50/85">
-          <div>Agent 已提交了一部分内容，但本轮对话已结束，草稿还不能保存。</div>
+          <div>The Agent submitted part of the draft, but this turn has ended and the draft cannot be saved yet.</div>
           {(completedItems.length > 0 || missingItems.length > 0) && (
             <div className="mt-2 grid gap-2 sm:grid-cols-2">
               {completedItems.length > 0 && (
                 <div>
-                  <div className="text-amber-50/60">已完成</div>
+                  <div className="text-amber-50/60">Completed</div>
                   <ul className="mt-1 space-y-0.5">
                     {completedItems.map((item) => <li key={item}>{item}</li>)}
                   </ul>
@@ -7477,7 +7484,7 @@ function SkillStudioDraftCard({
               )}
               {missingItems.length > 0 && (
                 <div>
-                  <div className="text-amber-50/60">缺少</div>
+                  <div className="text-amber-50/60">Missing</div>
                   <ul className="mt-1 space-y-0.5">
                     {missingItems.map((item) => <li key={item}>{item}</li>)}
                   </ul>
@@ -7485,7 +7492,7 @@ function SkillStudioDraftCard({
               )}
             </div>
           )}
-          <div className="mt-2 text-amber-50/65">继续对话后，Agent 可以基于当前草稿补全缺失部分。</div>
+          <div className="mt-2 text-amber-50/65">After you continue the conversation, the Agent can complete the missing parts based on the current draft.</div>
         </div>
       )}
       <div className="overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.045]">
@@ -7505,7 +7512,7 @@ function SkillStudioDraftCard({
             )}
           </div>
           <p className="mt-1.5 line-clamp-3 text-xs leading-5 text-muted-foreground">
-            {textField(skill.description) || "暂无描述"}
+            {textField(skill.description) || "No description"}
           </p>
         </div>
 
@@ -7514,7 +7521,7 @@ function SkillStudioDraftCard({
             <span className="flex min-w-0 items-center gap-2 text-foreground/85">
               <ChevronRight className="size-3.5 shrink-0 text-muted-foreground transition-transform group-open:rotate-90" />
               <Braces className="size-3.5 shrink-0 text-muted-foreground" />
-              <span>基础信息</span>
+              <span>Basics</span>
             </span>
           </summary>
           <div className="space-y-2 border-t border-white/[0.06] px-3 pb-3 pt-2">
@@ -7564,7 +7571,7 @@ function SkillStudioDraftCard({
 	              value={stringListField(triggers.keywords)}
 	              disabled={readOnly}
 	              onChange={(value) => updateNestedSkillField("triggers", "keywords", value)}
-	              placeholder="输入关键词后按 Enter"
+	              placeholder="Type a keyword and press Enter"
 	            />
 	          </div>
 	        </details>
@@ -7578,13 +7585,13 @@ function SkillStudioDraftCard({
                 <span>{skillStudioDraftFieldLabels.skill.inputParameters}</span>
               </span>
               <span className="rounded-full border border-cyan-300/20 bg-cyan-300/[0.08] px-2 py-0.5 text-[10px] text-cyan-100/80">
-                {inputParameters.length} 个选项
+                {inputParameters.length} options
               </span>
             </summary>
             <div className="space-y-2 border-t border-white/[0.06] px-3 pb-3 pt-2">
               {inputParameters.map((parameter, parameterIndex) => {
                 const parameterId = textField(parameter.id);
-                const label = textField(parameter.label) || parameterId || `选项 ${parameterIndex + 1}`;
+                const label = textField(parameter.label) || parameterId || `Option ${parameterIndex + 1}`;
                 const options = cleanStringArray(parameter.options);
                 const defaultValue = skillStudioInputParameterValueLabel(parameter.default);
                 return (
@@ -7602,17 +7609,17 @@ function SkillStudioDraftCard({
                         </span>
                         {defaultValue && (
                           <span className="rounded bg-white/[0.06] px-1.5 py-0.5 text-[10px] text-muted-foreground">
-                            默认 {defaultValue}
+                            Default {defaultValue}
                           </span>
                         )}
                         {options.length > 0 && (
                           <span className="rounded bg-white/[0.06] px-1.5 py-0.5 text-[10px] text-muted-foreground">
-                            {options.length} 个选项
+                            {options.length} options
                           </span>
                         )}
                         {parameter.required === true && (
                           <span className="rounded bg-cyan-500/15 px-1.5 py-0.5 text-[10px] text-cyan-200">
-                            必填
+                            Required
                           </span>
                         )}
                       </div>
@@ -7639,7 +7646,7 @@ function SkillStudioDraftCard({
             <span className="flex min-w-0 items-center gap-2 text-foreground/85">
               <ChevronRight className="size-3.5 shrink-0 text-muted-foreground transition-transform group-open:rotate-90" />
               <ListTree className="size-3.5 shrink-0 text-muted-foreground" />
-              <span>规划策略</span>
+              <span>Planning strategy</span>
             </span>
           </summary>
           <div className="space-y-2 border-t border-white/[0.06] px-3 pb-3 pt-2">
@@ -7668,7 +7675,7 @@ function SkillStudioDraftCard({
 	              value={stringListField(planning.conduct_rules, planning.behaviorRules)}
 	              disabled={readOnly}
 	              onChange={(value) => updateNestedSkillField("planning", "conduct_rules", value, ["behaviorRules"])}
-	              placeholder="输入规则后按 Enter"
+	              placeholder="Type a rule and press Enter"
 	            />
 	          </div>
 	        </details>
@@ -7678,7 +7685,7 @@ function SkillStudioDraftCard({
             <span className="flex min-w-0 items-center gap-2 text-foreground/85">
               <ChevronRight className="size-3.5 shrink-0 text-muted-foreground transition-transform group-open:rotate-90" />
               <CheckCircle2 className="size-3.5 shrink-0 text-muted-foreground" />
-              <span>评估标准</span>
+              <span>Evaluation criteria</span>
             </span>
           </summary>
           <div className="grid gap-2 border-t border-white/[0.06] px-3 pb-3 pt-2 md:grid-cols-[120px_1fr]">
@@ -7697,7 +7704,7 @@ function SkillStudioDraftCard({
 	                value={listText(evaluationFields.domainConstraints)}
 	                disabled={readOnly}
 	                onChange={(changeEvent) => updateNestedSkillField("evaluation", "domain_constraints", parseListText(changeEvent.target.value))}
-	                placeholder="用顿号、逗号或换行分隔"
+	                placeholder="Separate with commas or new lines"
 	                className={fieldClass}
 	              />
             </label>
@@ -7707,7 +7714,7 @@ function SkillStudioDraftCard({
                 value={evaluationFields.ratingBands}
                 disabled={readOnly}
                 onChange={(value) => updateNestedSkillField("evaluation", "rating_bands", parseSkillStudioRatingBandList(value))}
-                placeholder="如：8：风格统一且文化元素准确"
+                placeholder="e.g. 8: Consistent style with accurate cultural elements"
               />
             </div>
             <div className="md:col-span-2">
@@ -7716,7 +7723,7 @@ function SkillStudioDraftCard({
                 value={evaluationFields.visualReviewItems}
                 disabled={readOnly}
                 onChange={(value) => updateNestedSkillField("evaluation", "visual_review_items", parseSkillStudioReviewItemList(value))}
-                placeholder="如：风格一致性（0.35）：是否符合视觉风格"
+                placeholder="e.g. Style consistency (0.35): does it match the visual style"
               />
             </div>
             <div className="md:col-span-2">
@@ -7725,7 +7732,7 @@ function SkillStudioDraftCard({
                 value={evaluationFields.textReviewItems}
                 disabled={readOnly}
                 onChange={(value) => updateNestedSkillField("evaluation", "text_review_items", parseSkillStudioReviewItemList(value))}
-                placeholder="如：文案传播力（0.4）：标题是否有记忆点"
+                placeholder="e.g. Copy shareability (0.4): is the title memorable"
               />
             </div>
           </div>
@@ -7736,10 +7743,10 @@ function SkillStudioDraftCard({
           <div className="flex items-center justify-between gap-3 border-b border-white/[0.07] px-3 py-2 text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
             <span className="flex min-w-0 items-center gap-2">
               <ListTree className="size-3.5 shrink-0" />
-              <span>复用 Recipes ({referencedRecipes.length})</span>
+              <span>Reused Recipes ({referencedRecipes.length})</span>
             </span>
             <span className="shrink-0 rounded-full border border-white/[0.08] bg-white/[0.04] px-2 py-0.5 text-[10px] normal-case tracking-normal text-muted-foreground">
-              只读
+              Read-only
             </span>
           </div>
           <div>
@@ -7754,7 +7761,7 @@ function SkillStudioDraftCard({
                         ? "border-amber-300/25 bg-amber-300/[0.08] text-amber-100/85"
                         : "border-white/[0.08] bg-white/[0.04] text-muted-foreground",
                     )}>
-                      {recipe.missing ? "未找到" : recipe.outputKind === "html" ? "HTML 网页" : recipe.outputKind || "类型"}
+                      {recipe.missing ? "Not found" : recipe.outputKind === "html" ? "HTML page" : recipe.outputKind || "Type"}
                     </span>
                     <span className="min-w-0 truncate text-foreground/85">
                       {recipe.name || recipe.id}
@@ -7764,7 +7771,7 @@ function SkillStudioDraftCard({
                 <div className="space-y-2 border-t border-white/[0.06] px-3 pb-3 pt-2">
                   {recipe.missing && (
                     <div className="rounded-md border border-amber-400/20 bg-amber-400/[0.05] px-2 py-1.5 text-xs text-amber-100/90">
-                      当前本地 Recipe 列表里没有找到这个 ID，保存前需要确认配置是否存在。
+                      This ID was not found in the local Recipe list. Confirm the configuration exists before saving.
                     </div>
                   )}
                   <div className="grid gap-2 md:grid-cols-2">
@@ -7783,7 +7790,7 @@ function SkillStudioDraftCard({
                         value={recipe.name}
                         disabled
                         readOnly
-                        placeholder="未匹配到名称"
+                        placeholder="No name matched"
                         className={fieldClass}
                       />
                     </label>
@@ -7792,10 +7799,10 @@ function SkillStudioDraftCard({
                     <label>
                       <span className={labelClass}>{skillStudioDraftFieldLabels.recipe.output_kind}</span>
                       <Input
-                        value={recipe.outputKind === "html" ? "HTML 网页" : recipe.outputKind}
+                        value={recipe.outputKind === "html" ? "HTML page" : recipe.outputKind}
                         disabled
                         readOnly
-                        placeholder="未匹配到类型"
+                        placeholder="No type matched"
                         className={fieldClass}
                       />
                     </label>
@@ -7804,7 +7811,7 @@ function SkillStudioDraftCard({
                       value={recipe.actionKeys}
                       disabled
                       onChange={() => undefined}
-                      placeholder="未匹配到动作类型"
+                      placeholder="No action type matched"
                     />
                   </div>
                   <label className="block">
@@ -7813,7 +7820,7 @@ function SkillStudioDraftCard({
                       value={recipe.systemPrompt}
                       disabled
                       readOnly
-                      placeholder="未匹配到系统提示词"
+                      placeholder="No system prompt matched"
                       className={cn(textAreaClass, "min-h-24")}
                     />
                   </label>
@@ -7823,7 +7830,7 @@ function SkillStudioDraftCard({
                       value={recipe.mustHaveItems}
                       disabled
                       onChange={() => undefined}
-                      placeholder="未匹配到必含项"
+                      placeholder="No required items matched"
                     />
                     <label>
                       <span className={labelClass}>{skillStudioDraftFieldLabels.recipe.requires_source_media}</span>
@@ -7856,7 +7863,7 @@ function SkillStudioDraftCard({
                         value={recipe.planningPrompt}
                         disabled
                         readOnly
-                        placeholder="未匹配到规划提示"
+                        placeholder="No planning prompt matched"
                         className={textAreaClass}
                       />
                     </label>
@@ -7866,7 +7873,7 @@ function SkillStudioDraftCard({
                         value={recipe.resultSummary}
                         disabled
                         readOnly
-                        placeholder="未匹配到结果摘要"
+                        placeholder="No result summary matched"
                         className={textAreaClass}
                       />
                     </label>
@@ -7889,7 +7896,7 @@ function SkillStudioDraftCard({
                 <span className="flex min-w-0 items-center gap-2">
                   <ChevronRight className="size-3.5 shrink-0 text-muted-foreground transition-transform group-open:rotate-90" />
                   <span className="rounded-full border border-white/[0.08] bg-white/[0.04] px-1.5 py-0.5 text-[10px] text-muted-foreground">
-                    {recipeOutputChoice(recipe) === "html" ? "HTML 网页" : textField(recipe.output_kind) || "类型"}
+                    {recipeOutputChoice(recipe) === "html" ? "HTML page" : textField(recipe.output_kind) || "Type"}
                   </span>
                   <span className="truncate text-foreground/85">{textField(recipe.name) || textField(recipe.id) || `Recipe ${index + 1}`}</span>
                 </span>
@@ -7924,7 +7931,7 @@ function SkillStudioDraftCard({
                       onChange={(changeEvent) => updateRecipeField(index, "output_kind", changeEvent.target.value)}
                       className={fieldClass}
                     >
-                      {RECIPE_OUTPUT_CHOICES.map(choice => <option key={choice} value={choice}>{({image:"图片",video:"视频",audio:"音频",text:"文本",html:"HTML 网页"})[choice]}</option>)}
+                      {RECIPE_OUTPUT_CHOICES.map(choice => <option key={choice} value={choice}>{({image:"Image",video:"Video",audio:"Audio",text:"Text",html:"HTML page"})[choice]}</option>)}
                     </select>
                   </label>
                   <SkillStudioListField
@@ -7932,7 +7939,7 @@ function SkillStudioDraftCard({
                     value={stringListField(recipe.action_keys)}
                     disabled={readOnly}
                     onChange={(value) => updateRecipeField(index, "action_keys", value)}
-                    placeholder="输入类型后按 Enter"
+                    placeholder="Type an output type and press Enter"
                   />
                 </div>
                 <label className="block">
@@ -7950,7 +7957,7 @@ function SkillStudioDraftCard({
                     value={stringListField(recipe.must_have_items)}
                     disabled={readOnly}
                     onChange={(value) => updateRecipeField(index, "must_have_items", value)}
-                    placeholder="输入元素后按 Enter"
+                    placeholder="Type an element and press Enter"
                   />
                   <label>
                     <span className={labelClass}>{skillStudioDraftFieldLabels.recipe.requires_source_media}</span>
@@ -8022,7 +8029,7 @@ function SkillStudioDraftCard({
       )}
       {Array.isArray(event.warnings) && event.warnings.length > 0 && (
         <div className="mt-2 rounded-md border border-amber-400/20 bg-amber-400/[0.05] px-2 py-1.5 text-xs text-amber-100/90">
-          {event.warnings.map((warning) => String(warning)).join("；")}
+          {event.warnings.map((warning) => String(warning)).join("; ")}
         </div>
       )}
       <details className="group mt-2 overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.035]">
@@ -8030,7 +8037,7 @@ function SkillStudioDraftCard({
           <span className="flex items-center gap-2 text-muted-foreground">
             <ChevronRight className="size-3.5 transition-transform group-open:rotate-90" />
             <Braces className="size-3.5" />
-            查看原始 JSON
+            View raw JSON
           </span>
           {readOnly && (
             <span className={cn(
@@ -8038,7 +8045,7 @@ function SkillStudioDraftCard({
               cancelled ? "text-muted-foreground" : "text-emerald-100/80",
             )}>
               {cancelled ? <X className="size-3" /> : <CheckCircle2 className="size-3" />}
-              {cancelled ? "已取消" : "已提交"}
+              {cancelled ? "Cancelled" : "Submitted"}
             </span>
           )}
         </summary>
@@ -8069,7 +8076,7 @@ function SkillStudioDraftCard({
       {jsonError && <div className="mt-2 text-xs text-amber-200">{jsonError}</div>}
       <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
         <div className="text-[11px] text-muted-foreground">
-          {incomplete ? "草稿未完成，本轮不会保存" : skillStudioDraftFooterText({ submitted, cancelled, revisionPending })}
+          {incomplete ? "Draft incomplete; it will not be saved this turn" : skillStudioDraftFooterText({ submitted, cancelled, revisionPending })}
         </div>
         {!incomplete && (
           <div className="flex flex-wrap items-center gap-2">
@@ -8081,7 +8088,7 @@ function SkillStudioDraftCard({
               disabled={!onStartRevision || readOnly}
               onClick={startRevision}
             >
-              让 AI 调整
+              Ask AI to adjust
             </Button>
             <Button
               type="button"
@@ -8091,7 +8098,7 @@ function SkillStudioDraftCard({
               disabled={readOnly}
               onClick={cancelDraft}
             >
-              取消
+              Cancel
             </Button>
             <Button
               type="button"
@@ -8100,7 +8107,7 @@ function SkillStudioDraftCard({
               disabled={!onSubmit || readOnly}
               onClick={submitDraft}
             >
-              确认添加
+              Confirm add
             </Button>
           </div>
         )}
@@ -8113,7 +8120,7 @@ function SkillStudioStatusCard({ event }: { event: Extract<SkillStudioUiEvent, {
   return (
     <div className="flex items-center gap-2 px-1 py-1 text-xs text-muted-foreground">
       <ListTree className="size-3.5 shrink-0 text-cyan-100/70" />
-      <span>{event.message || "正在进入 Skill Studio..."}</span>
+      <span>{event.message || "Entering Skill Studio..."}</span>
       <DotsIndicator />
     </div>
   );
@@ -8356,8 +8363,8 @@ export const MessageBubble = memo(function MessageBubble({
 
   const copyText = async () => {
     const ok = await writeClipboardText(message.text);
-    if (ok) toast.success("已复制");
-    else toast.error("复制失败");
+    if (ok) toast.success("Copied");
+    else toast.error("Copy failed");
   };
   const canSpeak = typeof window !== "undefined" && "speechSynthesis" in window;
   const speak = () => {
@@ -8828,7 +8835,7 @@ export const MessageBubble = memo(function MessageBubble({
                 ) : waitingForUserReply ? (
                     <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.035] px-3 py-1.5 text-xs text-muted-foreground">
                       <ListTree className="size-3.5" />
-                      <span>正在等待您的回复</span>
+                      <span>Waiting for your reply</span>
                     </div>
                 ) : null}
               </div>
@@ -9615,9 +9622,9 @@ function createSpeechRecognition(): SpeechRecognitionLike | null {
 }
 
 const VIDEO_CREATION_RE =
-  /(生成|创建|制作|开始|做|转|剪|出).{0,12}(视频|短剧|短片|成片|影片)|(?:视频|短剧|短片|成片|影片).{0,12}(生成|创建|制作|开始|做|转)|create.{0,16}video|make.{0,16}video|generate.{0,16}video|story.{0,12}video/i;
+  /(生成|创建|制作|开始|做|转|剪|出).{0,12}(视频|短剧|短片|成片|影片)|(?:视频|短剧|短片|成片|影片).{0,12}(生成|创建|制作|开始|做|转)|create.{0,16}video|make.{0,16}video|generate.{0,16}video|story.{0,12}video/i; // i18n-exempt: matches Chinese input
 const UPLOADED_FILES_QUERY_RE =
-  /(当前|现在|刚才|我)?\s*(上传|传了|传过|已上传).{0,12}(哪些|什么|列表|文件|剧本|小说)|(?:what|which|list|show).{0,20}uploaded.{0,10}(files?|scripts?)/i;
+  /(当前|现在|刚才|我)?\s*(上传|传了|传过|已上传).{0,12}(哪些|什么|列表|文件|剧本|小说)|(?:what|which|list|show).{0,20}uploaded.{0,10}(files?|scripts?)/i; // i18n-exempt: matches Chinese input
 
 const NOVEL_ATTACHMENT_EXTENSIONS = new Set([".txt", ".md", ".doc", ".docx"]);
 const INLINE_TEXT_ATTACHMENT_EXTENSIONS = new Set([".txt", ".md"]);
@@ -9711,11 +9718,11 @@ function shouldReportUploadedFiles(text: string): boolean {
 }
 
 function isOverwriteChoice(text: string): boolean {
-  return /^覆盖[。.!！?？\s]*$/.test(text.trim());
+  return /^(?:覆盖|overwrite)[。.!！?？\s]*$/i.test(text.trim()); // i18n-exempt: matches Chinese input
 }
 
 function isFinalOverwriteConfirmation(text: string): boolean {
-  return /^(确定|继续)[。.!！?？\s]*$/.test(text.trim());
+  return /^(?:确定|继续|confirm|continue)[。.!！?？\s]*$/i.test(text.trim()); // i18n-exempt: matches Chinese input
 }
 
 function uploadedFileFromPrepared(item: PreparedIngestAttachment): UploadedIngestFile | null {
@@ -9770,7 +9777,7 @@ function buildReingestConfirmationContext(
     `filename: ${pending.filename}`,
     pending.stage === "choose_overwrite"
       ? "The current project has already ingested a script. Do not call ingest/start yet. Tell the user the current project is not empty and ask only whether they want to overwrite this project. Do not recommend creating a new project, and do not offer to create another project from the current project flow."
-      : "The user chose overwrite. Do not call ingest/start yet. Ask the second confirmation and warn that overwrite/rebuild will clear existing characters, episodes, scripts, sketches, audio, videos, and other pipeline outputs. Only an exact user reply of 确定 or 继续 may proceed.",
+      : "The user chose overwrite. Do not call ingest/start yet. Ask the second confirmation and warn that overwrite/rebuild will clear existing characters, episodes, scripts, sketches, audio, videos, and other pipeline outputs. Only an exact user reply of Confirm or Continue may proceed.",
     "[/DRAMACLAW_REINGEST_CONFIRMATION]",
   ].join("\n");
 }
@@ -10329,7 +10336,7 @@ function CanvasNodeReferenceThumb({
       <button
         type="button"
         className="absolute right-0.5 top-0.5 z-20 flex size-4 items-center justify-center rounded-full bg-black/70 text-white/75 opacity-0 shadow-sm backdrop-blur transition hover:bg-black/85 hover:text-white group-hover:opacity-100 group-focus-within:opacity-100"
-        aria-label="移除画布引用"
+        aria-label="Remove canvas reference"
         onClick={(event) => {
           event.preventDefault();
           event.stopPropagation();
@@ -10898,24 +10905,24 @@ function FreezoneSkillInlineEditor({
 }
 
 const CANVAS_CONTEXT_REQUEST_LABELS: Record<string, string> = {
-  canvas_ontology: "画布 Ontology",
-  canvas_summary: "画布摘要",
-  canvas_action_catalog: "画布能力",
-  canvas_command_catalog: "命令规则",
-  node_detail: "节点详情",
-  neighbor_graph: "上下游关系",
-  node_action_catalog: "节点能力",
-  action_catalog: "节点能力",
-  action_catalog_by_id: "能力详情",
-  node_create_schema: "节点参数",
-  audio_voice_options: "音色选项",
-  slot_candidates: "可提交槽位",
-  mainline_projection_assets: "主线资产",
-  selection_detail: "当前选择",
-  link_type_catalog: "连线类型",
-  validate_canvas_commands: "命令校验",
+  canvas_ontology: "canvas ontology",
+  canvas_summary: "canvas summary",
+  canvas_action_catalog: "canvas actions",
+  canvas_command_catalog: "command rules",
+  node_detail: "node details",
+  neighbor_graph: "neighbor relations",
+  node_action_catalog: "node actions",
+  action_catalog: "node actions",
+  action_catalog_by_id: "action details",
+  node_create_schema: "node parameters",
+  audio_voice_options: "voice options",
+  slot_candidates: "submittable slots",
+  mainline_projection_assets: "mainline assets",
+  selection_detail: "current selection",
+  link_type_catalog: "link types",
+  validate_canvas_commands: "canvas commands",
 };
-const CANVAS_CONTEXT_THINKING_LABEL = "正在思考中";
+const CANVAS_CONTEXT_THINKING_LABEL = "Thinking";
 type CanvasContextActivity = {
   key: string;
   turnId: string | null;
@@ -11110,14 +11117,14 @@ const DIRECTOR_RUN_MODE_OPTIONS: ReadonlyArray<{
   {
     value: "manual_confirm",
     icon: ShieldAlert,
-    label: "手动模式",
-    description: "每个生成步骤执行前由你确认",
+    label: "Manual mode",
+    description: "You confirm before each generation step runs",
   },
   {
     value: "episode_auto",
     icon: Gauge,
-    label: "本集自动",
-    description: "二次确认后自动推进本集，失败或成片完成时停止",
+    label: "Episode Auto",
+    description: "After a second confirmation, this episode advances automatically and stops on failure or when the final cut is complete",
   },
 ];
 
@@ -11208,14 +11215,14 @@ const CANVAS_COMMAND_EXECUTION_MODE_OPTIONS: ReadonlyArray<{
   {
     value: "manual_confirm",
     icon: ShieldAlert,
-    label: "手动确认",
-    description: "Agent 在执行画布命令前都会请求确认",
+    label: "Manual confirm",
+    description: "The Agent asks for confirmation before running any canvas command",
   },
   {
     value: "auto_execute",
     icon: Wrench,
-    label: "自动生成",
-    description: "Agent 会自动执行安全命令并反馈结果",
+    label: "Auto generate",
+    description: "The Agent runs safe commands automatically and reports the results",
   },
 ];
 
@@ -11250,48 +11257,48 @@ function compactJsonValue(value: unknown): string {
 }
 
 function nodeTypeLabel(nodeType: string | undefined): string {
-  if (!nodeType) return "节点";
-  if (nodeType === "imageGenNode") return "图片节点";
-  if (nodeType === "videoNode") return "视频节点";
-  if (nodeType === "textAnnotationNode") return "文本节点";
-  if (nodeType === "audioNode") return "音频节点";
-  if (nodeType === "scriptNode") return "脚本节点";
+  if (!nodeType) return "node";
+  if (nodeType === "imageGenNode") return "image node";
+  if (nodeType === "videoNode") return "video node";
+  if (nodeType === "textAnnotationNode") return "text node";
+  if (nodeType === "audioNode") return "audio node";
+  if (nodeType === "scriptNode") return "script node";
   return nodeType;
 }
 
 function canvasCommandPlanLabel(command: CanvasChatCommand): string {
   switch (command.type) {
     case "create_node":
-      return `创建${nodeTypeLabel(command.node_type)}`;
+      return `Create ${nodeTypeLabel(command.node_type)}`;
     case "add_next_node":
-      return `添加下游${nodeTypeLabel(command.node_type)}`;
+      return `Add downstream ${nodeTypeLabel(command.node_type)}`;
     case "update_node_data":
-      return "更新节点参数";
+      return "Update node parameters";
     case "delete_nodes":
-      return "删除节点";
+      return "Delete nodes";
     case "delete_edges":
-      return "断开连接";
+      return "Disconnect links";
     case "create_edge":
-      return "创建连接";
+      return "Create link";
     case "layout_nodes":
-      return "整理布局";
+      return "Arrange layout";
     case "group_nodes":
-      return "创建普通组";
+      return "Create group";
     case "move_nodes":
-      return "移动节点";
+      return "Move nodes";
     case "select_nodes":
-      return "选中节点";
+      return "Select nodes";
     case "run_node_action":
-      if (command.action === "generate_image") return "生成图片";
-      if (command.action === "generate_video") return "生成视频";
-      if (command.action === "open_video_compose_modal") return "打开视频合成";
-      if (command.action === "auto_compose_video") return "自动合成视频";
-      if (command.action === "open_video_viewer") return "打开视频";
-      return "执行节点动作";
+      if (command.action === "generate_image") return "Generate image";
+      if (command.action === "generate_video") return "Generate video";
+      if (command.action === "open_video_compose_modal") return "Open video compose";
+      if (command.action === "auto_compose_video") return "Auto-compose video";
+      if (command.action === "open_video_viewer") return "Open video";
+      return "Run node action";
     case "open_mainline_projection":
-      return "打开主线虾画";
+      return "Open mainline Manna Canvas";
     default:
-      return "画布操作";
+      return "Canvas action";
   }
 }
 
@@ -11308,13 +11315,13 @@ function canvasCommandPlanPrimary(command: CanvasChatCommand): string | undefine
     case "open_mainline_projection":
       if (command.request.scope === "beat") return `EP${command.request.episode ?? ""} / Beat ${command.request.beat ?? ""}`;
       if (command.request.scope === "episode") return `EP${command.request.episode ?? ""}`;
-      return command.request.asset_id ?? command.request.identity_id ?? command.request.character ?? command.request.asset_kind ?? "主线素材";
+      return command.request.asset_id ?? command.request.identity_id ?? command.request.character ?? command.request.asset_kind ?? "Mainline asset";
     case "delete_nodes":
     case "select_nodes":
     case "group_nodes":
       return command.node_ids.join(", ");
     case "layout_nodes":
-      return command.node_ids?.length ? command.node_ids.join(", ") : "当前画布";
+      return command.node_ids?.length ? command.node_ids.join(", ") : "Current canvas";
     case "create_edge":
       return `${command.source} -> ${command.target}`;
     case "delete_edges":
@@ -11334,46 +11341,46 @@ function canvasCommandPlanDetails(command: CanvasChatCommand): string[] {
   const details: string[] = [];
   if (command.type === "create_node" || command.type === "add_next_node") {
     if (command.type === "create_node" && command.position) {
-      details.push(`位置：${Math.round(command.position.x)}, ${Math.round(command.position.y)}`);
+      details.push(`Position: ${Math.round(command.position.x)}, ${Math.round(command.position.y)}`);
     }
     if (command.type === "add_next_node") {
-      details.push(`上游：${command.source_node_id}`);
-      if (command.connect) details.push("自动连线");
+      details.push(`Upstream: ${command.source_node_id}`);
+      if (command.connect) details.push("Auto-link");
     }
     for (const key of ["displayName", "title", "content", "text", "prompt", "model", "size", "requestAspectRatio", "aspectRatio", "count"] as const) {
       const value = command.data?.[key as keyof typeof command.data];
-      if (value !== undefined && value !== "") details.push(`${key}：${compactJsonValue(value)}`);
+      if (value !== undefined && value !== "") details.push(`${key}: ${compactJsonValue(value)}`);
     }
   } else if (command.type === "update_node_data") {
     for (const [key, value] of Object.entries(command.data)) {
       if (value !== undefined && value !== "") details.push(`${key} -> ${compactJsonValue(value)}`);
     }
   } else if (command.type === "run_node_action") {
-    details.push(`动作：${command.action}`);
+    details.push(`Action: ${command.action}`);
   } else if (command.type === "open_mainline_projection") {
-    details.push(`范围：${command.request.scope}`);
-    if (typeof command.request.episode === "number") details.push(`集数：${command.request.episode}`);
-    if (typeof command.request.beat === "number") details.push(`Beat：${command.request.beat}`);
-    if (command.request.primary_slot) details.push(`目标：${command.request.primary_slot}`);
-    if (command.request.asset_kind) details.push(`素材类型：${command.request.asset_kind}`);
+    details.push(`Scope: ${command.request.scope}`);
+    if (typeof command.request.episode === "number") details.push(`Episode: ${command.request.episode}`);
+    if (typeof command.request.beat === "number") details.push(`Beat: ${command.request.beat}`);
+    if (command.request.primary_slot) details.push(`Target: ${command.request.primary_slot}`);
+    if (command.request.asset_kind) details.push(`Asset kind: ${command.request.asset_kind}`);
   } else if (command.type === "create_edge") {
-    details.push(`link_type：${command.link_type}`);
+    details.push(`link_type: ${command.link_type}`);
   } else if (command.type === "layout_nodes") {
-    details.push(`模式：${command.mode}`);
-    details.push(command.node_ids?.length ? `数量：${command.node_ids.length}` : "范围：当前画布全部节点");
+    details.push(`Mode: ${command.mode}`);
+    details.push(command.node_ids?.length ? `Count: ${command.node_ids.length}` : "Scope: all nodes on the current canvas");
   } else if (command.type === "group_nodes") {
-    details.push(`数量：${command.node_ids.length}`);
-    if (command.label) details.push(`名称：${command.label}`);
+    details.push(`Count: ${command.node_ids.length}`);
+    if (command.label) details.push(`Name: ${command.label}`);
   } else if (command.type === "move_nodes") {
     const moveCount = new Set([
       ...Object.keys(command.positions ?? {}),
       ...Object.keys(command.deltas ?? {}),
     ]).size;
-    details.push(`数量：${moveCount}`);
+    details.push(`Count: ${moveCount}`);
   } else if (command.type === "delete_nodes") {
-    details.push(`数量：${command.node_ids.length}`);
+    details.push(`Count: ${command.node_ids.length}`);
   } else if (command.type === "delete_edges") {
-    details.push(`数量：${(command.edge_ids?.length ?? 0) + (command.pairs?.length ?? 0)}`);
+    details.push(`Count: ${(command.edge_ids?.length ?? 0) + (command.pairs?.length ?? 0)}`);
   }
   return details;
 }
@@ -11596,7 +11603,7 @@ function createThinkingCanvasContextActivity(turnId: string): CanvasContextActiv
 }
 
 function canvasContextActivityIsValidation(activity: CanvasContextActivity): boolean {
-  return activity.labels.includes(CANVAS_CONTEXT_REQUEST_LABELS.validate_canvas_commands) || activity.labels.includes("命令校验");
+  return activity.labels.includes(CANVAS_CONTEXT_REQUEST_LABELS.validate_canvas_commands) || activity.labels.includes("命令校验"); // i18n-exempt: matches previously persisted Chinese label
 }
 
 function canvasCommandAnchorEndIndex(text: string, anchorTextPrefix?: string | null): number {
@@ -11639,16 +11646,16 @@ function canvasCommandSemanticAnchorIndex(text: string, event: CanvasCommandSurf
     event.kind === "context" &&
     (
       event.activity.labels.includes(CANVAS_CONTEXT_REQUEST_LABELS.validate_canvas_commands) ||
-      event.activity.labels.includes("命令校验")
+      event.activity.labels.includes("命令校验") // i18n-exempt: matches previously persisted Chinese label
     )
   ) {
     return firstCanvasCommandSemanticMarkerIndex(text, [
-      "验证通过",
-      "校验通过",
-      "验证失败",
-      "校验失败",
-      "命令验证",
-      "命令校验",
+      "验证通过", // i18n-exempt: matches Chinese input
+      "校验通过", // i18n-exempt: matches Chinese input
+      "验证失败", // i18n-exempt: matches Chinese input
+      "校验失败", // i18n-exempt: matches Chinese input
+      "命令验证", // i18n-exempt: matches Chinese input
+      "命令校验", // i18n-exempt: matches Chinese input
     ]);
   }
   if (event.kind === "context") {
@@ -11657,39 +11664,39 @@ function canvasCommandSemanticAnchorIndex(text: string, event: CanvasCommandSurf
   }
   if (event.kind === "feedback" && event.feedback.applied + event.feedback.openedUiActions > 0) {
     return firstCanvasCommandSemanticMarkerIndex(text, [
-      "已经在画布上",
-      "已在画布上",
-      "已成功创建",
-      "成功创建",
-      "已经成功",
-      "我已经成功",
-      "已创建",
-      "创建好了",
-      "搭建好了",
+      "已经在画布上", // i18n-exempt: matches Chinese input
+      "已在画布上", // i18n-exempt: matches Chinese input
+      "已成功创建", // i18n-exempt: matches Chinese input
+      "成功创建", // i18n-exempt: matches Chinese input
+      "已经成功", // i18n-exempt: matches Chinese input
+      "我已经成功", // i18n-exempt: matches Chinese input
+      "已创建", // i18n-exempt: matches Chinese input
+      "创建好了", // i18n-exempt: matches Chinese input
+      "搭建好了", // i18n-exempt: matches Chinese input
     ]);
   }
   return null;
 }
 
 function canvasContextReadSemanticAnchorIndex(text: string, activity: CanvasContextActivity): number | null {
-  if (!activity.labels.some((label) => label !== CANVAS_CONTEXT_REQUEST_LABELS.validate_canvas_commands && label !== "命令校验")) {
+  if (!activity.labels.some((label) => label !== CANVAS_CONTEXT_REQUEST_LABELS.validate_canvas_commands && label !== "命令校验")) { // i18n-exempt: matches previously persisted Chinese label
     return null;
   }
   const requestMarkers = [
-    "我需要获取",
-    "我需要读取",
-    "我先获取",
-    "我先读取",
-    "先获取",
-    "先读取",
-    "让我先查看",
-    "让我查看",
-    "查看一下",
-    "创建schema",
-    "获取该节点的详细信息",
-    "读取节点详情",
-    "检查当前",
-    "确认当前",
+    "我需要获取", // i18n-exempt: matches Chinese input
+    "我需要读取", // i18n-exempt: matches Chinese input
+    "我先获取", // i18n-exempt: matches Chinese input
+    "我先读取", // i18n-exempt: matches Chinese input
+    "先获取", // i18n-exempt: matches Chinese input
+    "先读取", // i18n-exempt: matches Chinese input
+    "让我先查看", // i18n-exempt: matches Chinese input
+    "让我查看", // i18n-exempt: matches Chinese input
+    "查看一下", // i18n-exempt: matches Chinese input
+    "创建schema", // i18n-exempt: matches Chinese input
+    "获取该节点的详细信息", // i18n-exempt: matches Chinese input
+    "读取节点详情", // i18n-exempt: matches Chinese input
+    "检查当前", // i18n-exempt: matches Chinese input
+    "确认当前", // i18n-exempt: matches Chinese input
   ];
   const requestIndex = firstCanvasCommandSemanticMarkerIndex(text, requestMarkers);
   if (requestIndex != null) {
@@ -11697,12 +11704,12 @@ function canvasContextReadSemanticAnchorIndex(text: string, activity: CanvasCont
     return paragraphEnd < 0 ? text.length : paragraphEnd + 2;
   }
   return firstCanvasCommandSemanticMarkerIndex(text, [
-    "现在我已经获取",
-    "现在我已获取",
-    "已经获取",
-    "已获取",
-    "已经读取",
-    "已读取",
+    "现在我已经获取", // i18n-exempt: matches Chinese input
+    "现在我已获取", // i18n-exempt: matches Chinese input
+    "已经获取", // i18n-exempt: matches Chinese input
+    "已获取", // i18n-exempt: matches Chinese input
+    "已经读取", // i18n-exempt: matches Chinese input
+    "已读取", // i18n-exempt: matches Chinese input
   ]);
 }
 
@@ -12172,8 +12179,8 @@ function canvasCommandFeedbackIsValidationOnly(feedback: CanvasCommandFeedback):
     feedback.applied === 0 &&
     feedback.openedUiActions === 0 &&
     steps.length > 0 &&
-    !steps.some((step) => step.label === "已取消") &&
-    steps.every((step) => step.type === "validate" || step.label === "校验画布命令")
+    !steps.some((step) => step.label === "Cancelled" || step.label === "已取消") && // i18n-exempt: matches previously persisted Chinese label
+    steps.every((step) => step.type === "validate" || step.label === "Validate canvas commands" || step.label === "校验画布命令") // i18n-exempt: matches Chinese label produced by canvasChatCommands.ts
   );
 }
 
@@ -12571,7 +12578,7 @@ export function SuperChatPanel({
     void apiCall<AgentCapabilityPriceReference>("chat/agent-capability-price-reference")
       .then(setAgentBillingReference)
       .catch(() => {
-        toast.error("暂时无法加载虾导计费说明");
+        toast.error("Couldn't load the Manna Director billing reference");
       });
   }, [agentBillingReference, isFreezoneLayout]);
   const shouldStickToBottomRef = useRef(true);
@@ -13072,15 +13079,15 @@ export function SuperChatPanel({
           episode: detail.episode ?? current.episode ?? 1,
           voicePolicy: detail.voicePolicy ?? current.voicePolicy,
         });
-        toast.info("本集自动已暂停后续推进，等待你确认是否修改", { duration: 10000 });
+        toast.info("Episode Auto has paused further progress. Confirm whether to make the change", { duration: 10000 });
         return;
       }
       if (detail?.status === "paused" || detail?.status === "completed") {
         updateDirectorRunState(defaultDirectorRunState());
         if (detail.status === "completed") {
-          toast.success(`第 ${detail.episode ?? "当前"} 集自动制作已完成`);
-        } else if (detail.message && detail.message !== "用户切换为手动模式") {
-          toast.error("本集自动已暂停");
+          toast.success(`Auto production finished for episode ${detail.episode ?? "current"}`);
+        } else if (detail.message && detail.message !== "用户切换为手动模式") { // i18n-exempt: protocol value
+          toast.error("Episode Auto paused");
         }
       }
     };
@@ -13091,7 +13098,7 @@ export function SuperChatPanel({
   const setDirectorExecutionMode = useCallback((mode: DirectorRunMode) => {
     if (mode === "episode_auto") {
       updateDirectorRunState(activateDirectorEpisodeAuto());
-      toast.success("已选择本集自动；发送开始指令后，还需再次确认才会执行", {
+      toast.success("Episode Auto selected. After you send a start instruction, one more confirmation is needed before it runs", {
         duration: 10000,
       });
     } else {
@@ -13099,7 +13106,7 @@ export function SuperChatPanel({
       const project = params.project?.trim();
       if (project) {
         void pauseDirectorAutoServer(project).catch(() => {
-          toast.error("已切换为手动模式，但后端自动任务暂停请求未送达");
+          toast.error("Switched to manual mode, but the request to pause the backend auto task did not go through");
         });
       }
     }
@@ -13177,8 +13184,8 @@ export function SuperChatPanel({
       const label = buildChatTaskLabel(event.task, t);
       const text =
         event.type === "task_complete"
-          ? `✅ ${label}已完成。你可以让我查看结果，或继续下一步。`
-          : `${label}失败：${event.task.error || event.task.current_task || "未提供具体错误原因"}\n请根据错误处理前置条件后再继续。`;
+          ? `✅ ${label} completed. You can ask me to review the results or continue to the next step.`
+          : `${label} failed: ${event.task.error || event.task.current_task || "No specific error reason was provided"}\nResolve the prerequisite named in the error, then continue.`;
       void chat.appendNotification(text);
     });
   }, [chat.appendNotification, params.project, t, taskEventBus, variant]);
@@ -13917,7 +13924,7 @@ export function SuperChatPanel({
           }
         } catch (error) {
           const message = error instanceof Error ? error.message : String(error);
-          const errorMessage = `画布命令执行异常：${message}`;
+          const errorMessage = `Canvas command error: ${message}`;
           result = {
             applied: 0,
             openedUiActions: 0,
@@ -13928,7 +13935,7 @@ export function SuperChatPanel({
                 commandIndex: -1,
                 type: "validate",
                 status: "error",
-                label: "画布执行异常",
+                label: "Canvas run error",
                 error: errorMessage,
               },
             ],
@@ -14033,7 +14040,7 @@ export function SuperChatPanel({
       );
     }
     const receivedAt = Date.now();
-    const cancelMessage = reason === "timeout" ? "画布操作等待超时，已自动取消" : t("freezone.chat.canvasCommandsCancelled");
+    const cancelMessage = reason === "timeout" ? "The canvas action timed out and was cancelled automatically" : t("freezone.chat.canvasCommandsCancelled");
     const result: CanvasChatCommandApplyResult = {
       applied: 0,
       openedUiActions: 0,
@@ -14044,7 +14051,7 @@ export function SuperChatPanel({
           commandIndex: -1,
           type: "validate",
           status: "error",
-          label: "已取消",
+          label: "Cancelled",
           error: cancelMessage,
         },
       ],
@@ -14914,13 +14921,13 @@ export function SuperChatPanel({
             await startDirectorAutoServer(project, state.episode ?? 1, voicePolicy);
           } catch (error) {
             toast.error(
-              `无法启动本集自动：${error instanceof Error ? error.message : "后端请求失败"}`,
+              `Couldn't start Episode Auto: ${error instanceof Error ? error.message : "backend request failed"}`,
             );
             return false;
           }
           const confirmed = confirmDirectorEpisodeAuto({ ...state, voicePolicy });
           updateDirectorRunState(confirmed);
-          toast.success("本集自动已启动，正在检查当前进度", { duration: 10000 });
+          toast.success("Episode Auto started. Checking current progress", { duration: 10000 });
           nextText = directorAutoRunTransportText(nextText);
         } else if (state.confirmationStage === "awaiting_intervention") {
           nextText = directorAutoInterventionTransportText(nextText);
@@ -15220,11 +15227,11 @@ export function SuperChatPanel({
     selections: SkillStudioQuestionSelections,
   ): Promise<boolean> => {
     if (!chat.busy || !event.turn_id || event.turn_id !== chat.activeTurnId) {
-      toast.error("这轮对话已结束，不能继续提交这个问题");
+      toast.error("This turn has ended, so this question can't be submitted");
       return false;
     }
     if (!event.bridge_key) {
-      toast.error("Skill Studio 桥接信息缺失，请重试");
+      toast.error("Skill Studio bridge info is missing. Try again");
       return false;
     }
     try {
@@ -15250,7 +15257,7 @@ export function SuperChatPanel({
               : buildSkillStudioQuestionResponseForTest(event, selections),
       };
       if (!chat.submitSkillStudioResult(payload)) {
-        toast.error("Skill Studio 连接未就绪，请重试");
+        toast.error("Skill Studio connection isn't ready. Try again");
         return false;
       }
       if (event.turn_id) {
@@ -15287,7 +15294,7 @@ export function SuperChatPanel({
       return true;
     } catch (error) {
       console.error("[superchat] skill studio result submit failed", error);
-      toast.error("提交 Skill Studio 选择失败，请重试");
+      toast.error("Failed to submit the Skill Studio selection. Try again");
       return false;
     }
   }, [chat, effectiveFreezoneAgentId, effectiveFreezoneCanvasId, params.project, persistSkillStudioUiEvent, updateChatUiEvent]);
@@ -15297,11 +15304,11 @@ export function SuperChatPanel({
     answers: AssistantClarificationAnswers,
   ): Promise<boolean> => {
     if (!chat.busy || !event.turn_id || event.turn_id !== chat.activeTurnId) {
-      toast.error("这轮对话已结束，不能继续提交这个问题");
+      toast.error("This turn has ended, so this question can't be submitted");
       return false;
     }
     if (!event.bridge_key) {
-      toast.error("补充信息桥接缺失，请重试");
+      toast.error("Additional-info bridge is missing. Try again");
       return false;
     }
     const submissionKey = `${event.turn_id}:${event.bridge_key}`;
@@ -15319,7 +15326,7 @@ export function SuperChatPanel({
         event, answers,
       )) {
         submittedAssistantClarificationKeysRef.current.delete(submissionKey);
-        toast.error("推荐配置缺少有效参数，请重新选择或刷新后重试");
+        toast.error("The recommended settings are missing valid parameters. Reselect or refresh and try again");
         return false;
       }
       const skillStudioRevision = activeAssistantClarificationIsSkillStudioRevision(visibleMessages, event);
@@ -15345,7 +15352,7 @@ export function SuperChatPanel({
       });
       if (result.ok === false) {
         submittedAssistantClarificationKeysRef.current.delete(submissionKey);
-        toast.error(result.errors?.find(Boolean) || result.message || "提交补充信息失败，请重试");
+        toast.error(result.errors?.find(Boolean) || result.message || "Failed to submit the additional information. Try again");
         return false;
       }
       if (event.turn_id) {
@@ -15394,7 +15401,7 @@ export function SuperChatPanel({
     } catch (error) {
       submittedAssistantClarificationKeysRef.current.delete(submissionKey);
       console.error("[superchat] clarification result submit failed", error);
-      toast.error("提交补充信息失败，请重试");
+      toast.error("Failed to submit the additional information. Try again");
       return false;
     }
 	  }, [chat, params.project, effectiveFreezoneCanvasId, effectiveFreezoneAgentId, persistSkillStudioUiEvent, updateChatUiEvent, visibleMessages]);
@@ -15404,7 +15411,7 @@ export function SuperChatPanel({
     draftPayload: Record<string, unknown>,
   ): Promise<boolean> => {
     if (!event.bridge_key) {
-      toast.error("Skill Studio 桥接信息缺失，请重试");
+      toast.error("Skill Studio bridge info is missing. Try again");
       return false;
     }
     try {
@@ -15430,9 +15437,9 @@ export function SuperChatPanel({
         json: payload,
       });
       if (!result.ok || !result.saved_to_catalog) {
-        const errorText = result.errors?.find(Boolean) || result.message || "后端没有确认保存成功";
+        const errorText = result.errors?.find(Boolean) || result.message || "The backend did not confirm the save";
         const partiallySaved = Boolean(result.saved_skill_ids?.length || result.saved_recipe_ids?.length);
-        toast.error(partiallySaved && result.message ? result.message : `添加 Skill / Recipe 失败：${errorText}`);
+        toast.error(partiallySaved && result.message ? result.message : `Failed to add Skill / Recipe: ${errorText}`);
         return false;
       }
       payload.saved_skill_ids = result.saved_skill_ids ?? payload.saved_skill_ids;
@@ -15492,11 +15499,11 @@ export function SuperChatPanel({
           );
         persistSkillStudioUiEvent(event.turn_id, persistedEvent);
       }
-      toast.success("已添加到虾画 Skills / Recipes");
+      toast.success("Added to Manna Canvas Skills / Recipes");
       return true;
     } catch (error) {
       console.error("[superchat] skill studio draft submit failed", error);
-      toast.error("添加 Skill / Recipe 失败，请检查必填字段后重试");
+      toast.error("Failed to add Skill / Recipe. Check the required fields and try again");
       return false;
     }
   }, [chat.activeTurnId, chat.busy, effectiveFreezoneAgentId, effectiveFreezoneCanvasId, params.project, persistSkillStudioUiEvent, queryClient, updateChatUiEvent]);
@@ -15537,7 +15544,7 @@ export function SuperChatPanel({
   ): Promise<boolean> => {
     if (!event.turn_id) return false;
     if (!event.bridge_key) {
-      toast.error("Skill Studio 桥接信息缺失，请重试");
+      toast.error("Skill Studio bridge info is missing. Try again");
       return false;
     }
     try {
@@ -15549,7 +15556,7 @@ export function SuperChatPanel({
         }),
       };
       if (!chat.submitSkillStudioResult(payload)) {
-        toast.error("Skill Studio 连接未就绪，请重试");
+        toast.error("Skill Studio connection isn't ready. Try again");
         return false;
       }
       const receivedAt = uiEventFirstReceivedAt(event);
@@ -15584,7 +15591,7 @@ export function SuperChatPanel({
       return true;
     } catch (error) {
       console.error("[superchat] skill studio draft revision submit failed", error);
-      toast.error("启动草稿调整失败，请重试");
+      toast.error("Failed to start the draft adjustment. Try again");
       return false;
     }
   }, [chat, effectiveFreezoneAgentId, effectiveFreezoneCanvasId, params.project, persistSkillStudioUiEvent, updateChatUiEvent]);
@@ -15595,7 +15602,7 @@ export function SuperChatPanel({
   ) => {
     if (!event.turn_id) return;
     if (!event.bridge_key) {
-      toast.error("Skill Studio 桥接信息缺失，请重试");
+      toast.error("Skill Studio bridge info is missing. Try again");
       return;
     }
     const payload = {
@@ -15606,7 +15613,7 @@ export function SuperChatPanel({
       }),
     };
     if (!chat.submitSkillStudioResult(payload)) {
-      toast.error("Skill Studio 连接未就绪，请重试");
+      toast.error("Skill Studio connection isn't ready. Try again");
       return;
     }
     const receivedAt = uiEventFirstReceivedAt(event);
@@ -15833,8 +15840,8 @@ export function SuperChatPanel({
               variant="ghost"
               size="icon-sm"
               onClick={() => setAgentBillingOpen(true)}
-              aria-label="虾导计费说明"
-              title="虾导计费说明"
+              aria-label="Manna Director billing reference"
+              title="Manna Director billing reference"
               className="text-muted-foreground hover:bg-white/[0.08] hover:text-foreground"
             >
               <Gauge className="size-4" />
@@ -16108,8 +16115,8 @@ export function SuperChatPanel({
                 "absolute bottom-4 left-1/2 z-30 h-9 w-9 -translate-x-1/2 rounded-full border border-white/12 bg-background/88 text-foreground shadow-lg backdrop-blur transition hover:bg-background",
                 isFreezoneLayout && "bottom-3",
               )}
-              title="回到底部"
-              aria-label="回到底部"
+              title="Back to bottom"
+              aria-label="Back to bottom"
               onClick={() => scrollToChatBottom("auto", { force: true })}
             >
               <ArrowDown className="h-4 w-4" />
@@ -16131,7 +16138,7 @@ export function SuperChatPanel({
                   aria-live="polite"
                 >
                   <span className="size-1.5 shrink-0 animate-pulse rounded-full bg-success" />
-                  <span>本集自动正在运行，将按任务状态继续推进</span>
+                  <span>Episode Auto is running and will keep advancing based on task status</span>
                 </div>
               ) : (
                 <ComposerWaitingStatus
@@ -16214,7 +16221,7 @@ export function SuperChatPanel({
             {!hasActiveComposerPrompt && showFreezoneSkillSuggestions && !showClearCommandSuggestion && !freezoneSkillMenuExplicitOpen && (
               <div className="border-b border-white/10 bg-black/20 px-3 py-2.5">
                 <div className="mb-1.5 px-0.5 text-xs text-muted-foreground/85">
-                  技能
+                  Skills
                 </div>
                 <div className="max-h-52 overflow-y-auto pr-1">
                   {visibleFreezoneSkillSuggestions.length > 0 ? (
@@ -16251,10 +16258,10 @@ export function SuperChatPanel({
                   ) : (
                     <div className="px-0.5 pb-2 pt-0.5 text-xs leading-5 text-muted-foreground/65">
                       <div className="font-normal text-muted-foreground/72">
-                        还没有可用技能
+                        No skills available yet
                       </div>
                       <div className="mt-1 max-w-[30rem] text-[11px] leading-4 text-muted-foreground/45">
-                        可以让 Agent 把当前画布总结成 Skill，也可以直接描述你的工作流，让它帮你创建专属技能。
+                        Ask the Agent to summarize the current canvas into a Skill, or describe your workflow and let it create a custom skill for you.
                       </div>
                       <div className="mt-2 flex flex-wrap gap-1.5">
                         {FREEZONE_SKILL_EMPTY_ACTIONS.map((action) => (
@@ -16360,17 +16367,17 @@ export function SuperChatPanel({
             {!hasActiveComposerPrompt && isFreezoneLayout && selectedFreezoneNodes.length > 0 && (
               <div className={cn("px-4", visibleComposerAttachments.length > 0 ? "pt-2" : "pt-3")}>
                 <div className="mb-1 flex items-center justify-between text-[11px] text-muted-foreground">
-                  <span>当前选中</span>
+                  <span>Currently selected</span>
                   <div className="flex items-center gap-2">
-                    <span>本轮会使用</span>
+                    <span>Used this turn</span>
                     {selectedFreezoneNodes.length > 1 && (
                       <button
                         type="button"
                         onClick={deselectAllSelectedFreezoneNodeReferences}
                         className="rounded-sm px-1.5 py-0.5 text-[11px] font-medium text-destructive transition hover:bg-destructive/10 hover:text-destructive"
-                        aria-label="取消全部画布引用"
+                        aria-label="Remove all canvas references"
                       >
-                        全部取消
+                        Remove all
                       </button>
                     )}
                   </div>
@@ -16452,15 +16459,15 @@ export function SuperChatPanel({
                             <>
                               <Gauge className="size-3.5" />
                               {directorRunState.confirmationStage === "confirmed"
-                                ? "本集自动 · 运行中"
+                                ? "Episode Auto · Running"
                                 : directorRunState.confirmationStage === "awaiting_intervention"
-                                  ? "本集自动 · 待修改确认"
-                                : "本集自动 · 待确认"}
+                                  ? "Episode Auto · Awaiting change confirmation"
+                                : "Episode Auto · Awaiting confirmation"}
                             </>
                           ) : (
                             <>
                               <ShieldAlert className="size-3.5" />
-                              手动模式
+                              Manual mode
                             </>
                           )}
                         </DropdownMenuTrigger>
@@ -16518,12 +16525,12 @@ export function SuperChatPanel({
                             {canvasCommandExecutionMode === "manual_confirm" ? (
                               <>
                                 <ShieldAlert className="size-3.5" />
-                                手动确认
+                                Manual confirm
                               </>
                             ) : (
                               <>
                                 <Wrench className="size-3.5" />
-                                自动生成
+                                Auto generate
                               </>
                             )}
                           </DropdownMenuTrigger>
@@ -16593,8 +16600,8 @@ export function SuperChatPanel({
                             setActiveFreezoneSkillSuggestionIndex(0);
                             restoreDraftFocusRef.current = true;
                           }}
-                          aria-label="选择 Skill"
-                          title="选择 Skill"
+                          aria-label="Select Skill"
+                          title="Select Skill"
                           aria-expanded={showFreezoneSkillSuggestions}
                         >
                           <Package className="size-4" />
@@ -16707,7 +16714,7 @@ export function SuperChatPanel({
                   aria-expanded={freezoneSkillCreateMenuOpen}
                 >
                   <Plus className="size-3.5" />
-                  创建
+                  Create
                   <ChevronDown className={cn("size-3 transition", freezoneSkillCreateMenuOpen && "rotate-180")} />
                 </button>
                 {freezoneSkillCreateMenuOpen && (
@@ -16774,7 +16781,7 @@ export function SuperChatPanel({
                   );
                 }
               }}
-              placeholder="搜索 Skill"
+              placeholder="Search Skills"
               className="h-9 w-full rounded-[8px] border border-white/[0.08] bg-white/[0.06] pl-8 pr-3 text-sm text-foreground outline-none placeholder:text-white/32 transition focus:border-white/[0.18] focus:bg-white/[0.08]"
             />
           </label>
@@ -16812,12 +16819,12 @@ export function SuperChatPanel({
             ) : (
               <div className="px-1 pb-1 pt-0.5 text-xs leading-5 text-muted-foreground/78">
                 <div className="font-medium text-foreground/78">
-                  {freezoneSkillMenuSearch.trim() ? "没有匹配的 Skill" : "这里暂时没有 Skill"}
+                  {freezoneSkillMenuSearch.trim() ? "No matching Skills" : "No Skills here yet"}
                 </div>
                 {!freezoneSkillMenuSearch.trim() && (
                   <>
                     <div className="mt-1 text-muted-foreground/62">
-                      可以让 Agent 把当前画布总结成 Skill，也可以描述你的工作流来创建专属技能。
+                      Ask the Agent to summarize the current canvas into a Skill, or describe your workflow to create a custom skill.
                     </div>
                     <div className="mt-3 flex flex-wrap gap-2">
                       {FREEZONE_SKILL_EMPTY_ACTIONS.map((action) => (
@@ -16859,10 +16866,10 @@ export function SuperChatPanel({
         <Dialog open={agentBillingOpen} onOpenChange={setAgentBillingOpen}>
           <DialogContent className="w-[calc(100vw-2rem)] border-white/10 bg-background/95 p-0 backdrop-blur-xl sm:max-w-[min(46.08rem,calc(100vw-3rem))]">
             <div className="border-b border-white/10 px-5 py-4">
-              <DialogTitle>虾导 Agent 积分参考</DialogTitle>
+              <DialogTitle>Manna Director Agent credit reference</DialogTitle>
               <p className="mt-1 text-xs leading-5 text-muted-foreground">
                 {agentBillingReference?.note
-                  ?? "普通聊天和画布操作免费；仅高级 Agent 能力交付计费。"}
+                  ?? "Regular chat and canvas actions are free; only advanced Agent capability deliveries are billed."}
               </p>
             </div>
             <div className="max-h-[65vh] overflow-auto px-5 py-4">
@@ -16870,9 +16877,9 @@ export function SuperChatPanel({
                 <table className="w-full min-w-[640px] table-fixed text-left text-xs">
                   <thead className="bg-white/[0.05] text-muted-foreground">
                     <tr>
-                      <th className="w-[24%] px-3 py-2.5 font-medium">任务</th>
-                      <th className="w-[54%] px-3 py-2.5 font-medium">包含内容</th>
-                      <th className="w-[22%] px-3 py-2.5 font-medium">Agent 计费</th>
+                      <th className="w-[24%] px-3 py-2.5 font-medium">Task</th>
+                      <th className="w-[54%] px-3 py-2.5 font-medium">Includes</th>
+                      <th className="w-[22%] px-3 py-2.5 font-medium">Agent billing</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/[0.07]">
@@ -16892,7 +16899,7 @@ export function SuperChatPanel({
                     {!agentBillingReference && (
                       <tr>
                         <td colSpan={3} className="px-3 py-8 text-center text-muted-foreground">
-                          正在加载计费参考…
+                          Loading billing reference…
                         </td>
                       </tr>
                     )}
@@ -16900,9 +16907,9 @@ export function SuperChatPanel({
                 </table>
               </div>
               <p className="mt-3 text-[11px] leading-5 text-muted-foreground">
-                表中区间用于提前了解消耗量级，最终以系统配置的功能价格和实际成功交付数量为准。
-                图片、音频和视频等模型生成费用不包含在本表中，仍由 NewAPI 按原有规则独立结算。
-                工具重试和内部多步调用不会重复收取 Agent 交付费用。
+                The ranges in the table give an advance sense of scale; the final charge follows the feature prices set in the system and the number of successful deliveries.
+                Model generation costs for images, audio, and video are not included in this table and are still billed separately by NewAPI under the existing rules.
+                Tool retries and internal multi-step calls do not incur repeated Agent delivery charges.
               </p>
             </div>
           </DialogContent>

@@ -305,7 +305,7 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       />,
     );
 
-    expect(screen.queryByText("本轮会使用")).not.toBeInTheDocument();
+    expect(screen.queryByText("Used this turn")).not.toBeInTheDocument();
     expect(screen.queryByText("图片节点")).not.toBeInTheDocument();
   });
 
@@ -336,15 +336,15 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       />,
     );
 
-    expect(screen.getByText("本轮会使用")).toBeInTheDocument();
+    expect(screen.getByText("Used this turn")).toBeInTheDocument();
 
-    const removeButton = screen.getByLabelText("移除画布引用");
+    const removeButton = screen.getByLabelText("Remove canvas reference");
     expect(removeButton).toHaveClass("opacity-0");
     expect(removeButton).toHaveClass("group-hover:opacity-100");
 
     fireEvent.click(removeButton);
 
-    expect(screen.queryByText("本轮会使用")).not.toBeInTheDocument();
+    expect(screen.queryByText("Used this turn")).not.toBeInTheDocument();
     expect(useCanvasStore.getState().nodes[0]?.selected).toBe(false);
     expect(useCanvasStore.getState().selectedNodeId).toBeNull();
   });
@@ -383,12 +383,12 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       />,
     );
 
-    expect(screen.getByText("本轮会使用")).toBeInTheDocument();
-    expect(screen.getByText("全部取消")).toBeInTheDocument();
+    expect(screen.getByText("Used this turn")).toBeInTheDocument();
+    expect(screen.getByText("Remove all")).toBeInTheDocument();
 
-    fireEvent.click(screen.getByLabelText("取消全部画布引用"));
+    fireEvent.click(screen.getByLabelText("Remove all canvas references"));
 
-    expect(screen.queryByText("本轮会使用")).not.toBeInTheDocument();
+    expect(screen.queryByText("Used this turn")).not.toBeInTheDocument();
     expect(useCanvasStore.getState().nodes.every((node) => !node.selected)).toBe(true);
     expect(useCanvasStore.getState().selectedNodeId).toBeNull();
   });
@@ -434,8 +434,8 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
     });
 
     expect(screen.getAllByRole("button", { name: /图片节点 · image-node-1/ })).toHaveLength(1);
-    expect(screen.getAllByLabelText("移除画布引用")).toHaveLength(1);
-    expect(screen.getByText("本轮会使用")).toBeInTheDocument();
+    expect(screen.getAllByLabelText("Remove canvas reference")).toHaveLength(1);
+    expect(screen.getByText("Used this turn")).toBeInTheDocument();
   });
 
   it("sends selected canvas nodes as canvas reference attachments", async () => {
@@ -768,7 +768,7 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       />,
     );
 
-    const usageButton = screen.getByLabelText("上下文用量");
+    const usageButton = screen.getByLabelText("Context usage");
     expect(usageButton).toHaveTextContent("");
     expect(usageButton).toHaveAttribute(
       "title",
@@ -813,7 +813,7 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       />,
     );
 
-    expect(screen.queryByLabelText("上下文用量")).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("Context usage")).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "aiAssistant.actions.copy" })).not.toBeInTheDocument();
   });
 
@@ -859,8 +859,8 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       />,
     );
 
-    expect(screen.getByText("正在思考中")).toBeInTheDocument();
-    expect(screen.queryByLabelText("上下文用量")).not.toBeInTheDocument();
+    expect(screen.getByText("Thinking")).toBeInTheDocument();
+    expect(screen.queryByLabelText("Context usage")).not.toBeInTheDocument();
   });
 
   it("hides orphan recovered ui-event assistant messages without a matching user turn", () => {
@@ -952,7 +952,7 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       }));
     });
 
-    expect(await screen.findByText("正在读取画布 Ontology")).toBeInTheDocument();
+    expect(await screen.findByText("Reading canvas ontology")).toBeInTheDocument();
 
     act(() => {
       window.dispatchEvent(new CustomEvent("freezone/canvas-context-tool-result", {
@@ -972,7 +972,7 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       }));
     });
 
-    await waitFor(() => expect(screen.getByText("已读取画布 Ontology")).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText("Read canvas ontology")).toBeInTheDocument());
   });
 
   it("persists and reports approved canvas command results", async () => {
@@ -1040,7 +1040,7 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       }));
     });
 
-    expect(screen.getByText("待确认的画布操作")).toBeInTheDocument();
+    expect(screen.getByText("Canvas actions awaiting confirmation")).toBeInTheDocument();
     await waitFor(() => expect(scrollToMock).toHaveBeenCalled());
     fireEvent.click(screen.getByRole("button", { name: "确认执行" }));
 
@@ -1134,13 +1134,13 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       }));
     });
 
-    expect(await screen.findByLabelText("图片模型")).toBeInTheDocument();
+    expect(await screen.findByLabelText("Image model")).toBeInTheDocument();
     expect(screen.getByLabelText("图片画质")).toBeInTheDocument();
-    fireEvent.change(screen.getByLabelText("图片模型"), { target: { value: "seedream-4.5" } });
+    fireEvent.change(screen.getByLabelText("Image model"), { target: { value: "seedream-4.5" } });
     await waitFor(() => expect(screen.queryByLabelText("图片画质")).not.toBeInTheDocument());
-    fireEvent.change(screen.getByLabelText("图片比例"), { target: { value: "9:16" } });
-    fireEvent.change(screen.getByLabelText("图片分辨率"), { target: { value: "2K" } });
-    fireEvent.change(screen.getByLabelText("图片数量"), { target: { value: "2" } });
+    fireEvent.change(screen.getByLabelText("Image aspect ratio"), { target: { value: "9:16" } });
+    fireEvent.change(screen.getByLabelText("Image resolution"), { target: { value: "2K" } });
+    fireEvent.change(screen.getByLabelText("Image count"), { target: { value: "2" } });
     fireEvent.click(screen.getByRole("button", { name: "确认执行" }));
 
     await waitFor(() =>
@@ -1242,22 +1242,22 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       }));
     });
 
-    expect(await screen.findByLabelText("视频模型")).toBeInTheDocument();
+    expect(await screen.findByLabelText("Video model")).toBeInTheDocument();
     expect(screen.queryByLabelText("视频比例")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("视频清晰度")).not.toBeInTheDocument();
-    expect(screen.queryByLabelText("视频时长")).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("Video duration")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("视频音频")).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "视频参数：16:9 · 720P · 5s · 静音" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Video parameters: 16:9 · 720P · 5s · 静音" })).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: "视频参数：16:9 · 720P · 5s · 静音" }));
+    fireEvent.click(screen.getByRole("button", { name: "Video parameters: 16:9 · 720P · 5s · 静音" }));
     fireEvent.click(screen.getByRole("button", { name: "9:16" }));
     fireEvent.click(screen.getByRole("button", { name: "1080P" }));
-    fireEvent.change(screen.getByLabelText("视频时长"), { target: { value: "10" } });
+    fireEvent.change(screen.getByLabelText("Video duration"), { target: { value: "10" } });
     fireEvent.click(screen.getByRole("switch", { name: "生成音频" }));
-    fireEvent.change(screen.getByLabelText("视频数量"), { target: { value: "2" } });
+    fireEvent.change(screen.getByLabelText("Video count"), { target: { value: "2" } });
 
-    expect(screen.getByRole("button", { name: "视频参数：9:16 · 1080P · 10s · 有声" })).toBeInTheDocument();
-    expect(screen.getByLabelText("视频数量")).toHaveValue("2");
+    expect(screen.getByRole("button", { name: "Video parameters: 9:16 · 1080P · 10s · 有声" })).toBeInTheDocument();
+    expect(screen.getByLabelText("Video count")).toHaveValue("2");
   });
 
   it("does not restore a persisted canvas command approval after it was confirmed", async () => {
@@ -1312,10 +1312,10 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       />,
     );
 
-    expect(await screen.findByText("待确认的画布操作")).toBeInTheDocument();
+    expect(await screen.findByText("Canvas actions awaiting confirmation")).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "确认执行" }));
 
-    await waitFor(() => expect(screen.queryByText("待确认的画布操作")).not.toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByText("Canvas actions awaiting confirmation")).not.toBeInTheDocument());
 
     superChatMocks.messages = [
       superChatMocks.messages[0],
@@ -1343,7 +1343,7 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       />,
     );
 
-    await waitFor(() => expect(screen.queryByText("待确认的画布操作")).not.toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByText("Canvas actions awaiting confirmation")).not.toBeInTheDocument());
     expect(screen.getByText("已为你添加一个视频节点。")).toBeInTheDocument();
   });
 
@@ -1397,12 +1397,12 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       }));
     });
 
-    expect(await screen.findByText("已校验画布命令")).toBeInTheDocument();
-    expect(await screen.findByText("待确认的画布操作")).toBeInTheDocument();
+    expect(await screen.findByText("Canvas commands validated")).toBeInTheDocument();
+    expect(await screen.findByText("Canvas actions awaiting confirmation")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "确认执行" })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "确认执行" }));
-    await waitFor(() => expect(screen.queryByText("待确认的画布操作")).not.toBeInTheDocument());
-    expect(await screen.findByText("画布执行")).toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByText("Canvas actions awaiting confirmation")).not.toBeInTheDocument());
+    expect(await screen.findByText("Canvas run")).toBeInTheDocument();
   });
 
   it("renders canvas command approval once when the same turn has a tool card", async () => {
@@ -1475,7 +1475,7 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getAllByText("待确认的画布操作")).toHaveLength(1);
+      expect(screen.getAllByText("Canvas actions awaiting confirmation")).toHaveLength(1);
     });
   });
 
@@ -1531,7 +1531,7 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       />,
     );
 
-    expect(await screen.findByText("待确认的画布操作")).toBeInTheDocument();
+    expect(await screen.findByText("Canvas actions awaiting confirmation")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "确认执行" })).toBeInTheDocument();
   });
 
@@ -1588,7 +1588,7 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
     );
 
     await waitFor(() => {
-      expect(screen.queryByText("待确认的画布操作")).not.toBeInTheDocument();
+      expect(screen.queryByText("Canvas actions awaiting confirmation")).not.toBeInTheDocument();
     });
     await waitFor(() => {
       expect(apiMocks.post).toHaveBeenCalledWith(
@@ -1682,7 +1682,7 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       />,
     );
 
-    await waitFor(() => expect(screen.queryByText("待确认的画布操作")).not.toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByText("Canvas actions awaiting confirmation")).not.toBeInTheDocument());
   });
 
   it("starts an agent recovery turn instead of replaying a timed-out command", async () => {
@@ -1703,7 +1703,7 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       {
         id: "assistant-a",
         role: "assistant",
-        text: "这轮操作没有收到虾导的有效回复，请稍后重试。",
+        text: "Manna Director did not send a valid reply this turn. Please try again shortly.",
         displayName: "Agent",
         timestamp: Date.now(),
         turnId: "turn-a",
@@ -1755,10 +1755,10 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       />,
     );
 
-    expect(screen.queryByText("这轮操作没有收到虾导的有效回复，请稍后重试。")).not.toBeInTheDocument();
+    expect(screen.queryByText("Manna Director did not send a valid reply this turn. Please try again shortly.")).not.toBeInTheDocument();
     // Expired approvals are expanded by default so recovery is immediately visible.
-    expect(await screen.findByRole("button", { name: "重新执行" })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "重新执行" }));
+    expect(await screen.findByRole("button", { name: "Run again" })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Run again" }));
 
     await waitFor(() => {
       expect(superChatMocks.send).toHaveBeenCalledWith(
@@ -1817,8 +1817,8 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       }));
     });
 
-    expect(await screen.findByText("待确认的画布操作")).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "取消" }));
+    expect(await screen.findByText("Canvas actions awaiting confirmation")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
 
     await waitFor(() =>
       expect(apiMocks.post).toHaveBeenCalledWith("api/v1/chat/canvas-command-tool-result", expect.objectContaining({
@@ -1899,7 +1899,7 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
           turn_id: "turn-a",
           canvas_apply_status: "cancelled_by_user",
           cancelled: true,
-          errors: ["画布操作等待超时，已自动取消"],
+          errors: ["The canvas action timed out and was cancelled automatically"],
         }),
       })),
     );
@@ -1965,8 +1965,8 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       }));
     });
 
-    expect(await screen.findByText("待确认的画布操作")).toBeInTheDocument();
-    expect(screen.getByText(/(?:299|300)s 后自动取消/)).toBeInTheDocument();
+    expect(await screen.findByText("Canvas actions awaiting confirmation")).toBeInTheDocument();
+    expect(screen.getByText(/Auto-cancels in (?:299|300)s/)).toBeInTheDocument();
   });
 
   it("shows a cancelled feedback when a stale canvas approval remains in message parts", () => {
@@ -2041,7 +2041,7 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
     );
 
     expect(screen.getByText("视频生成请求超时了，前端尚未返回结果。")).toBeInTheDocument();
-    expect(screen.queryByText("待确认的画布操作")).not.toBeInTheDocument();
+    expect(screen.queryByText("Canvas actions awaiting confirmation")).not.toBeInTheDocument();
     expect(
       screen.getByText("画布操作因等待超时已取消，没有应用到画布。"),
     ).toBeInTheDocument();
@@ -2079,9 +2079,9 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       />,
     );
 
-    expect(await screen.findByText("创建节点")).toBeInTheDocument();
-    expect(screen.getByText("进行中")).toBeInTheDocument();
-    expect(screen.getByText("项目：project-a")).toBeInTheDocument();
+    expect(await screen.findByText("Create node")).toBeInTheDocument();
+    expect(screen.getByText("In progress")).toBeInTheDocument();
+    expect(screen.getByText("Project: project-a")).toBeInTheDocument();
   });
 
   it("hides protocol narration when a canvas command approval is shown", async () => {
@@ -2133,7 +2133,7 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       }));
     });
 
-    expect(await screen.findByText("待确认的画布操作")).toBeInTheDocument();
+    expect(await screen.findByText("Canvas actions awaiting confirmation")).toBeInTheDocument();
     expect(screen.queryByText(/canvas_chat_commands\.v1/)).not.toBeInTheDocument();
   });
 });

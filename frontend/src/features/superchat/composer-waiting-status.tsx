@@ -157,7 +157,7 @@ export function ComposerWaitingStatus({
     if (variant !== "default" || !liveActivityLabel || elapsedSeconds < 10) return normalized;
     if (elapsedSeconds >= 45) {
       return t("aiAssistant.waitingStageVeryLong", {
-        label: normalized.replace(/^正在/u, ""),
+        label: normalized.replace(/^正在/u, ""), // i18n-exempt: matches Chinese input
         seconds: elapsedSeconds,
       });
     }

@@ -100,11 +100,11 @@ function aggregateChatTaskBatch(items: ChatTaskItem[]): ChatTaskItem {
       status,
       progress,
       current_task: [
-        `批次进度 ${settled}/${expected}`,
-        active.length > 0 ? `运行 ${active.length}` : "",
-        waiting > 0 ? `等待 ${waiting}` : "",
+        `Batch progress ${settled}/${expected}`,
+        active.length > 0 ? `Running ${active.length}` : "",
+        waiting > 0 ? `Waiting ${waiting}` : "",
       ].filter(Boolean).join(" · "),
-      error: failed > 0 ? `${failed}/${expected} 个任务失败` : representative.task.error,
+      error: failed > 0 ? `${failed}/${expected} tasks failed` : representative.task.error,
     },
   };
 }

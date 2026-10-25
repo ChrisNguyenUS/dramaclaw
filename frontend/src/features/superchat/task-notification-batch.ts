@@ -56,23 +56,26 @@ export function resolveChatTaskBatchSummary(
 }
 
 export function buildChatTaskBatchNotification(summary: ChatTaskBatchSummary): string {
-  const episodeLabel = summary.episode > 0 ? `第 ${summary.episode} 集` : "";
+  const episodeLabel = summary.episode > 0 ? `Episode ${summary.episode}` : "";
   const taskLabel = summary.taskType === "single_video"
-    ? "视频"
+    ? "video"
     : summary.taskType === "selected_regen"
-      ? "首帧"
+      ? "first frame"
       : summary.taskType === "sketch_grid_generation"
-        ? "草图网格"
-      : "任务";
+        ? "sketch grid"
+      : "task";
   if (summary.completed === summary.total) {
-    const prefix = episodeLabel ? `${episodeLabel} ` : "";
-    return `✅ ${prefix}${summary.total} 个${taskLabel}已全部生成完成。你可以让我查看结果，或继续下一步。`;
+    const prefix = episodeLabel ? `${episodeLabel}: ` : "";
+    const plural = summary.total === 1 ? taskLabel : `${taskLabel}s`;
+    return `✅ ${prefix}All ${summary.total} ${plural} generated. You can ask me to review the results or continue to the next step.`;
   }
 
   const details = [
-    `完成 ${summary.completed}/${summary.total}`,
-    summary.failed > 0 ? `失败 ${summary.failed}` : "",
-    summary.cancelled > 0 ? `取消 ${summary.cancelled}` : "",
-  ].filter(Boolean).join("，");
-  return `${episodeLabel}${taskLabel}批次已结束：${details}。请在任务中心查看详情后再继续。`;
+    `${summary.completed}/${summary.total} completed`,
+    summary.failed > 0 ? `${summary.failed} failed` : "",
+    summary.cancelled > 0 ? `${summary.cancelled} cancelled` : "",
+  ].filter(Boolean).join(", ");
+  const batchLabel = `${taskLabel} batch finished`;
+  const heading = episodeLabel ? `${episodeLabel} ${batchLabel}` : `${batchLabel[0].toUpperCase()}${batchLabel.slice(1)}`;
+  return `${heading}: ${details}. Check the task center for details before continuing.`;
 }

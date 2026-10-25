@@ -44,7 +44,7 @@ export function FreezoneNodeSuggestionMenu({
 
   return (
     <div className="border-b border-white/10 bg-black/20 px-3 py-2.5">
-      <div className="mb-1.5 px-0.5 text-xs text-muted-foreground/85">节点</div>
+      <div className="mb-1.5 px-0.5 text-xs text-muted-foreground/85">Nodes</div>
       {visible.length > 0 ? (
         <div
           className="max-h-64 overflow-y-auto pr-1"
@@ -97,7 +97,7 @@ export function FreezoneNodeSuggestionMenu({
           })}
         </div>
       ) : (
-        <div className="px-0.5 pb-1 pt-0.5 text-xs text-muted-foreground/65">没有匹配的节点</div>
+        <div className="px-0.5 pb-1 pt-0.5 text-xs text-muted-foreground/65">No matching nodes</div>
       )}
     </div>
   );

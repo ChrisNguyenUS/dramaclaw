@@ -178,16 +178,16 @@ describe("mixed workflow approval execution", () => {
     const props = { approval, onApply: vi.fn(), onCancel: vi.fn() };
     const view = render(createElement(CanvasCommandApprovalCardForTest, props));
     try {
-      expect(view.getByLabelText("图片模型")).toBeTruthy();
-      expect(view.getByLabelText("视频模型")).toBeTruthy();
+      expect(view.getByLabelText("Image model")).toBeTruthy();
+      expect(view.getByLabelText("Video model")).toBeTruthy();
       view.rerender(createElement(CanvasCommandApprovalCardForTest, { ...props, isExecuting: true }));
       act(() => useCanvasStore.setState({ nodes: nodes.map((node) => ({
         ...node, data: { ...node.data, imageUrl: "image.png", audioUrl: "audio.mp3" },
       })) }));
-      expect(view.getByLabelText("图片模型")).toBeTruthy();
-      expect(view.getByLabelText("视频模型")).toBeTruthy();
+      expect(view.getByLabelText("Image model")).toBeTruthy();
+      expect(view.getByLabelText("Video model")).toBeTruthy();
       expect(view.container.textContent).toContain("纯音乐");
-      expect(view.queryByText("待确认的画布操作")).toBeNull();
+      expect(view.queryByText("Canvas actions awaiting confirmation")).toBeNull();
     } finally {
       view.unmount();
       useCanvasStore.setState({ nodes: previous.nodes, edges: previous.edges });
@@ -517,7 +517,7 @@ describe("mergeHistorySnapshot", () => {
       skill: { id: "pixar-ad" },
       recipes: [{ id: "storyboard" }],
     });
-    expect(event?.warnings).toContain("Recipe 已生成 1 / 2，缺少 1 个。");
+    expect(event?.warnings).toContain("Recipes generated: 1 / 2, 1 missing.");
     expect(assistant?.uiEvents?.some((item) =>
       Boolean(item && typeof item === "object" && (item as Record<string, unknown>).type === "skill_studio.status"),
     )).toBe(false);
@@ -1026,7 +1026,7 @@ This Freezone chat can change the current canvas by returning a JSON block.
       created_at: "2026-07-10T08:00:00Z",
     });
 
-    expect(normalized?.text).toBe("这轮操作没有收到虾导的有效回复，请稍后重试。");
+    expect(normalized?.text).toBe("Manna Director did not send a valid reply this turn. Please try again shortly.");
   });
 
   it("preserves backend ui events for persisted canvas feedback", () => {
@@ -2015,11 +2015,11 @@ describe("Skill Studio question response", () => {
       { audience: "social", style: "modern" },
     );
 
-    expect(text).toContain("Skill Studio 会话：skill_studio_01");
+    expect(text).toContain("Skill Studio session: skill_studio_01");
     expect(text).toContain("创建宣传海报 Skill");
-    expect(text).toContain("核心使用场景是什么？：用于社媒平台发布（小红书/抖音等）");
-    expect(text).toContain("偏好的视觉风格是？：现代简约/信息图风");
-    expect(text).toContain("用户已完成选择，请结合当前上下文继续。");
+    expect(text).toContain("核心使用场景是什么？: 用于社媒平台发布 (小红书/抖音等)");
+    expect(text).toContain("偏好的视觉风格是？: 现代简约/信息图风");
+    expect(text).toContain("The user has finished selecting. Continue using the current context.");
     expect(text).not.toContain("继续生成 Skill / Recipe 草稿");
   });
 
@@ -2088,8 +2088,8 @@ describe("Skill Studio question response", () => {
       { audience: "social" },
     );
 
-    expect(text).toContain("核心使用场景是什么？：用于社媒平台发布");
-    expect(text).toContain("偏好的视觉风格是？：未选择");
+    expect(text).toContain("核心使用场景是什么？: 用于社媒平台发布");
+    expect(text).toContain("偏好的视觉风格是？: Not selected");
   });
 
   it("describes multiple options and custom text in question answers", () => {
@@ -2118,7 +2118,7 @@ describe("Skill Studio question response", () => {
       },
     );
 
-    expect(text).toContain("海报通常需要包含哪些内容元素？：家乡名称与简介；特色图片/插画；补充：再加一个适合社媒传播的互动话题");
+    expect(text).toContain("海报通常需要包含哪些内容元素？: 家乡名称与简介; 特色图片/插画; Additional: 再加一个适合社媒传播的互动话题");
   });
 
   it("builds compact timeline items for submitted question cards", () => {
@@ -2157,19 +2157,19 @@ describe("Skill Studio question response", () => {
       {
         key: "audience",
         title: "目标受众是谁？",
-        summary: "外地游客（潜在旅行者）",
+        summary: "外地游客 (潜在旅行者)",
         answered: true,
       },
       {
         key: "elements",
         title: "希望突出哪些内容？",
-        summary: "地方美食；非遗文化；补充：突出苏州桃花坞年画",
+        summary: "地方美食; 非遗文化; Additional: 突出苏州桃花坞年画",
         answered: true,
       },
       {
         key: "extra",
         title: "其他补充",
-        summary: "未选择",
+        summary: "Not selected",
         answered: false,
       },
     ]);
@@ -2207,7 +2207,7 @@ describe("Skill Studio question response", () => {
       {
         key: "confirm",
         title: "草稿确认",
-        summary: "已跳过",
+        summary: "Skipped",
         answered: true,
       },
     ]);
@@ -2306,7 +2306,7 @@ describe("Skill Studio question response", () => {
       selections: { scope: "planning" },
       ok: true,
     });
-    expect(payload.message).toContain("主要做什么？：策划");
+    expect(payload.message).toContain("主要做什么？: 策划");
   });
 
   it("summarizes canvas command failures without exposing protocol details to users", () => {
@@ -2436,7 +2436,7 @@ describe("Skill Studio question response", () => {
         custom_text: "需要留一个主标题位置",
       },
     });
-    expect(payload.message).toContain("内容元素？：特色图片；二维码/Logo；补充：需要留一个主标题位置");
+    expect(payload.message).toContain("内容元素？: 特色图片; 二维码/Logo; Additional: 需要留一个主标题位置");
   });
 });
 
@@ -2476,7 +2476,7 @@ describe("Assistant clarification response", () => {
             id: "scope",
             title: "这个 skill 的使用范围是？",
             options: [
-              { id: "user", label: "用户级（推荐）" },
+              { id: "user", label: "用户级 (推荐)" },
               { id: "project", label: "项目级" },
             ],
           },
@@ -2488,8 +2488,8 @@ describe("Assistant clarification response", () => {
       },
     );
 
-    expect(text).toContain("你想创建的 skill 是做什么的？\n工作流自动化；补充：用于海报生成");
-    expect(text).toContain("这个 skill 的使用范围是？\n用户级（推荐）");
+    expect(text).toContain("你想创建的 skill 是做什么的？\n工作流自动化; Additional: 用于海报生成");
+    expect(text).toContain("这个 skill 的使用范围是？\n用户级 (推荐)");
   });
 
   it("keeps clarification replies in the current project when tool metadata omits scope", () => {
@@ -2564,10 +2564,10 @@ describe("Assistant clarification response", () => {
       { skillStudioRevision: true },
     );
 
-    expect(payload.message).toContain("Skill Studio 草稿修订流程");
-    expect(payload.message).toContain("下一步必须继续调用 freezone_request_user_clarification");
+    expect(payload.message).toContain("Skill Studio draft revision flow");
+    expect(payload.message).toContain("the next step must be to call freezone_request_user_clarification");
     expect(payload.message).toContain("freezone_finish_agent_catalog_draft");
-    expect(payload.message).toContain("不要只回复普通文本");
+    expect(payload.message).toContain("Do not reply with plain text only");
     expect(payload.message).not.toContain("请基于以上补充信息继续");
   });
 });
@@ -2902,30 +2902,30 @@ describe("Skill Studio status events", () => {
 });
 
 describe("Skill Studio draft response", () => {
-  it("uses the same Chinese field names as the catalog edit pages", () => {
+  it("labels draft fields in English", () => {
     expect(skillStudioDraftFieldLabelsForTest.skill).toMatchObject({
-      keywords: "触发关键词",
-      node_scopes: "节点类型",
-      metaPlanningHints: "规划器提示词",
-      promptStyleGuide: "风格指引",
-      behaviorRules: "行为规则",
-      passingScore: "通过分数线",
-      domainRules: "领域规则",
-      ratingBands: "评分档位",
-      visualReviewItems: "视觉评审项",
-      textReviewItems: "文案评审项",
+      keywords: "Trigger keywords",
+      node_scopes: "Node types",
+      metaPlanningHints: "Planner hints",
+      promptStyleGuide: "Style guide",
+      behaviorRules: "Behavior rules",
+      passingScore: "Passing score",
+      domainRules: "Domain rules",
+      ratingBands: "Rating bands",
+      visualReviewItems: "Visual review items",
+      textReviewItems: "Copy review items",
     });
     expect(skillStudioDraftFieldLabelsForTest.recipe).toMatchObject({
-      output_kind: "生成类型",
-      action_keys: "操作类型",
+      output_kind: "Output type",
+      action_keys: "Action types",
       system_prompt: "System Prompt",
-      must_have_items: "必需元素",
-      planning_prompt: "规划器提示词",
-      result_summary: "输出概述",
-      requires_source_media: "依赖上游多模态输入",
-      enabled: "启用",
-      force_enhancement: "强制增强",
-      skip_detail_check: "跳过细节检查",
+      must_have_items: "Required elements",
+      planning_prompt: "Planner prompt",
+      result_summary: "Output summary",
+      requires_source_media: "Requires upstream multimodal input",
+      enabled: "Enabled",
+      force_enhancement: "Force enhancement",
+      skip_detail_check: "Skip detail check",
     });
     const legacyRecipeKeys = [
       "required" + "_elements",
@@ -2965,9 +2965,9 @@ describe("Skill Studio draft response", () => {
     expect(fields).toEqual({
       qualityThreshold: 7,
       domainConstraints: ["必须为竖版 9:16 比例"],
-      ratingBands: ["8：风格统一且文化元素表达准确"],
-      visualReviewItems: ["风格一致性（0.35）：是否符合国潮视觉风格"],
-      textReviewItems: ["文案传播力（0.4）：标题是否有记忆点"],
+      ratingBands: ["8: 风格统一且文化元素表达准确"],
+      visualReviewItems: ["风格一致性 (0.35): 是否符合国潮视觉风格"],
+      textReviewItems: ["文案传播力 (0.4): 标题是否有记忆点"],
     });
   });
 
@@ -3037,7 +3037,7 @@ describe("Skill Studio draft response", () => {
       },
     });
     expect(payload.message).toContain("home-culture-poster");
-    expect(payload.message).toContain("已保存为正式 Skill / Recipe");
+    expect(payload.message).toContain("saved as an official Skill / Recipe");
   });
 
   it("normalizes Skill Studio draft input parameters before catalog save", () => {
@@ -3118,9 +3118,9 @@ describe("Skill Studio draft response", () => {
       saved_skill_ids: [],
       saved_recipe_ids: [],
     });
-    expect(payload.message).toContain("用户已取消 Skill Studio 草稿保存");
-    expect(payload.message).toContain("本次草稿不会写入虾画配置");
-    expect(payload.message).toContain("不要重新提交");
+    expect(payload.message).toContain("The user cancelled saving the Skill Studio draft");
+    expect(payload.message).toContain("This draft will not be written to the Manna Canvas configuration");
+    expect(payload.message).toContain("do not resubmit");
     expect(payload.agent_instruction).toContain("Do not resubmit");
     expect(payload.agent_instruction).toContain("Do not call any Skill Studio");
     expect(payload.message).not.toContain("继续回复");
@@ -3173,22 +3173,22 @@ describe("Skill Studio draft response", () => {
         recipe_count: 0,
       },
     });
-    expect(payload.message).toContain("启动 Skill Studio 草稿修改会话");
-    expect(payload.message).toContain("本次回执提供当前完整 draft");
-    expect(payload.message).toContain("draft 只用于理解被修改对象和后续局部 patch");
-    expect(payload.message).toContain("用户已经明确表示需要调整");
-    expect(payload.message).toContain("不要再询问是否需要调整");
-    expect(payload.message).toContain("不要询问是否保存当前版本");
+    expect(payload.message).toContain("started a Skill Studio draft revision session");
+    expect(payload.message).toContain("This receipt provides the full current draft");
+    expect(payload.message).toContain("Use it only to understand the object being modified and for later partial patches");
+    expect(payload.message).toContain("The user has explicitly said the current draft needs adjusting");
+    expect(payload.message).toContain("do not ask again whether it needs adjusting");
+    expect(payload.message).toContain("Do not ask whether to save the current version");
     expect(payload.message).toContain("save_now");
-    expect(payload.message).toContain("不是继续完成原草稿");
-    expect(payload.message).toContain("下一步必须调用 freezone_request_user_clarification");
-    expect(payload.message).toContain("questions 数组必须只有一个问题");
-    expect(payload.message).toContain("在用户回答修改方向之前，禁止调用 freezone_begin_agent_catalog_draft");
+    expect(payload.message).toContain("This is not a request to finish the original draft");
+    expect(payload.message).toContain("the next step must be to call freezone_request_user_clarification");
+    expect(payload.message).toContain("must contain exactly one question");
+    expect(payload.message).toContain("Until the user answers about the direction for changes, do not call freezone_begin_agent_catalog_draft");
     expect(payload.message).toContain("freezone_begin_agent_catalog_draft");
     expect(payload.message).toContain("freezone_finish_agent_catalog_draft");
-    expect(payload.message).toContain("禁止调用 freezone_finish_agent_catalog_draft 原样展示当前草稿");
-    expect(payload.message).toContain("不要在单个 tool_call 里传完整 Skill / Recipe catalog");
-    expect(payload.message).toContain("不要用普通文本总结修改结果");
+    expect(payload.message).toContain("Do not call freezone_finish_agent_catalog_draft to show the current draft unchanged");
+    expect(payload.message).toContain("Do not pass the full Skill / Recipe catalog in a single tool_call");
+    expect(payload.message).toContain("Do not summarize the result of the change in plain text");
   });
 
   it("shows the draft as AI adjusting while a revision session is pending", () => {
@@ -3196,7 +3196,7 @@ describe("Skill Studio draft response", () => {
       submitted: false,
       cancelled: false,
       revisionPending: true,
-    })).toBe("AI 调整中，请按后续问题补充修改方向");
+    })).toBe("AI is adjusting; answer the follow-up questions to give the direction for changes");
   });
 
   it("preserves HTML webpage deliverables when saving an imported Skill Studio recipe", () => {
@@ -6254,7 +6254,7 @@ describe("tool status parts", () => {
       status: "completed",
     }, "turn-a");
 
-    expect(genericToolTitleForTest((part as { event: ChatMessage }).event)).toBe("整理 Skill 方案");
+    expect(genericToolTitleForTest((part as { event: ChatMessage }).event)).toBe("Organize Skill plan");
   });
 
   it("uses a lightweight retry label for failed Skill Studio outline status", () => {
@@ -6271,7 +6271,7 @@ describe("tool status parts", () => {
       status: "failed",
       title: genericToolTitleForTest(toolMessage),
       toolMessage,
-    })).toBe("待重新整理 Skill 方案");
+    })).toBe("Skill plan needs to be reorganized");
   });
 
   it("uses friendly labels for Workflow Skill draft tool status", () => {
@@ -6301,17 +6301,17 @@ describe("tool status parts", () => {
       status: "done",
       title: genericToolTitleForTest(prepareCompleted),
       toolMessage: prepareCompleted,
-    })).toBe("已生成工作流草稿");
+    })).toBe("Done: Generate workflow draft");
     expect(toolStatusRuntimeTextForTest({
       status: "failed",
       title: genericToolTitleForTest(prepareFailed),
       toolMessage: prepareFailed,
-    })).toBe("待重新生成工作流草稿");
+    })).toBe("Workflow draft needs to be regenerated");
     expect(toolStatusRuntimeTextForTest({
       status: "done",
       title: genericToolTitleForTest(confirmCompleted),
       toolMessage: confirmCompleted,
-    })).toBe("已提交到画布");
+    })).toBe("Done: Submit to canvas");
   });
 
   it("renders workflow parameter handoff as waiting instead of failed", () => {
@@ -6333,7 +6333,7 @@ describe("tool status parts", () => {
       status: "failed",
       title: genericToolTitleForTest(waiting),
       toolMessage: waiting,
-    })).toBe("等待选择生成参数");
+    })).toBe("Waiting for you to choose generation parameters");
   });
 
   it("hides a superseded parameter handoff after the same draft operation succeeds", () => {
@@ -6602,7 +6602,7 @@ describe("tool status parts", () => {
 
     expect(hideSettledToolStatus).toBe(false);
     expect(agentThoughtRuntimePresentationForTest(thought, { streaming: true })).toMatchObject({
-      label: "思考中",
+      label: "Thinking",
       initiallyExpanded: true,
     });
   });
@@ -6742,11 +6742,11 @@ describe("tool status parts", () => {
     };
 
     expect(agentThoughtRuntimePresentationForTest(thought, { streaming: false })).toMatchObject({
-      label: "思考过程",
+      label: "Thought process",
       initiallyExpanded: false,
     });
     expect(agentThoughtRuntimePresentationForTest(thought, { streaming: true })).toMatchObject({
-      label: "思考中",
+      label: "Thinking",
       initiallyExpanded: true,
     });
   });

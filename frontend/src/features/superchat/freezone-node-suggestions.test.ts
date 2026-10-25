@@ -253,14 +253,14 @@ describe("appendFreezoneNodeMentions", () => {
 });
 
 describe("buildFreezoneNodePreviewInfo", () => {
-  it("keeps the thumbnail and maps image column to 图片", () => {
+  it("keeps the thumbnail and maps image column to Image", () => {
     expect(
       buildFreezoneNodePreviewInfo("多角度", { thumbnailUrl: "https://x/i1.jpg", mediaUrl: null, column: "image" }),
     ).toEqual({
       label: "多角度",
       thumbnailUrl: "https://x/i1.jpg",
       videoPosterUrl: null,
-      typeLabel: "图片",
+      typeLabel: "Image",
     });
   });
 
@@ -275,7 +275,7 @@ describe("buildFreezoneNodePreviewInfo", () => {
       label: "片段5",
       thumbnailUrl: "https://x/v1.jpg",
       videoPosterUrl: null,
-      typeLabel: "视频",
+      typeLabel: "Video",
     });
   });
 
@@ -286,7 +286,7 @@ describe("buildFreezoneNodePreviewInfo", () => {
       label: "无封面视频",
       thumbnailUrl: null,
       videoPosterUrl: "https://x/v1.mp4",
-      typeLabel: "视频",
+      typeLabel: "Video",
     });
   });
 
@@ -298,7 +298,7 @@ describe("buildFreezoneNodePreviewInfo", () => {
       label: "配乐",
       thumbnailUrl: null,
       videoPosterUrl: null,
-      typeLabel: "音频",
+      typeLabel: "Audio",
     });
   });
 
@@ -307,16 +307,16 @@ describe("buildFreezoneNodePreviewInfo", () => {
       label: "分镜表",
       thumbnailUrl: null,
       videoPosterUrl: null,
-      typeLabel: "文本",
+      typeLabel: "Text",
     });
   });
 
-  it("falls back to 引用 when the node is no longer on canvas (meta missing)", () => {
+  it("falls back to Reference when the node is no longer on canvas (meta missing)", () => {
     expect(buildFreezoneNodePreviewInfo("旧引用", null)).toEqual({
       label: "旧引用",
       thumbnailUrl: null,
       videoPosterUrl: null,
-      typeLabel: "引用",
+      typeLabel: "Reference",
     });
   });
 });

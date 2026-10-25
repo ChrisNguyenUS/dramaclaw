@@ -157,11 +157,21 @@ describe("director episode auto mode", () => {
     expect(isDirectorEpisodeAutoStartIntent("看看当前状态")).toBe(false);
   });
 
+  it("recognizes English start phrases but rejects negated ones", () => {
+    expect(isDirectorEpisodeAutoStartIntent("Start episode 1")).toBe(true);
+    expect(isDirectorEpisodeAutoStartIntent("Confirm")).toBe(true);
+    expect(isDirectorEpisodeAutoStartIntent("go ahead")).toBe(true);
+    expect(isDirectorEpisodeAutoStartIntent("don't start yet")).toBe(false);
+    expect(isDirectorEpisodeAutoStartIntent("Please cancel, do not continue")).toBe(false);
+    expect(isDirectorEpisodeAutoStartIntent("What is the current status?")).toBe(false);
+  });
+
   it("uses a confirmation-only transport instruction before activation", () => {
     const text = directorAutoConfirmationTransportText("开始");
     expect(text).toContain("required second confirmation");
     expect(text).toContain("Do not call any write, generation, or mutation tool");
-    expect(text).toContain("继续 or 确认");
+    expect(text).toContain("reply Continue or Confirm");
+    expect(text).toContain("Episode Auto");
   });
 
   it("keeps a suspended intervention inside the same auto session", () => {
@@ -201,8 +211,8 @@ describe("director episode auto mode", () => {
       voiceChoiceRequired: true,
       voiceErrors: ["解说声线缺失"],
     });
-    expect(text).toContain("系统声线");
-    expect(text).toContain("自定义声线");
+    expect(text).toContain("System voice");
+    expect(text).toContain("Custom voice");
     expect(text).toContain("解说声线缺失");
     expect(directorAutoVoiceChoiceTransportText("确认")).toContain("Do not start episode auto");
   });
@@ -216,6 +226,13 @@ describe("director episode auto mode", () => {
     expect(resolveDirectorVoicePolicy("你说系统还是自定义？")).toBeNull();
   });
 
+  it("recognizes an English system or custom voice choice", () => {
+    expect(resolveDirectorVoicePolicy("Use the system voice")).toBe("system");
+    expect(resolveDirectorVoicePolicy("Custom voice please")).toBe("custom");
+    expect(resolveDirectorVoicePolicy("I will upload my own")).toBe("custom");
+    expect(resolveDirectorVoicePolicy("Which is better, system or custom?")).toBeNull();
+  });
+
   it("emphasizes only the two labels inside a voice-choice prompt", () => {
     expect(emphasizeDirectorVoiceChoiceLabels(
       "1）系统声线；2）自定义声线。请回复 系统声线 或 自定义声线。",
@@ -224,5 +241,15 @@ describe("director episode auto mode", () => {
     );
     expect(emphasizeDirectorVoiceChoiceLabels("当前使用系统声线。"))
       .toBe("当前使用系统声线。");
+  });
+
+  it("emphasizes the English voice labels inside an English voice-choice prompt", () => {
+    expect(emphasizeDirectorVoiceChoiceLabels(
+      "1) System voice; 2) Custom voice. Please reply System voice or Custom voice.",
+    )).toBe(
+      "1) **System voice**; 2) **Custom voice**. Please reply **System voice** or **Custom voice**.",
+    );
+    expect(emphasizeDirectorVoiceChoiceLabels("Currently using System voice."))
+      .toBe("Currently using System voice.");
   });
 });

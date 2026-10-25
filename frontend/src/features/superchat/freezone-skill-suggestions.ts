@@ -29,13 +29,13 @@ export type FreezoneSkillEmptyAction = {
 export const FREEZONE_SKILL_EMPTY_ACTIONS: FreezoneSkillEmptyAction[] = [
   {
     id: "summarize-canvas",
-    label: "总结画布为 Skill",
-    prompt: "把当前画布总结成一个可复用 Skill",
+    label: "Summarize canvas as a Skill",
+    prompt: "Summarize the current canvas into a reusable Skill",
   },
   {
     id: "create-with-agent",
-    label: "和 Agent 创建 Skill",
-    prompt: "帮我创建一个 Skill：",
+    label: "Create a Skill with the Agent",
+    prompt: "Help me create a Skill: ",
   },
 ];
 

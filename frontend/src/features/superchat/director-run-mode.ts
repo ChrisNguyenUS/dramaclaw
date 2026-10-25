@@ -163,14 +163,17 @@ export function isDirectorEpisodeAutoSession(state: DirectorAutoRunState): boole
       || state.confirmationStage === "awaiting_intervention");
 }
 
-const AUTO_START_INTENT_RE = /(?:开始|启动|执行|推进|继续|确认|同意|可以(?:开始)?|开始吧|继续吧|确认吧)/u;
-const AUTO_NEGATED_START_RE = /(?:不要|别|暂不|先不|取消|停止|暂停).{0,4}(?:开始|启动|执行|推进|继续|确认)/u;
+const AUTO_START_INTENT_RE = /(?:开始|启动|执行|推进|继续|确认|同意|可以(?:开始)?|开始吧|继续吧|确认吧)/u; // i18n-exempt: matches Chinese input
+const AUTO_NEGATED_START_RE = /(?:不要|别|暂不|先不|取消|停止|暂停).{0,4}(?:开始|启动|执行|推进|继续|确认)/u; // i18n-exempt: matches Chinese input
+const AUTO_START_INTENT_EN_RE = /\b(?:start|begin|launch|execute|proceed|continue|confirm|approve|go ahead)\b/i;
+const AUTO_NEGATED_START_EN_RE = /\b(?:don'?t|do not|never|not yet|cancel|stop|pause|hold off)\b.{0,12}\b(?:start|begin|launch|execute|proceed|continue|confirm|go)\b/i;
 
 export function isDirectorEpisodeAutoStartIntent(text: string): boolean {
   const normalized = text.trim();
   return normalized.length > 0
-    && AUTO_START_INTENT_RE.test(normalized)
-    && !AUTO_NEGATED_START_RE.test(normalized);
+    && (AUTO_START_INTENT_RE.test(normalized) || AUTO_START_INTENT_EN_RE.test(normalized))
+    && !AUTO_NEGATED_START_RE.test(normalized)
+    && !AUTO_NEGATED_START_EN_RE.test(normalized);
 }
 
 export function directorAutoConfirmationTransportText(
@@ -178,15 +181,15 @@ export function directorAutoConfirmationTransportText(
   options: { voiceChoiceRequired?: boolean; voiceErrors?: string[] } = {},
 ): string {
   const voiceInstruction = options.voiceChoiceRequired
-    ? " Before starting, the user must choose a voice policy. Explicitly present both Chinese choices: " +
-      "‘1）缺失声线由虾导自动匹配系统声线；2）我会到「虾塘」上传或录制自定义声线。’ " +
-      `${options.voiceErrors?.length ? `Known missing items: ${options.voiceErrors.join("；")}. ` : ""}` +
-      "Ask the user to reply 系统声线 or 自定义声线; do not start yet."
-    : " Then ask the user to reply 继续 or 确认 to start.";
+    ? " Before starting, the user must choose a voice policy. Explicitly present both choices: " +
+      "‘1) Missing voices are auto-matched to System voice by Manna Director; 2) I will upload or record a Custom voice in Manna Library.’ " +
+      `${options.voiceErrors?.length ? `Known missing items: ${options.voiceErrors.join("; ")}. ` : ""}` +
+      "Ask the user to reply System voice or Custom voice; do not start yet."
+    : " Then ask the user to reply Continue or Confirm to start.";
   return `${text}\n\n[DRAMACLAW_RUN_MODE_CONFIRMATION]\n`+
-    "The user selected 本集自动 but has not completed the required second confirmation. " +
-    "Do not call any write, generation, or mutation tool in this turn. Reply briefly in Chinese: " +
-    "state that 本集自动 will safely advance the current episode until the final composition is " +
+    "The user selected Episode Auto but has not completed the required second confirmation. " +
+    "Do not call any write, generation, or mutation tool in this turn. Reply briefly in English: " +
+    "state that Episode Auto will safely advance the current episode until the final composition is " +
     "complete, and will pause on failure, unmet prerequisites, destructive or ambiguous actions, " +
     `or choices that require the user.${voiceInstruction}\n` +
     "[/DRAMACLAW_RUN_MODE_CONFIRMATION]";
@@ -194,22 +197,30 @@ export function directorAutoConfirmationTransportText(
 
 export function resolveDirectorVoicePolicy(text: string): DirectorVoicePolicy | null {
   const normalized = text.trim();
-  const system = /(?:系统声(?:线|音|一)|系统配音|虾导匹配)/u.test(normalized);
-  const custom = /(?:自定义声(?:线|音)|上传(?:或录制)?|录制声线|声音采样|自定义配音)/u.test(normalized);
+  const system = /(?:系统声(?:线|音|一)|系统配音|虾导匹配)/u.test(normalized) // i18n-exempt: matches Chinese input
+    || /\bsystem\s+voices?\b/i.test(normalized);
+  const custom = /(?:自定义声(?:线|音)|上传(?:或录制)?|录制声线|声音采样|自定义配音)/u.test(normalized) // i18n-exempt: matches Chinese input
+    || /\bcustom\s+voices?\b|\bupload\b|\brecord(?:ing)?\s+(?:a\s+)?voices?\b/i.test(normalized);
   if (system === custom) return null;
   return system ? "system" : "custom";
 }
 
+const DIRECTOR_VOICE_CHOICE_SETS = [
+  {
+    labels: ["System voice", "Custom voice"],
+    prompt: /\b(?:please reply|please choose|which one|pick one)\b/i,
+  },
+  {
+    labels: ["系统声线", "自定义声线"], // i18n-exempt: matches Chinese input
+    prompt: /(?:请回复|请选择|你选哪种|选一个)/u, // i18n-exempt: matches Chinese input
+  },
+] as const;
+
 export function emphasizeDirectorVoiceChoiceLabels(text: string): string {
-  if (
-    !text.includes("系统声线")
-    || !text.includes("自定义声线")
-    || !/(?:请回复|请选择|你选哪种|选一个)/u.test(text)
-  ) {
-    return text;
-  }
-  const labels = ["系统声线", "自定义声线"] as const;
-  return labels.reduce((current, label, index) => {
+  const choiceSet = DIRECTOR_VOICE_CHOICE_SETS.find(({ labels, prompt }) =>
+    labels.every((label) => text.includes(label)) && prompt.test(text));
+  if (!choiceSet) return text;
+  return choiceSet.labels.reduce((current, label, index) => {
     const placeholder = `\uE000director-voice-${index}\uE001`;
     return current
       .split(`**${label}**`).join(placeholder)
@@ -221,8 +232,8 @@ export function emphasizeDirectorVoiceChoiceLabels(text: string): string {
 export function directorAutoVoiceChoiceTransportText(text: string): string {
   return `${text}\n\n[DRAMACLAW_VOICE_POLICY_REQUIRED]\n`+
     "Do not start episode auto and do not call generation tools. The user's voice policy is still " +
-    "unclear. Ask only: ‘请选择：1）缺失声线由虾导自动匹配系统声线；2）我会到「虾塘」上传或录制自定义声线。’ " +
-    "Ask them to reply 系统声线 or 自定义声线.\n[/DRAMACLAW_VOICE_POLICY_REQUIRED]";
+    "unclear. Ask only: ‘Please choose: 1) Missing voices are auto-matched to System voice by Manna Director; 2) I will upload or record a Custom voice in Manna Library.’ " +
+    "Ask them to reply System voice or Custom voice.\n[/DRAMACLAW_VOICE_POLICY_REQUIRED]";
 }
 
 export function markDirectorAutoHandled(
@@ -239,7 +250,7 @@ export function markDirectorAutoHandled(
 
 export function directorAutoRunTransportText(text: string): string {
   return `${text}\n\n[DRAMACLAW_RUN_MODE]\nmode=episode_auto\n`+
-    "The user enabled 本集自动 in the outer 虾导 UI. Treat this as approval to select and start " +
+    "The user enabled Episode Auto in the outer Manna Director UI. Treat this as approval to select and start " +
     "the next safe mainline step without asking for per-step confirmation. Keep the one-write-per-turn " +
     "limit. Before any write, inspect the current artifact and the latest task for that exact step. " +
     "If the artifact is merely missing and prerequisites are ready, start its generation. Do not let " +
@@ -254,14 +265,14 @@ export function directorAutoRunTransportText(text: string): string {
     "dramaclaw_control_episode_auto(action='pause'). Never cancel an already queued or running media " +
     "task unless the user separately and explicitly confirms cancellation. This mode never " +
     "applies Agent-credit billing. The durable auto coordinator is already running now: do not merely " +
-    "describe what 本集自动 will do in the future. Inspect current state, report the concrete active " +
+    "describe what Episode Auto will do in the future. Inspect current state, report the concrete active " +
     "task or start the next safe task, and say clearly that automatic production has started.\n" +
     "[/DRAMACLAW_RUN_MODE]";
 }
 
 export function directorAutoUserMessageTransportText(text: string): string {
   return `${text}\n\n[DRAMACLAW_AUTO_USER_MESSAGE]\n`+
-    "The durable backend already owns progression of the active outer 虾导 episode auto run. First " +
+    "The durable backend already owns progression of the active outer Manna Director episode auto run. First " +
     "understand the user's actual intent; do not start the next mainline task merely because this " +
     "message arrived. For a question, explanation, result view, or progress/status request, answer or " +
     "read only and leave automatic progression running. If the message may change, redo, replace, or " +
@@ -275,7 +286,7 @@ export function directorAutoUserMessageTransportText(text: string): string {
 
 export function directorAutoInterventionTransportText(text: string): string {
   return `${text}\n\n[DRAMACLAW_AUTO_INTERVENTION_CONFIRMATION]\n`+
-    "The outer 虾导 episode auto run is suspended while waiting for the user's answer about a possible " +
+    "The outer Manna Director episode auto run is suspended while waiting for the user's answer about a possible " +
     "modification. Interpret the answer semantically. If the user declines/cancels the modification or " +
     "asks to keep the original result and continue automatically, call " +
     "dramaclaw_control_episode_auto(action='resume') and acknowledge that automatic production resumed. " +

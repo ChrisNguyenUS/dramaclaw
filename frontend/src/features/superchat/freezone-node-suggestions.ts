@@ -189,12 +189,12 @@ export function appendFreezoneNodeMentions(
   return result;
 }
 
-/** 栏目 → 悬浮预览里显示的中文类型标签。 */
+/** 栏目 → 悬浮预览里显示的类型标签。 */
 const FREEZONE_NODE_COLUMN_LABEL: Record<AssetBoardColumn, string> = {
-  text: "文本",
-  image: "图片",
-  video: "视频",
-  audio: "音频",
+  text: "Text",
+  image: "Image",
+  video: "Video",
+  audio: "Audio",
 };
 
 /**
@@ -228,6 +228,6 @@ export function buildFreezoneNodePreviewInfo(
     label,
     thumbnailUrl,
     videoPosterUrl,
-    typeLabel: meta ? FREEZONE_NODE_COLUMN_LABEL[meta.column] : "引用",
+    typeLabel: meta ? FREEZONE_NODE_COLUMN_LABEL[meta.column] : "Reference",
   };
 }

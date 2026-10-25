@@ -163,10 +163,10 @@ describe("freezone skill slash suggestions", () => {
       "create-with-agent",
     ]);
     expect(insertFreezoneSkillEmptyActionPrompt("/", FREEZONE_SKILL_EMPTY_ACTIONS[0].prompt)).toBe(
-      "把当前画布总结成一个可复用 Skill",
+      "Summarize the current canvas into a reusable Skill",
     );
-    expect(insertFreezoneSkillEmptyActionPrompt("我想 /skill", FREEZONE_SKILL_EMPTY_ACTIONS[1].prompt)).toBe(
-      "我想 帮我创建一个 Skill：",
+    expect(insertFreezoneSkillEmptyActionPrompt("I want /skill", FREEZONE_SKILL_EMPTY_ACTIONS[1].prompt)).toBe(
+      "I want Help me create a Skill: ",
     );
   });
 });

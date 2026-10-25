@@ -42,6 +42,24 @@ describe("assistant success summary", () => {
     expect(assistantCompletionPrefix("当前任务没有生成完成。"))
       .toBeNull();
   });
+
+  it("classifies English completion replies the app itself produces", () => {
+    expect(assistantCompletionPrefix("✅ Episode 1: All 3 videos generated. You can ask me to review the results."))
+      .toBe("✅ Episode 1: All 3 videos generated.");
+    expect(assistantCompletionPrefix("✅ Episode 3 script generation completed. You can ask me to review the results or continue to the next step."))
+      .toBe("✅ Episode 3 script generation completed.");
+    expect(assistantCompletionPrefix("Episode 1 final cut composed. Showing it now:"))
+      .toBe("Episode 1 final cut composed.");
+  });
+
+  it("does not classify negative English completion status as completed", () => {
+    expect(assistantCompletionPrefix("Episode 3 identity planning is not completed. Check back later."))
+      .toBeNull();
+    expect(assistantCompletionPrefix("The current task was never generated. Check the task center."))
+      .toBeNull();
+    expect(assistantCompletionPrefix("Episode 1 video batch finished: 2/3 completed, 1 failed. Check the task center."))
+      .toBeNull();
+  });
 });
 
 describe("background canvas generation status", () => {

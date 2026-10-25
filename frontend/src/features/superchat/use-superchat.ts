@@ -1437,33 +1437,33 @@ function incompleteSkillStudioDraftEvent(chunks: PendingSkillStudioDraftChunks):
   const expected = Math.max(0, chunks.expectedRecipeCount ?? recipes.length);
   const missingRecipeCount = Math.max(0, expected - recipes.length);
   const warnings = [
-    "Agent 已提交了一部分内容，但本轮对话已结束，草稿还不能保存。",
-    chunks.skill ? "已生成 Skill 基础配置。" : "缺少 Skill 基础配置。",
+    "The Agent submitted part of the draft, but this turn has ended and the draft cannot be saved yet.",
+    chunks.skill ? "Skill base configuration generated." : "Skill base configuration is missing.",
     expected > 0
-      ? `Recipe 已生成 ${recipes.length} / ${expected}，缺少 ${missingRecipeCount} 个。`
+      ? `Recipes generated: ${recipes.length} / ${expected}, ${missingRecipeCount} missing.`
       : recipes.length > 0
-        ? `Recipe 已生成 ${recipes.length} 个。`
-        : "本轮未提交新 Recipe。",
-    "缺少最终草稿整理。",
+        ? `Recipes generated: ${recipes.length}.`
+        : "No new Recipe was submitted this turn.",
+    "The final draft summary is missing.",
   ];
   return {
     type: "skill_studio.draft",
     bridge_key: `incomplete:${chunks.sessionId}`,
     skill_studio_session_id: chunks.sessionId,
     mode: chunks.mode ?? "create",
-    summary: chunks.summary || "Skill 草稿未完成",
+    summary: chunks.summary || "Skill draft incomplete",
     skill: chunks.skill ?? {},
     recipes,
     warnings,
     incomplete: true,
     read_only: true,
     missing_items: [
-      ...(chunks.skill ? [] : ["Skill 基础配置"]),
+      ...(chunks.skill ? [] : ["Skill base configuration"]),
       ...(missingRecipeCount > 0 ? [`Recipe ${recipes.length + 1} / ${expected}`] : []),
-      "最终草稿整理",
+      "Final draft summary",
     ],
     completed_items: [
-      ...(chunks.skill ? ["Skill 基础配置"] : []),
+      ...(chunks.skill ? ["Skill base configuration"] : []),
       ...(recipes.length > 0 ? [`Recipe ${recipes.length} / ${expected || recipes.length}`] : []),
     ],
   };
@@ -2552,7 +2552,7 @@ export function useSuperChat({
             ? frame.text
             : typeof toolCall.title === "string" && toolCall.title.trim()
               ? toolCall.title
-              : "需要操作授权",
+              : "Permission required",
           command,
           description,
           requestId,
@@ -2736,7 +2736,7 @@ export function useSuperChat({
           upsertAssistantUiEvent(current, turnId, {
             type: "skill_studio.status",
             status: typeof frame.status === "string" ? frame.status : "routing",
-            message: typeof frame.message === "string" ? frame.message : "正在整理 Skill 方向...",
+            message: typeof frame.message === "string" ? frame.message : "Organizing the Skill direction...",
             turn_id: turnId,
           }),
         );
@@ -2830,7 +2830,7 @@ export function useSuperChat({
             ?? activeTurnIdRef.current
             ?? pendingClientTurnIdRef.current
             ?? `turn-${Date.now()}`;
-          const persistedErrorText = `本轮处理失败：${errorMessage}\n\n请根据错误提示处理后重试。`;
+          const persistedErrorText = `This turn failed: ${errorMessage}\n\nResolve the error above and try again.`;
           setMessages((current) => {
             const next = upsertAssistantMessage(current, failedTurnId, persistedErrorText);
             saveCachedMessages(scopeKey, next);
@@ -3225,7 +3225,7 @@ export function useSuperChat({
     }
     const optionId = approvalOptionId(approval, decision);
     if (!optionId) {
-      setError("Agent 没有提供可用的授权选项");
+      setError("The Agent did not provide a usable permission option");
       return;
     }
     void api.post("api/v1/chat/permission-result", {
@@ -3237,7 +3237,7 @@ export function useSuperChat({
     }).then(() => {
       setApprovals((current) => current.filter((item) => item.id !== approval.id));
     }).catch(() => {
-      setError("授权请求已失效，请让虾导重新执行该操作");
+      setError("The permission request has expired. Ask Manna Director to run the action again.");
     });
   }, []);
 
