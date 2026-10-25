@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { NODE_ACTION_TIMEOUT_MESSAGE } from "@/features/freezone/canvasChatCommands";
 import {
   canvasCommandAgentHintFromResult,
   canvasCommandUserMessageFromResult,
@@ -18,7 +19,7 @@ describe("canvasCommandUserMessageFromResult", () => {
         },
       ],
     )).toBe(
-      "Recipe 文本生成超时：模型在规定时间内未返回结果，请稍后重试。本轮未继续执行下游节点。",
+      "Recipe text generation timed out: the model did not respond in time. Try again later. Downstream nodes were not run.",
     );
   });
 
@@ -26,7 +27,29 @@ describe("canvasCommandUserMessageFromResult", () => {
     expect(canvasCommandUserMessageFromResult(
       ["Request timed out."],
       [],
-    )).toContain("Recipe 文本生成超时");
+    )).toContain("Recipe text generation timed out");
+  });
+});
+
+describe("timeout handling", () => {
+  const CANCEL_MESSAGE = "The canvas action was cancelled and was not applied to the canvas.";
+
+  it("maps the frontend's own node action timeout to the cancel message", () => {
+    expect(NODE_ACTION_TIMEOUT_MESSAGE).toBe("Node action timed out");
+    expect(canvasCommandUserMessageFromResult([NODE_ACTION_TIMEOUT_MESSAGE], [])).toBe(CANCEL_MESSAGE);
+    expect(canvasCommandUserMessageFromResult([], [{ error: NODE_ACTION_TIMEOUT_MESSAGE }])).toBe(CANCEL_MESSAGE);
+  });
+
+  it("keeps matching the Chinese timeout and cancel markers", () => {
+    expect(canvasCommandUserMessageFromResult(["节点动作执行超时"], [])).toBe(CANCEL_MESSAGE);
+    expect(canvasCommandUserMessageFromResult(["用户取消"], [])).toBe(CANCEL_MESSAGE);
+  });
+
+  it("does not report an unrelated provider timeout as a cancellation", () => {
+    expect(canvasCommandUserMessageFromResult(["provider request timed out after 600s"], []))
+      .not.toBe(CANCEL_MESSAGE);
+    expect(canvasCommandUserMessageFromResult(["upstream provider call timed out after 600s"], []))
+      .toBe("upstream provider call timed out after 600s");
   });
 });
 

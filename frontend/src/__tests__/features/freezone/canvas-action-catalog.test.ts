@@ -1243,13 +1243,13 @@ describe("canvas action catalog", () => {
       }),
     });
     expect(catalog.canvas_action_catalog.find((item) => item.id === "ui.open_multi_angle_tool")).toMatchObject({
-      display_name: expect.stringContaining("Multi-angle"),
+      display_name: expect.stringContaining("Multi-Angle"),
       frontend_mapping: expect.objectContaining({
         description: expect.stringContaining("Multi-angle"),
       }),
     });
     expect(catalog.canvas_action_catalog.find((item) => item.id === "ui.run_scene360_tool")).toMatchObject({
-      display_name: expect.stringContaining("panorama"),
+      display_name: "Panorama",
       execution: "frontend_node",
       frontend_mapping: expect.objectContaining({
         action: "run_scene360_tool",

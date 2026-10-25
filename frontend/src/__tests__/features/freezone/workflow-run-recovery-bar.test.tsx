@@ -119,6 +119,44 @@ describe("WorkflowRunRecoveryBar", () => {
     )).toEqual(["video-1"]);
   });
 
+  it("does not expose blocked downstream generation recorded with the English Skipped prefix", () => {
+    const runWithBlockedGeneration: FreezoneWorkflowRun = {
+      ...failedRun,
+      actions: [
+        { node_id: "video-1", action: "generate_video", status: "failed" },
+        {
+          node_id: "compose-1",
+          action: "auto_compose_video",
+          status: "blocked",
+          error: "Skipped auto_compose_video: upstream node video-1 did not complete successfully.",
+        },
+      ],
+    };
+    expect(recoverableWorkflowNodeIds(
+      runWithBlockedGeneration,
+      new Set(["video-1", "compose-1"]),
+    )).toEqual(["video-1"]);
+  });
+
+  it("uses singular and plural wording for the remaining node count", async () => {
+    const { unmount } = render(<WorkflowRunRecoveryBar projectId="project-a" canvasId="canvas-a" />);
+    expect(await screen.findByText("2/3 done, 1 node left")).toBeInTheDocument();
+    unmount();
+
+    vi.mocked(listFreezoneWorkflowRuns).mockResolvedValue({
+      runs: [{
+        ...failedRun,
+        actions: [
+          { node_id: "image-1", action: "generate_image", status: "completed" },
+          { node_id: "video-1", action: "generate_video", status: "failed" },
+          { node_id: "compose-1", action: "generate_video", status: "failed" },
+        ],
+      }],
+    });
+    render(<WorkflowRunRecoveryBar projectId="project-a" canvasId="canvas-a" />);
+    expect(await screen.findByText("1/3 done, 2 nodes left")).toBeInTheDocument();
+  });
+
   it("hides recovery records whose nodes were deleted from the canvas", async () => {
     useCanvasStore.getState().setCanvasData([], []);
 

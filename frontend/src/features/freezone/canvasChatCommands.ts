@@ -526,6 +526,8 @@ const activeOrQueuedWorkflowRunKeys = new Set<string>();
 let nodeActionMountQueue: Promise<void> = Promise.resolve();
 const WORKFLOW_ACTION_CONCURRENCY = 3;
 const WORKFLOW_ACTION_MAX_RETRIES = 2;
+/** Error posted when a node action gets no result in time; also matched by canvasCommandUserMessages. */
+export const NODE_ACTION_TIMEOUT_MESSAGE = "Node action timed out";
 const WORKFLOW_STOPPED_MESSAGE = "Workflow stopped; no further nodes were started.";
 const WORKFLOW_LEASE_LOST_MESSAGE = "Workflow execution lease expired; no further nodes were started.";
 const STOPPED_WORKFLOW_RUN_STATUSES = new Set<string>([
@@ -1238,6 +1240,7 @@ function hydrateWorkflowAudioInput(nodeId: string): boolean {
 
 const VIDEO_CONTINUITY_PROMPT_NOTE =
   "The previous shot's last frame is attached as an image reference; use it as the continuity basis for the opening action, composition and character state of this shot.";
+const LEGACY_VIDEO_CONTINUITY_PROMPT_NOTE_ZH = "上一镜尾帧已作为图片参考接入，请以它作为本镜头开场的动作、构图和角色状态连续依据。"; // i18n-exempt: matches prompts persisted by earlier versions
 
 function continuityFrameData(sourceVideoNodeId: string, targetVideoNodeId: string): JsonRecord {
   return {
@@ -1285,7 +1288,7 @@ function appendVideoContinuityPromptNote(targetNodeId: string): void {
   const target = nodeById(targetNodeId);
   if (!target) return;
   const prompt = typeof target.data.prompt === "string" ? target.data.prompt.trim() : "";
-  if (prompt.includes(VIDEO_CONTINUITY_PROMPT_NOTE)) return;
+  if (prompt.includes(VIDEO_CONTINUITY_PROMPT_NOTE) || prompt.includes(LEGACY_VIDEO_CONTINUITY_PROMPT_NOTE_ZH)) return;
   const nextPrompt = prompt
     ? `${prompt}\n\n${VIDEO_CONTINUITY_PROMPT_NOTE}`
     : VIDEO_CONTINUITY_PROMPT_NOTE;
@@ -2185,7 +2188,7 @@ function waitForNodeActionResult(
         nodeId: "",
         action: "",
         status: "error",
-        error: "Node action timed out",
+        error: NODE_ACTION_TIMEOUT_MESSAGE,
       });
     }, timeoutMs);
 
@@ -3692,9 +3695,9 @@ async function executeQueuedNodeActions(
             commandIndex: action.commandIndex,
             type: "run_node_action",
             status: "pending",
-            label: `${action.label}（${i18next.t("freezone.chat.workflowOutputSyncPendingLabel", {
+            label: `${action.label} (${i18next.t("freezone.chat.workflowOutputSyncPendingLabel", {
               defaultValue: "产物待同步",
-            })}）`,
+            })})`,
             nodeId: action.nodeId,
             action: action.action,
             output: { pending: true, reason: "workflow_result_sync_pending" },
@@ -3861,31 +3864,31 @@ function commandLabel(command: CanvasChatCommand): string {
       if (command.action === "open_video_compose_modal") return "Open video compose";
       if (command.action === "auto_compose_video") return "Auto compose video";
       if (command.action === "open_director_world") return "Open director world";
-      if (command.action === "generate_3gs_world") return "Generate 3GS world";
+      if (command.action === "generate_3gs_world") return i18next.t("nodeToolbar.generateDirectorWorld");
       if (command.action === "open_split_storyboard_tool") return "Open panel extraction";
-      if (command.action === "run_matting_tool") return "Matting";
-      if (command.action === "run_upscale_tool") return "Upscale";
-      if (command.action === "run_outpaint_tool") return "Outpaint";
-      if (command.action === "run_scene360_tool") return "Generate 360 panorama";
-      if (command.action === "run_grid_multi_camera") return "Generate multi-camera 3x3 grid";
-      if (command.action === "run_grid_plot_four") return "Generate plot 4-panel grid";
-      if (command.action === "run_grid_face_three_view") return "Generate face three-view";
-      if (command.action === "run_grid_product_three_view") return "Generate product three-view";
-      if (command.action === "run_grid_serial_storyboard_25") return "Generate serial storyboard 25 panels";
-      if (command.action === "run_grid_cinematic_light_correction") return "Generate cinematic light correction";
-      if (command.action === "run_grid_character_three_view") return "Generate character three-view";
-      if (command.action === "run_grid_scene_setting_sheet") return "Generate scene setting sheet";
-      if (command.action === "run_grid_frame_projection_3s_later") return "Project frame 3s later";
-      if (command.action === "run_grid_frame_projection_5s_earlier") return "Project frame 5s earlier";
+      if (command.action === "run_matting_tool") return i18next.t("nodeToolbar.matting");
+      if (command.action === "run_upscale_tool") return i18next.t("nodeToolbar.hd");
+      if (command.action === "run_outpaint_tool") return i18next.t("nodeToolbar.outpaint");
+      if (command.action === "run_scene360_tool") return i18next.t("nodeToolbar.panorama");
+      if (command.action === "run_grid_multi_camera") return i18next.t("nodeToolbar.gridMenu.multiCameraGrid");
+      if (command.action === "run_grid_plot_four") return i18next.t("nodeToolbar.gridMenu.plotFourGrid");
+      if (command.action === "run_grid_face_three_view") return i18next.t("nodeToolbar.gridMenu.faceThreeView");
+      if (command.action === "run_grid_product_three_view") return i18next.t("nodeToolbar.gridMenu.productThreeView");
+      if (command.action === "run_grid_serial_storyboard_25") return i18next.t("nodeToolbar.gridMenu.serialStoryboard25");
+      if (command.action === "run_grid_cinematic_light_correction") return i18next.t("nodeToolbar.gridMenu.cinematicLightCorrection");
+      if (command.action === "run_grid_character_three_view") return i18next.t("nodeToolbar.gridMenu.characterThreeView");
+      if (command.action === "run_grid_scene_setting_sheet") return i18next.t("nodeToolbar.gridMenu.sceneSettingSheet");
+      if (command.action === "run_grid_frame_projection_3s_later") return i18next.t("nodeToolbar.gridMenu.frameProjection3sLater");
+      if (command.action === "run_grid_frame_projection_5s_earlier") return i18next.t("nodeToolbar.gridMenu.frameProjection5sEarlier");
       if (command.action === "open_video_viewer") return "Open video";
       if (command.action === "download_video") return "Download video";
       if (command.action === "open_video_clip_tool") return "Open video clip tool";
       if (command.action === "open_video_upscale_tool") return "Open video upscale";
       if (command.action === "run_video_analyze_story") return "Analyze video";
-      if (command.action === "run_audio_separate") return "Separate audio from video";
+      if (command.action === "run_audio_separate") return i18next.t("nodeToolbar.video.separateAudioVideo");
       if (command.action === "download_audio") return "Download audio";
-      if (command.action === "open_video_subtitle_erase_smart") return "Smart subtitle removal";
-      if (command.action === "open_video_subtitle_erase_box") return "Box-select subtitle removal";
+      if (command.action === "open_video_subtitle_erase_smart") return i18next.t("nodeToolbar.video.subtitleRemovalSmart");
+      if (command.action === "open_video_subtitle_erase_box") return i18next.t("nodeToolbar.video.subtitleRemovalBox");
       if (command.action === "run_video_breakdown") return i18next.t("nodeToolbar.video.frameAnalysis");
       if (command.action === "start_video_breakdown") return i18next.t("videoBreakdown.start");
       if (command.action === "open_video_crop_tool") return i18next.t("nodeToolbar.video.frameCrop");
@@ -3907,7 +3910,7 @@ function commandLabel(command: CanvasChatCommand): string {
       if (command.action === "sync_beat_context_to_mainline") return "Sync shot context";
       return "Open node action";
     case "open_mainline_projection":
-      return "Open mainline Manna Draw";
+      return "Open mainline in Manna Canvas";
     case "run_workflow":
       return "Run workflow";
     default:

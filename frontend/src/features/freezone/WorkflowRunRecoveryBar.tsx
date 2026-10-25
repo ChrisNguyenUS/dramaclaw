@@ -341,7 +341,7 @@ export function WorkflowRunRecoveryBar({
       <div className="min-w-0 text-sm">
         <div className="truncate font-medium">Unfinished workflow found</div>
         <div className="truncate text-xs text-muted-foreground">
-          {completedCount}/{run.actions.length} done, {nodeIds.length} nodes left
+          {completedCount}/{run.actions.length} done, {nodeIds.length} {nodeIds.length === 1 ? "node" : "nodes"} left
         </div>
         {error && <div className="mt-1 max-w-[420px] truncate text-xs text-destructive">{error}</div>}
       </div>

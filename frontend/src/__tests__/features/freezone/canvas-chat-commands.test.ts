@@ -5488,7 +5488,7 @@ describe("canvas chat commands", () => {
       expect.objectContaining({
         type: "open_mainline_projection",
         status: "success",
-        label: "Open mainline Manna Draw",
+        label: "Open mainline in Manna Canvas",
         output: expect.objectContaining({
           opened: true,
           canvas_id: "user_canvas",
@@ -6455,6 +6455,50 @@ describe("canvas chat commands", () => {
     }
   });
 
+  it("persists a downstream action skipped behind a failed upstream as blocked", async () => {
+    const store = useCanvasStore.getState();
+    const imageNodeId = store.addNode(CANVAS_NODE_TYPES.imageGen, { x: 0, y: 0 }, { prompt: "猫吃鱼" });
+    const videoNodeId = store.addNode(CANVAS_NODE_TYPES.video, { x: 360, y: 0 }, { prompt: "猫吃鱼视频" });
+    store.addEdge(imageNodeId, videoNodeId);
+    const unsubscribe = canvasEventBus.subscribe(
+      "freezone/run-node-action",
+      (payload) => {
+        if (!payload.requestId) return;
+        canvasEventBus.publish("freezone/node-action-result", {
+          requestId: payload.requestId,
+          nodeId: payload.nodeId,
+          action: payload.action,
+          status: "error",
+          error: "图片生成失败",
+        });
+      },
+    );
+
+    try {
+      await applyCanvasChatCommandsAsync(
+        extractCanvasChatCommandEnvelopes([{
+          schema_version: CANVAS_CHAT_COMMANDS_SCHEMA_VERSION,
+          commands: [{
+            type: "run_workflow",
+            node_ids: [imageNodeId],
+            direction: "downstream",
+          }],
+        }]),
+        { projectId: "project-a", canvasId: "canvas-a", actionTimeoutMs: 100 },
+      );
+
+      const updates = vi.mocked(updateFreezoneWorkflowRun).mock.calls.flatMap(
+        (call) => (call[3] as { action_updates?: Array<Record<string, unknown>> }).action_updates ?? [],
+      );
+      const videoUpdate = updates.filter((update) => update.node_id === videoNodeId).slice(-1)[0];
+      expect(videoUpdate).toMatchObject({ status: "blocked" });
+      expect(String(videoUpdate?.error)).toMatch(/^Skipped generate_video: upstream node /);
+      expect(updates.filter((update) => update.node_id === imageNodeId).slice(-1)[0]).toMatchObject({ status: "failed" });
+    } finally {
+      unsubscribe();
+    }
+  });
+
   it("skips downstream queued actions when an upstream generation fails", async () => {
     const store = useCanvasStore.getState();
     const imageNodeId = store.addNode(
@@ -7399,6 +7443,67 @@ describe("canvas chat commands", () => {
         expect.any(File),
         expect.stringMatching(/^frame-/),
       );
+    } finally {
+      unsubscribe();
+    }
+  });
+
+  it("does not append the continuity note again when a prompt already holds the legacy Chinese note", async () => {
+    const legacyNote = "上一镜尾帧已作为图片参考接入，请以它作为本镜头开场的动作、构图和角色状态连续依据。";
+    const legacyPrompt = `镜头 2\n\n${legacyNote}`;
+    const store = useCanvasStore.getState();
+    const firstVideoId = store.addNode(
+      CANVAS_NODE_TYPES.video,
+      { x: 0, y: 0 },
+      { prompt: "镜头 1", durationMs: 8000, videoUrl: "/static/project/shot-1.mp4" },
+    );
+    const secondVideoId = store.addNode(
+      CANVAS_NODE_TYPES.video,
+      { x: 360, y: 0 },
+      { prompt: legacyPrompt },
+    );
+    store.addEdgeWithData(firstVideoId, secondVideoId, {
+      link_type: "dependency_for",
+    });
+
+    const promptAtDispatch: Array<unknown> = [];
+    const unsubscribe = canvasEventBus.subscribe(
+      "freezone/run-node-action",
+      (payload) => {
+        if (!payload.requestId) return;
+        if (payload.nodeId === secondVideoId) {
+          promptAtDispatch.push(
+            (useCanvasStore.getState().nodes.find((node) => node.id === secondVideoId)?.data as Record<string, unknown>)
+              .prompt,
+          );
+          useCanvasStore.getState().updateNodeData(secondVideoId, {
+            videoUrl: "/static/project/shot-2.mp4",
+          });
+        }
+        canvasEventBus.publish("freezone/node-action-result", {
+          requestId: payload.requestId,
+          nodeId: payload.nodeId,
+          action: payload.action,
+          status: "success",
+        });
+      },
+    );
+
+    try {
+      const result = await applyCanvasChatCommandsAsync(
+        extractCanvasChatCommandEnvelopes([
+          {
+            schema_version: CANVAS_CHAT_COMMANDS_SCHEMA_VERSION,
+            commands: [
+              { type: "run_node_action", node_id: secondVideoId, action: "generate_video" },
+            ],
+          },
+        ]),
+        { projectId: "project-a", canvasId: "canvas-a", actionTimeoutMs: 500 },
+      );
+
+      expect(result.errors).toEqual([]);
+      expect(promptAtDispatch).toEqual([legacyPrompt]);
     } finally {
       unsubscribe();
     }

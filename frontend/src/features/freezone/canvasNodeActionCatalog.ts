@@ -858,7 +858,7 @@ function editableSchemaForNode(node: CanvasNode): Record<string, CanvasEditableF
           label: "Speech mode",
           options: ["clone"],
           description:
-            "Only applies when audioKind=speech. Manna Draw only uses custom voices; if no valid voiceRef is selected, speech generation is skipped.",
+            "Only applies when audioKind=speech. Manna Canvas only uses custom voices; if no valid voiceRef is selected, speech generation is skipped.",
         },
         text: { type: "string", label: "Text" },
         emotionPrompt: { type: "string", label: "Emotion prompt" },
@@ -1511,7 +1511,7 @@ function addMediaActions(
       execution: "frontend_node",
       command_type: "run_node_action",
       description:
-        "Frame-by-frame breakdown: create a downstream video breakdown node connected to this video, matching the toolbar frame-by-frame breakdown entry. By default it only creates the node. Pass auto_start=true when the user asked to actually run the breakdown now; it then submits the paid breakdown task (several minutes) and lands storyboard / motion / music result groups downstream of the new node.",
+        "Frame-by-Frame: create a downstream video breakdown node connected to this video, matching the toolbar 'Frame-by-Frame' entry. By default it only creates the node. Pass auto_start=true when the user asked to actually run the breakdown now; it then submits the paid breakdown task (several minutes) and lands storyboard / motion / music result groups downstream of the new node.",
       parameters: {
         node_id: node.id,
         parameter_schema: {
@@ -1534,7 +1534,7 @@ function addMediaActions(
       execution: "manual_ui",
       command_type: "run_node_action",
       description:
-        "Frame crop: enter crop mode for this video node. The user drags the crop box and confirms through the existing frontend crop UI; the cropped video lands as a new node.",
+        "Frame Crop: enter crop mode for this video node. The user drags the crop box and confirms through the existing frontend crop UI; the cropped video lands as a new node.",
       parameters: { node_id: node.id },
     });
     if (findSeedance25VideoModel(getFreezoneVideoModelsSnapshot().models)) {
@@ -1543,7 +1543,7 @@ function addMediaActions(
         execution: "manual_ui",
         command_type: "run_node_action",
         description:
-          "Smart extend: enter the range-pick mode on this video node. The user picks the leading segment to continue from and confirms; the frontend then creates a downstream Seedance 2.5 video node for the continuation. It does not generate anything by itself.",
+          "Smart Extend: enter the range-pick mode on this video node. The user picks the leading segment to continue from and confirms; the frontend then creates a downstream Seedance 2.5 video node for the continuation. It does not generate anything by itself.",
         parameters: { node_id: node.id },
       });
     }
@@ -1555,7 +1555,7 @@ function addMediaActions(
       execution: "frontend_node",
       command_type: "run_node_action",
       description:
-        `Depth motion capture: compute a per-frame depth video in the browser and land it as a new downstream video node, matching the toolbar action. Runs locally (WebGPU preferred), takes a while, and only supports videos up to ${DEPTH_MAX_DURATION_SEC}s. The action returns once the task has started; progress shows on the new node.`,
+        `Deep Motion Capture: compute a per-frame depth video in the browser and land it as a new downstream video node, matching the toolbar action. Runs locally (WebGPU preferred), takes a while, and only supports videos up to ${DEPTH_MAX_DURATION_SEC}s. The action returns once the task has started; progress shows on the new node.`,
       can_run_now: !depthTooLong,
       ...(depthTooLong
         ? { blocked_reasons: [`video is longer than ${DEPTH_MAX_DURATION_SEC}s`] }

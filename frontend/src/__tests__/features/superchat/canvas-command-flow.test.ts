@@ -534,6 +534,15 @@ describe("canvas command flow placement", () => {
       errors: ["命令校验失败"],
     })).toBe("muted");
 
+    expect(canvasContextActivityVisualToneForTest({
+      key: "context:validation-en",
+      turnId: "turn-a",
+      bridgeKey: "validation-en",
+      status: "failed",
+      labels: ["Command check"],
+      errors: ["Command check failed"],
+    })).toBe("muted");
+
     expect(canvasCommandFeedbackVisualToneForTest({
       key: "bridge:validation",
       applied: 0,
@@ -766,6 +775,68 @@ describe("canvas command flow placement", () => {
           bridgeKey: "validation",
           status: "done",
           labels: ["命令校验"],
+          errors: [],
+          anchorTextPrefix: text,
+          surfaceOrder: 30,
+        },
+      ],
+    );
+
+    expect(items.map((item) => item.kind)).toEqual([
+      "text",
+      "context",
+      "text",
+      "feedback",
+      "text",
+    ]);
+    expect(items[0]).toMatchObject({
+      kind: "text",
+      text: "好的！我来帮你创建一个家乡文化海报的工作流。\n\n",
+    });
+    expect(items[2]).toMatchObject({
+      kind: "text",
+      text: "验证通过，创建节点并连接：\n\n",
+    });
+  });
+
+
+  it("places a Command check validation card (English label) before assistant text that describes their result", () => {
+    const text = [
+      "好的！我来帮你创建一个家乡文化海报的工作流。",
+      "",
+      "验证通过，创建节点并连接：",
+      "",
+      "已经在画布上创建好了海报工作流。",
+    ].join("\n");
+
+    const items = buildCanvasCommandFlowItemsForTest(
+      text,
+      [],
+      [
+        {
+          key: "bridge:command",
+          applied: 4,
+          openedUiActions: 0,
+          errors: [],
+          commandResults: [
+            {
+              commandIndex: 0,
+              type: "create_node",
+              status: "success",
+              label: "创建节点",
+            },
+          ],
+          anchorTextPrefix: text,
+          surfaceOrder: 40,
+        },
+      ],
+      [
+        {
+          key: "context:validation",
+          turnId: "turn-a",
+          bridgeKey: "validation",
+          status: "done",
+          labels: ["Command check"],
           errors: [],
           anchorTextPrefix: text,
           surfaceOrder: 30,

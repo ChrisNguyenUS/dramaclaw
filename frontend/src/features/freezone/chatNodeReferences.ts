@@ -1231,7 +1231,7 @@ function buildCanvasCommandCatalog(canvasId: string): Record<string, unknown> {
             optional: ["project_id"],
             field_notes: {
               request:
-                "Open an episode/beat/asset mainline preset in the user's personal Freezone canvas through the same frontend path as the Manna Draw toolbar button. Requires user confirmation before execution.",
+                "Open an episode/beat/asset mainline preset in the user's personal Freezone canvas through the same frontend path as the 'Open in Freezone' toolbar button (Manna Canvas). Requires user confirmation before execution.",
               "request.scope": "episode, beat, or asset.",
               "request.episode": "Required for episode and beat scopes.",
               "request.beat": "Required for beat scope.",
