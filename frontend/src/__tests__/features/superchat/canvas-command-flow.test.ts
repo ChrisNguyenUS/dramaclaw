@@ -6,6 +6,7 @@ import {
   buildCanvasCommandFlowItemsForTest,
   canvasCommandResultFromWorkflowRunForTest,
   canvasCommandFeedbackVisualToneForTest,
+  canvasCommandFeedbackIsInvalidCommandForTest,
   canvasCommandFeedbackIsValidationOnlyForTest,
   canvasContextActivityVisualToneForTest,
   isGenerationSuccessSummaryText,
@@ -59,6 +60,27 @@ describe("assistant success summary", () => {
       .toBeNull();
     expect(assistantCompletionPrefix("Episode 1 video batch finished: 2/3 completed, 1 failed. Check the task center."))
       .toBeNull();
+  });
+});
+
+describe("invalid canvas command label", () => {
+  const feedbackWithLabel = (label: string) => ({
+    key: "bridge:invalid",
+    applied: 0,
+    openedUiActions: 0,
+    errors: [label],
+    commandResults: [
+      { commandIndex: -1, type: "validate" as const, status: "error" as const, label, error: label },
+    ],
+  });
+
+  it("recognizes the Chinese label FreezoneShell still emits", () => {
+    expect(canvasCommandFeedbackIsInvalidCommandForTest(feedbackWithLabel("画布命令无效"))).toBe(true);
+  });
+
+  it("recognizes the English label and ignores other labels", () => {
+    expect(canvasCommandFeedbackIsInvalidCommandForTest(feedbackWithLabel("Invalid canvas command"))).toBe(true);
+    expect(canvasCommandFeedbackIsInvalidCommandForTest(feedbackWithLabel("Cancelled"))).toBe(false);
   });
 });
 

@@ -166,7 +166,12 @@ export function isDirectorEpisodeAutoSession(state: DirectorAutoRunState): boole
 const AUTO_START_INTENT_RE = /(?:开始|启动|执行|推进|继续|确认|同意|可以(?:开始)?|开始吧|继续吧|确认吧)/u; // i18n-exempt: matches Chinese input
 const AUTO_NEGATED_START_RE = /(?:不要|别|暂不|先不|取消|停止|暂停).{0,4}(?:开始|启动|执行|推进|继续|确认)/u; // i18n-exempt: matches Chinese input
 const AUTO_START_INTENT_EN_RE = /\b(?:start|begin|launch|execute|proceed|continue|confirm|approve|go ahead)\b/i;
-const AUTO_NEGATED_START_EN_RE = /\b(?:don'?t|do not|never|not yet|cancel|stop|pause|hold off)\b.{0,12}\b(?:start|begin|launch|execute|proceed|continue|confirm|go)\b/i;
+const AUTO_NEGATED_START_EN_RE = new RegExp(
+  "\\b(?:don['\u2019]?t|do\\s+not|doesn['\u2019]?t|won['\u2019]?t|can['\u2019]?t|cannot|never|not\\s+(?:yet|now)|cancel|stop|pause|hold\\s+(?:off|on)|wait|later)\\b"
+  + "[^.!?\\n]{0,40}?\\b(?:start|begin|launch|execute|proceed|continue|confirm|approve|go)\\b"
+  + "|\\b(?:start|begin|launch|execute|proceed|continue|confirm|approve)\\b[^.!?\\n]{0,20}\\blater\\b",
+  "i",
+);
 
 export function isDirectorEpisodeAutoStartIntent(text: string): boolean {
   const normalized = text.trim();

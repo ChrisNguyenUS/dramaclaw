@@ -1703,7 +1703,7 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       {
         id: "assistant-a",
         role: "assistant",
-        text: "Manna Director did not send a valid reply this turn. Please try again shortly.",
+        text: "这轮操作没有收到虾导的有效回复，请稍后重试。", // backend still sends the Chinese empty-reply text
         displayName: "Agent",
         timestamp: Date.now(),
         turnId: "turn-a",
@@ -1756,6 +1756,7 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
     );
 
     expect(screen.queryByText("Manna Director did not send a valid reply this turn. Please try again shortly.")).not.toBeInTheDocument();
+    expect(screen.queryByText("这轮操作没有收到虾导的有效回复，请稍后重试。")).not.toBeInTheDocument();
     // Expired approvals are expanded by default so recovery is immediately visible.
     expect(await screen.findByRole("button", { name: "Run again" })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Run again" }));

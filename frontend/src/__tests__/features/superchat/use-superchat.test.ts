@@ -1029,6 +1029,17 @@ This Freezone chat can change the current canvas by returning a JSON block.
     expect(normalized?.text).toBe("Manna Director did not send a valid reply this turn. Please try again shortly.");
   });
 
+  it("translates the Chinese empty-reply text the backend still persists", () => {
+    const normalized = normalizeMessage({
+      id: "backend-assistant-empty-zh",
+      role: "assistant",
+      content: "这轮操作没有收到虾导的有效回复，请稍后重试。",
+      created_at: "2026-07-10T08:00:00Z",
+    });
+
+    expect(normalized?.text).toBe("Manna Director did not send a valid reply this turn. Please try again shortly.");
+  });
+
   it("preserves backend ui events for persisted canvas feedback", () => {
     const uiEvents = [
       {

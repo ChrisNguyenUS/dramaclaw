@@ -3991,7 +3991,7 @@ function canvasCommandFeedbackBackgroundRunning(feedback: CanvasCommandFeedback)
 }
 
 function canvasCommandFeedbackIsInvalidCommand(feedback: CanvasCommandFeedback): boolean {
-  return (feedback.commandResults ?? []).some((step) => step.label === "Invalid canvas command");
+  return (feedback.commandResults ?? []).some((step) => step.label === "Invalid canvas command" || step.label === "画布命令无效"); // i18n-exempt: matches Chinese label produced by FreezoneShell.tsx
 }
 
 function canvasCommandFeedbackIsUserCancelled(feedback: CanvasCommandFeedback): boolean {
@@ -4005,6 +4005,7 @@ function canvasCommandFeedbackIsTimeoutCancelled(feedback: CanvasCommandFeedback
 type CanvasFeedbackVisualTone = "muted" | "warning" | "destructive" | "success";
 
 const EMPTY_AGENT_REPLY_TEXT = "Manna Director did not send a valid reply this turn. Please try again shortly.";
+const BACKEND_EMPTY_AGENT_REPLY_TEXT = "这轮操作没有收到虾导的有效回复，请稍后重试。"; // i18n-exempt: matches backend text
 
 function canvasContextActivityVisualTone(activity: CanvasContextActivity): CanvasFeedbackVisualTone {
   if (activity.status === "failed") {
@@ -4025,6 +4026,7 @@ function canvasCommandFeedbackVisualTone(feedback: CanvasCommandFeedback): Canva
 }
 
 export const canvasCommandFeedbackVisualToneForTest = canvasCommandFeedbackVisualTone;
+export const canvasCommandFeedbackIsInvalidCommandForTest = canvasCommandFeedbackIsInvalidCommand;
 
 function canvasCommandFeedbackCompactTitle(feedback: CanvasCommandFeedback, t: TFunction): string {
   const firstFailedStep = (feedback.commandResults ?? []).find((step) => step.status !== "success");
@@ -8312,6 +8314,7 @@ export const MessageBubble = memo(function MessageBubble({
     && (
       looksLikeCanvasExecutionNarration(message.text)
       || displayText.trim() === EMPTY_AGENT_REPLY_TEXT
+      || displayText.trim() === BACKEND_EMPTY_AGENT_REPLY_TEXT
     );
   const hasCanvasCommandSurface =
     visibleCanvasCommandFeedbacks.length > 0
@@ -11603,7 +11606,7 @@ function createThinkingCanvasContextActivity(turnId: string): CanvasContextActiv
 }
 
 function canvasContextActivityIsValidation(activity: CanvasContextActivity): boolean {
-  return activity.labels.includes(CANVAS_CONTEXT_REQUEST_LABELS.validate_canvas_commands) || activity.labels.includes("命令校验"); // i18n-exempt: matches previously persisted Chinese label
+  return activity.labels.includes(CANVAS_CONTEXT_REQUEST_LABELS.validate_canvas_commands) || activity.labels.includes("命令校验"); // i18n-exempt: matches FreezoneShell label
 }
 
 function canvasCommandAnchorEndIndex(text: string, anchorTextPrefix?: string | null): number {
@@ -11646,7 +11649,7 @@ function canvasCommandSemanticAnchorIndex(text: string, event: CanvasCommandSurf
     event.kind === "context" &&
     (
       event.activity.labels.includes(CANVAS_CONTEXT_REQUEST_LABELS.validate_canvas_commands) ||
-      event.activity.labels.includes("命令校验") // i18n-exempt: matches previously persisted Chinese label
+      event.activity.labels.includes("命令校验") // i18n-exempt: matches FreezoneShell label
     )
   ) {
     return firstCanvasCommandSemanticMarkerIndex(text, [
@@ -11679,7 +11682,7 @@ function canvasCommandSemanticAnchorIndex(text: string, event: CanvasCommandSurf
 }
 
 function canvasContextReadSemanticAnchorIndex(text: string, activity: CanvasContextActivity): number | null {
-  if (!activity.labels.some((label) => label !== CANVAS_CONTEXT_REQUEST_LABELS.validate_canvas_commands && label !== "命令校验")) { // i18n-exempt: matches previously persisted Chinese label
+  if (!activity.labels.some((label) => label !== CANVAS_CONTEXT_REQUEST_LABELS.validate_canvas_commands && label !== "命令校验")) { // i18n-exempt: matches FreezoneShell label
     return null;
   }
   const requestMarkers = [

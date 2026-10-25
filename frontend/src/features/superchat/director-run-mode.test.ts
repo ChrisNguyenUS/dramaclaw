@@ -157,6 +157,23 @@ describe("director episode auto mode", () => {
     expect(isDirectorEpisodeAutoStartIntent("看看当前状态")).toBe(false);
   });
 
+  it("rejects English negations with smart apostrophes, wide gaps, and deferrals", () => {
+    for (const text of [
+      "don\u2019t start yet",
+      "Don\u2019t continue",
+      "I don't want you to start this yet",
+      "not now, start later",
+      "wait, don't continue",
+      "Won\u2019t be ready, hold on",
+      "can\u2019t proceed right now",
+    ]) {
+      expect(isDirectorEpisodeAutoStartIntent(text), text).toBe(false);
+    }
+    expect(isDirectorEpisodeAutoStartIntent("start now")).toBe(true);
+    expect(isDirectorEpisodeAutoStartIntent("go ahead and start")).toBe(true);
+    expect(isDirectorEpisodeAutoStartIntent("Yes. Wait is over. Start the episode")).toBe(true);
+  });
+
   it("recognizes English start phrases but rejects negated ones", () => {
     expect(isDirectorEpisodeAutoStartIntent("Start episode 1")).toBe(true);
     expect(isDirectorEpisodeAutoStartIntent("Confirm")).toBe(true);

@@ -9,6 +9,7 @@ const EMPTY_AGENT_REPLY_TEXT = "Manna Director did not send a valid reply this t
 const EMPTY_AGENT_REPLY_PLACEHOLDERS = new Set([
   "(hermes returned no content)",
   "(agent returned no content)",
+  "这轮操作没有收到虾导的有效回复，请稍后重试。", // i18n-exempt: matches backend text
 ]);
 const HIDDEN_TOOL_STATUS_NAMES = new Set<string>([
   "freezone_add_next_node",
