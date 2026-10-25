@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Elastic-2.0
 // Copyright (c) 2026 ClaymoreLab
-import { describe, it, expect } from "vitest";
+import i18next from "i18next";
+import { afterEach, beforeEach, describe, it, expect } from "vitest";
 import { sampleTask } from "@/__mocks__/msw/handlers/tasks";
 import {
   isTerminal,
@@ -225,13 +226,38 @@ describe("currentTaskText", () => {
       currentTaskText(sampleTask({ status: "completed", current_task: "生成 12 个 Beat" }), t),
     ).toBe("生成 12 个 Beat");
   });
-  it("translates untagged backend progress to English (Manna hook)", () => {
+  describe("with an English UI (Manna hook)", () => {
+    beforeEach(() => i18next.changeLanguage("en"));
+    afterEach(() => i18next.changeLanguage("zh"));
+
+    it("translates untagged backend progress to English", () => {
+      expect(
+        currentTaskText(sampleTask({ status: "running", current_task: "解析原文..." }), t),
+      ).toBe("Parsing the source text...");
+      expect(
+        currentTaskText(sampleTask({ status: "running", current_task: "提取第 3 章事件..." }), t),
+      ).toBe("Extracting events from chapter 3...");
+    });
+    it("translates the default of a coded message whose catalog key is missing", () => {
+      const task = sampleTask({
+        status: "running",
+        current_task: "开始逐帧拉片...",
+        current_task_code: "tasks.progress.videoBreakdown.start",
+      });
+      expect(currentTaskText(task, enT as unknown as typeof t)).toBe(
+        "Starting frame-by-frame breakdown...",
+      );
+    });
+    it("keeps the terminal sentinel on the status catalog entry", () => {
+      expect(
+        currentTaskText(sampleTask({ status: "completed", current_task: "完成" }), enT as unknown as typeof t),
+      ).toBe(enT("taskCenter.status.completed"));
+    });
+  });
+  it("leaves untagged backend progress alone while the UI is Chinese", () => {
     expect(
       currentTaskText(sampleTask({ status: "running", current_task: "解析原文..." }), t),
-    ).toBe("Parsing the source text...");
-    expect(
-      currentTaskText(sampleTask({ status: "running", current_task: "提取第 3 章事件..." }), t),
-    ).toBe("Extracting events from chapter 3...");
+    ).toBe("解析原文...");
   });
   it("returns empty for a blank current task", () => {
     expect(currentTaskText(sampleTask({ status: "running", current_task: "" }), t)).toBe("");
@@ -279,10 +305,26 @@ describe("taskLogLines", () => {
     // 还没迁移的后端调用点直接发中文字符串，不能被丢掉。
     expect(taskLogLines(["原文已保存", "任务已开始"], t)).toEqual(["原文已保存", "任务已开始"]);
   });
-  it("translates known untagged backend log lines to English (Manna hook)", () => {
-    expect(
-      taskLogLines(["原文导入完成", { text: "视频已保存: a.mp4 (3 MB)" }, "没人认识这句"], t),
-    ).toEqual(["Source text imported", "Video saved: a.mp4 (3 MB)", "没人认识这句"]);
+  describe("with an English UI (Manna hook)", () => {
+    beforeEach(() => i18next.changeLanguage("en"));
+    afterEach(() => i18next.changeLanguage("zh"));
+
+    it("translates known untagged backend log lines to English", () => {
+      expect(
+        taskLogLines(["原文导入完成", { text: "视频已保存: a.mp4 (3 MB)" }, "没人认识这句"], t),
+      ).toEqual(["Source text imported", "Video saved: a.mp4 (3 MB)", "没人认识这句"]);
+    });
+    it("translates the default of a coded log line whose catalog key is missing", () => {
+      expect(
+        taskLogLines(
+          [{ text: "拉片结果写入完成", code: "tasks.progress.videoBreakdown.saved" }],
+          enT as unknown as typeof t,
+        ),
+      ).toEqual(["Breakdown result saved"]);
+    });
+  });
+  it("leaves untagged backend log lines alone while the UI is Chinese", () => {
+    expect(taskLogLines(["原文导入完成"], t)).toEqual(["原文导入完成"]);
   });
   it("keeps structured and plain entries side by side", () => {
     expect(

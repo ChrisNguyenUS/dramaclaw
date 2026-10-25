@@ -34,7 +34,10 @@ export function taskResponseToastMessage(
 ): string {
   const text = String(response.message ?? "");
   if (!response.message_code) return translateServerText(text); // Manna hook
-  return t(response.message_code, { defaultValue: text, ...(response.message_params ?? {}) });
+  return t(response.message_code, {
+    defaultValue: translateServerText(text), // Manna hook
+    ...(response.message_params ?? {}),
+  });
 }
 
 export function backendErrorResponseToastMessage(
@@ -508,7 +511,7 @@ export function humanizeTaskError(
     case "rate_limit":
       return t("common.generationRateLimited", { defaultValue: fallback });
     default:
-      return providerErrorMessage(raw) ?? fallback;
+      return providerErrorMessage(raw) ?? translateServerText(fallback); // Manna hook
   }
 }
 

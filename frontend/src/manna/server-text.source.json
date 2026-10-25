@@ -1711,6 +1711,16 @@
  },
  {
   "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4428,
+  "zh": "提示词: {0}..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4428,
+  "zh": "提示词: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
   "line": 4438,
   "zh": "随机种子: {0}"
  },
@@ -1951,6 +1961,16 @@
  },
  {
   "file": "src/novelvideo/structured_extraction.py",
+  "line": 948,
+  "zh": "  拒绝归并 {0} → {1}：证据 {2} 条，且出现在场次人物栏"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
+  "line": 948,
+  "zh": "  拒绝归并 {0} → {1}：证据 {2} 条"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
   "line": 967,
   "zh": "  归并 {0} → {1}"
  },
@@ -2131,8 +2151,28 @@
  },
  {
   "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 621,
+  "zh": "生成 {0} 草图..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 621,
+  "zh": "生成 {0} 网格..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
   "line": 625,
   "zh": "已生成 {0}/{1} 张{2}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 625,
+  "zh": "已生成 {0}/{1} 张草图"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 625,
+  "zh": "已生成 {0}/{1} 张网格"
  },
  {
   "file": "src/novelvideo/task_backend/runners/render.py",
@@ -2146,6 +2186,16 @@
  },
  {
   "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 657,
+  "zh": "草图生成失败: {0}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 657,
+  "zh": "网格生成失败: {0}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
   "line": 707,
   "zh": "入池: {0} 新增, {1} 去重跳过"
  },
@@ -2153,6 +2203,16 @@
   "file": "src/novelvideo/task_backend/runners/render.py",
   "line": 722,
   "zh": "✅ {0}完成！更新了 {1} 个 beats"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 722,
+  "zh": "✅ 草图再生完成！更新了 {0} 个 beats"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 722,
+  "zh": "✅ Render 再生完成！更新了 {0} 个 beats"
  },
  {
   "file": "src/novelvideo/task_backend/runners/render.py",

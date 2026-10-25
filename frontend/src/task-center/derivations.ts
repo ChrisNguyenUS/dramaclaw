@@ -104,7 +104,7 @@ export const currentTaskText = (
   // 后端那句中文，所以迁移可以一处一处来，不用一次改完所有 415 处。
   if (t.current_task_code) {
     return tFn(t.current_task_code, {
-      defaultValue: raw,
+      defaultValue: translateServerText(raw), // Manna hook
       ...(t.current_task_params ?? {}),
     });
   }
@@ -147,7 +147,7 @@ export const taskLogText = (entry: TaskLogEntry, tFn: TFn): string => {
   if (typeof entry === "string") return translateServerText(entry); // Manna hook
   const text = String(entry?.text ?? "");
   if (!entry?.code) return translateServerText(text); // Manna hook
-  return tFn(entry.code, { defaultValue: text, ...(entry.params ?? {}) });
+  return tFn(entry.code, { defaultValue: translateServerText(text), ...(entry.params ?? {}) }); // Manna hook
 };
 
 export interface OriginDeepLink {
