@@ -1170,7 +1170,7 @@ export const ThreeDWorldNode = memo(({ id, data, selected, width, height }: Thre
         void handleOpenDirector()
           .then((opened) => {
             if (!opened) {
-              publishNodeActionError(requestId, id, action, '无法打开导演世界');
+              publishNodeActionError(requestId, id, action, 'Could not open the Director World');
               return;
             }
             publishNodeActionSuccess(requestId, id, action, { openedUiAction: true });

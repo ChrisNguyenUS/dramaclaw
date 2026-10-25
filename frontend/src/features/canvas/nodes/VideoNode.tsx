@@ -3255,7 +3255,7 @@ export const VideoNode = memo(
               ? (latestData.upscaleResolution as FreezoneVideoUpscaleResolution)
               : "1080p";
           if (!sourceUrl) {
-            publishNodeActionError(requestId, id, action, new Error("缺少高清视频源"));
+            publishNodeActionError(requestId, id, action, new Error("Missing HD video source"));
             return;
           }
           void submitVideoUpscale(id, { sourceUrl, resolution })

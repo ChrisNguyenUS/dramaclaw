@@ -76,16 +76,16 @@ export async function submitTextToVideo(
   const projectId = readUrl().project;
   if (!projectId) {
     console.error('[text-node] no project in URL');
-    return { nodeIds: [], error: '当前 URL 缺少 project 参数' };
+    return { nodeIds: [], error: 'The current URL is missing the project parameter' };
   }
   const targetNodeId = resolveTextNodeDownstreamVideoNodeId(nodeId);
   if (!targetNodeId) {
     console.warn('[text-node] textToVideo: no downstream video node');
-    return { nodeIds: [], error: '下游没有可承载产物的视频节点' };
+    return { nodeIds: [], error: 'No downstream video node to hold the result' };
   }
   const store = useCanvasStore.getState();
   const targetNode = store.nodes.find((node) => node.id === targetNodeId);
-  if (!targetNode) return { nodeIds: [], error: '下游没有可承载产物的视频节点' };
+  if (!targetNode) return { nodeIds: [], error: 'No downstream video node to hold the result' };
   const videoData = targetNode.data as VideoNodeData;
   const aspectRatio = (videoData.aspectRatio ?? '16:9') as FreezoneVideoAspectRatio;
   const quality: VideoGenQuality = videoData.quality ?? '720P';

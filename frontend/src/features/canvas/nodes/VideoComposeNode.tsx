@@ -118,7 +118,7 @@ export const VideoComposeNode = memo(
 
     const handleAutoCompose = useCallback(async () => {
       if (!project || !canAutoCompose) {
-        throw new Error("自动合成至少需要 1 个视频和共计 2 个已完成媒体节点");
+        throw new Error("Auto compose needs at least 1 video and 2 completed media nodes in total");
       }
       let taskCompleted = false;
       const draft = data.draftTimeline as ComposeTimelineState | undefined;
@@ -127,9 +127,9 @@ export const VideoComposeNode = memo(
           ? reconcileDraftWithUpstream(draft, seedNodeIds)
           : buildInitialTimeline(seedNodeIds),
       );
-      if (!hasExportableClips(timeline)) throw new Error("视频合成没有可用素材");
+      if (!hasExportableClips(timeline)) throw new Error("Video compose has no usable clips");
       if (hasOverlappingVideoClips(timeline)) {
-        throw new Error("视频轨道存在重叠片段，请先在时间线中调整");
+        throw new Error("The video track has overlapping clips. Adjust them in the timeline first.");
       }
       updateNodeData(id, {
         isGenerating: true,
@@ -156,7 +156,7 @@ export const VideoComposeNode = memo(
           "freezone_video_compose",
           ref.job_id,
         );
-        if (!result.url) throw new Error("视频合成完成但未返回成片地址");
+        if (!result.url) throw new Error("Video compose finished but no output URL was returned");
         const projectionReconcile =
           await reconcileCompletedVideoComposeProjection({
             projectId: project,
@@ -243,7 +243,7 @@ export const VideoComposeNode = memo(
         if (action === "open_video_compose_modal") {
           publishNodeActionAccepted(requestId, id, action);
           if (!handleOpen()) {
-            publishNodeActionError(requestId, id, action, "视频合成至少需要 2 个已完成视频输入");
+            publishNodeActionError(requestId, id, action, "Video compose needs at least 2 completed video inputs");
             return;
           }
           publishNodeActionSuccess(requestId, id, action, { openedUiAction: true });

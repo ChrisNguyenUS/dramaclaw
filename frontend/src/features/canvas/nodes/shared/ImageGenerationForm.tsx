@@ -164,7 +164,7 @@ function AspectSizeChip({
         >
           {showQuality && (
             <>
-              <div className={IMAGE_PARAM_LABEL_CLASS}>画质</div>
+              <div className={IMAGE_PARAM_LABEL_CLASS}>Quality</div>
               <div className={IMAGE_PARAM_ROW_CLASS}>
                 {qualityOptions.map((value) => {
                   const label =
@@ -188,7 +188,7 @@ function AspectSizeChip({
               </div>
             </>
           )}
-          <div className={IMAGE_PARAM_LABEL_CLASS}>分辨率</div>
+          <div className={IMAGE_PARAM_LABEL_CLASS}>Resolution</div>
           <div className={IMAGE_PARAM_ROW_CLASS}>
             {sizeOptions.map((option) => {
               const isActive = size === option;
@@ -209,7 +209,7 @@ function AspectSizeChip({
             })}
           </div>
 
-          <div className={IMAGE_PARAM_LABEL_CLASS}>比例</div>
+          <div className={IMAGE_PARAM_LABEL_CLASS}>Aspect ratio</div>
           <div className="grid grid-cols-4 gap-2">
             {aspectOptions.map((option) => {
               const isActive = nearestAspect.value === option.value;
@@ -271,7 +271,7 @@ function StyleChip({ selectedId, selectedLabel, onChange, onOpenChange }: StyleC
   }, [isOpen]);
 
   const isActive = Boolean(selectedId);
-  const label = isActive ? selectedLabel ?? '风格' : '风格';
+  const label = isActive ? selectedLabel ?? 'Style' : 'Style';
 
   return (
     <div className="relative">
@@ -282,7 +282,7 @@ function StyleChip({ selectedId, selectedLabel, onChange, onOpenChange }: StyleC
           event.stopPropagation();
           setIsOpen((prev) => !prev);
         }}
-        title={isActive ? selectedLabel ?? undefined : '风格'}
+        title={isActive ? selectedLabel ?? undefined : 'Style'}
         className={`${NODE_TEXT_CONTROL_TRIGGER_CLASS} max-w-[160px]`}
       >
         <Palette className={`${NODE_TEXT_CONTROL_ICON_CLASS} shrink-0`} />
@@ -361,7 +361,7 @@ function CameraChip({ selection, summary, onChange }: CameraChipProps) {
   }, [isOpen, syncPopoverPosition]);
 
   const isActive = Boolean(selection) && summary != null;
-  const label = isActive && summary ? summary : '摄像机';
+  const label = isActive && summary ? summary : 'Camera';
 
   return (
     <div className="relative">
@@ -372,7 +372,7 @@ function CameraChip({ selection, summary, onChange }: CameraChipProps) {
           event.stopPropagation();
           setIsOpen((prev) => !prev);
         }}
-        title={isActive ? summary ?? undefined : '摄像机'}
+        title={isActive ? summary ?? undefined : 'Camera'}
         className={`${NODE_TEXT_CONTROL_TRIGGER_CLASS} max-w-[220px]`}
       >
         <Camera className={`${NODE_TEXT_CONTROL_ICON_CLASS} shrink-0`} />
@@ -440,7 +440,7 @@ function CountSelect({ value, onChange }: CountSelectProps) {
         }}
         className={NODE_TEXT_CONTROL_TRIGGER_CLASS}
       >
-        <span>{value}张</span>
+        <span>×{value}</span>
         <ChevronDown className="h-3 w-3 text-text-muted/90" />
       </button>
       {isOpen && (
@@ -464,7 +464,7 @@ function CountSelect({ value, onChange }: CountSelectProps) {
                     : 'text-text-muted/95 hover:bg-white/[0.11] hover:text-text-dark'
                 }`}
               >
-                {option}张
+                ×{option}
               </button>
             );
           })}
@@ -673,10 +673,10 @@ export const ImageGenerationForm = memo((props: ImageGenerationFormProps) => {
             onOpenAssetLibrary();
           }}
           className={`${NODE_TEXT_CONTROL_TRIGGER_CLASS} group/asset px-1.5`}
-          title="从资产库选择参考图（人物 / 场景 / 道具）"
+          title="Pick a reference image from the asset library (characters / scenes / props)"
         >
           <Library className={`${NODE_TEXT_CONTROL_ICON_CLASS} group-hover/asset:text-text-dark`} />
-          <span>资产库</span>
+          <span>Asset library</span>
         </button>
         {upstreamTextContents.map((content) => (
           <ReferenceTextChip
@@ -695,7 +695,7 @@ export const ImageGenerationForm = memo((props: ImageGenerationFormProps) => {
                 <div
                   key={`upstream-image-${content.nodeId}`}
                   className={NODE_REFERENCE_MEDIA_CHIP_CLASS}
-                  title={`来自上游 · ${content.displayName ?? content.nodeType}`}
+                  title={`From upstream · ${content.displayName ?? content.nodeType}`}
                   onMouseEnter={(event) => {
                     setRefHover({
                       imageUrl: url,
@@ -714,7 +714,7 @@ export const ImageGenerationForm = memo((props: ImageGenerationFormProps) => {
                       「图片」，序号只存在于提交给后端的 prompt（@图片N）里。 */}
                   <button
                     type="button"
-                    title="取消引用此素材"
+                    title="Stop referencing this asset"
                     className={NODE_REFERENCE_MEDIA_DETACH_CLASS}
                     onMouseDown={(event) => event.stopPropagation()}
                     onClick={(event) => {
@@ -744,8 +744,8 @@ export const ImageGenerationForm = memo((props: ImageGenerationFormProps) => {
         placeholder={
           promptPlaceholder
           ?? (upstreamTextJoined.length > 0
-            ? '上游内容已自动接入，可继续补充提示词…'
-            : '描述你想要生成的画面内容，@引用素材')
+            ? 'Upstream content is wired in. Add more prompt detail…'
+            : 'Describe the image you want, use @ to reference assets')
         }
         className={`nodrag nowheel min-h-0 w-full flex-1 overflow-y-auto whitespace-pre-wrap break-words border-none bg-transparent px-3 py-2 text-sm leading-6 text-text-dark outline-none ${CANVAS_NODE_INPUT_PLACEHOLDER_CLASS}`}
       />
@@ -791,7 +791,7 @@ export const ImageGenerationForm = memo((props: ImageGenerationFormProps) => {
           )}
           <button
             type="button"
-            title="翻译提示词（中英文互译）"
+            title="Translate prompt (Chinese ↔ English)"
             disabled={isTranslatingPrompt || isGenerating || prompt.trim().length === 0}
             onClick={(event) => {
               event.stopPropagation();
@@ -820,7 +820,7 @@ export const ImageGenerationForm = memo((props: ImageGenerationFormProps) => {
           <button
             type="button"
             disabled={submitDisabled}
-            title={selectedModelReferenceError ?? '生成'}
+            title={selectedModelReferenceError ?? 'Generate'}
             onClick={(event) => {
               event.stopPropagation();
               onSubmit();

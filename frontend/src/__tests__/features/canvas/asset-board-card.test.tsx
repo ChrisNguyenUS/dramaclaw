@@ -50,9 +50,9 @@ describe('AssetBoardCard', () => {
     expect(screen.getByText('SB-01 街头发现光')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'SB-01 街头发现光' })).toBeInTheDocument();
     expect(screen.getByText('wan2.5')).toBeInTheDocument();
-    expect(screen.getByText('5秒')).toBeInTheDocument();
+    expect(screen.getByText('5s')).toBeInTheDocument();
     expect(screen.getByText('720 × 1280')).toBeInTheDocument();
-    expect(screen.getByText('成片')).toBeInTheDocument();
+    expect(screen.getByText('Final cut')).toBeInTheDocument();
   });
 
   it('视频卡没记模型 → 不占位（只剩时长/分辨率）', () => {
@@ -64,7 +64,7 @@ describe('AssetBoardCard', () => {
         onPreviewImage={() => {}}
       />,
     );
-    expect(screen.getByText('5秒')).toBeInTheDocument();
+    expect(screen.getByText('5s')).toBeInTheDocument();
     expect(screen.getByText('720 × 1280')).toBeInTheDocument();
   });
 
@@ -138,7 +138,7 @@ describe('AssetBoardCard', () => {
       />,
     );
     // 「参考素材」标题已去掉，只留缩略图本身。
-    expect(screen.queryByText('参考素材')).not.toBeInTheDocument();
+    expect(screen.queryByText('Reference assets')).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: '角色图A' }));
     expect(onPreviewImage).toHaveBeenCalledWith('/static/a.png');
   });
@@ -160,14 +160,14 @@ describe('AssetBoardCard', () => {
     );
     const thumb = screen.getByRole('button', { name: '角色图A' });
     // hover 前没有菜单；移入缩略图才展开（与详情面板的参考菜单同一组件）。
-    expect(screen.queryByRole('menuitem', { name: '编辑' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('menuitem', { name: 'Edit' })).not.toBeInTheDocument();
     fireEvent.mouseEnter(thumb.parentElement as HTMLElement);
 
-    fireEvent.click(screen.getByRole('menuitem', { name: '编辑' }));
+    fireEvent.click(screen.getByRole('menuitem', { name: 'Edit' }));
     expect(onOpenReference).toHaveBeenCalledWith(ref);
 
     fireEvent.mouseEnter(thumb.parentElement as HTMLElement);
-    fireEvent.click(screen.getByRole('menuitem', { name: '定位' }));
+    fireEvent.click(screen.getByRole('menuitem', { name: 'Locate' }));
     expect(onLocateReference).toHaveBeenCalledWith('r1');
     expect(onOpen).not.toHaveBeenCalled();
   });
@@ -187,8 +187,8 @@ describe('AssetBoardCard', () => {
     );
     const thumb = screen.getByRole('button', { name: '自带图' });
     fireEvent.mouseEnter(thumb.parentElement as HTMLElement);
-    expect(screen.getByRole('menuitem', { name: '编辑' })).toBeInTheDocument();
-    expect(screen.queryByRole('menuitem', { name: '定位' })).not.toBeInTheDocument();
+    expect(screen.getByRole('menuitem', { name: 'Edit' })).toBeInTheDocument();
+    expect(screen.queryByRole('menuitem', { name: 'Locate' })).not.toBeInTheDocument();
   });
 
   it('挂了菜单后，点缩略图仍是开灯箱预览（菜单只由 hover 驱动）', () => {
@@ -223,7 +223,7 @@ describe('AssetBoardCard', () => {
     );
     const thumb = screen.getByRole('button', { name: '角色图A' });
     fireEvent.mouseEnter(thumb.parentElement as HTMLElement);
-    expect(screen.queryByRole('menuitem', { name: '编辑' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('menuitem', { name: 'Edit' })).not.toBeInTheDocument();
     fireEvent.click(thumb);
     expect(onPreviewImage).toHaveBeenCalledWith('/static/a.png');
   });
@@ -271,7 +271,7 @@ describe('AssetBoardCard', () => {
     );
     fireEvent.click(screen.getByText('定位测试'));
     expect(onOpen).toHaveBeenCalledTimes(1);
-    fireEvent.click(screen.getByRole('button', { name: '在画布中定位' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Locate on canvas' }));
     expect(onLocate).toHaveBeenCalledWith('n1');
     expect(onOpen).toHaveBeenCalledTimes(1);
   });
@@ -285,12 +285,12 @@ describe('AssetBoardCard', () => {
         onPreviewImage={() => {}}
       />,
     );
-    const overlay = screen.getByRole('status', { name: '生成中' });
+    const overlay = screen.getByRole('status', { name: 'Generating' });
     // 未给 generationStartedAt → 估算 hook 退化为「从挂载时刻计时」，渲染瞬间
     // elapsed≈0，百分比是 0。进度文案在媒体蒙层里（与 spinner 同框）。
-    expect(within(overlay).getByText('生成中 0%...')).toBeInTheDocument();
+    expect(within(overlay).getByText('Generating 0%...')).toBeInTheDocument();
     // 整卡只有这一处「生成中 X%」——不再在标题行另挂一份。
-    expect(screen.getAllByText(/生成中 \d+%/)).toHaveLength(1);
+    expect(screen.getAllByText(/Generating \d+%/)).toHaveLength(1);
   });
 
   it('生成中（文本卡）：无媒体区 → 进度回落到标题行内联', () => {
@@ -303,8 +303,8 @@ describe('AssetBoardCard', () => {
       />,
     );
     // 文本卡没有媒体蒙层（role=status），进度只能挂在标题行。
-    expect(screen.queryByRole('status', { name: '生成中' })).not.toBeInTheDocument();
-    expect(screen.getByText('生成中 0%...')).toBeInTheDocument();
+    expect(screen.queryByRole('status', { name: 'Generating' })).not.toBeInTheDocument();
+    expect(screen.getByText('Generating 0%...')).toBeInTheDocument();
   });
 
   it('生成中：给定 generationStartedAt 时，百分比按经过时间估算推进', () => {
@@ -324,14 +324,14 @@ describe('AssetBoardCard', () => {
           onPreviewImage={() => {}}
         />,
       );
-      expect(screen.getByText('生成中 0%...')).toBeInTheDocument();
+      expect(screen.getByText('Generating 0%...')).toBeInTheDocument();
 
       // 图片栏预估时长 20s（见 AssetBoardCard 的 ESTIMATED_GENERATION_DURATION_MS）：
       // 推进 4s → 33 个 120ms 轮询节拍（最后一拍落在 3960ms）→ 指数饱和估算为 24%。
       act(() => {
         vi.advanceTimersByTime(4000);
       });
-      expect(screen.getByText('生成中 24%...')).toBeInTheDocument();
+      expect(screen.getByText('Generating 24%...')).toBeInTheDocument();
     } finally {
       vi.useRealTimers();
     }
@@ -346,7 +346,7 @@ describe('AssetBoardCard', () => {
         onPreviewImage={() => {}}
       />,
     );
-    const badge = screen.getByText('失败');
+    const badge = screen.getByText('Failed');
     expect(badge.closest('[title]')?.getAttribute('title')).toBe('算力不足，生成失败');
   });
 
@@ -359,7 +359,7 @@ describe('AssetBoardCard', () => {
         onPreviewImage={() => {}}
       />,
     );
-    const badge = screen.getByText('失败');
+    const badge = screen.getByText('Failed');
     expect(badge.closest('[title]')?.getAttribute('title')).toBe('生成超时');
   });
 

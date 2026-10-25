@@ -117,8 +117,8 @@ function ReferencesRow({
   // （见 MediaBody 的 !showGenerationForm 守卫），不会再与生成表单的引用 chip
   // 并存，因此也不会出现同名缩略图两处歧义的问题。
   return (
-    <div role="group" aria-label="参考素材" className="flex flex-col gap-1.5">
-      <span className="text-[12px] text-white/40">参考素材</span>
+    <div role="group" aria-label="Reference assets" className="flex flex-col gap-1.5">
+      <span className="text-[12px] text-white/40">Reference assets</span>
       <div className="flex flex-wrap gap-2">
         {references.map((ref) => {
           const refNodeId = ref.nodeId;
@@ -170,7 +170,7 @@ function MediaBody({
   // 信息的第二份，且位置在表单下方更像是漏掉的碎片（用户要求去掉）。
   const badges: ReactElement[] = [];
   if (!showGenerationForm) {
-    if (item.durationSec !== null) badges.push(<Chip key="dur">{`${item.durationSec}秒`}</Chip>);
+    if (item.durationSec !== null) badges.push(<Chip key="dur">{`${item.durationSec}s`}</Chip>);
     if (item.widthPx !== null && item.heightPx !== null) {
       badges.push(<Chip key="dim">{`${item.widthPx} × ${item.heightPx}`}</Chip>);
     }
@@ -221,8 +221,8 @@ function MediaBody({
           <div className={cn('relative', fill && 'h-full')}>
             <button
               type="button"
-              aria-label="放大查看"
-              title="放大查看"
+              aria-label="Enlarge"
+              title="Enlarge"
               disabled={item.isGenerating}
               onClick={() => onZoomImage(item.mediaUrl as string)}
               className={cn('cursor-zoom-in disabled:cursor-not-allowed', fill && 'block h-full')}
@@ -272,7 +272,7 @@ function MediaBody({
 
       {prompt && !showGenerationForm && (
         <div className="flex flex-col gap-1.5">
-          <span className="text-[12px] text-white/40">提示词</span>
+          <span className="text-[12px] text-white/40">Prompt</span>
           {/* @图片N / @视频N / @音频N 渲染成带缩略图的只读 chip（hover 出大图），
               编号复用工作流那份映射；解析不到的引用原样留作纯文本。 */}
           <AssetBoardPromptText
@@ -385,7 +385,7 @@ function AudioBody({
  */
 function GeneratingPlaceholderLabel({ item }: { item: AssetBoardItem }) {
   const percent = useEstimatedProgress(item.generationStartedAt, estimatedGenerationDurationMs(item.column));
-  return <span className="text-[12px] text-muted-foreground">{`生成中 ${percent}%...`}</span>;
+  return <span className="text-[12px] text-muted-foreground">{`Generating ${percent}%...`}</span>;
 }
 
 function AudioPlaceholder({ item, className }: { item: AssetBoardItem; className: string }) {
@@ -451,7 +451,7 @@ function GeneratingOverlay() {
   return (
     <span
       role="status"
-      aria-label="生成中"
+      aria-label="Generating"
       className="absolute inset-0 z-10 flex items-center justify-center rounded-lg bg-black/40"
     >
       <Loader2 className="h-6 w-6 animate-spin text-white" />
@@ -518,14 +518,14 @@ export function AssetBoardDetail({
 
   return (
     <section
-      aria-label="资产详情"
+      aria-label="Asset details"
       // group/detail：头部那条视频工具条「hover 到详情才浮现」的悬停源。**具名** group
       // 是必须的——详情子树里已经有一堆匿名 group-hover 的消费者（图片操作 chip、音频
       // 条、卡片……），挂匿名 group 会让它们在鼠标进详情任意位置时一起误触发。
       className="group/detail flex min-h-0 min-w-0 flex-1 flex-col rounded-lg rounded-b-none border border-white/5 bg-[#262626]"
     >
       <header className="flex shrink-0 items-center gap-1.5 px-3 py-2.5">
-        <button type="button" aria-label="返回" title="返回" onClick={onBack} className={HEADER_ICON_BUTTON_CLASS}>
+        <button type="button" aria-label="Back" title="Back" onClick={onBack} className={HEADER_ICON_BUTTON_CLASS}>
           <ChevronLeft className="h-4 w-4" />
         </button>
         {showHeaderTitle && (
@@ -561,14 +561,14 @@ export function AssetBoardDetail({
           <DetailMoreMenu
             key={node.id}
             triggerClassName={HEADER_ICON_BUTTON_CLASS}
-            triggerLabel="节点操作"
+            triggerLabel="Node actions"
             entries={[
               keyElementMenuEntry(node, updateNodeData),
               {
                 kind: 'action',
                 key: 'duplicate',
                 icon: Copy,
-                label: '创建副本',
+                label: 'Duplicate',
                 // 复制到源节点下方一格并克隆上游连线（与工作流多选工具条同一个 store
                 // 动作）；建好直接把详情切到副本，否则用户看不出发生了什么。
                 onSelect: () => {
@@ -580,7 +580,7 @@ export function AssetBoardDetail({
                 kind: 'action',
                 key: 'delete',
                 icon: Trash2,
-                label: '删除',
+                label: 'Delete',
                 // 节点没了详情也就没了对象——先关详情再删，避免详情闪一下「节点已不存在」。
                 onSelect: () => {
                   onClose();
@@ -592,8 +592,8 @@ export function AssetBoardDetail({
         )}
         <button
           type="button"
-          aria-label="关闭详情"
-          title="关闭详情"
+          aria-label="Close details"
+          title="Close details"
           onClick={onClose}
           className={HEADER_ICON_BUTTON_CLASS}
         >
@@ -640,7 +640,7 @@ export function AssetBoardDetail({
         )}
       >
         {missing ? (
-          <p className="py-16 text-center text-[13px] text-muted-foreground">节点已不存在</p>
+          <p className="py-16 text-center text-[13px] text-muted-foreground">This node no longer exists</p>
         ) : item.column === 'text' ? (
           // 左对齐、顶起：正文从详情区左上角开始（对齐 liblib 阅读页），不再水平居中。
           // 正文占面板 90% 宽（原来卡在 max-w-3xl=768px，面板一宽就只用了半边，

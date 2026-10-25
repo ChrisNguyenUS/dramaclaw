@@ -153,13 +153,13 @@ export const AudioNode = memo(({ id, data, selected, width, height }: AudioNodeP
         publishNodeActionAccepted(requestId, id, action);
         void (async () => {
           const project = readUrl().project;
-          if (!project) throw new Error('缺少项目 ID，无法翻译音频文本');
+          if (!project) throw new Error('Missing project ID. Cannot translate the audio text.');
           const latest = useCanvasStore.getState().nodes.find((node) => node.id === id);
           if (latest?.type !== CANVAS_NODE_TYPES.audio) {
-            throw new Error('音频节点不存在');
+            throw new Error('Audio node not found');
           }
           const text = deriveAudioText(latest.data as AudioNodeData).trim();
-          if (!text) throw new Error('音频节点没有可翻译文本');
+          if (!text) throw new Error('The audio node has no text to translate');
           const translated = await translateNodeText(project, {
             text,
             nodeId: id,

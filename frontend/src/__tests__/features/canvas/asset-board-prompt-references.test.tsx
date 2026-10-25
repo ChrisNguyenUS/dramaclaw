@@ -23,7 +23,7 @@ vi.mock('@/features/canvas/hooks/useFreezoneImageModels', () => ({
 }));
 
 function detailPanel() {
-  return screen.getByRole('region', { name: '资产详情' });
+  return screen.getByRole('region', { name: 'Asset details' });
 }
 
 /**

@@ -146,7 +146,7 @@ describe("canvas image generation credit contract", () => {
     await result.current.submit();
 
     expect(submitFreezoneGen).not.toHaveBeenCalled();
-    expect(String(nodeData().generationError)).toContain("计费规则未配置");
+    expect(String(nodeData().generationError)).toContain("billing rule is not configured");
     expect(nodeData().generationErrorDetails).toBe(nodeData().generationError);
     expect(nodeData().isGenerating).toBe(false);
   });

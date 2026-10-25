@@ -133,9 +133,9 @@ export interface ReferenceMediaCapEntry {
 }
 
 const REFERENCE_MEDIA_KIND_LABEL: Record<ReferenceMediaItem["kind"], string> = {
-  image: "图片",
-  video: "视频",
-  audio: "音频",
+  image: "图片", // i18n-exempt: canonical @mention protocol token
+  video: "视频", // i18n-exempt: canonical @mention protocol token
+  audio: "音频", // i18n-exempt: canonical @mention protocol token
 };
 
 export function formatReferenceMediaCompilerLabel(entry: ReferenceMediaCapEntry): string {

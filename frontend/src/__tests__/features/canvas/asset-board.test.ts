@@ -96,7 +96,7 @@ describe('buildAssetBoard', () => {
     expect(refs).toHaveLength(1);
     expect(refs[0]).toMatchObject({ nodeId: null, thumbnailUrl: '/static/own-ref.png' });
     // 口径与 @图片N 一致：自带图作为一条独立参考出现，即便节点本体主图是生成结果。
-    expect(refs[0].label).toBe('参考图');
+    expect(refs[0].label).toBe('Reference image');
   });
 
   it('自带参考图 + 上游图：自带图排第 1、上游按连线顺序顺延（口径同 orderedReferenceUrlsWithOwnFirst）', () => {
@@ -219,7 +219,7 @@ describe('buildAssetBoard', () => {
       [],
     );
     expect(board.text.find((i) => i.nodeId === 't1')?.textPreview).toBe(`${'x'.repeat(80)}…`);
-    expect(board.text.find((i) => i.nodeId === 'vs')?.textPreview).toBe('分镜表 · 3 个镜头');
+    expect(board.text.find((i) => i.nodeId === 'vs')?.textPreview).toBe('Shot table · 3 shots');
     expect(board.text.find((i) => i.nodeId === 't1')?.title).toBe('文本');
   });
 
@@ -271,7 +271,7 @@ describe('buildAssetBoard', () => {
       [
         node('e1', CANVAS_NODE_TYPES.video, {
           videoUrl: null,
-          generationError: '生成失败',
+          generationError: 'Generation failed',
           analysisError: '解析失败',
           uploadError: '上传失败',
         }),
@@ -280,7 +280,7 @@ describe('buildAssetBoard', () => {
       ],
       [],
     );
-    expect(board.video.find((i) => i.nodeId === 'e1')?.generationError).toBe('生成失败');
+    expect(board.video.find((i) => i.nodeId === 'e1')?.generationError).toBe('Generation failed');
     expect(board.video.find((i) => i.nodeId === 'e2')?.generationError).toBe('解析失败');
     expect(board.image.find((i) => i.nodeId === 'e3')?.generationError).toBe('上传失败');
   });

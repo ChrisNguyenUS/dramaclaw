@@ -136,7 +136,7 @@ export function AssetBoardColumns({ text, image, video }: AssetBoardColumnsProps
     <div
       role="separator"
       aria-orientation="vertical"
-      aria-label="调整栏宽"
+      aria-label="Resize column"
       data-testid={`asset-board-resizer-${handleIndex}`}
       onPointerDown={handlePointerDown(handleIndex)}
       onPointerMove={handlePointerMove}

@@ -17,7 +17,7 @@ import {
  * 迟早会分叉，而分叉的表现是「chip 上显示的比例」与「提交下发的比例」不一致。
  */
 export const IMAGE_ASPECT_OPTIONS: ReadonlyArray<{ value: string; label: string }> = [
-  { value: 'auto', label: '自适应' },
+  { value: 'auto', label: 'Auto' },
   { value: '1:1', label: '1:1' },
   { value: '9:16', label: '9:16' },
   { value: '16:9', label: '16:9' },
@@ -33,9 +33,9 @@ export const IMAGE_ASPECT_OPTIONS: ReadonlyArray<{ value: string; label: string 
 export const IMAGE_SIZE_OPTIONS: ReadonlyArray<ImageSize> = ['1K', '2K', '4K'];
 
 export const IMAGE_QUALITY_OPTIONS: ReadonlyArray<{ value: ImageQuality; label: string }> = [
-  { value: 'low', label: '低画质' },
-  { value: 'medium', label: '标准画质' },
-  { value: 'high', label: '高画质' },
+  { value: 'low', label: 'Low' },
+  { value: 'medium', label: 'Standard' },
+  { value: 'high', label: 'High' },
 ];
 
 /**

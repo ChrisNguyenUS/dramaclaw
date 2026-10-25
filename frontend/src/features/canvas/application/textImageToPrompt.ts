@@ -64,12 +64,12 @@ export async function runTextImageToPrompt(
   const projectId = readUrl().project;
   if (!projectId) {
     console.error('[text-node] no project in URL');
-    return { prompt: null, error: '当前 URL 缺少 project 参数' };
+    return { prompt: null, error: 'The current URL is missing the project parameter' };
   }
   const rawUrl = resolveTextNodeUpstreamImageUrl(nodeId);
   if (!rawUrl) {
     console.warn('[text-node] imageToPrompt: no upstream image url');
-    return { prompt: null, error: '上游没有可反推的图片' };
+    return { prompt: null, error: 'No upstream image to reverse into a prompt' };
   }
   const updateNodeData = useCanvasStore.getState().updateNodeData;
   updateNodeData(nodeId, { isGenerating: true, generationStartedAt: Date.now() });

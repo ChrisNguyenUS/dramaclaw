@@ -71,8 +71,8 @@ export function resolvePromptReferences(
       if (videoUrl) {
         videoIdx += 1;
         const previewImageUrl = asRecord(upstream.data).previewImageUrl;
-        out.set(`视频${videoIdx}`, {
-          label: `视频${videoIdx}`,
+        out.set(`视频${videoIdx}`, { // i18n-exempt: canonical @mention protocol token
+          label: `视频${videoIdx}`, // i18n-exempt: canonical @mention protocol token
           kind: 'video',
           thumbnailUrl:
             typeof previewImageUrl === 'string' && previewImageUrl.length > 0
@@ -86,8 +86,8 @@ export function resolvePromptReferences(
         const audioUrl = asRecord(upstream.data).audioUrl;
         if (typeof audioUrl !== 'string' || audioUrl.length === 0) continue;
         audioIdx += 1;
-        out.set(`音频${audioIdx}`, {
-          label: `音频${audioIdx}`,
+        out.set(`音频${audioIdx}`, { // i18n-exempt: canonical @mention protocol token
+          label: `音频${audioIdx}`, // i18n-exempt: canonical @mention protocol token
           kind: 'audio',
           thumbnailUrl: null,
           nodeId: upstream.id,
@@ -97,8 +97,8 @@ export function resolvePromptReferences(
       const url = referenceImageUrl(upstream);
       if (url) {
         imageIdx += 1;
-        out.set(`图片${imageIdx}`, {
-          label: `图片${imageIdx}`,
+        out.set(`图片${imageIdx}`, { // i18n-exempt: canonical @mention protocol token
+          label: `图片${imageIdx}`, // i18n-exempt: canonical @mention protocol token
           kind: 'image',
           thumbnailUrl: url,
           nodeId: upstream.id,
@@ -111,7 +111,7 @@ export function resolvePromptReferences(
   // 图片家族：自带参考图排第 1，上游图按连线顺序接在后面（URL 去重）。
   // ImageEditNode 例外：标签是 `图N`（无「片」），编号基线是纯上游图片
   // （useUpstreamImages，见 ImageEditNode 的 useReferenceMentionSync），没有自带参考图这一位。
-  const labelPrefix = isImageEditNode(node) ? '图' : '图片';
+  const labelPrefix = isImageEditNode(node) ? '图' : '图片'; // i18n-exempt: canonical @mention protocol token
   const ownReferenceUrl = isImageGenNode(node)
     ? ((): string | null => {
         const raw = asRecord(node.data).referenceImageUrl;

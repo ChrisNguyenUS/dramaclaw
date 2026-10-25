@@ -216,8 +216,8 @@ export async function separateVideoAudio(
       silentVideoOutputUrl,
     });
 
-    const audioTitle = `${baseName}_背景音`;
-    const silentTitle = `${baseName}_无声`;
+    const audioTitle = `${baseName}_audio`;
+    const silentTitle = `${baseName}_silent`;
 
     const done = useCanvasStore.getState();
     const audioPos = done.findNodePosition(

@@ -87,7 +87,7 @@ function referenceImageNode(): CanvasNode {
 }
 
 function detailPanel() {
-  return screen.getByRole('region', { name: '资产详情' });
+  return screen.getByRole('region', { name: 'Asset details' });
 }
 
 /**
@@ -104,7 +104,7 @@ function leftListCard(title: string): HTMLElement {
 
 /** drop 区内的一个稳定落点（生成按钮在表单里、表单在放置层里，drop 会冒泡到放置层）。 */
 function dropTarget() {
-  return within(detailPanel()).getByRole('button', { name: '生成' });
+  return within(detailPanel()).getByRole('button', { name: 'Generate' });
 }
 
 describe('故事板详情 · 拖拽加引用', () => {
@@ -163,7 +163,7 @@ describe('故事板详情 · 拖拽加引用', () => {
 
     // 落下前：无边、表单里没有引用 chip。
     expect(useCanvasStore.getState().edges).toHaveLength(0);
-    expect(within(detailPanel()).queryByTitle('取消引用此素材')).not.toBeInTheDocument();
+    expect(within(detailPanel()).queryByTitle('Stop referencing this asset')).not.toBeInTheDocument();
 
     const dt = makeDataTransfer();
     fireEvent.dragStart(leftListCard('参考图片卡片'), { dataTransfer: dt });
@@ -176,7 +176,7 @@ describe('故事板详情 · 拖拽加引用', () => {
     expect(edges[0]).toMatchObject({ source: 'ref-2', target: 'gen-1' });
 
     // 回流后：表单参考区出现该引用的缩略图 chip（自带取消引用按钮）+ 提示层收起。
-    expect(within(detailPanel()).getByTitle('取消引用此素材')).toBeInTheDocument();
+    expect(within(detailPanel()).getByTitle('Stop referencing this asset')).toBeInTheDocument();
     expect(within(detailPanel()).queryByText(REFERENCE_DROP_HINT_TEXT)).not.toBeInTheDocument();
   });
 

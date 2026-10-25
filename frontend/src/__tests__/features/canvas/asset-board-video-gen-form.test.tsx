@@ -95,7 +95,7 @@ function emptyVideoNode(overrides: Record<string, unknown> = {}): CanvasNode {
 }
 
 function detailPanel() {
-  return screen.getByRole('region', { name: '资产详情' });
+  return screen.getByRole('region', { name: 'Asset details' });
 }
 
 function openDetail(name: string) {
@@ -113,9 +113,9 @@ describe('故事板详情 · 视频生成表单', () => {
     openDetail('视频节点 1');
 
     const detail = detailPanel();
-    expect(within(detail).getAllByText('待确认后生成').length).toBeGreaterThan(0);
+    expect(within(detail).getAllByText('Generates after you confirm').length).toBeGreaterThan(0);
     // 生成条：运镜 / 资产库 chips + 提示词输入 + 提交。
-    expect(within(detail).getByRole('button', { name: /资产库/ })).toBeInTheDocument();
+    expect(within(detail).getByRole('button', { name: /Asset library/ })).toBeInTheDocument();
     expect(
       detail.querySelector('[data-placeholder="根据文字描述生成视频。"]'),
     ).not.toBeNull();
@@ -157,7 +157,7 @@ describe('故事板详情 · 视频生成表单', () => {
     const detail = detailPanel();
     expect(within(detail).getByRole('button', { name: '提交' })).toBeInTheDocument();
     // 只读展示块的小标题不出现——提示词只由表单里的输入框承载一份。
-    expect(within(detail).queryByText('提示词')).not.toBeInTheDocument();
+    expect(within(detail).queryByText('Prompt')).not.toBeInTheDocument();
     expect(within(detail).getAllByText('已经出片的提示词')).toHaveLength(1);
   });
 
@@ -174,7 +174,7 @@ describe('故事板详情 · 视频生成表单', () => {
 
     const detail = detailPanel();
     expect(within(detail).queryByRole('button', { name: '提交' })).not.toBeInTheDocument();
-    expect(within(detail).queryByRole('button', { name: /资产库/ })).not.toBeInTheDocument();
+    expect(within(detail).queryByRole('button', { name: /Asset library/ })).not.toBeInTheDocument();
   });
 
   it('referenceOnly 引用视频节点不挂表单（对齐工作流不出生成面板）', () => {
@@ -195,6 +195,6 @@ describe('故事板详情 · 视频生成表单', () => {
     render(<AssetBoardView visible onLocateNode={() => {}} />);
 
     // 三栏态下视频卡的空媒体区。
-    expect(screen.getByText('待确认后生成')).toBeInTheDocument();
+    expect(screen.getByText('Generates after you confirm')).toBeInTheDocument();
   });
 });

@@ -45,7 +45,7 @@ function renderBoard() {
 }
 
 function detailPanel() {
-  return screen.getByRole('region', { name: '资产详情' });
+  return screen.getByRole('region', { name: 'Asset details' });
 }
 
 describe('故事板生成中态：新节点进左列表 + 进度百分比', () => {
@@ -59,7 +59,7 @@ describe('故事板生成中态：新节点进左列表 + 进度百分比', () =
     fireEvent.click(screen.getByRole('button', { name: '已有图片' }));
     expect(within(detailPanel()).getByText('已有图片')).toBeInTheDocument();
     // 主从布局下左侧只剩图片栏窄列表。
-    expect(screen.getByText('图片')).toBeInTheDocument();
+    expect(screen.getByText('Image')).toBeInTheDocument();
 
     // 像 imageMultiAngle.ts 编排那样：同步 addNode 一个 isGenerating 的结果节点
     // 并连边到源节点——不是替换整个 nodes 数组（setCanvasData），而是增量 spawn。
@@ -81,11 +81,11 @@ describe('故事板生成中态：新节点进左列表 + 进度百分比', () =
     });
 
     // 断言 A：新节点确实出现在左侧窄列表（board 数据源实时，未被详情态冻结）。
-    const imageList = screen.getByText('图片').closest('section') as HTMLElement;
+    const imageList = screen.getByText('Image').closest('section') as HTMLElement;
     expect(within(imageList).getByRole('button', { name: '多角度候选' })).toBeInTheDocument();
     // 断言 B：以生成中态渲染——标题旁百分比小字 + 媒体区 spinner 覆层。
-    expect(within(imageList).getByText(/^生成中 \d+%\.\.\.$/)).toBeInTheDocument();
-    expect(within(imageList).getAllByRole('status', { name: '生成中' }).length).toBeGreaterThan(0);
+    expect(within(imageList).getByText(/^Generating \d+%\.\.\.$/)).toBeInTheDocument();
+    expect(within(imageList).getAllByRole('status', { name: 'Generating' }).length).toBeGreaterThan(0);
     // 原有详情（已有图片）没被打断——左列表新增一项，不影响右侧正在看的详情。
     expect(within(detailPanel()).getByText('已有图片')).toBeInTheDocument();
   });
@@ -110,13 +110,13 @@ describe('故事板生成中态：新节点进左列表 + 进度百分比', () =
       });
       renderBoard();
 
-      expect(screen.getByText('生成中 0%...')).toBeInTheDocument();
+      expect(screen.getByText('Generating 0%...')).toBeInTheDocument();
 
       // 4s / 20s 预估经指数饱和算法约为 24%（120ms 轮询节拍，最后一拍落在 3960ms）。
       act(() => {
         vi.advanceTimersByTime(4000);
       });
-      expect(screen.getByText('生成中 24%...')).toBeInTheDocument();
+      expect(screen.getByText('Generating 24%...')).toBeInTheDocument();
     } finally {
       vi.useRealTimers();
     }
@@ -139,7 +139,7 @@ describe('故事板生成中态：新节点进左列表 + 进度百分比', () =
     });
     renderBoard();
 
-    expect(screen.queryByText(/^生成中 \d+%\.\.\.$/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/^Generating \d+%\.\.\.$/)).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: '完成中候选' })).toBeInTheDocument();
   });
 });

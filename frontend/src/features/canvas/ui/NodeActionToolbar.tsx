@@ -724,13 +724,13 @@ export const NodeActionToolbar = memo(
           },
         );
         if (result.errors.length > 0) {
-          toast.error(result.errors[0] ?? "工作流执行失败");
+          toast.error(result.errors[0] ?? "Workflow run failed");
           return;
         }
         if (result.openedUiActions > 0 || result.applied > 0) {
-          toast.success("已开始运行工作流");
+          toast.success("Workflow started");
         } else {
-          toast.info("这个工作流没有需要继续执行的节点");
+          toast.info("This workflow has no nodes left to run");
         }
       } catch (error) {
         toast.error(error instanceof Error ? error.message : String(error));
@@ -743,7 +743,7 @@ export const NodeActionToolbar = memo(
       const { canvas: canvasId } = readUrl();
       cancelCanvasWorkflowExecution(canvasId ?? undefined);
       setGroupWorkflowStopRequested(true);
-      toast.info("已停止启动后续节点");
+      toast.info("Stopped starting further nodes");
     }, []);
 
     useEffect(() => {
@@ -935,7 +935,7 @@ export const NodeActionToolbar = memo(
 
     const handleDownloadSaveAs = useCallback(async () => {
       if (!imageSource) {
-        throw new Error("当前节点没有可下载图片");
+        throw new Error("This node has no image to download");
       }
       try {
         await downloadUrlAsFile(
@@ -965,7 +965,7 @@ export const NodeActionToolbar = memo(
 
     const requireVideoUrl = useCallback(() => {
       if (!isVideoNode(node) || !videoUrl) {
-        throw new Error("当前节点没有可操作的视频");
+        throw new Error("This node has no video to work with");
       }
       return videoUrl;
     }, [node, videoUrl]);
@@ -1027,12 +1027,12 @@ export const NodeActionToolbar = memo(
 
     const handleDownloadAudioNode = useCallback(async () => {
       if (!isAudioNode(node) || !audioUrl) {
-        throw new Error("当前节点没有可下载音频");
+        throw new Error("This node has no audio to download");
       }
       const format = resolveAudioDownloadFormat();
       const sourceExt = getAudioExtFromUrl(audioUrl);
       if (!canProduceFormat(format, sourceExt)) {
-        throw new Error("当前音频格式不支持该下载格式");
+        throw new Error("This audio cannot be downloaded in that format");
       }
       try {
         await downloadAudioAs(format, {
@@ -1073,7 +1073,7 @@ export const NodeActionToolbar = memo(
         resolution,
       });
       if (!upscaleNodeId) {
-        throw new Error("无法创建视频高清节点");
+        throw new Error("Could not create the video HD node");
       }
       onNodesChange([
         { id: node.id, type: "select", selected: false },
@@ -1100,7 +1100,7 @@ export const NodeActionToolbar = memo(
           : undefined;
       const result = analyzeVideoStory(node.id, { videoUrl: url, durationSec });
       if (!result) {
-        throw new Error("无法启动视频解析");
+        throw new Error("Could not start video analysis");
       }
       onNodesChange([
         { id: node.id, type: "select", selected: false },
@@ -1393,7 +1393,7 @@ export const NodeActionToolbar = memo(
     // 抠图编排移到 application/matteImage（故事板详情工具条共用），语义零变化。
     const handleMatteImage = useCallback(async (): Promise<Record<string, unknown>> => {
       if (!imageSource) {
-        throw new Error("当前节点没有可抠图图片");
+        throw new Error("This node has no image to matte");
       }
       closeDownloadMenu();
       const result = matteImage(node.id, imageSource, { displayName: t("nodeToolbar.matting") });
@@ -1675,10 +1675,10 @@ export const NodeActionToolbar = memo(
               <span
                 key="recipe-compile-fallback"
                 className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 px-3 py-1.5 text-sm text-amber-100"
-                title="Recipe 模型编译超时，本次已使用稳定降级提示词继续生成"
+                title="Recipe model compilation timed out. A stable fallback prompt was used for this run."
               >
                 <AlertTriangle className="h-3.5 w-3.5" />
-                Recipe 已降级编译
+                Recipe compiled in fallback mode
               </span>
             )}
             {isPresetLocked && workbenchTarget && (
@@ -1794,7 +1794,7 @@ export const NodeActionToolbar = memo(
                     run: () => {
                       void handleMatteImage().catch((error) => {
                         console.error("[matte] failed", error);
-                        toast.error("抠图失败");
+                        toast.error("Matting failed");
                       });
                     },
                   },
@@ -2683,7 +2683,7 @@ export const NodeActionToolbar = memo(
                         <UiChipButton
                           key="group-workflow-running"
                           className={TOOLBAR_TEXT_BUTTON_CLASS}
-                          title="工作流正在运行"
+                          title="Workflow is running"
                           disabled
                           onClick={(event) => event.stopPropagation()}
                         >
@@ -2692,12 +2692,12 @@ export const NodeActionToolbar = memo(
                           ) : (
                             <Loader2 className="h-3.5 w-3.5 animate-spin" />
                           )}
-                          {groupWorkflowStopRequested ? "已停止后续" : "运行中"}
+                          {groupWorkflowStopRequested ? "Stopped" : "Running"}
                         </UiChipButton>
                         <UiChipButton
                           key="group-stop-workflow"
                           className={TOOLBAR_TEXT_BUTTON_CLASS}
-                          title="停止启动后续工作流节点"
+                          title="Stop starting further workflow nodes"
                           disabled={groupWorkflowStopRequested}
                           onClick={(event) => {
                             event.stopPropagation();
@@ -2710,7 +2710,7 @@ export const NodeActionToolbar = memo(
                           ) : (
                             <CirclePause className="h-3.5 w-3.5" />
                           )}
-                          {groupWorkflowStopRequested ? "等待当前节点" : "停止后续"}
+                          {groupWorkflowStopRequested ? "Waiting for current node" : "Stop"}
                         </UiChipButton>
                       </>
                     ) : (
@@ -2720,8 +2720,8 @@ export const NodeActionToolbar = memo(
                           className={TOOLBAR_TEXT_BUTTON_CLASS}
                           title={
                             groupWorkflowState.status === "completed"
-                              ? "工作流已完成"
-                              : "运行工作流"
+                              ? "Workflow completed"
+                              : "Run workflow"
                           }
                           disabled={isRunningGroupWorkflow || !groupWorkflowState.canContinue}
                           onClick={(event) => {
@@ -2735,13 +2735,13 @@ export const NodeActionToolbar = memo(
                           ) : (
                             <Workflow className="h-3.5 w-3.5" />
                           )}
-                          {isRunningGroupWorkflow ? "运行中" : groupWorkflowState.primaryLabel}
+                          {isRunningGroupWorkflow ? "Running" : groupWorkflowState.primaryLabel}
                         </UiChipButton>
                         {groupWorkflowState.canRegenerate && (
                           <UiChipButton
                             key="group-rerun-workflow"
                             className={TOOLBAR_TEXT_BUTTON_CLASS}
-                            title="重新运行全部工作流节点"
+                            title="Re-run all workflow nodes"
                             disabled={isRunningGroupWorkflow}
                             onClick={(event) => {
                               event.stopPropagation();
@@ -2750,7 +2750,7 @@ export const NodeActionToolbar = memo(
                             }}
                           >
                             <RefreshCw className="h-3.5 w-3.5" />
-                            重新运行全部
+                            Re-run all
                           </UiChipButton>
                         )}
                       </>
@@ -2840,21 +2840,21 @@ export const NodeActionToolbar = memo(
                         onSelect={() => arrangeGroupChildren(nodeId, 'grid')}
                       >
                         <Workflow className="h-4 w-4 text-text-muted" />
-                        宫格排列
+                        Grid layout
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         className={TOOLBAR_MENU_ITEM_CLASS}
                         onSelect={() => arrangeGroupChildren(nodeId, 'horizontal')}
                       >
                         <StretchHorizontal className="h-4 w-4 text-text-muted" />
-                        水平排列
+                        Horizontal layout
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         className={TOOLBAR_MENU_ITEM_CLASS}
                         onSelect={() => arrangeGroupChildren(nodeId, 'vertical')}
                       >
                         <StretchVertical className="h-4 w-4 text-text-muted" />
-                        垂直排列
+                        Vertical layout
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

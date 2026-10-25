@@ -18,10 +18,10 @@ export const KEY_ELEMENT_CATEGORY_KEYS: readonly KeyElementCategory[] = [
 ];
 
 export const KEY_ELEMENT_CATEGORY_LABEL: Record<KeyElementCategory, string> = {
-  character: '人物',
-  scene: '场景',
-  object: '物品',
-  other: '其他',
+  character: 'Character',
+  scene: 'Scene',
+  object: 'Prop',
+  other: 'Other',
 };
 
 const CATEGORY_KEY_SET = new Set<string>(KEY_ELEMENT_CATEGORY_KEYS);

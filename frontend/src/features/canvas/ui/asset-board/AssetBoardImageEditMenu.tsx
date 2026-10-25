@@ -159,7 +159,7 @@ export function useAssetBoardImageEditActions({
   const handleOpenHd = useCallback(() => {
     if (busyOp) return;
     const resultNodeId = createUpscaleResultNode(node.id, {
-      displayName: '高清放大',
+      displayName: 'HD upscale',
       modelId: selectedModelId,
     });
     if (!resultNodeId) return;
@@ -175,7 +175,7 @@ export function useAssetBoardImageEditActions({
    */
   const handleOpenCrop = useCallback(() => {
     if (busyOp) return;
-    const resultNodeId = createCropResultNode(node.id, { displayName: '裁剪结果' });
+    const resultNodeId = createCropResultNode(node.id, { displayName: 'Crop result' });
     if (!resultNodeId) return;
     setCropNodeId(resultNodeId);
   }, [busyOp, node.id]);
@@ -202,7 +202,7 @@ export function useAssetBoardImageEditActions({
    */
   const handleOpenRotate = useCallback(() => {
     if (busyOp) return;
-    const resultNodeId = createRotateResultNode(node.id, { displayName: '旋转结果' });
+    const resultNodeId = createRotateResultNode(node.id, { displayName: 'Rotate result' });
     if (!resultNodeId) return;
     setRotateNodeId(resultNodeId);
   }, [busyOp, node.id]);
@@ -227,10 +227,10 @@ export function useAssetBoardImageEditActions({
     ? []
     : (
         [
-          { kind: 'action', key: 'hd', icon: ImageUpscale, label: '高清', onSelect: handleOpenHd },
-          { kind: 'action', key: 'crop', icon: Crop, label: '裁剪', busy: busyOp === 'crop', onSelect: handleOpenCrop },
+          { kind: 'action', key: 'hd', icon: ImageUpscale, label: 'HD', onSelect: handleOpenHd },
+          { kind: 'action', key: 'crop', icon: Crop, label: 'Crop', busy: busyOp === 'crop', onSelect: handleOpenCrop },
           { kind: 'action', key: 'resize', icon: Scaling, label: t('resizeEditor.title'), onSelect: () => { if (!busyOp) setResizeOpen(true); } },
-          { kind: 'action', key: 'rotate', icon: RotateCw, label: '旋转', busy: busyOp === 'rotate', onSelect: handleOpenRotate },
+          { kind: 'action', key: 'rotate', icon: RotateCw, label: 'Rotate', busy: busyOp === 'rotate', onSelect: handleOpenRotate },
         ] satisfies MoreMenuEntry[]
       ).filter((entry) => !(isPresetLocked && (entry.key === 'hd' || entry.key === 'rotate')));
 
@@ -302,9 +302,9 @@ export function AssetBoardImageOps({
 
   const handlePanoSubmit = useCallback(() => {
     if (busyOp) return;
-    if (!window.confirm('确认基于本图生成 360° 全景图？')) return;
+    if (!window.confirm('Generate a 360° panorama from this image?')) return;
     const result = scene360Image(node.id, imageSource, {
-      displayName: '360°全景图',
+      displayName: '360° panorama',
       aspectRatio: '2:1',
     });
     if (!result) return;
@@ -315,24 +315,24 @@ export function AssetBoardImageOps({
     <>
       <DetailToolbarButton
         icon={Globe2}
-        label="全景"
+        label="Panorama"
         busy={busyOp === 'pano'}
         disabled={busyOp !== null}
-        title="基于本图生成 360° 全景图（并挂一个全景查看器节点）"
+        title="Generate a 360° panorama from this image (and attach a panorama viewer node)"
         onClick={handlePanoSubmit}
       />
       <DetailToolbarButton
         icon={Boxes}
-        label="多角度"
+        label="Multi-Angle"
         disabled={busyOp !== null}
-        title="打开多维度编辑器（球体选角 + 画质 + 提示词）"
+        title="Open the multi-angle editor (sphere angle picker + quality + prompt)"
         onClick={() => setMultiAngleOpen(true)}
       />
       <DetailToolbarButton
         icon={Lightbulb}
-        label="重打光"
+        label="Relight"
         disabled={busyOp !== null}
-        title="打开打光效果编辑器（方向 + 亮度/色温 + 智能模式）"
+        title="Open the relight editor (direction + brightness/color temperature + smart mode)"
         onClick={() => setRelightOpen(true)}
       />
 

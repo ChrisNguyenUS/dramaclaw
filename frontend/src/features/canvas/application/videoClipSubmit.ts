@@ -11,7 +11,7 @@ const CLIP_RESULT_LAYOUT_WIDTH = 580;
 const CLIP_RESULT_LAYOUT_HEIGHT = 380;
 
 /** 剪辑完成但后端没给产物地址时的提示（与 VideoNode.handleClipSubmit 原文一致）。 */
-export const VIDEO_CLIP_NO_URL_MESSAGE = '剪辑完成但未返回视频地址';
+export const VIDEO_CLIP_NO_URL_MESSAGE = 'Clip finished but no video URL was returned';
 
 export interface VideoClipSubmitResult {
   /** 新建的剪辑结果视频节点 id；失败时为 null。 */
@@ -96,7 +96,7 @@ export async function submitVideoClip(
     const newNodeId = store.addNode(CANVAS_NODE_TYPES.video, position, {
       videoUrl: result.url,
       durationMs: Math.round((sourceEnd - sourceStart) * 1000),
-      displayName: opts.displayName ?? '剪辑',
+      displayName: opts.displayName ?? 'Clip',
     } as unknown as Parameters<typeof store.addNode>[2]);
     store.addEdge(sourceNodeId, newNodeId);
     return { nodeId: newNodeId, error: null };

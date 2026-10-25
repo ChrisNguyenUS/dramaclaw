@@ -312,13 +312,13 @@ export const MultiSelectionToolbar = memo(({
         { projectId, canvasId },
       );
       if (result.errors.length > 0) {
-        toast.error(result.errors[0] ?? '工作流执行失败');
+        toast.error(result.errors[0] ?? 'Workflow run failed');
         return;
       }
       if (result.openedUiActions > 0 || result.applied > 0) {
-        toast.success('已开始运行工作流');
+        toast.success('Workflow started');
       } else {
-        toast.info('所选工作流没有需要继续执行的节点');
+        toast.info('The selected workflow has no nodes left to run');
       }
     } catch (error) {
       toast.error(error instanceof Error ? error.message : String(error));
@@ -330,7 +330,7 @@ export const MultiSelectionToolbar = memo(({
   const handleStopWorkflow = useCallback(() => {
     cancelCanvasWorkflowExecution(canvasId);
     setWorkflowStopRequested(true);
-    toast.info('已停止启动后续节点');
+    toast.info('Stopped starting further nodes');
   }, [canvasId]);
 
   useEffect(() => {
@@ -454,28 +454,28 @@ export const MultiSelectionToolbar = memo(({
                     type="button"
                     disabled
                     className={`${MULTI_TOOLBAR_BUTTON_CLASS} cursor-not-allowed opacity-70`}
-                    title="工作流正在运行"
+                    title="Workflow is running"
                   >
                     {workflowStopRequested ? (
                       <CirclePause className="h-4 w-4 text-text-muted" />
                     ) : (
                       <Loader2 className="h-4 w-4 animate-spin text-text-muted" />
                     )}
-                    <span>{workflowStopRequested ? '已停止后续' : '运行中'}</span>
+                    <span>{workflowStopRequested ? 'Stopped' : 'Running'}</span>
                   </button>
                   <button
                     type="button"
                     disabled={workflowStopRequested}
                     className={`${MULTI_TOOLBAR_BUTTON_CLASS} disabled:cursor-not-allowed disabled:opacity-50`}
                     onClick={handleStopWorkflow}
-                    title="停止启动后续工作流节点"
+                    title="Stop starting further workflow nodes"
                   >
                     {workflowStopRequested ? (
                       <Loader2 className="h-4 w-4 animate-spin text-text-muted" />
                     ) : (
                       <CirclePause className="h-4 w-4 text-text-muted" />
                     )}
-                    <span>{workflowStopRequested ? '等待当前节点' : '停止后续'}</span>
+                    <span>{workflowStopRequested ? 'Waiting for current node' : 'Stop'}</span>
                   </button>
                 </>
               ) : (
@@ -485,14 +485,14 @@ export const MultiSelectionToolbar = memo(({
                     disabled={isRunningWorkflow || !workflowState.canContinue}
                     className={`${MULTI_TOOLBAR_BUTTON_CLASS} disabled:cursor-not-allowed disabled:opacity-50`}
                     onClick={() => void handleRunWorkflow(false)}
-                    title={workflowState.status === 'completed' ? '工作流已完成' : '运行工作流'}
+                    title={workflowState.status === 'completed' ? 'Workflow completed' : 'Run workflow'}
                   >
                     {isRunningWorkflow ? (
                       <Loader2 className="h-4 w-4 animate-spin text-text-muted" />
                     ) : (
                       <Workflow className="h-4 w-4 text-text-muted" />
                     )}
-                    <span>{isRunningWorkflow ? '运行中' : workflowState.primaryLabel}</span>
+                    <span>{isRunningWorkflow ? 'Running' : workflowState.primaryLabel}</span>
                   </button>
                   {workflowState.canRegenerate && (
                     <button
@@ -500,10 +500,10 @@ export const MultiSelectionToolbar = memo(({
                       disabled={isRunningWorkflow}
                       className={`${MULTI_TOOLBAR_BUTTON_CLASS} disabled:cursor-not-allowed disabled:opacity-50`}
                       onClick={() => void handleRunWorkflow(true)}
-                      title="重新运行全部工作流节点"
+                      title="Re-run all workflow nodes"
                     >
                       <RefreshCw className="h-4 w-4 text-text-muted" />
-                      <span>重新运行全部</span>
+                      <span>Re-run all</span>
                     </button>
                   )}
                 </>
@@ -631,7 +631,7 @@ export const MultiSelectionToolbar = memo(({
               onClick={() => handleArrange('grid')}
             >
               <LayoutGrid className="h-4 w-4 text-text-muted" />
-              <span>宫格排列</span>
+              <span>Grid layout</span>
             </button>
             <button
               type="button"

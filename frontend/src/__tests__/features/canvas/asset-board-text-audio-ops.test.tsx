@@ -98,7 +98,7 @@ function seedBoard(extra: CanvasNode[] = []) {
 }
 
 function detailPanel() {
-  return screen.getByRole('region', { name: '资产详情' });
+  return screen.getByRole('region', { name: 'Asset details' });
 }
 
 function openDetail(name: string) {
@@ -189,7 +189,7 @@ describe('AssetBoard 音频 chip / 详情表单', () => {
     seedAudio({ audioUrl: null, generationError: '声线不可用' });
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
 
-    const badge = screen.getByLabelText('生成失败');
+    const badge = screen.getByLabelText('Generation failed');
     expect(badge.getAttribute('title')).toBe('声线不可用');
   });
 
@@ -204,7 +204,7 @@ describe('AssetBoard 音频 chip / 详情表单', () => {
     });
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
 
-    expect(screen.queryByLabelText('生成失败')).toBeNull();
+    expect(screen.queryByLabelText('Generation failed')).toBeNull();
   });
 
   it('点音频 chip → 打开详情，出 TTS 档生成表单（文本 + 语气词 + 音色设置）', () => {
@@ -214,12 +214,12 @@ describe('AssetBoard 音频 chip / 详情表单', () => {
     fireEvent.click(screen.getByRole('button', { name: '旁白' }));
 
     const detail = detailPanel();
-    expect(within(detail).getByPlaceholderText('输入要合成的文本')).toBeTruthy();
-    expect(within(detail).getByPlaceholderText(/紧张、压低声音/)).toBeTruthy();
+    expect(within(detail).getByPlaceholderText('Enter the text to synthesize')).toBeTruthy();
+    expect(within(detail).getByPlaceholderText(/tense, hushed/)).toBeTruthy();
     // 声线入口已收进底部控制行的图标按钮（对标 liblib footer），可及名走 title。
-    expect(within(detail).getByRole('button', { name: /音色设置/ })).toBeTruthy();
+    expect(within(detail).getByRole('button', { name: /Voice settings/ })).toBeTruthy();
     // 未生成过 → 提交键语义是「生成」而不是「重新生成」（aria-label）。
-    expect(within(detail).getByRole('button', { name: /^生成$/ })).toBeTruthy();
+    expect(within(detail).getByRole('button', { name: /^Generate$/ })).toBeTruthy();
   });
 
   it('music 档空节点详情：出高级设置（时长/纯音乐/段落时长），改动直接落 store', () => {
@@ -231,12 +231,12 @@ describe('AssetBoard 音频 chip / 详情表单', () => {
 
     const detail = detailPanel();
     // 空节点 → 表单在场，music 档按钮语义是「生成」。
-    expect(within(detail).getByRole('button', { name: /^生成$/ })).toBeTruthy();
+    expect(within(detail).getByRole('button', { name: /^Generate$/ })).toBeTruthy();
     // TTS 专属字段在 music 档不出现。
-    expect(within(detail).queryByPlaceholderText(/紧张、压低声音/)).toBeNull();
+    expect(within(detail).queryByPlaceholderText(/tense, hushed/)).toBeNull();
 
-    fireEvent.click(within(detail).getByRole('button', { name: '高级设置' }));
-    fireEvent.click(within(detail).getByRole('switch', { name: '强制纯音乐' }));
+    fireEvent.click(within(detail).getByRole('button', { name: 'Advanced settings' }));
+    fireEvent.click(within(detail).getByRole('switch', { name: 'Force instrumental' }));
 
     const data = useCanvasStore.getState().nodes.find((n) => n.id === 'audio-1')?.data;
     expect(data?.forceInstrumental).toBe(false);

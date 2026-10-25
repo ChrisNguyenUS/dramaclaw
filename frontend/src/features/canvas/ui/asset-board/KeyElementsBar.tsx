@@ -30,7 +30,7 @@ import { AssetBoardAudioChip } from './AssetBoardAudioChip';
 type CategoryFilter = 'all' | KeyElementCategory;
 
 const FILTER_LABEL: Record<CategoryFilter, string> = {
-  all: '全部',
+  all: 'All',
   ...KEY_ELEMENT_CATEGORY_LABEL,
 };
 
@@ -104,7 +104,7 @@ export function KeyElementsBar({
                   tabClass(activeTab === 'keyElements'),
                 )}
               >
-                关键元素 · {FILTER_LABEL[filter]}
+                Key elements · {FILTER_LABEL[filter]}
                 <ChevronDown className="h-3.5 w-3.5 text-white/40" />
               </button>
             </DropdownMenuTrigger>
@@ -133,7 +133,7 @@ export function KeyElementsBar({
         )}
         {hasAudio && (
           <button type="button" onClick={() => setTab('audio')} className={tabClass(activeTab === 'audio')}>
-            音频
+            Audio
           </button>
         )}
       </div>
@@ -210,7 +210,7 @@ export function KeyElementsBar({
         </TooltipProvider>
       ) : (
         // 关键元素标签下、当前分类为空（切了个空分类）：占位而不塌成没有内容。
-        <p className="py-1 text-[12px] text-white/40">该分类下暂无关键元素</p>
+        <p className="py-1 text-[12px] text-white/40">No key elements in this category yet</p>
       )}
     </div>
   );

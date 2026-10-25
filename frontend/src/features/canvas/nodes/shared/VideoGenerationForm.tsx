@@ -165,30 +165,30 @@ export function videoModeDisabledReason(
     const { images, videos } = upstreamCounts;
     switch (mode) {
       case "textToVideo":
-        if (videos > 0) return "已连接视频节点，请使用「视频编辑」";
-        if (images > 0) return "已连接图片节点，请选择「首帧」或「图片参考」";
+        if (videos > 0) return "A video node is connected. Use \"Video editing\"";
+        if (images > 0) return "An image node is connected. Pick \"First frame\" or \"Image reference\"";
         return null;
       case "firstFrame":
-        if (videos > 0) return "已连接视频节点，「首帧」不可用";
-        if (images === 0) return "需要连接图片节点（1个）";
-        if (images > 1) return "「首帧」仅支持单张图片，请用「图片参考」";
+        if (videos > 0) return "A video node is connected. \"First frame\" is unavailable";
+        if (images === 0) return "Connect an image node (exactly 1)";
+        if (images > 1) return "\"First frame\" takes a single image only. Use \"Image reference\"";
         return null;
       case "imageToVideo":
-        if (videos > 0) return "已连接视频节点，「图生视频」不可用";
-        if (images === 0) return "需要连接图片节点（1个）";
-        if (images > 1) return "「图生视频」仅支持单张图片，请用「图片参考」";
+        if (videos > 0) return "A video node is connected. \"Image to video\" is unavailable";
+        if (images === 0) return "Connect an image node (exactly 1)";
+        if (images > 1) return "\"Image to video\" takes a single image only. Use \"Image reference\"";
         return null;
       case "imageReference": // 图片参考 (r2v)
-        if (videos > 0) return "已连接视频节点，「图片参考」不可用";
-        if (images === 0) return "需要连接图片节点（1~9个）";
-        if (images > 9) return "「图片参考」最多支持 9 张图片";
+        if (videos > 0) return "A video node is connected. \"Image reference\" is unavailable";
+        if (images === 0) return "Connect image nodes (1–9)";
+        if (images > 9) return "\"Image reference\" supports at most 9 images";
         return null;
       case "videoEdit":
-        if (videos === 0) return "需要连接视频节点（1个）";
-        if (videos > 1) return "「视频编辑」仅支持连接 1 个视频节点";
+        if (videos === 0) return "Connect a video node (exactly 1)";
+        if (videos > 1) return "\"Video editing\" supports exactly 1 connected video node";
         return null;
       default:
-        return "HappyHorse 不支持该模式";
+        return "HappyHorse doesn't support this mode";
     }
   }
   // 「视频编辑」以上游视频**为输入**，不能被下面那条「有视频就只剩全能参考」连坐。
@@ -203,9 +203,9 @@ export function videoModeDisabledReason(
     : modelId;
   const supportsVideoEdit = isVideoModeSupportedByModel("videoEdit", model);
   if (mode === "videoEdit") {
-    if (!supportsVideoEdit) return "该模型不支持「视频编辑」";
-    if (upstreamCounts.videos === 0) return "需要连接视频节点（1个）";
-    if (upstreamCounts.videos > 1) return "「视频编辑」仅支持连接 1 个视频节点";
+    if (!supportsVideoEdit) return "This model doesn't support \"Video editing\"";
+    if (upstreamCounts.videos === 0) return "Connect a video node (exactly 1)";
+    if (upstreamCounts.videos > 1) return "\"Video editing\" supports exactly 1 connected video node";
     return null;
   }
   if (mode === "videoExtend") {
@@ -217,20 +217,20 @@ export function videoModeDisabledReason(
   }
   if (upstreamCounts.videos > 0 && mode !== "allReference") {
     return supportsVideoEdit
-      ? "上游含视频素材时只能用「全能参考」或「视频编辑」"
-      : "上游含视频素材时只能用「全能参考」";
+      ? "With video upstream, only \"All-purpose reference\" or \"Video editing\" are available"
+      : "With video upstream, only \"All-purpose reference\" is available";
   }
   if (
     mode === "textToVideo" &&
     (upstreamCounts.images > 0 || upstreamCounts.audios > 0)
   ) {
-    return "已引用图片/音频素材时不可用";
+    return "Unavailable while image/audio assets are referenced";
   }
   if (mode === "imageToVideo" && upstreamCounts.videos >= 2) {
-    return "上游有多个视频时不可用";
+    return "Unavailable with more than one upstream video";
   }
   if (mode === "firstLastFrame" && upstreamCounts.images > 2) {
-    return "上游图片超过 2 张时不可用";
+    return "Unavailable with more than 2 upstream images";
   }
   const missingInputReason = videoModeMissingInputReason(mode, upstreamCounts);
   return missingInputReason ? t(missingInputReason) : null;
@@ -749,7 +749,7 @@ function CameraMovementChip({
   }, [isOpen]);
 
   const selectedPreset = findCameraMovementPreset(templates, selectedId);
-  const label = selectedPreset?.label ?? "运镜";
+  const label = selectedPreset?.label ?? "Camera move";
   const isActive = Boolean(selectedPreset);
 
   return (
@@ -808,7 +808,7 @@ function CharacterLibraryChip({ onOpen }: CharacterLibraryChipProps) {
       className={`${NODE_TEXT_CONTROL_TRIGGER_CLASS} group/asset px-1.5`}
     >
       <Library className={`${NODE_TEXT_CONTROL_ICON_CLASS} group-hover/asset:text-text-dark`} />
-      <span>资产库</span>
+      <span>Asset library</span>
     </button>
   );
 }
@@ -824,7 +824,7 @@ function ExternalAssetChip({ onOpen }: { onOpen: () => void }) {
       className={`${NODE_TEXT_CONTROL_TRIGGER_CLASS} group/external px-1.5`}
     >
       <Plus className={`${NODE_TEXT_CONTROL_ICON_CLASS} group-hover/external:text-text-dark`} />
-      <span>外部素材</span>
+      <span>External media</span>
     </button>
   );
 }
@@ -962,25 +962,25 @@ function ReferenceMediaRow({
         const modeCap = caps?.[item.kind] ?? 0;
         const modeLabel =
           {
-            textToVideo: "文生视频",
-            firstFrame: "首帧",
-            imageToVideo: "图生视频",
-            imageReference: "多图参考",
-            firstLastFrame: "首尾帧",
-            videoEdit: "视频编辑",
+            textToVideo: "Text to video",
+            firstFrame: "First frame",
+            imageToVideo: "Image to video",
+            imageReference: "Multi-image reference",
+            firstLastFrame: "First & last frame",
+            videoEdit: "Video editing",
             videoExtend: t("node.videoNode.tabs.videoExtend"),
-            allReference: "全能参考",
-          }[genMode] ?? "当前模式";
+            allReference: "All-purpose reference",
+          }[genMode] ?? "the current mode";
         const overCapTitle = overCap
           ? `${
               item.kind === "image"
-                ? "图片"
+                ? "Image"
                 : item.kind === "video"
-                  ? "视频"
-                  : "音频"
-            }引用超出${modeLabel}上限（${modeCap}${
-              item.kind === "image" ? "张" : "段"
-            }），本次生成不会使用该素材`
+                  ? "Video"
+                  : "Audio"
+            } references exceed the ${modeLabel} limit (${modeCap} ${
+              item.kind === "image" ? "images" : "clips"
+            }); this asset will not be used in this generation.`
           : undefined;
         // 首尾帧模式下，前两张图片打 首帧/尾帧 角标；超出 cap 的图片就回退到
         // 数字角标，让用户看到「这张图被忽略」的同时仍能在 prompt 里通过原序号
@@ -990,9 +990,9 @@ function ReferenceMediaRow({
           item.kind === "image" &&
           withinCap
             ? typeIndex === 1
-              ? "首帧"
+              ? "First frame"
               : typeIndex === 2
-                ? "尾帧"
+                ? "Last frame"
                 : undefined
             : undefined;
         let chip: ReactNode;
@@ -1130,7 +1130,7 @@ function ReferenceImageChip({
   const PREVIEW_W = 140;
   const { pos, show, hide } = useHoverPreviewPos(buttonRef, PREVIEW_W);
   const label =
-    item.displayName?.trim() || slotLabel || `引用 ${index + 1}`;
+    item.displayName?.trim() || slotLabel || `Reference ${index + 1}`;
 
   return (
     <>
@@ -1202,7 +1202,7 @@ function ReferenceVideoChip({ item, index, onFocus, onDetach }: ReferenceVideoCh
   const buttonRef = useRef<HTMLButtonElement>(null);
   const PREVIEW_W = 140;
   const { pos, show, hide } = useHoverPreviewPos(buttonRef, PREVIEW_W);
-  const label = item.displayName?.trim() || `视频引用 ${index + 1}`;
+  const label = item.displayName?.trim() || `Video reference ${index + 1}`;
 
   // chip 缩略图：有 previewImageUrl 用静态图；否则用一个 muted 静止 <video>
   // 显示首帧。preload=metadata 让 Safari/Chrome 自动定位到首帧。
@@ -1336,7 +1336,7 @@ function ReferenceAudioChip({
     };
   }, []);
 
-  const label = item.displayName?.trim() || `音频引用 ${index + 1}`;
+  const label = item.displayName?.trim() || `Audio reference ${index + 1}`;
 
   return (
     <button
@@ -1623,7 +1623,7 @@ export const VideoGenerationForm = memo((props: VideoGenerationFormProps) => {
         candidates={mentionCandidates}
         placeholder={
           upstreamTextJoined.length > 0
-            ? "上游内容已自动接入，可继续补充提示词…"
+            ? "Upstream content attached automatically. Add more prompt details…"
             : t("node.videoNode.placeholder")
         }
         className={`nodrag nowheel min-h-0 w-full flex-1 overflow-y-auto whitespace-pre-wrap break-words border-none bg-transparent px-3 py-2 text-sm leading-6 text-text-dark outline-none ${CANVAS_NODE_INPUT_PLACEHOLDER_CLASS}`}
@@ -1667,7 +1667,7 @@ export const VideoGenerationForm = memo((props: VideoGenerationFormProps) => {
               type="button"
               role="switch"
               aria-checked={humanReview}
-              title="素材含真实人脸时开启，可能增加审核时间，不保证通过。"
+              title="Enable when the material contains real faces. Review may take longer and approval is not guaranteed."
               onClick={(event) => {
                 event.stopPropagation();
                 updateNodeData(nodeId, { humanReview: !humanReview });
@@ -1678,7 +1678,7 @@ export const VideoGenerationForm = memo((props: VideoGenerationFormProps) => {
                   : "text-text-dark/72 hover:text-text-dark"
               }`}
             >
-              <span>真人验证</span>
+              <span>Human review</span>
               <span
                 className={`relative inline-flex h-3.5 w-6 shrink-0 items-center rounded-full transition-colors ${
                   humanReview
@@ -1700,7 +1700,7 @@ export const VideoGenerationForm = memo((props: VideoGenerationFormProps) => {
           />
           <button
             type="button"
-            title="翻译提示词（中英文互译）"
+            title="Translate prompt (Chinese ⇄ English)"
             disabled={translateDisabled}
             onClick={(event) => {
               event.stopPropagation();

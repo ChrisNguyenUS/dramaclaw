@@ -47,7 +47,7 @@ const LOCATE_HIGHLIGHT_MS = 1200;
  * 媒体空态文案：节点还没出图/出片（参数、提示词已就位，等用户在生成条上确认提交）。
  * 图片与视频、卡片与详情四处共用同一句，避免有的地方有说明、有的地方只有灰图标。
  */
-export const EMPTY_MEDIA_PLACEHOLDER_TEXT = '待确认后生成';
+export const EMPTY_MEDIA_PLACEHOLDER_TEXT = 'Generates after you confirm';
 
 /**
  * 各栏生成耗时的经验预估（毫秒）——不是后端真实进度，后端不下发逐步进度事件，
@@ -90,7 +90,7 @@ function GeneratingLabel({
     estimatedGenerationDurationMs(item.column),
     paused,
   );
-  return <span className={cn('text-[11px] text-white/40', className)}>{`生成中 ${percent}%...`}</span>;
+  return <span className={cn('text-[11px] text-white/40', className)}>{`Generating ${percent}%...`}</span>;
 }
 
 // 时长/分辨率徽标：胶囊形 + 细边框 + 极淡底色，对齐 liblib 参考图。
@@ -201,7 +201,7 @@ export function AssetBoardCard({
       </Chip>,
     );
   }
-  if (item.durationSec !== null) badges.push(<Chip key="dur">{`${item.durationSec}秒`}</Chip>);
+  if (item.durationSec !== null) badges.push(<Chip key="dur">{`${item.durationSec}s`}</Chip>);
   // 分辨率优先用节点记的尺寸；上传图等没记尺寸的节点退回图片实际加载出来的
   // 原始尺寸（卡片展示的就是原图，naturalWidth 即真实分辨率）。
   // 整对取舍而不是逐项回退：半残数据（只记了 widthPx）逐项回退会把存储的宽配上
@@ -290,7 +290,7 @@ export function AssetBoardCard({
               className="inline-flex shrink-0 items-center gap-0.5 text-[11px] text-red-400"
             >
               <AlertCircle className="h-3 w-3" />
-              失败
+              Failed
             </span>
           )}
         </div>
@@ -305,8 +305,8 @@ export function AssetBoardCard({
           />
           <button
             type="button"
-            aria-label="在画布中定位"
-            title="在画布中定位"
+            aria-label="Locate on canvas"
+            title="Locate on canvas"
             onClick={(event) => {
               event.stopPropagation();
               onLocate(item.nodeId);
@@ -331,7 +331,7 @@ export function AssetBoardCard({
               <VideoThumb item={item} />
               {isFinalVideo && (
                 <span className="absolute left-1.5 top-1.5 z-10 inline-flex items-center gap-0.5 rounded-full bg-black/60 px-2 py-0.5 text-[11px] font-medium text-white/90 backdrop-blur-sm">
-                  成片
+                  Final cut
                   <ChevronRight className="h-3 w-3" />
                 </span>
               )}
@@ -371,7 +371,7 @@ export function AssetBoardCard({
           {item.isGenerating && (
             <span
               role="status"
-              aria-label="生成中"
+              aria-label="Generating"
               className={cn(
                 'absolute inset-0 z-20 flex flex-col items-center justify-center gap-1.5',
                 item.thumbnailUrl || item.mediaUrl ? 'bg-black/50' : 'bg-[#141414]',
@@ -388,7 +388,7 @@ export function AssetBoardCard({
               className="absolute left-1.5 top-1.5 z-20 inline-flex items-center gap-1 rounded-full bg-red-500/15 px-2 py-0.5 text-[11px] font-medium text-red-400 backdrop-blur-sm"
             >
               <AlertCircle className="h-3 w-3" />
-              失败
+              Failed
             </span>
           )}
         </div>

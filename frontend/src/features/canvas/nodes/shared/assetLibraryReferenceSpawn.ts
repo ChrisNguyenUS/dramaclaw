@@ -65,7 +65,7 @@ export function spawnAssetLibraryReferences(
     state.addEdge(newId, targetNodeId);
     newIds.push(newId);
   });
-  state.autoGroupSpawn(targetNodeId, newIds, { label: '资产参考组' });
+  state.autoGroupSpawn(targetNodeId, newIds, { label: 'Asset reference group' });
 }
 
 /**
@@ -125,5 +125,5 @@ export function spawnVideoAssetLibraryReferences(
     state.addEdge(newId, targetNodeId);
     newIds.push(newId);
   });
-  state.autoGroupSpawn(targetNodeId, newIds, { label: '资产参考组' });
+  state.autoGroupSpawn(targetNodeId, newIds, { label: 'Asset reference group' });
 }

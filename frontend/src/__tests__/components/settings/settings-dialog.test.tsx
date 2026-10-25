@@ -236,7 +236,7 @@ vi.mock("react-i18next", () => ({
         "settings.freezoneCatalog.newSkill.schemaVersion": "Schema 版本",
         "settings.freezoneCatalog.newSkill.version": "版本",
         "settings.freezoneCatalog.newSkill.allowedRecipeIds": "关联 Recipes",
-        "settings.freezoneCatalog.newSkill.allowedRecipeIdsPlaceholder": "输入 Recipe ID",
+        "settings.freezoneCatalog.newSkill.allowedRecipeIdsPlaceholder": "Enter Recipe ID",
         "settings.freezoneCatalog.newSkill.allowedRecipeIdsHint": "动态规划时使用",
         "settings.freezoneCatalog.newSkill.inputParameters": "开始前选项",
         "settings.freezoneCatalog.newSkill.inputParametersEmpty": "没有选项",
@@ -822,7 +822,7 @@ describe("SettingsDialog pages", () => {
         "textGeneration / imageGeneration / videoGeneration / audioGeneration",
       ),
     ).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("checkbox", { name: "图片生成 imageGeneration" }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "Image generation imageGeneration" }));
     fireEvent.change(screen.getByPlaceholderText("规划提示..."), {
       target: { value: "planhints" },
     });
@@ -845,14 +845,14 @@ describe("SettingsDialog pages", () => {
     });
     fireEvent.click(screen.getByRole("button", { name: "添加锚点" }));
 
-    expect(screen.getByRole("button", { name: "删除 关键词" })).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "删除 关键词2" })).not.toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "删除 imageGeneration" })).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "编辑 关键词" }));
-    const keywordEditInput = screen.getByRole("textbox", { name: "编辑 关键词" });
+    expect(screen.getByRole("button", { name: "Delete 关键词" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Delete 关键词2" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Delete imageGeneration" })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Edit 关键词" }));
+    const keywordEditInput = screen.getByRole("textbox", { name: "Edit 关键词" });
     expect(keywordEditInput).toHaveValue("关键词");
-    expect(screen.queryByRole("button", { name: "编辑 关键词" })).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "删除 关键词" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Edit 关键词" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Delete 关键词" })).toBeInTheDocument();
     fireEvent.change(keywordEditInput, {
       target: { value: "关键词编辑" },
     });
@@ -860,7 +860,7 @@ describe("SettingsDialog pages", () => {
       key: "Enter",
       code: "Enter",
     });
-    expect(screen.getByRole("button", { name: "删除 关键词编辑" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Delete 关键词编辑" })).toBeInTheDocument();
 
     const addDimensionButtons = screen.getAllByRole("button", { name: "添加维度" });
     fireEvent.click(addDimensionButtons[0]);
@@ -979,11 +979,11 @@ describe("SettingsDialog pages", () => {
       target: { value: "故事" },
     });
     fireEvent.keyDown(screen.getByPlaceholderText("输入关键词"), { key: "Enter" });
-    fireEvent.click(screen.getByRole("button", { name: "添加 Recipe" }));
-    fireEvent.change(screen.getByPlaceholderText("输入 Recipe ID"), {
+    fireEvent.click(screen.getByRole("button", { name: "Add Recipe" }));
+    fireEvent.change(screen.getByPlaceholderText("Enter Recipe ID"), {
       target: { value: "story-recipe" },
     });
-    fireEvent.keyDown(screen.getByPlaceholderText("输入 Recipe ID"), { key: "Enter" });
+    fireEvent.keyDown(screen.getByPlaceholderText("Enter Recipe ID"), { key: "Enter" });
     fireEvent.change(screen.getByPlaceholderText("规划提示..."), {
       target: { value: "根据故事需求动态规划。" },
     });
@@ -1526,7 +1526,7 @@ describe("SettingsDialog pages", () => {
     expect(screen.getByDisplayValue("story-skill")).toBeInTheDocument();
     expect(screen.getByDisplayValue("故事规则")).toBeInTheDocument();
     expect(screen.getAllByText("故事").length).toBeGreaterThan(0);
-    expect(screen.getByRole("checkbox", { name: "图片生成 imageGeneration" })).toBeChecked();
+    expect(screen.getByRole("checkbox", { name: "Image generation imageGeneration" })).toBeChecked();
     fireEvent.click(screen.getByRole("button", { name: "查看 / 编辑原始 JSON（高级）" }));
     const rawJson = JSON.parse(screen.getByLabelText("原始 JSON").textContent ?? "{}");
     expect(rawJson.planning.default_aspect_ratios).toBeUndefined();

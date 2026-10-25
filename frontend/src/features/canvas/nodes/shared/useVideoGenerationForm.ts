@@ -168,17 +168,17 @@ function selectedVideoModelReferenceDisabledReason(
   const caps = referenceCapsForMode(model, mode);
   if (!caps) return null;
   if (counts.images > caps.image) {
-    return `该模型最多支持 ${caps.image} 张图片素材`;
+    return `This model supports at most ${caps.image} image ${caps.image === 1 ? "asset" : "assets"}`;
   }
   if (counts.videos > caps.video) {
     return caps.video === 0
-      ? "该模型不支持视频素材"
-      : `该模型最多支持 ${caps.video} 个视频素材`;
+      ? "This model does not support video assets"
+      : `This model supports at most ${caps.video} video ${caps.video === 1 ? "asset" : "assets"}`;
   }
   if (counts.audios > caps.audio) {
     return caps.audio === 0
-      ? "该模型不支持音频素材"
-      : `该模型最多支持 ${caps.audio} 个音频素材`;
+      ? "This model does not support audio assets"
+      : `This model supports at most ${caps.audio} audio ${caps.audio === 1 ? "asset" : "assets"}`;
   }
   return null;
 }
@@ -651,7 +651,7 @@ export function useVideoGenerationForm(
   const billingRuleMissingSubmitMessage = videoBillingRuleMissing
     ? t("node.videoNode.billingRuleMissingSubmit", {
         defaultValue:
-          "视频生成未启动：计费规则未配置，请联系管理员设置积分规则后重试。",
+          "Video generation did not start: the billing rule is not configured. Ask an administrator to set the credit rule, then try again.",
       })
     : null;
   // 用服务端下发的 `display`，别自己 format `cost`：促销时 display 是「原价→现价」，
@@ -800,9 +800,9 @@ export function useVideoGenerationForm(
   useReferenceMentionSync(
     prompt,
     [
-      { prefix: "图片", ids: orderedImageIds },
-      { prefix: "视频", ids: orderedVideoIds },
-      { prefix: "音频", ids: orderedAudioIds },
+      { prefix: "图片", ids: orderedImageIds }, // i18n-exempt: canonical @mention / backend protocol token
+      { prefix: "视频", ids: orderedVideoIds }, // i18n-exempt: canonical @mention / backend protocol token
+      { prefix: "音频", ids: orderedAudioIds }, // i18n-exempt: canonical @mention / backend protocol token
     ],
     applyPromptRemap,
   );
@@ -844,7 +844,7 @@ export function useVideoGenerationForm(
         if (enforceCap && !info.withinCap) continue;
         out.push({
           key: item.nodeId,
-          name: `图片${imageIdx}`,
+          name: `图片${imageIdx}`, // i18n-exempt: canonical @mention / backend protocol token
           imageUrl: resolveImageDisplayUrl(item.imageUrl),
           index: imageIdx,
         });
@@ -853,7 +853,7 @@ export function useVideoGenerationForm(
         if (enforceCap && !info.withinCap) continue;
         out.push({
           key: item.nodeId,
-          name: `视频${videoIdx}`,
+          name: `视频${videoIdx}`, // i18n-exempt: canonical @mention / backend protocol token
           imageUrl: item.thumbUrl ? resolveImageDisplayUrl(item.thumbUrl) : "",
           videoUrl: resolveImageDisplayUrl(item.videoUrl),
           index: videoIdx,
@@ -863,7 +863,7 @@ export function useVideoGenerationForm(
         if (enforceCap && !info.withinCap) continue;
         out.push({
           key: item.nodeId,
-          name: `音频${audioIdx}`,
+          name: `音频${audioIdx}`, // i18n-exempt: canonical @mention / backend protocol token
           imageUrl: "",
           index: audioIdx,
           audioUrl: resolveImageDisplayUrl(item.audioUrl),
@@ -1417,7 +1417,7 @@ export function useVideoGenerationForm(
         const imageLimit = referenceCaps?.image ?? 5;
         if (allImageUrls.length > imageLimit) {
           toast.warning(
-            `视频编辑最多支持 ${imageLimit} 张参考图，已使用前 ${imageLimit} 张（忽略其余 ${allImageUrls.length - imageLimit} 张）`,
+            `Video editing supports at most ${imageLimit} reference ${imageLimit === 1 ? "image" : "images"}. Using the first ${imageLimit} (ignoring the other ${allImageUrls.length - imageLimit}).`,
           );
         }
         const imageUrls = allImageUrls.slice(0, imageLimit);
@@ -1468,8 +1468,8 @@ export function useVideoGenerationForm(
         if (!isSeedance20Model) {
           void showErrorDialog(
             isHappyHorseModel
-              ? "HappyHorse 不支持全能参考模式，请切换为文生视频或图生视频。"
-              : "全能参考仅支持 Seedance 2.0 模型，请切换到 Seedance 2.0，或改用「首帧生成视频」。",
+              ? "HappyHorse does not support All-purpose reference mode. Switch to Text to video or Image to video."
+              : "All-purpose reference only works with Seedance 2.0 models. Switch to Seedance 2.0, or use \"Video from first frame\" instead.",
             t("common.error"),
           );
           updateNodeData(id, {
@@ -1537,7 +1537,7 @@ export function useVideoGenerationForm(
               references.push({
                 type: "audio",
                 url,
-                role: "配乐参考",
+                role: "配乐参考", // i18n-exempt: canonical @mention / backend protocol token
                 label: rawLabel,
               });
               audioRefs.push({
@@ -1771,7 +1771,7 @@ export function useVideoGenerationForm(
               updateNodeData(id, {
                 isGenerating: false,
                 generationStartedAt: null,
-                generationError: "视频生成未返回结果",
+                generationError: "Video generation returned no result",
                 generationErrorDetails: null,
                 generationErrorRequestId: null,
               });
@@ -1785,7 +1785,7 @@ export function useVideoGenerationForm(
           // 已有同批其它视频完成（主视频已落）时不覆盖成功态为错误——
           // 部分失败只影响画册条数。
           if (completedUrls.length > 0) return;
-          const resolved = resolveErrorContent(error, "视频生成失败");
+          const resolved = resolveErrorContent(error, "Video generation failed");
           const displayErrorMessage = backendErrorToastMessage(error, t);
           const diagnostics = resolveGenerationErrorDiagnostics(error, resolved.details);
           // Persist the failure on the node so the 重新生成 entry survives after
@@ -1819,7 +1819,7 @@ export function useVideoGenerationForm(
       // 「先弹上限报错、节点却又冒出加载动画」的矛盾观感。
       if (completedUrls.length === 0 && runErrors.length > 0) {
         const firstError = runErrors[0];
-        const resolved = resolveErrorContent(firstError, "视频生成失败");
+        const resolved = resolveErrorContent(firstError, "Video generation failed");
         const displayErrorMessage = backendErrorToastMessage(firstError, t);
         const diagnostics = resolveGenerationErrorDiagnostics(firstError, resolved.details);
         const haystack = `${displayErrorMessage}\n${diagnostics.details ?? ""}`;
@@ -1829,8 +1829,8 @@ export function useVideoGenerationForm(
         ) {
           // 素材含真实人脸被拦截：引导用户开启「真人素材审核」后重试。
           void showErrorDialog(
-            "素材包含真实人脸，已被内容安全策略拦截。请在下方打开「真人素材审核」开关后重试（可能增加审核时间，不保证通过）。",
-            "素材被拦截",
+            "The material contains real faces and was blocked by the content safety policy. Turn on the \"Human review\" switch below and try again (review may take longer and approval is not guaranteed).",
+            "Material blocked",
             diagnostics.details ?? undefined,
           );
         } else {

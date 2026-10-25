@@ -3,7 +3,7 @@
 //
 // 「素材含真人被内容安全拦截」的专用引导，靠的是在**保真的**诊断报文里找厂商错误
 // 码。归一化后的展示文案里没有这个码——一旦策略判定改回去扫 resolved/display，
-// 用户看到的就只是一句泛泛的「视频生成失败」，不知道去开「真人素材审核」开关。
+// 用户看到的就只是一句泛泛的「视频生成失败」，不知道去开「Human review」开关。
 import { renderHook, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -105,8 +105,8 @@ describe("VideoNode error notification contract", () => {
     });
     const dialogCalls = vi.mocked(showErrorDialog).mock.calls;
     const [message, title, details] = dialogCalls[dialogCalls.length - 1];
-    expect(String(message)).toContain("真人素材审核");
-    expect(String(title)).toBe("素材被拦截");
+    expect(String(message)).toContain("Human review");
+    expect(String(title)).toBe("Material blocked");
     // 诊断报文原样透传给对话框——展开「详情」时看到的必须是厂商原文。
     expect(String(details)).toContain(POLICY_CODE);
   });
@@ -128,7 +128,7 @@ describe("VideoNode error notification contract", () => {
     });
     const dialogCalls = vi.mocked(showErrorDialog).mock.calls;
     const [message] = dialogCalls[dialogCalls.length - 1];
-    expect(String(message)).not.toContain("真人素材审核");
+    expect(String(message)).not.toContain("Human review");
   });
 
   it("records a Recipe compilation failure on the node for the workflow runner", async () => {

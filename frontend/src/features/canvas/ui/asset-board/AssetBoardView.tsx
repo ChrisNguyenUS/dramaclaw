@@ -61,9 +61,9 @@ const DETAIL_STACK_MAX = 50;
 const GRID_LOCATE_HIGHLIGHT_MS = 1200;
 
 const VIDEO_FILTERS: ReadonlyArray<{ value: VideoFilter; label: string }> = [
-  { value: 'all', label: '全部' },
-  { value: 'final', label: '成片' },
-  { value: 'clip', label: '片段' },
+  { value: 'all', label: 'All' },
+  { value: 'final', label: 'Final cut' },
+  { value: 'clip', label: 'Clips' },
 ];
 
 // 冻结时 item 引用稳定，memo 让隐藏→显示切换外的重渲染跳过整卡子树。
@@ -301,10 +301,10 @@ export function AssetBoardView({ visible, onLocateNode }: AssetBoardViewProps): 
       case 'text':
         return (
           <BoardColumn
-            title="文本"
+            title="Text"
             titleSlot={titleSlot}
             items={board.text}
-            emptyText="画布中还没有文本类节点"
+            emptyText="No text nodes on the canvas yet"
             onOpen={openItem}
             onLocate={onLocateNode}
             onPreviewImage={previewImage}
@@ -320,10 +320,10 @@ export function AssetBoardView({ visible, onLocateNode }: AssetBoardViewProps): 
       case 'image':
         return (
           <BoardColumn
-            title="图片"
+            title="Image"
             titleSlot={titleSlot}
             items={board.image}
-            emptyText="画布中还没有图片节点"
+            emptyText="No image nodes on the canvas yet"
             onOpen={openItem}
             onLocate={onLocateNode}
             onPreviewImage={previewImage}
@@ -341,10 +341,10 @@ export function AssetBoardView({ visible, onLocateNode }: AssetBoardViewProps): 
       case 'video':
         return (
           <BoardColumn
-            title="视频"
+            title="Video"
             titleSlot={titleSlot}
             items={filteredVideos}
-            emptyText={videoFilter === 'all' ? '画布中还没有视频节点' : '没有匹配当前筛选的视频'}
+            emptyText={videoFilter === 'all' ? 'No video nodes on the canvas yet' : 'No videos match the current filter'}
             onOpen={openItem}
             onLocate={onLocateNode}
             onPreviewImage={previewImage}
@@ -362,7 +362,7 @@ export function AssetBoardView({ visible, onLocateNode }: AssetBoardViewProps): 
                   value={videoFilter}
                   options={VIDEO_FILTERS}
                   onSelect={setVideoFilter}
-                  menuLabel="筛选视频"
+                  menuLabel="Filter videos"
                   menuClassName="right-0"
                   triggerClassName="flex items-center gap-1 rounded-md border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[12px] text-white/80 transition-colors hover:bg-white/[0.08] hover:text-white"
                 />
@@ -380,14 +380,14 @@ export function AssetBoardView({ visible, onLocateNode }: AssetBoardViewProps): 
     const items = column === 'image' ? board.image : filteredVideos;
     return (
       <AssetBoardColumn
-        title={column === 'image' ? '图片' : '视频'}
+        title={column === 'image' ? 'Image' : 'Video'}
         count={items.length}
         emptyText={
           column === 'image'
-            ? '画布中还没有图片节点'
+            ? 'No image nodes on the canvas yet'
             : videoFilter === 'all'
-              ? '画布中还没有视频节点'
-              : '没有匹配当前筛选的视频'
+              ? 'No video nodes on the canvas yet'
+              : 'No videos match the current filter'
         }
         headerExtra={
           <div className="flex items-center gap-1.5">
@@ -396,7 +396,7 @@ export function AssetBoardView({ visible, onLocateNode }: AssetBoardViewProps): 
                 value={videoFilter}
                 options={VIDEO_FILTERS}
                 onSelect={setVideoFilter}
-                menuLabel="筛选视频"
+                menuLabel="Filter videos"
                 menuClassName="right-0"
                 triggerClassName="flex items-center gap-1 rounded-md border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[12px] text-white/80 transition-colors hover:bg-white/[0.08] hover:text-white"
               />
@@ -579,9 +579,9 @@ function BoardColumn({
 type LeftColumn = 'text' | 'image' | 'video';
 
 const LEFT_COLUMN_OPTIONS: ReadonlyArray<{ value: LeftColumn; label: string }> = [
-  { value: 'text', label: '文本' },
-  { value: 'image', label: '图片' },
-  { value: 'video', label: '视频' },
+  { value: 'text', label: 'Text' },
+  { value: 'image', label: 'Image' },
+  { value: 'video', label: 'Video' },
 ];
 
 /**
@@ -597,7 +597,7 @@ function ExpandColumnButton({
   expanded?: boolean;
   onToggle: (column: 'image' | 'video' | null) => void;
 }): ReactElement {
-  const label = expanded ? '收起' : '放大';
+  const label = expanded ? 'Collapse' : 'Expand';
   return (
     <button
       type="button"
@@ -673,7 +673,7 @@ function AssetBoardGridCard({
         )}
         {item.column === 'video' && item.videoRole === 'final' && (
           <span className="absolute left-1.5 top-1.5 inline-flex items-center gap-0.5 rounded-full bg-black/60 px-2 py-0.5 text-[11px] font-medium text-white/90 backdrop-blur-sm">
-            成片
+            Final cut
           </span>
         )}
         {item.column === 'video' && (item.thumbnailUrl || item.mediaUrl) && (
@@ -806,7 +806,7 @@ function LeftColumnSwitcher({
       value={current}
       options={LEFT_COLUMN_OPTIONS}
       onSelect={onSelect}
-      menuLabel="切换栏目"
+      menuLabel="Switch column"
       triggerClassName="-mx-1.5 flex items-center gap-1 rounded-md px-1.5 py-0.5 text-sm font-medium text-foreground transition-colors hover:bg-white/5"
     />
   );

@@ -37,7 +37,7 @@ export function AssetBoardMultiAngleDialog({
   // 外壳与内容层必须共用同一个包装后的关闭回调，见 useCloseOnce 的说明。
   const close = useCloseOnce(onClose);
   return (
-    <AssetBoardEditorDialog label="多维度编辑器" onClose={close}>
+    <AssetBoardEditorDialog label="Multi-angle editor" onClose={close}>
       <MultiAngleEditorContent
         node={node}
         imageSource={imageSource}

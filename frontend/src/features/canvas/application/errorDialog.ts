@@ -120,9 +120,9 @@ export function showTaskStillRunningDialog(params: {
  */
 export function notifyTaskStillRunning(t?: TFunction): void {
   showTaskStillRunningDialog({
-    title: t ? t('errorDialog.stillRunningTitle') : '仍在生成中',
+    title: t ? t('errorDialog.stillRunningTitle') : 'Still generating',
     message: t
       ? t('errorDialog.stillRunningMessage')
-      : '本次生成耗时较长，页面已停止等待，但任务仍在后台继续。可稍后刷新页面查看结果，或到任务中心查看进度。',
+      : 'This generation is taking longer than usual. The page stopped waiting, but the job is still running in the background. Refresh later to pick up the result, or check its progress in the task center.',
   });
 }

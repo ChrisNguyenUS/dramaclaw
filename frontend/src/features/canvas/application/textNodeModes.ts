@@ -10,11 +10,11 @@ import { useCanvasStore } from '@/stores/canvasStore';
 
 /** 「图片反推提示词」的默认指令（文本节点 instruction 的占位/默认值）。 */
 export const IMAGE_TO_PROMPT_DEFAULT_CONTENT =
-  '根据图片生成结构化中文提示词，包括主体描述、环境、光影、镜头语言、风格关键词。';
+  'Generate a structured prompt from the image, including subject description, environment, lighting, camera language, and style keywords.';
 
 /** 「文字生成音乐」的默认音乐描述——点击后预填进文本节点，用户可在此基础上改。 */
 export const TEXT_TO_MUSIC_DEFAULT_CONTENT =
-  '生成一首现代品牌电子音乐（约 110 BPM），干净有力的低频贝斯，清晰电子鼓点，整体风格高级、未来感强。开场节奏型贝斯与简洁合成器音色建立律动。主段加入稳定鼓点，节奏清晰，保持克制的张力。强化段加入更丰富的音层，合成器音色提升，律动增强但不过度拥挤。结尾鼓点减弱，仅保留低频与氛围音渐出，干净利落收尾。';
+  'Generate a modern branded electronic track (about 110 BPM) with a clean, punchy bass line, crisp electronic drums, and a polished, futuristic feel overall. The intro builds a groove with a rhythmic bass and a simple synth tone. The main section adds a steady beat and clear rhythm, keeping the tension restrained. The build adds richer layers and a brighter synth, with more drive but without getting crowded. The outro eases the drums back, leaving only the low end and ambience to fade out for a clean finish.';
 
 /** 真实存在的文本节点能力（其余值一律回落 writing）。 */
 export const TEXT_NODE_REAL_MODES: ReadonlySet<TextNodeMode> = new Set<TextNodeMode>([
@@ -71,7 +71,7 @@ export function spawnTextToVideoNode(nodeId: string): string {
   };
   const newNodeId = store.addNode(CANVAS_NODE_TYPES.video, position, seedData);
   store.addEdge(nodeId, newNodeId);
-  useCanvasStore.getState().autoGroupSpawn(nodeId, [newNodeId], { label: '文生视频组' });
+  useCanvasStore.getState().autoGroupSpawn(nodeId, [newNodeId], { label: 'Text-to-video group' });
   return newNodeId;
 }
 
@@ -95,7 +95,7 @@ export function spawnImageToPromptUploadNode(nodeId: string): string {
   store.addEdge(newNodeId, nodeId);
   useCanvasStore
     .getState()
-    .autoGroupSpawn(nodeId, [newNodeId], { label: '图片反推提示词组' });
+    .autoGroupSpawn(nodeId, [newNodeId], { label: 'Image-to-prompt group' });
   return newNodeId;
 }
 
@@ -115,7 +115,7 @@ export function spawnTextNodeAudio(nodeId: string, audioKind: 'speech' | 'music'
   );
   const newNodeId = store.addNode(CANVAS_NODE_TYPES.audio, position, { audioKind });
   store.addEdge(nodeId, newNodeId);
-  const label = audioKind === 'music' ? '文字生成音乐组' : '克隆音频组';
+  const label = audioKind === 'music' ? 'Text-to-music group' : 'Cloned audio group';
   useCanvasStore.getState().autoGroupSpawn(nodeId, [newNodeId], { label });
   return newNodeId;
 }

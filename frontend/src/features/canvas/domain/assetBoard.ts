@@ -134,7 +134,7 @@ function textPreviewOf(node: CanvasNode, data: Record<string, unknown>): string 
       return clip80(str(data.scriptTitle) ?? str(data.prompt));
     case CANVAS_NODE_TYPES.videoStory: {
       const rows = Array.isArray(data.rows) ? data.rows.length : 0;
-      return rows > 0 ? `分镜表 · ${rows} 个镜头` : null;
+      return rows > 0 ? `Shot table · ${rows} ${rows === 1 ? 'shot' : 'shots'}` : null;
     }
     default:
       return null;
@@ -222,7 +222,7 @@ function referencesOf(
     const ownUrl =
       typeof rawOwn === 'string' && rawOwn.length > 0 ? resolveImageDisplayUrl(rawOwn) : null;
     if (ownUrl) {
-      refs.push({ nodeId: null, label: '参考图', thumbnailUrl: ownUrl });
+      refs.push({ nodeId: null, label: 'Reference image', thumbnailUrl: ownUrl });
       seenUrls.add(ownUrl);
     }
   }

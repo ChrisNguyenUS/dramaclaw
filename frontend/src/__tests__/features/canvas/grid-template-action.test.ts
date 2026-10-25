@@ -71,7 +71,7 @@ describe('工作流 · 宫格功能（点功能建节点 → ↑ 才提交）', 
     const created = state.nodes.find((node) => node.id === nextNodeId);
     expect(created?.type).toBe(CANVAS_NODE_TYPES.imageGen);
     expect(created?.data).toMatchObject({
-      displayName: '多机位九宫格',
+      displayName: 'Multi-Camera 3x3',
       imageOpKey: 'multiCameraGrid',
       // 源图去掉签名 query 后记在节点上，↑ 时按它提交。
       imageOpSourceUrl: '/static/a.png',
@@ -95,7 +95,7 @@ describe('工作流 · 宫格功能（点功能建节点 → ↑ 才提交）', 
       sourceUrl: '/static/a.png',
       mode: 'scene_setting_sheet',
       // 提示词留空 → 用功能名兜底。
-      prompt: '场景设定图',
+      prompt: 'Scene Setting Sheet',
     });
     expect(awaitTaskCompletion).toHaveBeenCalledWith('tk-1', 'proj-1');
     // output_url 已有 → 不再兜底查 job result。

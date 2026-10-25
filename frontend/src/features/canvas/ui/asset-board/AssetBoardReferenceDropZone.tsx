@@ -17,7 +17,7 @@ import {
 } from './boardReferenceDrag';
 
 /** 拖拽悬停时 drop 区的提示文案（对齐参考图 58 的占位文案）。 */
-export const REFERENCE_DROP_HINT_TEXT = '可将资产、图片、视频拖拽到此，添加为参考';
+export const REFERENCE_DROP_HINT_TEXT = 'Drag assets, images or videos here to add them as references';
 
 /**
  * 故事板详情里包住「图片/视频生成表单」的一层放置区：把左列表拖来的**既有节点卡片**

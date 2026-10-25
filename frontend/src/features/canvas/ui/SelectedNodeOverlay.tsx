@@ -591,7 +591,7 @@ export const SelectedNodeOverlay = memo(() => {
             .getState()
             .nodes.some((node) => !beforeNodeIds.has(node.id));
           if (!created) {
-            publishNodeActionError(requestId, nodeId, action, "目标节点没有可用于旋转的图片");
+            publishNodeActionError(requestId, nodeId, action, "The target node has no image to rotate");
             return;
           }
           publishNodeActionSuccess(requestId, nodeId, action, { openedUiAction: true });
@@ -622,12 +622,12 @@ export const SelectedNodeOverlay = memo(() => {
         const sourceNode = nodes.find((node) => node.id === nodeId) ?? null;
         const imageSource = resolveNodeSourceImageUrl(sourceNode);
         if (!sourceNode || !imageSource) {
-          publishNodeActionError(requestId, nodeId, action, "目标节点没有可用于扩图的图片");
+          publishNodeActionError(requestId, nodeId, action, "The target node has no image to outpaint");
           return;
         }
         const project = readUrl().project;
         if (!project) {
-          publishNodeActionError(requestId, nodeId, action, "当前 URL 缺少 project，无法提交生成");
+          publishNodeActionError(requestId, nodeId, action, "The current URL is missing the project parameter. Cannot submit.");
           return;
         }
 
@@ -711,12 +711,12 @@ export const SelectedNodeOverlay = memo(() => {
         const sourceNode = nodes.find((node) => node.id === nodeId) ?? null;
         const imageSource = resolveNodeSourceImageUrl(sourceNode);
         if (!sourceNode || !imageSource) {
-          publishNodeActionError(requestId, nodeId, action, "目标节点没有可用于高清放大的图片");
+          publishNodeActionError(requestId, nodeId, action, "The target node has no image to upscale");
           return;
         }
         const project = readUrl().project;
         if (!project) {
-          publishNodeActionError(requestId, nodeId, action, "当前 URL 缺少 project，无法提交生成");
+          publishNodeActionError(requestId, nodeId, action, "The current URL is missing the project parameter. Cannot submit.");
           return;
         }
 
@@ -798,12 +798,12 @@ export const SelectedNodeOverlay = memo(() => {
         const sourceNode = nodes.find((node) => node.id === nodeId) ?? null;
         const imageSource = resolveNodeSourceImageUrl(sourceNode);
         if (!sourceNode || !imageSource) {
-          publishNodeActionError(requestId, nodeId, action, "目标节点没有可用于生成的图片");
+          publishNodeActionError(requestId, nodeId, action, "The target node has no image to generate from");
           return;
         }
         const project = readUrl().project;
         if (!project) {
-          publishNodeActionError(requestId, nodeId, action, "当前 URL 缺少 project，无法提交生成");
+          publishNodeActionError(requestId, nodeId, action, "The current URL is missing the project parameter. Cannot submit.");
           return;
         }
 
@@ -889,12 +889,12 @@ export const SelectedNodeOverlay = memo(() => {
       const sourceNode = nodes.find((node) => node.id === nodeId) ?? null;
       const imageSource = resolveNodeSourceImageUrl(sourceNode);
       if (!sourceNode || !imageSource) {
-        publishNodeActionError(requestId, nodeId, action, "目标节点没有可用于生成的图片");
+        publishNodeActionError(requestId, nodeId, action, "The target node has no image to generate from");
         return;
       }
       const project = readUrl().project;
       if (!project) {
-        publishNodeActionError(requestId, nodeId, action, "当前 URL 缺少 project，无法提交生成");
+        publishNodeActionError(requestId, nodeId, action, "The current URL is missing the project parameter. Cannot submit.");
         return;
       }
 

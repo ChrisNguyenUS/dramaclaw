@@ -181,12 +181,12 @@ export function keyElementMenuEntry(
     kind: 'submenu',
     key: 'keyElement',
     icon: Star,
-    label: current ? `关键元素 · ${KEY_ELEMENT_CATEGORY_LABEL[current]}` : '设置关键元素',
+    label: current ? `Key element · ${KEY_ELEMENT_CATEGORY_LABEL[current]}` : 'Set as key element',
     children: [
       ...KEY_ELEMENT_CATEGORY_KEYS.map((category) => ({
         key: `key-${category}`,
         label: KEY_ELEMENT_CATEGORY_LABEL[category],
-        hint: current === category ? '当前' : undefined,
+        hint: current === category ? 'Current' : undefined,
         onSelect: () =>
           updateNodeData(node.id, { keyElementCategory: category } as Partial<CanvasNodeData>),
       })),
@@ -194,7 +194,7 @@ export function keyElementMenuEntry(
         ? [
             {
               key: 'key-clear',
-              label: '取消关键元素',
+              label: 'Remove key element',
               onSelect: () =>
                 updateNodeData(node.id, { keyElementCategory: null } as Partial<CanvasNodeData>),
             },
@@ -222,7 +222,7 @@ export function keyElementMenuEntry(
 export function DetailMoreMenu({
   entries,
   triggerClassName,
-  triggerLabel = '更多',
+  triggerLabel = 'More',
 }: {
   entries: MoreMenuEntry[];
   /** 触发器样式：默认工具条按钮；详情头部那颗传 header 图标按钮的类。 */
@@ -317,7 +317,7 @@ export function DetailMoreMenu({
       </button>
       {open && (
         <div
-          aria-label="更多操作"
+          aria-label="More actions"
           className="absolute right-0 top-full z-50 mt-1.5 min-w-[210px] rounded-lg border border-white/10 bg-[#2e2e2e] p-1 text-white/85 shadow-xl"
         >
           {entries.map((entry) => {
@@ -421,16 +421,16 @@ const GRID_ACTION_DEFS: Array<{
   icon: LucideIcon;
   label: string;
 }> = [
-  { key: 'multiCameraGrid', icon: Grid3x3, label: '多机位九宫格' },
-  { key: 'plotFourGrid', icon: Grid2x2, label: '剧情推演四宫格' },
-  { key: 'faceThreeView', icon: User, label: '角色脸部三视图' },
-  { key: 'productThreeView', icon: Package, label: '产品三视图' },
-  { key: 'serialStoryboard25', icon: LayoutDashboard, label: '25宫格连贯分镜' },
-  { key: 'cinematicLightCorrection', icon: Film, label: '电影级光影校正' },
-  { key: 'characterThreeView', icon: Users, label: '角色三视图生成' },
-  { key: 'sceneSettingSheet', icon: Mountain, label: '场景设定图' },
-  { key: 'frameProjection3sLater', icon: FastForward, label: '画面推演 - 3秒后' },
-  { key: 'frameProjection5sEarlier', icon: Rewind, label: '画面推演 - 5秒前' },
+  { key: 'multiCameraGrid', icon: Grid3x3, label: 'Multi-Camera 3x3' },
+  { key: 'plotFourGrid', icon: Grid2x2, label: 'Plot Progression 2x2' },
+  { key: 'faceThreeView', icon: User, label: 'Face Three-View' },
+  { key: 'productThreeView', icon: Package, label: 'Product Three-View' },
+  { key: 'serialStoryboard25', icon: LayoutDashboard, label: '25-Cell Storyboard' },
+  { key: 'cinematicLightCorrection', icon: Film, label: 'Cinematic Light Grading' },
+  { key: 'characterThreeView', icon: Users, label: 'Character Three-View' },
+  { key: 'sceneSettingSheet', icon: Mountain, label: 'Scene Setting Sheet' },
+  { key: 'frameProjection3sLater', icon: FastForward, label: 'Project Frame +3s' },
+  { key: 'frameProjection5sEarlier', icon: Rewind, label: 'Project Frame -5s' },
 ];
 
 /**
@@ -517,7 +517,7 @@ export function AssetBoardImageDetailToolbar({
       <div className="flex flex-wrap items-center justify-center gap-1.5">
         <DetailToolbarButton
           icon={Download}
-          label="下载"
+          label="Download"
           busy={isDownloading}
           disabled={!imageSource}
           onClick={() => void handleDownload()}
@@ -525,9 +525,9 @@ export function AssetBoardImageDetailToolbar({
         {canRegenerate && (
           <DetailToolbarButton
             icon={RefreshCw}
-            label="重新生成"
+            label="Regenerate"
             busy={isGenerating}
-            title="重新提交这次生成（失败重试）"
+            title="Resubmit this generation (retry after failure)"
             onClick={() => void regenerateExportImageNode(node.id)}
           />
         )}
@@ -545,11 +545,11 @@ export function AssetBoardImageDetailToolbar({
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                title="基于本图套用宫格 / 多视图模板生成"
+                title="Generate from this image with a grid / multi-view template"
                 className={DETAIL_TOOLBAR_BUTTON_CLASS}
               >
                 <LayoutGrid className="h-3.5 w-3.5" />
-                宫格模板
+                Grid templates
                 <ChevronDown className="h-3 w-3" />
               </button>
             </DropdownMenuTrigger>
@@ -763,7 +763,7 @@ export function AssetBoardVideoDetailToolbar({
       const newId = store.addNode(CANVAS_NODE_TYPES.video, position, {
         videoUrl: url,
         previewImageUrl: coverUrl,
-        displayName: '合成视频',
+        displayName: 'Composed video',
         sourceFileName: null,
       } as Partial<CanvasNodeData>);
       store.addEdge(node.id, newId);
@@ -802,7 +802,7 @@ export function AssetBoardVideoDetailToolbar({
   const handleUpscaleSubmit = useCallback(() => {
     if (!videoUrl || isSubmittingUpscale) return;
     // 沿用工作流「先建 isUpscaleNode 结果节点」语义，配置在详情选好后直接提交。
-    const displayName = `高清（${VIDEO_UPSCALE_RESOLUTION_LABEL[upscaleResolution]}）`;
+    const displayName = `HD (${VIDEO_UPSCALE_RESOLUTION_LABEL[upscaleResolution]})`;
     const upscaleNodeId = createVideoUpscaleResultNode(node.id, {
       sourceUrl: videoUrl,
       displayName,
@@ -858,40 +858,40 @@ export function AssetBoardVideoDetailToolbar({
         <div className={VIDEO_FLOAT_PILL_CLASS}>
           <VideoFloatButton
             icon={Scissors}
-            label="剪辑"
+            label="Clip"
             showLabel
             disabled={!project || !canOpenCompose}
             title={
               isCompose && !canOpenCompose
-                ? '需要至少 2 个已就绪的上游视频素材'
-                : '打开视频合成时间线'
+                ? 'Needs at least 2 ready upstream video assets'
+                : 'Open the video compose timeline'
             }
             onClick={openCompose}
           />
           {isVideo && (
             <VideoFloatButton
               icon={ImageUpscale}
-              label="高清"
+              label="HD"
               showLabel
               busy={isSubmittingUpscale}
               disabled={!videoUrl}
-              title="放大分辨率（在画布上新建高清结果节点）"
+              title="Upscale resolution (creates an HD result node on the canvas)"
               onClick={() => setUpscaleOpen((open) => !open)}
             />
           )}
           <span aria-hidden className="mx-0.5 h-4 w-px shrink-0 bg-white/12" />
           <VideoFloatButton
             icon={Download}
-            label="下载"
+            label="Download"
             busy={isDownloading}
             disabled={!videoUrl}
             onClick={() => void handleDownload()}
           />
           <VideoFloatButton
             icon={Maximize2}
-            label="全屏"
+            label="Fullscreen"
             disabled={!videoUrl}
-            title="全屏播放"
+            title="Play fullscreen"
             onClick={handleFullscreen}
           />
         </div>
@@ -900,7 +900,7 @@ export function AssetBoardVideoDetailToolbar({
             挪进头部之后，那一行没地方摆了）。z-50 压过下方正文。 */}
         {upscaleOpen && isVideo && (
           <div className="absolute left-1/2 top-full z-50 mt-2 flex -translate-x-1/2 flex-wrap items-center justify-center gap-3 whitespace-nowrap rounded-xl border border-white/10 bg-[#282828] px-3 py-2 shadow-[0_10px_24px_rgba(0,0,0,0.32)]">
-            <span className="text-[12px] text-white/40">分辨率</span>
+            <span className="text-[12px] text-white/40">Resolution</span>
             <div className="inline-flex items-center gap-0.5 rounded-md border border-white/10 bg-white/[0.04] p-0.5">
               {VIDEO_UPSCALE_RESOLUTIONS.map((value) => (
                 <button
@@ -919,10 +919,10 @@ export function AssetBoardVideoDetailToolbar({
             </div>
             <DetailToolbarButton
               icon={Wand2}
-              label="提交高清"
+              label="Submit HD"
               busy={isSubmittingUpscale}
               disabled={!videoUrl}
-              title="在画布上新建高清结果节点并提交任务"
+              title="Create an HD result node on the canvas and submit the job"
               onClick={handleUpscaleSubmit}
             />
           </div>

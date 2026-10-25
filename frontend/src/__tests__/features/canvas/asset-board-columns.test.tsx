@@ -173,7 +173,7 @@ describe('AssetBoard 三栏可拖拽调宽', () => {
     expect(screen.queryByTestId('asset-board-columns')).not.toBeInTheDocument();
 
     // 退回总览 → 重挂载并从 localStorage 恢复比例。
-    fireEvent.click(screen.getByRole('button', { name: '关闭详情' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Close details' }));
     expect(screen.getByTestId('asset-board-columns')).toBeInTheDocument();
     expect(grow('asset-board-column-wrapper-text')).toBeCloseTo(0.5, 5);
   });
@@ -206,9 +206,9 @@ describe('视频栏筛选下拉', () => {
     expect(screen.getByRole('button', { name: '成片一号' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '片段一号' })).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', { name: /全部/ }));
-    const menu = screen.getByRole('menu', { name: '筛选视频' });
-    expect(within(menu).getByRole('menuitemradio', { name: '全部' })).toHaveAttribute(
+    fireEvent.click(screen.getByRole('button', { name: /All/ }));
+    const menu = screen.getByRole('menu', { name: 'Filter videos' });
+    expect(within(menu).getByRole('menuitemradio', { name: 'All' })).toHaveAttribute(
       'aria-checked',
       'true',
     );
@@ -217,19 +217,19 @@ describe('视频栏筛选下拉', () => {
   it('选「成片」→ 只留成片，触发器文案跟着变；再选回「全部」恢复', () => {
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
 
-    fireEvent.click(screen.getByRole('button', { name: /全部/ }));
+    fireEvent.click(screen.getByRole('button', { name: /All/ }));
     fireEvent.click(
-      within(screen.getByRole('menu', { name: '筛选视频' })).getByRole('menuitemradio', {
-        name: '成片',
+      within(screen.getByRole('menu', { name: 'Filter videos' })).getByRole('menuitemradio', {
+        name: 'Final cut',
       }),
     );
     expect(screen.getByRole('button', { name: '成片一号' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: '片段一号' })).not.toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', { name: /成片$/ }));
+    fireEvent.click(screen.getByRole('button', { name: /Final cut$/ }));
     fireEvent.click(
-      within(screen.getByRole('menu', { name: '筛选视频' })).getByRole('menuitemradio', {
-        name: '全部',
+      within(screen.getByRole('menu', { name: 'Filter videos' })).getByRole('menuitemradio', {
+        name: 'All',
       }),
     );
     expect(screen.getByRole('button', { name: '片段一号' })).toBeInTheDocument();
@@ -245,19 +245,19 @@ describe('图片/视频栏放大', () => {
   it('点图片栏「放大」→ 三栏收成「左列 + 图片宽幅网格」，再点「收起」还原', () => {
     renderBoard();
     // 三栏态：图片与视频栏各有一颗放大按钮。
-    expect(screen.getAllByRole('button', { name: '放大' })).toHaveLength(2);
+    expect(screen.getAllByRole('button', { name: 'Expand' })).toHaveLength(2);
 
-    fireEvent.click(screen.getAllByRole('button', { name: '放大' })[0]);
+    fireEvent.click(screen.getAllByRole('button', { name: 'Expand' })[0]);
     // 放大后三栏容器让位；右侧只剩被放大的那栏（收起按钮唯一）。
     expect(screen.queryByTestId('asset-board-columns')).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: '收起' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Collapse' })).toBeInTheDocument();
     // 网格里照常能看到该栏条目，左边保留文本栏。
     expect(screen.getByRole('button', { name: '分镜草图' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '锚点清单' })).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', { name: '收起' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Collapse' }));
     expect(screen.getByTestId('asset-board-columns')).toBeInTheDocument();
-    expect(screen.getAllByRole('button', { name: '放大' })).toHaveLength(2);
+    expect(screen.getAllByRole('button', { name: 'Expand' })).toHaveLength(2);
   });
 
   it('详情态左窄列表不出「放大」按钮（那里点了不会有任何变化）', () => {
@@ -266,27 +266,27 @@ describe('图片/视频栏放大', () => {
 
     // 左列此刻是图片栏（详情所在栏），但放大在详情态无意义 → 不该渲染这颗按钮，
     // 否则点了没反应，且关掉详情后会突然跳进放大态。
-    expect(screen.queryByRole('button', { name: '放大' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Expand' })).not.toBeInTheDocument();
   });
 
   it('放大态左列（文本栏）也不出「放大」按钮', () => {
     renderBoard();
-    fireEvent.click(screen.getAllByRole('button', { name: '放大' })[0]);
+    fireEvent.click(screen.getAllByRole('button', { name: 'Expand' })[0]);
     // 只剩被放大那栏的「收起」，左列文本栏本来就没有放大入口。
-    expect(screen.queryByRole('button', { name: '放大' })).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: '收起' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Expand' })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Collapse' })).toBeInTheDocument();
   });
 
   it('放大态点卡片开详情；关掉详情回到放大态而不是三栏', () => {
     renderBoard();
-    fireEvent.click(screen.getAllByRole('button', { name: '放大' })[0]);
+    fireEvent.click(screen.getAllByRole('button', { name: 'Expand' })[0]);
     fireEvent.click(screen.getByRole('button', { name: '分镜草图' }));
 
-    const detail = screen.getByRole('region', { name: '资产详情' });
+    const detail = screen.getByRole('region', { name: 'Asset details' });
     expect(detail).toBeInTheDocument();
 
-    fireEvent.click(within(detail).getByRole('button', { name: '关闭详情' }));
-    expect(screen.getByRole('button', { name: '收起' })).toBeInTheDocument();
+    fireEvent.click(within(detail).getByRole('button', { name: 'Close details' }));
+    expect(screen.getByRole('button', { name: 'Collapse' })).toBeInTheDocument();
     expect(screen.queryByTestId('asset-board-columns')).not.toBeInTheDocument();
   });
 });
@@ -294,7 +294,7 @@ describe('图片/视频栏放大', () => {
 describe('AssetBoardColumn 条目分割线', () => {
   it('dividedItems：N 个条目之间插 N-1 条分割线（不在首尾多画）', () => {
     render(
-      <AssetBoardColumn title="图片" count={3} emptyText="空" dividedItems>
+      <AssetBoardColumn title="Image" count={3} emptyText="空" dividedItems>
         <div>卡片1</div>
         <div>卡片2</div>
         <div>卡片3</div>
@@ -305,7 +305,7 @@ describe('AssetBoardColumn 条目分割线', () => {
 
   it('不传 dividedItems（文本栏）→ 一条分割线都不画', () => {
     render(
-      <AssetBoardColumn title="文本" count={2} emptyText="空">
+      <AssetBoardColumn title="Text" count={2} emptyText="空">
         <div>文本1</div>
         <div>文本2</div>
       </AssetBoardColumn>,
@@ -315,7 +315,7 @@ describe('AssetBoardColumn 条目分割线', () => {
 
   it('分割线是独立元素、自带底色——不靠卡片边框（卡片 border-transparent 会把 divide-* 刷没）', () => {
     render(
-      <AssetBoardColumn title="图片" count={2} emptyText="空" dividedItems>
+      <AssetBoardColumn title="Image" count={2} emptyText="空" dividedItems>
         <div className="border border-transparent">卡片1</div>
         <div className="border border-transparent">卡片2</div>
       </AssetBoardColumn>,

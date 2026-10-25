@@ -36,7 +36,7 @@ export function AssetBoardRelightDialog({
   // 外壳与内容层必须共用同一个包装后的关闭回调，见 useCloseOnce 的说明。
   const close = useCloseOnce(onClose);
   return (
-    <AssetBoardEditorDialog label="打光效果编辑器" onClose={close}>
+    <AssetBoardEditorDialog label="Relight editor" onClose={close}>
       <LightEditorContent
         node={node}
         imageSource={imageSource}

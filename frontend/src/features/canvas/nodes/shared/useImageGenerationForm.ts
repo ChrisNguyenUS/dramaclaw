@@ -285,7 +285,7 @@ export function useImageGenerationForm(
   const billingRuleMissingSubmitMessage = imageBillingRuleMissing
     ? t('node.imageGenNode.billingRuleMissingSubmit', {
         defaultValue:
-          '图片生成未启动：计费规则未配置，请联系管理员设置积分规则后重试。',
+          'Image generation did not start: the billing rule is not configured. Ask an administrator to set the credit rule, then try again.',
       })
     : null;
   // 用服务端下发的 `display`，别自己 format `cost`：促销时 display 是「原价→现价」，
@@ -372,7 +372,7 @@ export function useImageGenerationForm(
         key:
           upstreamImageContents.find((content) => content.imageUrl === url)
             ?.nodeId ?? `self:${url}`,
-        name: `图片${index + 1}`,
+        name: `图片${index + 1}`, // i18n-exempt: canonical @mention protocol token
         imageUrl: resolveImageDisplayUrl(url),
         index: index + 1,
       })),
@@ -393,7 +393,7 @@ export function useImageGenerationForm(
   );
   useReferenceMentionSync(
     prompt,
-    [{ prefix: "图片", ids: orderedReferenceUrls }],
+    [{ prefix: "图片", ids: orderedReferenceUrls }], // i18n-exempt: canonical @mention protocol token
     applyPromptRemap,
   );
 
@@ -449,13 +449,13 @@ export function useImageGenerationForm(
   const selectedModelReferenceError =
     selectedModel?.referenceImageMax != null &&
     orderedReferenceUrls.length > selectedModel.referenceImageMax
-      ? `该模型最多支持 ${selectedModel.referenceImageMax} 张图片素材`
+      ? `This model supports at most ${selectedModel.referenceImageMax} image ${selectedModel.referenceImageMax === 1 ? 'asset' : 'assets'}`
       : null;
   // 下拉里逐项标灰：换到上限更小的模型前就能看见「该模型最多支持 N 张」。
   const getModelOptionDisabledReason = useCallback(
     (model: { referenceImageMax?: number | null }) =>
       model.referenceImageMax != null && orderedReferenceUrls.length > model.referenceImageMax
-        ? `该模型最多支持 ${model.referenceImageMax} 张图片素材`
+        ? `This model supports at most ${model.referenceImageMax} image ${model.referenceImageMax === 1 ? 'asset' : 'assets'}`
         : null,
     [orderedReferenceUrls.length],
   );
@@ -664,7 +664,7 @@ export function useImageGenerationForm(
             if (runIndex === 0 && completedUrls.length === 0) {
               updateNodeData(id, { isGenerating: false, generationStartedAt: null });
             }
-            throw new Error('图片生成完成但未返回图片地址');
+            throw new Error('Image generation finished but no image URL was returned');
           }
         };
         // 'submitted'：提交即返回任务句柄，产物回填在后台继续（配方运行时按
@@ -805,7 +805,7 @@ export function useImageGenerationForm(
       };
       return actionOutput;
     }
-    throw new Error('图片生成未提交任务，也没有返回图片地址');
+    throw new Error('Image generation did not submit a task and returned no image URL');
     } finally {
       submittingRef.current = false;
       const waiters = submitWaitersRef.current;

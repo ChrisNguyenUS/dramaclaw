@@ -111,7 +111,7 @@ function renderBoard() {
 }
 
 function detailPanel() {
-  return screen.getByRole('region', { name: '资产详情' });
+  return screen.getByRole('region', { name: 'Asset details' });
 }
 
 // jsdom 未实现 scrollIntoView：参考素材「定位」会在被引用卡片上调用它，
@@ -127,21 +127,21 @@ describe('AssetBoard 主从详情', () => {
 
   it('点击图片卡 → 详情面板出现，另外两栏隐藏、只留被点栏窄列表', () => {
     renderBoard();
-    expect(screen.getByText('文本')).toBeInTheDocument();
-    expect(screen.getByText('视频')).toBeInTheDocument();
+    expect(screen.getByText('Text')).toBeInTheDocument();
+    expect(screen.getByText('Video')).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: '分镜草图' }));
 
     const detail = detailPanel();
     expect(within(detail).getByText('分镜草图')).toBeInTheDocument();
-    expect(within(detail).getByRole('button', { name: '放大查看' })).toBeInTheDocument();
+    expect(within(detail).getByRole('button', { name: 'Enlarge' })).toBeInTheDocument();
     expect(within(detail).getByText('九宫格铅笔线稿分镜草图')).toBeInTheDocument();
     // 详情面板不再提供「在画布中定位」入口（定位改走卡片 hover / 引用跳转）。
-    expect(within(detail).queryByRole('button', { name: /在画布中定位/ })).not.toBeInTheDocument();
+    expect(within(detail).queryByRole('button', { name: /Locate on canvas/ })).not.toBeInTheDocument();
     // 图片栏窄列表保留，文本/视频栏消失。
-    expect(screen.getByText('图片')).toBeInTheDocument();
-    expect(screen.queryByText('文本')).not.toBeInTheDocument();
-    expect(screen.queryByText('视频')).not.toBeInTheDocument();
+    expect(screen.getByText('Image')).toBeInTheDocument();
+    expect(screen.queryByText('Text')).not.toBeInTheDocument();
+    expect(screen.queryByText('Video')).not.toBeInTheDocument();
   });
 
   it('左栏点另一项 → 详情切换到该项', () => {
@@ -159,25 +159,25 @@ describe('AssetBoard 主从详情', () => {
   it('× 关闭详情 → 回三栏布局', () => {
     renderBoard();
     fireEvent.click(screen.getByRole('button', { name: '分镜草图' }));
-    expect(screen.queryByText('文本')).not.toBeInTheDocument();
+    expect(screen.queryByText('Text')).not.toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', { name: '关闭详情' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Close details' }));
 
-    expect(screen.queryByRole('region', { name: '资产详情' })).not.toBeInTheDocument();
-    expect(screen.getByText('文本')).toBeInTheDocument();
-    expect(screen.getByText('图片')).toBeInTheDocument();
-    expect(screen.getByText('视频')).toBeInTheDocument();
+    expect(screen.queryByRole('region', { name: 'Asset details' })).not.toBeInTheDocument();
+    expect(screen.getByText('Text')).toBeInTheDocument();
+    expect(screen.getByText('Image')).toBeInTheDocument();
+    expect(screen.getByText('Video')).toBeInTheDocument();
   });
 
   it('Esc 关闭详情 → 回三栏布局', () => {
     renderBoard();
     fireEvent.click(screen.getByRole('button', { name: '分镜草图' }));
-    expect(screen.queryByRole('region', { name: '资产详情' })).toBeInTheDocument();
+    expect(screen.queryByRole('region', { name: 'Asset details' })).toBeInTheDocument();
 
     fireEvent.keyDown(window, { key: 'Escape' });
 
-    expect(screen.queryByRole('region', { name: '资产详情' })).not.toBeInTheDocument();
-    expect(screen.getByText('视频')).toBeInTheDocument();
+    expect(screen.queryByRole('region', { name: 'Asset details' })).not.toBeInTheDocument();
+    expect(screen.getByText('Video')).toBeInTheDocument();
   });
 
   it('文本卡点击 → 详情渲染完整文本内容（Markdown）', () => {
@@ -195,51 +195,51 @@ describe('AssetBoard 主从详情', () => {
     renderBoard();
     fireEvent.click(screen.getByRole('button', { name: '成片视频' }));
 
-    const referencesGroup = within(detailPanel()).getByRole('group', { name: '参考素材' });
+    const referencesGroup = within(detailPanel()).getByRole('group', { name: 'Reference assets' });
     // 展开前无菜单项。
-    expect(within(referencesGroup).queryByRole('menuitem', { name: '编辑' })).not.toBeInTheDocument();
+    expect(within(referencesGroup).queryByRole('menuitem', { name: 'Edit' })).not.toBeInTheDocument();
     // 点击缩略图展开小菜单（hover 同源，走同一开合逻辑）。
     fireEvent.click(within(referencesGroup).getByRole('button', { name: '角色参考' }));
-    expect(within(referencesGroup).getByRole('menuitem', { name: '编辑' })).toBeInTheDocument();
-    expect(within(referencesGroup).getByRole('menuitem', { name: '定位' })).toBeInTheDocument();
+    expect(within(referencesGroup).getByRole('menuitem', { name: 'Edit' })).toBeInTheDocument();
+    expect(within(referencesGroup).getByRole('menuitem', { name: 'Locate' })).toBeInTheDocument();
   });
 
   it('参考素材菜单「编辑」→ 跨栏 push 被引用节点详情，← 返回原详情', () => {
     renderBoard();
     fireEvent.click(screen.getByRole('button', { name: '成片视频' }));
-    expect(screen.getByText('视频')).toBeInTheDocument();
+    expect(screen.getByText('Video')).toBeInTheDocument();
     expect(within(detailPanel()).getByText('成片视频')).toBeInTheDocument();
 
     // 参考素材缩略图展开菜单 →「编辑」→ push 被引用节点（上传图，图片栏）的详情。
     // 限定在「参考素材」这一组里找该缩略图（防御性作用域，避免与卡片内联缩略图重名）。
-    const referencesGroup = within(detailPanel()).getByRole('group', { name: '参考素材' });
+    const referencesGroup = within(detailPanel()).getByRole('group', { name: 'Reference assets' });
     fireEvent.click(within(referencesGroup).getByRole('button', { name: '角色参考' }));
-    fireEvent.click(within(referencesGroup).getByRole('menuitem', { name: '编辑' }));
+    fireEvent.click(within(referencesGroup).getByRole('menuitem', { name: 'Edit' }));
     expect(within(detailPanel()).getByText('角色参考')).toBeInTheDocument();
     // 左栏自动切到对应模块列表（视频 → 图片）。
-    expect(screen.getByText('图片')).toBeInTheDocument();
-    expect(screen.queryByText('视频')).not.toBeInTheDocument();
+    expect(screen.getByText('Image')).toBeInTheDocument();
+    expect(screen.queryByText('Video')).not.toBeInTheDocument();
 
     // ← 弹栈回上一个详情。
-    fireEvent.click(screen.getByRole('button', { name: '返回' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Back' }));
     expect(within(detailPanel()).getByText('成片视频')).toBeInTheDocument();
-    expect(screen.getByText('视频')).toBeInTheDocument();
+    expect(screen.getByText('Video')).toBeInTheDocument();
   });
 
   it('参考素材菜单「定位」（跨栏）→ 退回三栏总览并滚到被引用图片卡片', () => {
     renderBoard();
     fireEvent.click(screen.getByRole('button', { name: '成片视频' }));
     // 视频详情态：左侧只留视频窄列表，图片/文本栏不在。
-    expect(screen.queryByText('图片')).not.toBeInTheDocument();
+    expect(screen.queryByText('Image')).not.toBeInTheDocument();
 
-    const referencesGroup = within(detailPanel()).getByRole('group', { name: '参考素材' });
+    const referencesGroup = within(detailPanel()).getByRole('group', { name: 'Reference assets' });
     fireEvent.click(within(referencesGroup).getByRole('button', { name: '角色参考' }));
-    fireEvent.click(within(referencesGroup).getByRole('menuitem', { name: '定位' }));
+    fireEvent.click(within(referencesGroup).getByRole('menuitem', { name: 'Locate' }));
 
     // 跨栏（视频 → 图片）→ 详情关闭、回三栏总览，且被引用卡片滚进视野。
-    expect(screen.queryByRole('region', { name: '资产详情' })).not.toBeInTheDocument();
-    expect(screen.getByText('图片')).toBeInTheDocument();
-    expect(screen.getByText('视频')).toBeInTheDocument();
+    expect(screen.queryByRole('region', { name: 'Asset details' })).not.toBeInTheDocument();
+    expect(screen.getByText('Image')).toBeInTheDocument();
+    expect(screen.getByText('Video')).toBeInTheDocument();
     expect(scrollIntoViewMock).toHaveBeenCalled();
   });
 
@@ -266,7 +266,7 @@ describe('AssetBoard 主从详情', () => {
     fireEvent.click(screen.getByRole('button', { name: '生成视频' }));
 
     // 生成表单在场 → 无底部只读「参考素材」组（引用只由表单里的引用 chip 呈现，不重复）。
-    expect(within(detailPanel()).queryByRole('group', { name: '参考素材' })).not.toBeInTheDocument();
+    expect(within(detailPanel()).queryByRole('group', { name: 'Reference assets' })).not.toBeInTheDocument();
   });
 
   it('参考素材菜单「定位」（同栏）→ 保留详情，滚动窄列表到被引用卡片', () => {
@@ -291,12 +291,12 @@ describe('AssetBoard 主从详情', () => {
     renderBoard();
     fireEvent.click(screen.getByRole('button', { name: '定位图A' }));
 
-    const referencesGroup = within(detailPanel()).getByRole('group', { name: '参考素材' });
+    const referencesGroup = within(detailPanel()).getByRole('group', { name: 'Reference assets' });
     fireEvent.click(within(referencesGroup).getByRole('button', { name: '定位图B' }));
-    fireEvent.click(within(referencesGroup).getByRole('menuitem', { name: '定位' }));
+    fireEvent.click(within(referencesGroup).getByRole('menuitem', { name: 'Locate' }));
 
     // 同栏（图片 → 图片）→ 详情保持打开，窄列表里的被引用卡片滚进视野。
-    expect(screen.getByRole('region', { name: '资产详情' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Asset details' })).toBeInTheDocument();
     expect(within(detailPanel()).getByText('定位图A')).toBeInTheDocument();
     expect(scrollIntoViewMock).toHaveBeenCalled();
   });
@@ -331,34 +331,34 @@ describe('AssetBoard 主从详情', () => {
     expect(within(detailPanel()).getByText('互引A')).toBeInTheDocument();
 
     // A → B：参考素材菜单「编辑」→ push，栈深变 2。
-    const groupA = within(detailPanel()).getByRole('group', { name: '参考素材' });
+    const groupA = within(detailPanel()).getByRole('group', { name: 'Reference assets' });
     fireEvent.click(within(groupA).getByRole('button', { name: '互引B' }));
-    fireEvent.click(within(groupA).getByRole('menuitem', { name: '编辑' }));
+    fireEvent.click(within(groupA).getByRole('menuitem', { name: 'Edit' }));
     expect(within(detailPanel()).getByText('互引B')).toBeInTheDocument();
 
     // B → A：A 已经在栈里出现过（栈底那一层）→ 截断回那一层，而不是再 push 一层。
-    const groupB = within(detailPanel()).getByRole('group', { name: '参考素材' });
+    const groupB = within(detailPanel()).getByRole('group', { name: 'Reference assets' });
     fireEvent.click(within(groupB).getByRole('button', { name: '互引A' }));
-    fireEvent.click(within(groupB).getByRole('menuitem', { name: '编辑' }));
+    fireEvent.click(within(groupB).getByRole('menuitem', { name: 'Edit' }));
     expect(within(detailPanel()).getByText('互引A')).toBeInTheDocument();
 
     // 栈深已收敛为 1：← 直接关闭详情回三栏（不会先弹回 B）。
-    fireEvent.click(screen.getByRole('button', { name: '返回' }));
-    expect(screen.queryByRole('region', { name: '资产详情' })).not.toBeInTheDocument();
-    expect(screen.getByText('图片')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Back' }));
+    expect(screen.queryByRole('region', { name: 'Asset details' })).not.toBeInTheDocument();
+    expect(screen.getByText('Image')).toBeInTheDocument();
   });
 
   it('← 在栈深 1 时关闭详情 → 回三栏布局', () => {
     renderBoard();
     fireEvent.click(screen.getByRole('button', { name: '分镜草图' }));
-    expect(screen.queryByRole('region', { name: '资产详情' })).toBeInTheDocument();
+    expect(screen.queryByRole('region', { name: 'Asset details' })).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', { name: '返回' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Back' }));
 
-    expect(screen.queryByRole('region', { name: '资产详情' })).not.toBeInTheDocument();
-    expect(screen.getByText('文本')).toBeInTheDocument();
-    expect(screen.getByText('图片')).toBeInTheDocument();
-    expect(screen.getByText('视频')).toBeInTheDocument();
+    expect(screen.queryByRole('region', { name: 'Asset details' })).not.toBeInTheDocument();
+    expect(screen.getByText('Text')).toBeInTheDocument();
+    expect(screen.getByText('Image')).toBeInTheDocument();
+    expect(screen.getByText('Video')).toBeInTheDocument();
   });
 
   it('详情打开期间节点被删除 → 显示「节点已不存在」空态', () => {
@@ -374,7 +374,7 @@ describe('AssetBoard 主从详情', () => {
       );
     });
 
-    expect(within(detailPanel()).getByText('节点已不存在')).toBeInTheDocument();
+    expect(within(detailPanel()).getByText('This node no longer exists')).toBeInTheDocument();
     expect(within(detailPanel()).queryByText('分镜草图')).not.toBeInTheDocument();
   });
 
@@ -403,8 +403,8 @@ describe('AssetBoard 主从详情', () => {
 
     const detail = detailPanel();
     // 未给 generationStartedAt → 估算 hook 退化为「从挂载时刻计时」，渲染瞬间 0%。
-    expect(within(detail).getByText('生成中 0%...')).toBeInTheDocument();
-    expect(within(detail).queryByRole('button', { name: '放大查看' })).not.toBeInTheDocument();
+    expect(within(detail).getByText('Generating 0%...')).toBeInTheDocument();
+    expect(within(detail).queryByRole('button', { name: 'Enlarge' })).not.toBeInTheDocument();
   });
 
   it('生成中且已有媒体（重新生成）→ 保留原图渲染并叠加生成中遮罩', () => {
@@ -431,12 +431,12 @@ describe('AssetBoard 主从详情', () => {
     const detail = detailPanel();
     // 旧图不被生成中态顶掉（重新生成原地保留旧 url），遮罩叠加其上。
     expect(within(detail).getByAltText('重生成图片')).toBeInTheDocument();
-    expect(within(detail).getByRole('status', { name: '生成中' })).toBeInTheDocument();
+    expect(within(detail).getByRole('status', { name: 'Generating' })).toBeInTheDocument();
     // 重新生成走 GeneratingOverlay（纯 spinner，不带百分比文案）——占位分支的
     // 「生成中 X%...」文案不会跟遮罩一起出现。
-    expect(within(detail).queryByText(/^生成中 \d+%\.\.\.$/)).not.toBeInTheDocument();
+    expect(within(detail).queryByText(/^Generating \d+%\.\.\.$/)).not.toBeInTheDocument();
     // 生成中禁止放大查看（键盘路径也一并挡住，而不只是视觉上盖一层遮罩）。
-    expect(within(detail).getByRole('button', { name: '放大查看' })).toBeDisabled();
+    expect(within(detail).getByRole('button', { name: 'Enlarge' })).toBeDisabled();
   });
 
   it('失败节点 → 详情头部下方显示红色错误条', () => {
@@ -469,7 +469,7 @@ describe('AssetBoard 主从详情', () => {
 
     // 定位按钮已从详情面板整体移除（四类详情：文本/图片/视频/音频）；
     // 定位改走卡片 hover 的准星按钮，与本详情面板无关。
-    expect(within(detailPanel()).queryByRole('button', { name: /在画布中定位/ })).not.toBeInTheDocument();
+    expect(within(detailPanel()).queryByRole('button', { name: /Locate on canvas/ })).not.toBeInTheDocument();
     expect(onLocateNode).not.toHaveBeenCalled();
   });
 });
@@ -484,26 +484,26 @@ describe('AssetBoard 详情态左窄列表切栏下拉', () => {
   function openSwitcher(currentLabel: string): HTMLElement {
     // 头部下拉触发器 = 当前栏中文名（button，无 aria-label→可名字定位）。
     fireEvent.click(screen.getByRole('button', { name: currentLabel }));
-    return screen.getByRole('menu', { name: '切换栏目' });
+    return screen.getByRole('menu', { name: 'Switch column' });
   }
 
   it('图片详情左列表头部是切栏下拉：展开出「文本/图片/视频」三项，当前「图片」打勾', () => {
     renderBoard();
     fireEvent.click(screen.getByRole('button', { name: '分镜草图' }));
 
-    const trigger = screen.getByRole('button', { name: '图片' });
+    const trigger = screen.getByRole('button', { name: 'Image' });
     expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
     // 展开前无菜单项。
     expect(screen.queryByRole('menuitemradio')).not.toBeInTheDocument();
 
-    const menu = openSwitcher('图片');
-    expect(within(menu).getByRole('menuitemradio', { name: '文本' })).toBeInTheDocument();
-    expect(within(menu).getByRole('menuitemradio', { name: '图片' })).toBeInTheDocument();
-    expect(within(menu).getByRole('menuitemradio', { name: '视频' })).toBeInTheDocument();
+    const menu = openSwitcher('Image');
+    expect(within(menu).getByRole('menuitemradio', { name: 'Text' })).toBeInTheDocument();
+    expect(within(menu).getByRole('menuitemradio', { name: 'Image' })).toBeInTheDocument();
+    expect(within(menu).getByRole('menuitemradio', { name: 'Video' })).toBeInTheDocument();
     // 当前显示的栏（图片）打勾（✓），其余不打勾。
-    expect(within(menu).getByRole('menuitemradio', { name: '图片', checked: true })).toBeInTheDocument();
-    expect(within(menu).getByRole('menuitemradio', { name: '文本', checked: false })).toBeInTheDocument();
-    expect(within(menu).getByRole('menuitemradio', { name: '视频', checked: false })).toBeInTheDocument();
+    expect(within(menu).getByRole('menuitemradio', { name: 'Image', checked: true })).toBeInTheDocument();
+    expect(within(menu).getByRole('menuitemradio', { name: 'Text', checked: false })).toBeInTheDocument();
+    expect(within(menu).getByRole('menuitemradio', { name: 'Video', checked: false })).toBeInTheDocument();
   });
 
   it('切到「视频」→ 左列表换成视频卡片，右侧详情仍是原图片（不随切栏而变）', () => {
@@ -513,12 +513,12 @@ describe('AssetBoard 详情态左窄列表切栏下拉', () => {
     expect(within(detailPanel()).getByText('分镜草图')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '第二张图' })).toBeInTheDocument();
 
-    fireEvent.click(within(openSwitcher('图片')).getByRole('menuitemradio', { name: '视频' }));
+    fireEvent.click(within(openSwitcher('Image')).getByRole('menuitemradio', { name: 'Video' }));
 
     // 左列表换成视频卡片，图片卡消失，触发器变「视频」。
     expect(screen.getByRole('button', { name: '成片视频' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: '第二张图' })).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: '视频' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Video' })).toBeInTheDocument();
     // 右侧详情不变（切栏只改左侧浏览的列表）。
     expect(within(detailPanel()).getByText('分镜草图')).toBeInTheDocument();
   });
@@ -527,31 +527,31 @@ describe('AssetBoard 详情态左窄列表切栏下拉', () => {
     renderBoard();
     fireEvent.click(screen.getByRole('button', { name: '分镜草图' }));
     // 在图片详情里把左列表切到视频浏览。
-    fireEvent.click(within(openSwitcher('图片')).getByRole('menuitemradio', { name: '视频' }));
+    fireEvent.click(within(openSwitcher('Image')).getByRole('menuitemradio', { name: 'Video' }));
 
     // 点左列表的视频卡 → 打开该视频详情。
     fireEvent.click(screen.getByRole('button', { name: '成片视频' }));
     expect(within(detailPanel()).getByText('成片视频')).toBeInTheDocument();
     // 「点了哪栏的卡片，左列表就是哪栏」：仍是视频栏（触发器「视频」+ 视频卡在左列表）。
-    expect(screen.getByRole('button', { name: '视频' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Video' })).toBeInTheDocument();
   });
 
   it('切栏后从右侧参考跳转 push 新详情 → 左列表重置为新详情所在栏', () => {
     renderBoard();
     fireEvent.click(screen.getByRole('button', { name: '成片视频' }));
     // 手动把左列表从「视频」切到「文本」浏览。
-    fireEvent.click(within(openSwitcher('视频')).getByRole('menuitemradio', { name: '文本' }));
-    expect(screen.getByRole('button', { name: '文本' })).toBeInTheDocument();
+    fireEvent.click(within(openSwitcher('Video')).getByRole('menuitemradio', { name: 'Text' }));
+    expect(screen.getByRole('button', { name: 'Text' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '锚点清单' })).toBeInTheDocument();
 
     // 右侧视频详情的参考素材「编辑」→ push 被引用图片（角色参考）的详情。
-    const referencesGroup = within(detailPanel()).getByRole('group', { name: '参考素材' });
+    const referencesGroup = within(detailPanel()).getByRole('group', { name: 'Reference assets' });
     fireEvent.click(within(referencesGroup).getByRole('button', { name: '角色参考' }));
-    fireEvent.click(within(referencesGroup).getByRole('menuitem', { name: '编辑' }));
+    fireEvent.click(within(referencesGroup).getByRole('menuitem', { name: 'Edit' }));
 
     // 新详情 = 角色参考（图片栏）→ 左列表重置为图片（不再停留在用户之前选的文本）。
     expect(within(detailPanel()).getByText('角色参考')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: '图片' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Image' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: '锚点清单' })).not.toBeInTheDocument();
   });
 
@@ -571,11 +571,11 @@ describe('AssetBoard 详情态左窄列表切栏下拉', () => {
     renderBoard();
     fireEvent.click(screen.getByRole('button', { name: '唯一图片' }));
 
-    fireEvent.click(within(openSwitcher('图片')).getByRole('menuitemradio', { name: '视频' }));
-    expect(screen.getByText('画布中还没有视频节点')).toBeInTheDocument();
+    fireEvent.click(within(openSwitcher('Image')).getByRole('menuitemradio', { name: 'Video' }));
+    expect(screen.getByText('No video nodes on the canvas yet')).toBeInTheDocument();
 
-    fireEvent.click(within(openSwitcher('视频')).getByRole('menuitemradio', { name: '文本' }));
-    expect(screen.getByText('画布中还没有文本类节点')).toBeInTheDocument();
+    fireEvent.click(within(openSwitcher('Video')).getByRole('menuitemradio', { name: 'Text' }));
+    expect(screen.getByText('No text nodes on the canvas yet')).toBeInTheDocument();
   });
 
   it('挂了生成表单的视频详情不再重复渲染时长/分辨率徽标（表单底部那行已经写了）', () => {
@@ -583,7 +583,8 @@ describe('AssetBoard 详情态左窄列表切栏下拉', () => {
     fireEvent.click(screen.getByRole('button', { name: '生成视频' }));
 
     const detail = detailPanel();
-    expect(within(detail).queryByText('4秒')).not.toBeInTheDocument();
+    // The form's own bottom row renders the duration once; the body must not add a second badge.
+    expect(within(detail).queryAllByText('4s')).toHaveLength(1);
     expect(within(detail).queryByText('1280 × 720')).not.toBeInTheDocument();
   });
 
@@ -592,7 +593,7 @@ describe('AssetBoard 详情态左窄列表切栏下拉', () => {
     fireEvent.click(screen.getByRole('button', { name: '成片视频' }));
 
     const detail = detailPanel();
-    expect(within(detail).getByText('5秒')).toBeInTheDocument();
+    expect(within(detail).getByText('5s')).toBeInTheDocument();
     expect(within(detail).getByText('1280 × 720')).toBeInTheDocument();
   });
 });

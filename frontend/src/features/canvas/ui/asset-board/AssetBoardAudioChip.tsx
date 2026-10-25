@@ -70,7 +70,7 @@ export function AssetBoardAudioChip({
   const handleDownload = async (format: AudioDownloadFormat) => {
     if (!audioUrl || converting) return;
     if (!canProduceFormat(format, sourceExt)) {
-      toast.error('源文件不是 m4a，无法转换为 m4a 格式');
+      toast.error("Source isn't m4a, so it can't be converted to m4a");
       return;
     }
     try {
@@ -81,7 +81,7 @@ export function AssetBoardAudioChip({
       });
     } catch (error) {
       console.error('[asset-board] audio download failed', error);
-      toast.error('音频下载失败');
+      toast.error('Audio download failed');
     }
   };
 
@@ -138,7 +138,7 @@ export function AssetBoardAudioChip({
 
         {failure && (
           <span
-            aria-label="生成失败"
+            aria-label="Generation failed"
             title={failure}
             className="pointer-events-none absolute left-1 top-1 inline-flex"
           >
@@ -151,8 +151,8 @@ export function AssetBoardAudioChip({
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                aria-label={`下载 ${item.title}`}
-                title="下载 / 格式转换"
+                aria-label={`Download ${item.title}`}
+                title="Download / convert format"
                 disabled={converting !== null}
                 className={cn(
                   'absolute right-1 top-1 rounded-md bg-black/50 p-1 text-white/80 transition-opacity hover:bg-black/70 disabled:cursor-not-allowed',
@@ -186,8 +186,8 @@ export function AssetBoardAudioChip({
                     ) : (
                       <Download className="h-4 w-4" />
                     )}
-                    <span className="flex-1">下载为 {format.toUpperCase()}</span>
-                    {!available && <span className="text-[10px] opacity-60">仅 m4a 源</span>}
+                    <span className="flex-1">Download as {format.toUpperCase()}</span>
+                    {!available && <span className="text-[10px] opacity-60">m4a source only</span>}
                   </DropdownMenuItem>
                 );
               })}

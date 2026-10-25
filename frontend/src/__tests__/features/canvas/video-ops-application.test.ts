@@ -121,7 +121,7 @@ describe('videoClipSubmit（剪辑提交编排）', () => {
     expect(nodeById(result.nodeId)?.data).toMatchObject({
       videoUrl: '/static/clip.mp4',
       durationMs: 2500,
-      displayName: '剪辑',
+      displayName: 'Clip',
     });
     expect(hasEdge('vid-1', result.nodeId)).toBe(true);
   });
@@ -257,12 +257,12 @@ describe('videoSeparateAudio（分离音视频）', () => {
     expect(nodeById(result.audioNodeId)?.type).toBe(CANVAS_NODE_TYPES.audio);
     expect(nodeById(result.audioNodeId)?.data).toMatchObject({
       audioUrl: '/static/a.mp3',
-      displayName: 'shot_背景音',
+      displayName: 'shot_audio',
     });
     expect(nodeById(result.videoNodeId)?.data).toMatchObject({
       videoUrl: '/static/mute.mp4',
-      displayName: 'shot_无声',
-      sourceFileName: 'shot_无声.mp4',
+      displayName: 'shot_silent',
+      sourceFileName: 'shot_silent.mp4',
     });
     // 静音视频是 video→video，连得上。音频节点刻意不连边（用户拍板）：store 的
     // 上游白名单里 audio 只接受 textAnnotation，video→audio 建了也会被拒——与其
@@ -320,7 +320,7 @@ describe('videoCaptureFrame（截帧）', () => {
     const result = await captureVideoFrameToNode('vid-1', {
       videoUrl: '/static/src.mp4',
       seekSec: 0,
-      displayName: '首帧',
+      displayName: 'First frame',
     });
 
     expect(result.error).toBeNull();
@@ -330,7 +330,7 @@ describe('videoCaptureFrame（截帧）', () => {
     expect(nodeById(result.nodeId)?.type).toBe(CANVAS_NODE_TYPES.exportImage);
     expect(nodeById(result.nodeId)?.data).toMatchObject({
       imageUrl: '/static/frame.png',
-      displayName: '首帧',
+      displayName: 'First frame',
     });
     expect(hasEdge('vid-1', result.nodeId)).toBe(true);
   });
@@ -341,7 +341,7 @@ describe('videoCaptureFrame（截帧）', () => {
     const result = await captureVideoFrameToNode('vid-1', {
       videoUrl: '/static/src.mp4',
       seekSec: 0,
-      displayName: '首帧',
+      displayName: 'First frame',
     });
     expect(result).toEqual({ nodeId: null, error: 'taint' });
     expect(useCanvasStore.getState().nodes.length).toBe(before);

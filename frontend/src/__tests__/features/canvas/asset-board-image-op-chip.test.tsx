@@ -64,7 +64,7 @@ const SOURCE_NODE: CanvasNode = {
 };
 
 function detailPanel() {
-  return screen.getByRole('region', { name: '资产详情' });
+  return screen.getByRole('region', { name: 'Asset details' });
 }
 
 function nodeData(nodeId: string): Record<string, unknown> {
@@ -87,7 +87,7 @@ function promptEditor(): HTMLElement {
 }
 
 function opChip(): HTMLElement {
-  return within(detailPanel()).getByTitle(/点击切换功能，退格删除/);
+  return within(detailPanel()).getByTitle(/click to switch, Backspace to remove/);
 }
 
 /** 把光标塌缩到 chip 正后面——用户想删掉它时手指所在的位置。 */
@@ -109,7 +109,7 @@ async function pickGridOp(label: string) {
   useCanvasStore.getState().setCanvasData([SOURCE_NODE], []);
   render(<AssetBoardView visible onLocateNode={() => {}} />);
   fireEvent.click(screen.getByRole('button', { name: '源图' }));
-  await user.click(within(detailPanel()).getByRole('button', { name: '宫格模板' }));
+  await user.click(within(detailPanel()).getByRole('button', { name: 'Grid templates' }));
   await user.click(await screen.findByRole('menuitem', { name: new RegExp(label) }));
   return user;
 }
@@ -120,12 +120,12 @@ describe('故事板 · 功能 chip（点功能建节点 → 确认后生成）',
   });
 
   it('点功能只建节点、不提交：新节点是 imageGen、节点名=功能名、记住源图并连边', async () => {
-    await pickGridOp('多机位九宫格');
+    await pickGridOp('Multi-Camera 3x3');
 
     const spawned = spawnedOpNode();
     expect(spawned.type).toBe(CANVAS_NODE_TYPES.imageGen);
     const data = spawned.data as Record<string, unknown>;
-    expect(data.displayName).toBe('多机位九宫格');
+    expect(data.displayName).toBe('Multi-Camera 3x3');
     expect(data.imageOpKey).toBe('multiCameraGrid');
     expect(data.imageOpSourceUrl).toBe('/static/source.png');
     expect(data.isGenerating).toBe(false);
@@ -140,7 +140,7 @@ describe('故事板 · 功能 chip（点功能建节点 → 确认后生成）',
   });
 
   it('chip 落在提示词输入框内部：功能说明当占位文案，且不混进 prompt', async () => {
-    await pickGridOp('角色三视图生成');
+    await pickGridOp('Character Three-View');
     const spawnedId = spawnedOpNode().id;
 
     const editor = promptEditor();
@@ -148,7 +148,7 @@ describe('故事板 · 功能 chip（点功能建节点 → 确认后生成）',
     expect(editor.contains(opChip())).toBe(true);
     // 功能说明就是占位文案（接在 chip 右边同一行）。
     expect(editor.getAttribute('data-placeholder')).toContain(
-      '直接基于当前图像生成完整的角色三视图',
+      'Click to generate a complete character three-view directly from the current image',
     );
 
     // chip 只是展示节点：用户打的字才是 prompt，chip 文案不会被序列化进去。
@@ -158,9 +158,9 @@ describe('故事板 · 功能 chip（点功能建节点 → 确认后生成）',
   });
 
   it('提示词留空也能提交（↑ 走对应模板，prompt 兜底用功能名）', async () => {
-    await pickGridOp('产品三视图');
+    await pickGridOp('Product Three-View');
 
-    const submit = within(detailPanel()).getByRole('button', { name: '生成' });
+    const submit = within(detailPanel()).getByRole('button', { name: 'Generate' });
     expect(submit).not.toBeDisabled();
     fireEvent.click(submit);
 
@@ -169,55 +169,55 @@ describe('故事板 · 功能 chip（点功能建节点 → 确认后生成）',
     expect(project).toBe('demo-project');
     expect(payload.sourceUrl).toBe('/static/source.png');
     expect(payload.mode).toBe('product_three_view');
-    expect(payload.prompt).toBe('产品三视图');
+    expect(payload.prompt).toBe('Product Three-View');
     // 产物回填到功能节点自己身上，而不是再建一个结果节点。
     await waitFor(() => expect(nodeData(spawnedOpNode().id).imageUrl).toBe('/static/out.png'));
     expect(useCanvasStore.getState().nodes).toHaveLength(2);
   });
 
   it('场景设定图：功能框「设定图」栏里能切到，提交走 scene_setting_sheet 模板', async () => {
-    const user = await pickGridOp('多机位九宫格');
+    const user = await pickGridOp('Multi-Camera 3x3');
     const spawnedId = spawnedOpNode().id;
 
     await user.click(opChip());
-    await user.click(screen.getByRole('button', { name: /^场景设定图/ }));
+    await user.click(screen.getByRole('button', { name: /^Scene Setting Sheet/ }));
     expect(nodeData(spawnedId).imageOpKey).toBe('sceneSettingSheet');
-    expect(nodeData(spawnedId).displayName).toBe('场景设定图');
+    expect(nodeData(spawnedId).displayName).toBe('Scene Setting Sheet');
 
-    fireEvent.click(within(detailPanel()).getByRole('button', { name: '生成' }));
+    fireEvent.click(within(detailPanel()).getByRole('button', { name: 'Generate' }));
 
     await waitFor(() => expect(submitFreezoneTemplateEdit).toHaveBeenCalled());
     const [, payload] = vi.mocked(submitFreezoneTemplateEdit).mock.calls[0];
     expect(payload.mode).toBe('scene_setting_sheet');
-    expect(payload.prompt).toBe('场景设定图');
+    expect(payload.prompt).toBe('Scene Setting Sheet');
   });
 
   it('点 chip 展开功能框（四栏），选另一个功能 → key 与节点名一起换', async () => {
-    const user = await pickGridOp('剧情推演四宫格');
+    const user = await pickGridOp('Plot Progression 2x2');
     const spawnedId = spawnedOpNode().id;
 
     await user.click(opChip());
-    for (const category of ['分镜叙事', '空间与机位', '设定图', '质感调节']) {
+    for (const category of ['Storyboard narrative', 'Space and camera', 'Setting sheets', 'Texture and lighting']) {
       expect(await screen.findByText(category)).toBeInTheDocument();
     }
     // 每行是「功能名 + 一句话说明」，所以按名字前缀匹配。
-    await user.click(screen.getByRole('button', { name: /^全景/ }));
+    await user.click(screen.getByRole('button', { name: /^Panorama/ }));
 
     expect(nodeData(spawnedId).imageOpKey).toBe('scene360');
-    expect(nodeData(spawnedId).displayName).toBe('全景');
+    expect(nodeData(spawnedId).displayName).toBe('Panorama');
   });
 
   it('在 chip 后面退格就能删掉它 → 退化成普通图片生成节点', async () => {
-    await pickGridOp('电影级光影校正');
+    await pickGridOp('Cinematic Light Grading');
     const spawnedId = spawnedOpNode().id;
 
     putCaretAfterChip();
     fireEvent.keyDown(promptEditor(), { key: 'Backspace' });
 
     expect(nodeData(spawnedId).imageOpKey).toBeNull();
-    expect(within(detailPanel()).queryByTitle(/点击切换功能，退格删除/)).not.toBeInTheDocument();
+    expect(within(detailPanel()).queryByTitle(/click to switch, Backspace to remove/)).not.toBeInTheDocument();
     expect(promptEditor().querySelector('[data-lead-chip]')).toBeNull();
     // 退回常规文生图：空提示词重新禁用提交。
-    expect(within(detailPanel()).getByRole('button', { name: '生成' })).toBeDisabled();
+    expect(within(detailPanel()).getByRole('button', { name: 'Generate' })).toBeDisabled();
   });
 });

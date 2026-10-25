@@ -469,7 +469,7 @@ const COMPOSITION_TIMELINE_AUDIO_ROLES = new Set([
   "background_music",
 ]);
 const COMPOSITION_TIMELINE_AUDIO_INTENT =
-  /(?:旁白|配音|解说|背景音乐|配乐|纯音乐|(?:^|[\s_-])bgm(?:$|[\s_-])|background[_\s-]*music|voice[_\s-]*over|narration)/i;
+  /(?:旁白|配音|解说|背景音乐|配乐|纯音乐|(?:^|[\s_-])bgm(?:$|[\s_-])|background[_\s-]*music|voice[_\s-]*over|narration)/i; // i18n-exempt: matches Chinese input
 
 function recordValue(value: unknown): Record<string, unknown> | null {
   return value && typeof value === "object"

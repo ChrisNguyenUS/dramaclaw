@@ -67,10 +67,10 @@ const NODE_SCOPE_OPTIONS = [
 ] as const;
 
 const NODE_SCOPE_LABELS: Record<(typeof NODE_SCOPE_OPTIONS)[number], string> = {
-  textGeneration: "文本生成",
-  imageGeneration: "图片生成",
-  videoGeneration: "视频生成",
-  audioGeneration: "音频生成",
+  textGeneration: "Text generation",
+  imageGeneration: "Image generation",
+  videoGeneration: "Video generation",
+  audioGeneration: "Audio generation",
 };
 
 function getBodyPortalContainer() {
@@ -1668,7 +1668,7 @@ function TagInputField({
             {editingIndex === index ? (
               <input
                 ref={editInputRef}
-                aria-label={`编辑 ${tag}`}
+                aria-label={`Edit ${tag}`}
                 value={editingDraft}
                 onChange={(event) => setEditingDraft(event.target.value)}
                 onBlur={commitEditTag}
@@ -1695,7 +1695,7 @@ function TagInputField({
             ) : (
               <button
                 type="button"
-                aria-label={`编辑 ${tag}`}
+                aria-label={`Edit ${tag}`}
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => beginEditTag(index, tag)}
                 className={cn(
@@ -1708,7 +1708,7 @@ function TagInputField({
             )}
             <button
               type="button"
-              aria-label={`删除 ${tag}`}
+              aria-label={`Delete ${tag}`}
               onClick={() => removeTag(index)}
               className="grid size-3.5 shrink-0 place-items-center rounded text-muted-foreground transition-colors hover:text-foreground"
             >
@@ -1825,7 +1825,7 @@ function AllowedRecipesEditor({
         <div className="flex items-center gap-3 px-3 py-2.5">
           <button
             type="button"
-            aria-label={expanded ? "收起关联 Recipes" : "展开关联 Recipes"}
+            aria-label={expanded ? "Collapse linked Recipes" : "Expand linked Recipes"}
             onClick={() => setExpanded((value) => !value)}
             className="flex min-w-0 flex-1 items-center gap-2 text-left"
           >
@@ -1838,8 +1838,8 @@ function AllowedRecipesEditor({
               <span className="block text-xs font-medium text-foreground">{label}</span>
               <span className="mt-0.5 block truncate text-[10px] text-muted-foreground">
                 {linkedIds.length > 0
-                  ? `已关联 ${linkedIds.length} 个 Recipe${missingRecipeCount > 0 ? `，${missingRecipeCount} 个未找到配置` : ""}`
-                  : "这个 Skill 暂时没有关联 Recipe"}
+                  ? `${linkedIds.length} ${linkedIds.length === 1 ? "Recipe" : "Recipes"} linked${missingRecipeCount > 0 ? `, ${missingRecipeCount} ${missingRecipeCount === 1 ? "config" : "configs"} not found` : ""}`
+                  : "No Recipes linked to this Skill yet"}
               </span>
             </span>
           </button>
@@ -1851,7 +1851,7 @@ function AllowedRecipesEditor({
             className="h-8 shrink-0"
           >
             <Plus className="size-3.5" />
-            添加 Recipe
+            Add Recipe
           </Button>
         </div>
         {hint ? (
@@ -1884,7 +1884,7 @@ function AllowedRecipesEditor({
                         </span>
                       </div>
                       <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-muted-foreground">
-                        {recipe?.description || "未找到本地 Recipe 配置，保存时仍会保留这个关联 ID。"}
+                        {recipe?.description || "Local Recipe config not found. The linked ID is kept when you save."}
                       </p>
                     </div>
                     <div className="flex shrink-0 items-center gap-1">
@@ -1897,11 +1897,11 @@ function AllowedRecipesEditor({
                         className="h-7 px-2 text-xs text-muted-foreground hover:text-foreground"
                       >
                         <Eye className="size-3.5" />
-                        查看
+                        View
                       </Button>
                       <button
                         type="button"
-                        aria-label={`移除 ${recipeId}`}
+                        aria-label={`Remove ${recipeId}`}
                         onClick={() => removeRecipe(recipeId)}
                         className="grid size-7 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-white/[0.05] hover:text-foreground"
                       >
@@ -1913,7 +1913,7 @@ function AllowedRecipesEditor({
               })
             ) : (
               <div className="px-3 py-3 text-xs text-muted-foreground">
-                这个 Skill 暂时没有关联 Recipe
+                No Recipes linked to this Skill yet
               </div>
             )}
           </div>
@@ -1926,11 +1926,11 @@ function AllowedRecipesEditor({
           className="max-w-[520px] gap-0 overflow-hidden rounded-lg border-border bg-black p-0"
         >
           <DialogHeader className="border-b border-border px-5 py-4">
-            <DialogTitle className="text-base">添加 Recipe</DialogTitle>
+            <DialogTitle className="text-base">Add Recipe</DialogTitle>
           </DialogHeader>
           <div className="p-5">
             <div className="mb-3 grid gap-2 rounded-md border border-border/70 bg-white/[0.02] p-3">
-              <div className="text-[11px] font-medium text-foreground">手动添加 ID</div>
+              <div className="text-[11px] font-medium text-foreground">Add by ID</div>
               <div className="flex gap-2">
                 <Input
                   value={manualRecipeId}
@@ -1941,7 +1941,7 @@ function AllowedRecipesEditor({
                       addManualRecipe();
                     }
                   }}
-                  placeholder="输入 Recipe ID"
+                  placeholder="Enter Recipe ID"
                   className="h-9 rounded-md border-input/80 bg-input/20 text-foreground"
                 />
                 <Button
@@ -1950,7 +1950,7 @@ function AllowedRecipesEditor({
                   disabled={!manualRecipeId.trim()}
                   onClick={addManualRecipe}
                 >
-                  添加
+                  Add
                 </Button>
               </div>
             </div>
@@ -1959,7 +1959,7 @@ function AllowedRecipesEditor({
               <Input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="搜索 Recipe"
+                placeholder="Search Recipes"
                 className="h-9 rounded-md border-input/80 bg-input/20 pl-9 text-foreground"
               />
             </div>
@@ -1986,20 +1986,20 @@ function AllowedRecipesEditor({
                       </span>
                     </div>
                     <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-muted-foreground">
-                      {recipe.description || "暂无描述"}
+                      {recipe.description || "No description"}
                     </p>
                   </button>
                 ))
               ) : (
                 <div className="px-3 py-8 text-center text-xs text-muted-foreground">
-                  没有可添加的 Recipe
+                  No Recipes to add
                 </div>
               )}
             </div>
           </div>
           <DialogFooter className="border-t border-border px-5 py-4">
             <Button type="button" variant="outline" onClick={() => onPickerOpenChange(false)}>
-              关闭
+              Close
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -2025,7 +2025,7 @@ function RecipeDetailDrawer({
 
   return (
     <div className="absolute inset-0 z-20 flex justify-end bg-black/35">
-      <button type="button" aria-label="关闭 Recipe 详情背景" className="flex-1" onClick={onClose} />
+      <button type="button" aria-label="Close Recipe details backdrop" className="flex-1" onClick={onClose} />
       <aside className="flex h-full w-[min(430px,92vw)] flex-col border-l border-border bg-black shadow-2xl">
         <div className="flex items-start justify-between gap-3 border-b border-border px-5 py-4">
           <div className="min-w-0">
@@ -2046,7 +2046,7 @@ function RecipeDetailDrawer({
           </div>
           <button
             type="button"
-            aria-label="关闭 Recipe 详情"
+            aria-label="Close Recipe details"
             onClick={onClose}
             className="grid size-8 shrink-0 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-white/[0.05] hover:text-foreground"
           >
@@ -2054,16 +2054,16 @@ function RecipeDetailDrawer({
           </button>
         </div>
         <div className="min-h-0 flex-1 space-y-4 overflow-y-auto px-5 py-4">
-          <RecipeDetailBlock title="描述">
-            <p>{recipe.description || "暂无描述"}</p>
+          <RecipeDetailBlock title="Description">
+            <p>{recipe.description || "No description"}</p>
           </RecipeDetailBlock>
           {resultSummary ? (
-            <RecipeDetailBlock title="结果摘要">
+            <RecipeDetailBlock title="Result summary">
               <p>{resultSummary}</p>
             </RecipeDetailBlock>
           ) : null}
           {planningPrompt ? (
-            <RecipeDetailBlock title="规划提示">
+            <RecipeDetailBlock title="Planning prompt">
               <p>{planningPrompt}</p>
             </RecipeDetailBlock>
           ) : null}
@@ -2079,7 +2079,7 @@ function RecipeDetailDrawer({
             </RecipeDetailBlock>
           ) : null}
           {mustHaveItems.length > 0 ? (
-            <RecipeDetailBlock title="必含项">
+            <RecipeDetailBlock title="Must-haves">
               <ul className="space-y-1">
                 {mustHaveItems.map((item) => (
                   <li key={item} className="rounded bg-white/[0.04] px-2 py-1">
@@ -2929,7 +2929,7 @@ export function CommunitySkillDialog({
                     )}
                     onClick={() => onModeChange?.("mine")}
                   >
-                    我的
+                    Mine
                   </button>
                 </div>
               ) : (
@@ -3024,10 +3024,10 @@ export function CommunitySkillDialog({
               <div className="grid h-full min-h-80 place-items-center text-center">
                 <div>
                   <p className="text-sm font-medium text-white">
-                    这里暂时没有 Skill
+                    No Skills here yet
                   </p>
                   <p className="mx-auto mt-1 max-w-[360px] text-xs leading-relaxed text-white/70">
-                    可以先让虾导总结当前画布，或描述工作流来创建自己的 Skill。
+                    Ask Manna Director to summarize the current canvas, or describe a workflow, to create your own Skill.
                   </p>
                 </div>
               </div>
@@ -3067,7 +3067,7 @@ export function CommunitySkillDialog({
                       className="shrink-0"
                       onClick={() => onSelectLocalSkill?.(item.id)}
                     >
-                      使用
+                      Use
                     </Button>
                   </article>
                 ))}

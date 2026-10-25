@@ -86,10 +86,10 @@ export function useAudioGeneration(nodeId: string, data: AudioNodeData) {
           : {
               audioUrl: null,
               durationMs: null,
-              generationError: '背景音乐节点已修正，请重新生成音乐',
+              generationError: 'The background music node was corrected. Regenerate the music.',
               workflowResultStale: true,
               workflowInvalidatedAt: new Date().toISOString(),
-              workflowInvalidationReason: '音频类型由语音修正为背景音乐',
+              workflowInvalidationReason: 'Audio type corrected from speech to background music',
             }),
       });
     }
@@ -119,10 +119,10 @@ export function useAudioGeneration(nodeId: string, data: AudioNodeData) {
       updateNodeData(nodeId, {
         audioUrl: null,
         durationMs: null,
-        generationError: '旁白节点缺少实际朗读文案，请填写旁白正文后重新生成',
+        generationError: 'The narration node has no actual script to read. Enter the narration text and regenerate.',
         workflowResultStale: true,
         workflowInvalidatedAt: new Date().toISOString(),
-        workflowInvalidationReason: '旁白生成说明不能作为朗读正文',
+        workflowInvalidationReason: 'A narration instruction cannot be used as the script',
       });
     }
   }, [data.audioUrl, hasInvalidSpeechInstruction, nodeId, updateNodeData]);
@@ -250,7 +250,7 @@ export function useAudioGeneration(nodeId: string, data: AudioNodeData) {
               safeFallbackPrompt: speechFallbackPrompt,
             });
       if (!trimmed) {
-        throw new Error('没有可朗读的旁白或对白');
+        throw new Error('No narration or dialogue to read aloud');
       }
       const ref = runtimeIsMusic
         ? await submitFreezoneAudioMusic(project, {

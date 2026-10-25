@@ -116,7 +116,7 @@ describe('故事板编辑器弹窗外壳', () => {
         onClose={vi.fn()}
       />,
     );
-    const dialog = screen.getByRole('dialog', { name: '多维度编辑器' });
+    const dialog = screen.getByRole('dialog', { name: 'Multi-angle editor' });
     // portal：弹窗挂在 body 上，而不是组件自己的容器里。
     expect(dialog.parentElement).toBe(baseElement);
     expect(screen.getByText('multiAngleEditor.title')).toBeInTheDocument();
@@ -131,7 +131,7 @@ describe('故事板编辑器弹窗外壳', () => {
         onClose={onClose}
       />,
     );
-    const dialog = screen.getByRole('dialog', { name: '多维度编辑器' });
+    const dialog = screen.getByRole('dialog', { name: 'Multi-angle editor' });
 
     fireEvent.click(screen.getByText('multiAngleEditor.title'));
     expect(onClose).not.toHaveBeenCalled();
@@ -175,7 +175,7 @@ describe('故事板编辑器弹窗外壳', () => {
     render(
       <AssetBoardRelightDialog node={NODE} imageSource="/static/src.png" onClose={vi.fn()} />,
     );
-    expect(screen.getByRole('dialog', { name: '打光效果编辑器' })).toBeInTheDocument();
+    expect(screen.getByRole('dialog', { name: 'Relight editor' })).toBeInTheDocument();
     expect(screen.getByText('lightEditor.title')).toBeInTheDocument();
   });
 });

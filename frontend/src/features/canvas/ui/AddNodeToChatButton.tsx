@@ -12,7 +12,7 @@ import {
 import { canvasEventBus } from '@/features/canvas/application/canvasServices';
 import { cn } from '@/lib/utils';
 
-export const ADD_NODE_TO_CHAT_LABEL = '添加到对话';
+export const ADD_NODE_TO_CHAT_LABEL = 'Add to chat';
 
 /**
  * 把节点作为引用加入虾导输入框。画布节点与故事板卡片共用这一个入口：两个视图是

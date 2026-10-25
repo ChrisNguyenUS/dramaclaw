@@ -59,14 +59,14 @@ const SPEECH_BLOCK_MARKER = /<\/?speech_text>/i;
 const TRAILING_CONTROL_FIELD =
   /[。；;]\s*(?:时长|持续时间|情绪|节奏|语气|语速|语言|声音质感|是否纯音乐|内容约束|音频类型|负向约束)\s*[:：]/i;
 // i18n-exempt-end
-const BARE_DURATION = /^\s*\d+(?:\.\d+)?\s*(?:s|秒|seconds?)\s*$/i;
+const BARE_DURATION = /^\s*\d+(?:\.\d+)?\s*(?:s|秒|seconds?)\s*$/i; // i18n-exempt: matches Chinese input
 const TIMELINE_PREFIX =
-  /^\s*(?:\[\s*)?(?:(?:\d{1,2}:)?\d{1,2}(?:\.\d+)?)\s*(?:-|–|—|~|至|→)\s*(?:(?:\d{1,2}:)?\d{1,2}(?:\.\d+)?)\s*(?:s|秒)?(?:\s*\])?\s*[:：-]?\s*/i;
+  /^\s*(?:\[\s*)?(?:(?:\d{1,2}:)?\d{1,2}(?:\.\d+)?)\s*(?:-|–|—|~|至|→)\s*(?:(?:\d{1,2}:)?\d{1,2}(?:\.\d+)?)\s*(?:s|秒)?(?:\s*\])?\s*[:：-]?\s*/i; // i18n-exempt: matches Chinese input
 const LEADING_STAGE_DIRECTIONS = /^(?:\s*[（(][^()（）\n]{1,80}[）)])+\s*/;
 const MUSIC_INTENT =
-  /(?:^|[\s_-])bgm(?:$|[\s_-])|background[_\s-]*music|背景音乐|配乐|纯音乐/i;
+  /(?:^|[\s_-])bgm(?:$|[\s_-])|background[_\s-]*music|背景音乐|配乐|纯音乐/i; // i18n-exempt: matches Chinese input
 const SPEECH_GENERATION_INSTRUCTION =
-  /(?:根据|基于|使用|提取|将).{0,40}(?:旁白|文案|脚本|广告词).{0,40}(?:生成|制作|转换|合成).{0,12}(?:旁白|配音|语音|音频)|(?:生成|制作).{0,20}(?:旁白配音|语音音频)/i;
+  /(?:根据|基于|使用|提取|将).{0,40}(?:旁白|文案|脚本|广告词).{0,40}(?:生成|制作|转换|合成).{0,12}(?:旁白|配音|语音|音频)|(?:生成|制作).{0,20}(?:旁白配音|语音音频)/i; // i18n-exempt: matches Chinese input
 const PLACEHOLDER_SPEECH_TEXT =
   /^(?:这是|本段(?:是|为)?|该段(?:是|为)?|this\s+is\s+)?(?:短剧|视频|广告)?(?:的\s*)?(?:第\s*(?:\d+|[一二三四五六七八九十]+)\s*(?:段|条|句)\s*)?(?:(?:the\s+)?(?:first|second|third)\s+)?(?:旁白|配音|解说|narration|voiceover)(?:内容|文本)?[。.!！]?$/i; // i18n-exempt -- parser vocabulary
 
@@ -112,9 +112,9 @@ export function isSpeechGenerationInstruction(value: string): boolean {
 
 function parseDurationMs(value: string): number | null {
   const text = String(value || '').toLowerCase();
-  const minutes = text.match(/(\d+(?:\.\d+)?)\s*(?:分钟|分|min(?:ute)?s?)/i);
+  const minutes = text.match(/(\d+(?:\.\d+)?)\s*(?:分钟|分|min(?:ute)?s?)/i); // i18n-exempt: matches Chinese input
   if (minutes) return Number(minutes[1]) * 60_000;
-  const seconds = text.match(/(\d+(?:\.\d+)?)\s*(?:秒|s(?:ec(?:ond)?s?)?)/i);
+  const seconds = text.match(/(\d+(?:\.\d+)?)\s*(?:秒|s(?:ec(?:ond)?s?)?)/i); // i18n-exempt: matches Chinese input
   return seconds ? Number(seconds[1]) * 1000 : null;
 }
 

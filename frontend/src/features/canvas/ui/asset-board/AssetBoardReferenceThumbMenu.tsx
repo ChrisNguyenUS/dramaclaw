@@ -144,7 +144,7 @@ export function AssetBoardReferenceThumbMenu({
       {open && (
         <div
           role="menu"
-          aria-label={`${reference.label} 操作`}
+          aria-label={`${reference.label} actions`}
           className="absolute left-0 top-full z-50 mt-1.5 min-w-[120px] rounded-md border border-white/10 bg-[#2e2e2e] p-1 text-white/85 shadow-xl"
         >
           <button
@@ -157,7 +157,7 @@ export function AssetBoardReferenceThumbMenu({
             className={REFERENCE_MENU_ITEM_CLASS}
           >
             <PenLine className="h-4 w-4 shrink-0" />
-            <span className="flex-1">编辑</span>
+            <span className="flex-1">Edit</span>
           </button>
           {onLocate && (
             <button
@@ -170,7 +170,7 @@ export function AssetBoardReferenceThumbMenu({
               className={REFERENCE_MENU_ITEM_CLASS}
             >
               <MapPin className="h-4 w-4 shrink-0" />
-              <span className="flex-1">定位</span>
+              <span className="flex-1">Locate</span>
             </button>
           )}
         </div>

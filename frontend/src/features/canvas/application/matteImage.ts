@@ -64,7 +64,7 @@ export function matteImage(
   const matteInitialData = inheritMainlineFields(
     { data: node.data as Record<string, unknown> },
     {
-      displayName: options?.displayName ?? '抠图',
+      displayName: options?.displayName ?? 'Matting',
       imageUrl: null,
       previewImageUrl: null,
       aspectRatio: sourceAspectRatio,

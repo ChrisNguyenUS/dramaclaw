@@ -178,7 +178,7 @@ describe('textImageToPrompt（图片反推提示词）', () => {
   it('无上游图 → 直接报错，不提交也不置 loading 态', async () => {
     const result = await runTextImageToPrompt('txt-1');
 
-    expect(result.error).toBe('上游没有可反推的图片');
+    expect(result.error).toBe('No upstream image to reverse into a prompt');
     expect(submitFreezoneReversePrompt).not.toHaveBeenCalled();
     expect(nodeById('txt-1')?.data.isGenerating).not.toBe(true);
   });
@@ -272,7 +272,7 @@ describe('textToVideoSubmit（文生视频提交）', () => {
 
     seedTextNode({ mode: 'textToVideo' });
     const orphan = await submitTextToVideo('txt-1', { content: 'x', fallbackModelId: 'm' });
-    expect(orphan.error).toBe('下游没有可承载产物的视频节点');
+    expect(orphan.error).toBe('No downstream video node to hold the result');
     expect(submitFreezoneVideoGen).not.toHaveBeenCalled();
   });
 

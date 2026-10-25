@@ -108,22 +108,18 @@ const COMPACT_OPS_PANEL_MIN_WIDTH = 480;
 
 const COMPACT_MODES = new Set<TextNodeMode>(['textToVideo', 'imageToPrompt']);
 
-// 预填进文本节点、原样发给模型的反推指令。跟着界面语言走会换掉出词的语言，锁中文。
-// i18n-exempt-start
+// Default reverse-prompt instruction, pre-filled into the text node and sent to the model as is.
 const IMAGE_TO_PROMPT_DEFAULT_CONTENT =
-  '根据图片生成结构化中文提示词，包括主体描述、环境、光影、镜头语言、风格关键词。';
-// i18n-exempt-end
+  'Generate a structured prompt from the image, including subject description, environment, lighting, camera language, and style keywords.';
 
 function countBillableTextChars(text: string): number {
   return text.replace(/[\s\u3000]+/gu, '').length;
 }
 
 // 「文字生成音乐」的默认音乐描述——点击后预填进文本节点，用户可在此基础上改。
-// 同样是原样发给模型的提示词，锁中文。
-// i18n-exempt-start
+// Also sent to the model as is.
 const TEXT_TO_MUSIC_DEFAULT_CONTENT =
-  '生成一首现代品牌电子音乐（约 110 BPM），干净有力的低频贝斯，清晰电子鼓点，整体风格高级、未来感强。开场节奏型贝斯与简洁合成器音色建立律动。主段加入稳定鼓点，节奏清晰，保持克制的张力。强化段加入更丰富的音层，合成器音色提升，律动增强但不过度拥挤。结尾鼓点减弱，仅保留低频与氛围音渐出，干净利落收尾。';
-// i18n-exempt-end
+  'Generate a modern branded electronic track (about 110 BPM) with a clean, punchy bass line, crisp electronic drums, and a polished, futuristic feel overall. The intro builds a groove with a rhythmic bass and a simple synth tone. The main section adds a steady beat and clear rhythm, keeping the tension restrained. The build adds richer layers and a brighter synth, with more drive but without getting crowded. The outro eases the drums back, leaving only the low end and ambience to fade out for a clean finish.';
 
 const SPAWN_UPLOAD_WIDTH = 320;
 
@@ -554,7 +550,7 @@ export const TextAnnotationNode = memo(({
       updateNodeData(id, {
         isGenerating: false,
         generationStartedAt: null,
-        generationError: error instanceof Error ? error.message : '文本生成失败',
+        generationError: error instanceof Error ? error.message : 'Text generation failed',
       });
       throw error;
     }

@@ -70,7 +70,7 @@ describe('添加到对话（画布节点 / 故事板共用入口）', () => {
       </div>,
     );
     const events = captureEvents(() => {
-      fireEvent.click(screen.getByRole('button', { name: '添加到对话' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Add to chat' }));
     });
     expect(events).toEqual([['img-1']]);
     expect(onRootClick).not.toHaveBeenCalled();
@@ -81,11 +81,11 @@ describe('添加到对话（画布节点 / 故事板共用入口）', () => {
   it('hover 时弹出「添加到对话」文字提示，且不再挂原生 title', async () => {
     const user = userEvent.setup();
     render(<AddNodeToChatButton nodeId="img-1" />);
-    const button = screen.getByRole('button', { name: '添加到对话' });
+    const button = screen.getByRole('button', { name: 'Add to chat' });
     expect(button).not.toHaveAttribute('title');
 
     await user.hover(button);
-    expect(await screen.findByText('添加到对话')).toBeInTheDocument();
+    expect(await screen.findByText('Add to chat')).toBeInTheDocument();
   });
 
   it('故事板卡片右上角按钮走同一条事件，且不触发「打开详情」「在画布中定位」', () => {
@@ -100,7 +100,7 @@ describe('添加到对话（画布节点 / 故事板共用入口）', () => {
       />,
     );
     const events = captureEvents(() => {
-      fireEvent.click(screen.getByRole('button', { name: '添加到对话' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Add to chat' }));
     });
     expect(events).toEqual([['vid-7']]);
     expect(onOpen).not.toHaveBeenCalled();
@@ -129,9 +129,9 @@ describe('添加到对话（画布节点 / 故事板共用入口）', () => {
     it('文本详情（没有媒体工具条）也能「添加到对话」，带的是当前详情节点 id', () => {
       render(<AssetBoardView visible onLocateNode={vi.fn()} />);
       fireEvent.click(screen.getByRole('button', { name: '锚点清单' }));
-      const detail = screen.getByRole('region', { name: '资产详情' });
+      const detail = screen.getByRole('region', { name: 'Asset details' });
       const events = captureEvents(() => {
-        fireEvent.click(within(detail).getByRole('button', { name: '添加到对话' }));
+        fireEvent.click(within(detail).getByRole('button', { name: 'Add to chat' }));
       });
       expect(events).toEqual([['text-1']]);
     });

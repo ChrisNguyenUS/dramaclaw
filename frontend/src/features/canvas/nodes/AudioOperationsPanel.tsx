@@ -75,13 +75,13 @@ const MUSIC_LENGTH_SELECT_MENU_CLASS =
   '!z-[260] !min-w-[140px] !border-white/10 !bg-[#202024] !text-text-dark shadow-[0_14px_34px_rgba(0,0,0,0.5)]';
 // 音乐时长预设（毫秒）。后端范围 3000–600000，这里给常用档位。
 export const MUSIC_LENGTH_PRESETS: ReadonlyArray<{ ms: number; label: string; labelKey: string }> = [
-  { ms: 30000, label: '30秒', labelKey: 'node.audioPanel.musicLength.30s' },
-  { ms: 60000, label: '1分钟', labelKey: 'node.audioPanel.musicLength.1m' },
-  { ms: 120000, label: '2分钟', labelKey: 'node.audioPanel.musicLength.2m' },
-  { ms: 180000, label: '3分钟', labelKey: 'node.audioPanel.musicLength.3m' },
-  { ms: 240000, label: '4分钟', labelKey: 'node.audioPanel.musicLength.4m' },
-  { ms: 300000, label: '5分钟', labelKey: 'node.audioPanel.musicLength.5m' },
-  { ms: 600000, label: '10分钟', labelKey: 'node.audioPanel.musicLength.10m' },
+  { ms: 30000, label: '30s', labelKey: 'node.audioPanel.musicLength.30s' },
+  { ms: 60000, label: '1 min', labelKey: 'node.audioPanel.musicLength.1m' },
+  { ms: 120000, label: '2 min', labelKey: 'node.audioPanel.musicLength.2m' },
+  { ms: 180000, label: '3 min', labelKey: 'node.audioPanel.musicLength.3m' },
+  { ms: 240000, label: '4 min', labelKey: 'node.audioPanel.musicLength.4m' },
+  { ms: 300000, label: '5 min', labelKey: 'node.audioPanel.musicLength.5m' },
+  { ms: 600000, label: '10 min', labelKey: 'node.audioPanel.musicLength.10m' },
 ];
 
 export function musicBillingSecondsFromMs(ms: number): number {

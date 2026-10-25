@@ -467,7 +467,7 @@ export function classifyGatewayError(
     /content[_-]?policy[_-]?violation/i.test(raw)
     || /moderation[_-]?blocked/i.test(raw)
     || /failed safety review/i.test(raw)
-    || /内容未通过安全审核/i.test(raw)
+    || /内容未通过安全审核/i.test(raw) // i18n-exempt: matches backend Chinese error text
   ) {
     return "content_policy";
   }

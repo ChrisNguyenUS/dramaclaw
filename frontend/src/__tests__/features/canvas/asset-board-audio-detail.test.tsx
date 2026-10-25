@@ -85,7 +85,7 @@ function textNode(): CanvasNode {
 }
 
 function detailPanel() {
-  return screen.getByRole('region', { name: '资产详情' });
+  return screen.getByRole('region', { name: 'Asset details' });
 }
 
 describe('AssetBoard 音频进主从详情', () => {
@@ -98,7 +98,7 @@ describe('AssetBoard 音频进主从详情', () => {
     seed([audioNode({ audioUrl: '/static/a.mp3', text: '悠扬旋律' }), textNode()]);
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
     // 三栏总览：文本栏在场。
-    expect(screen.getByText('文本')).toBeInTheDocument();
+    expect(screen.getByText('Text')).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: '背景音乐' }));
 
@@ -106,16 +106,16 @@ describe('AssetBoard 音频进主从详情', () => {
     // 中间：大波形播放器（scrubber）。
     expect(within(detail).getByRole('slider', { name: 'Audio waveform scrubber' })).toBeInTheDocument();
     // 底部：可编辑的生成表单（背景音乐节点按音乐语义展示）。
-    expect(within(detail).getByPlaceholderText('描述想要的音乐：风格、乐器、节奏、氛围…')).toBeInTheDocument();
-    expect(within(detail).getByRole('button', { name: /重新生成/ })).toBeInTheDocument();
+    expect(within(detail).getByPlaceholderText('Describe the music you want: style, instruments, tempo, mood…')).toBeInTheDocument();
+    expect(within(detail).getByRole('button', { name: /Regenerate/ })).toBeInTheDocument();
     // 定位入口已从详情面板整体移除。
-    expect(within(detail).queryByRole('button', { name: /在画布中定位/ })).not.toBeInTheDocument();
+    expect(within(detail).queryByRole('button', { name: /Locate on canvas/ })).not.toBeInTheDocument();
     // 音频详情左侧 = 文本栏（切换器）；音频切换器在顶栏音频标签，不在左侧。图片/视频栏消失。
-    expect(screen.getByText('音频')).toBeInTheDocument(); // 顶栏音频标签
-    expect(screen.getByText('文本')).toBeInTheDocument(); // 左侧文本栏切换器
+    expect(screen.getByText('Audio')).toBeInTheDocument(); // 顶栏音频标签
+    expect(screen.getByText('Text')).toBeInTheDocument(); // 左侧文本栏切换器
     expect(screen.getByText('锚点清单')).toBeInTheDocument();
-    expect(screen.queryByText('图片')).not.toBeInTheDocument();
-    expect(screen.queryByText('视频')).not.toBeInTheDocument();
+    expect(screen.queryByText('Image')).not.toBeInTheDocument();
+    expect(screen.queryByText('Video')).not.toBeInTheDocument();
   });
 
   it('空音频节点（无 audioUrl）→ 详情中间显示占位，下方仍挂表单（可从零生成）', () => {
@@ -127,10 +127,10 @@ describe('AssetBoard 音频进主从详情', () => {
     const detail = detailPanel();
     // 无波形（没有 src），走空占位文案。
     expect(within(detail).queryByRole('slider', { name: 'Audio waveform scrubber' })).not.toBeInTheDocument();
-    expect(within(detail).getByText('待确认后生成')).toBeInTheDocument();
+    expect(within(detail).getByText('Generates after you confirm')).toBeInTheDocument();
     // 表单照旧在，按钮语义是「生成」（未生成过）。
-    expect(within(detail).getByPlaceholderText('描述想要的音乐：风格、乐器、节奏、氛围…')).toBeInTheDocument();
-    expect(within(detail).getByRole('button', { name: /^生成$/ })).toBeInTheDocument();
+    expect(within(detail).getByPlaceholderText('Describe the music you want: style, instruments, tempo, mood…')).toBeInTheDocument();
+    expect(within(detail).getByRole('button', { name: /^Generate$/ })).toBeInTheDocument();
   });
 
   it('背景音乐填了文本 → 点「生成」走音乐生成提交，在途登记表记 generate', async () => {
@@ -138,7 +138,7 @@ describe('AssetBoard 音频进主从详情', () => {
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
     fireEvent.click(screen.getByRole('button', { name: '背景音乐' }));
 
-    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^生成$/ }));
+    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^Generate$/ }));
 
     await waitFor(() => expect(submitFreezoneAudioMusic).toHaveBeenCalled());
     const [project, payload] = vi.mocked(submitFreezoneAudioMusic).mock.calls[0];
@@ -160,7 +160,7 @@ describe('AssetBoard 音频进主从详情', () => {
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
     fireEvent.click(screen.getByRole('button', { name: '旁白' }));
 
-    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^生成$/ }));
+    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^Generate$/ }));
 
     await waitFor(() => expect(submitFreezoneAudioSpeech).toHaveBeenCalled());
     const [, payload] = vi.mocked(submitFreezoneAudioSpeech).mock.calls[0];
@@ -190,7 +190,7 @@ describe('AssetBoard 音频进主从详情', () => {
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
     fireEvent.click(screen.getByRole('button', { name: '旁白' }));
 
-    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^生成$/ }));
+    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^Generate$/ }));
 
     await waitFor(() => expect(submitFreezoneAudioSpeech).toHaveBeenCalled());
     expect(compileFreezoneRecipePrompt).toHaveBeenCalledTimes(1);
@@ -228,7 +228,7 @@ describe('AssetBoard 音频进主从详情', () => {
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
     fireEvent.click(screen.getByRole('button', { name: '旁白' }));
 
-    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^生成$/ }));
+    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^Generate$/ }));
 
     await waitFor(() => expect(submitFreezoneAudioSpeech).toHaveBeenCalled());
     expect(compileFreezoneRecipePrompt).toHaveBeenCalledTimes(1);
@@ -245,7 +245,7 @@ describe('AssetBoard 音频进主从详情', () => {
     })]);
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
     fireEvent.click(screen.getByRole('button', { name: '旁白' }));
-    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^生成$/ }));
+    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^Generate$/ }));
     await waitFor(() => expect(submitFreezoneAudioSpeech).toHaveBeenCalledTimes(1));
     expect(vi.mocked(submitFreezoneAudioSpeech).mock.calls[0][1]).toMatchObject({
       speechMode: 'preset', presetVoice: 'Serena', presetModel: 'edge-tts', text: '欢迎回来。',
@@ -258,7 +258,7 @@ describe('AssetBoard 音频进主从详情', () => {
     })]);
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
     fireEvent.click(screen.getByRole('button', { name: '旁白' }));
-    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^生成$/ }));
+    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^Generate$/ }));
     await waitFor(() => expect(submitFreezoneAudioSpeech).toHaveBeenCalledTimes(1));
     expect(vi.mocked(submitFreezoneAudioSpeech).mock.calls[0][1]).toMatchObject({
       speechMode: 'clone', voiceRef: { scope: 'project_narrator' }, text: '欢迎回来。',
@@ -274,7 +274,7 @@ describe('AssetBoard 音频进主从详情', () => {
     seed(saved);
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
     fireEvent.click(screen.getByRole('button', { name: '新语音' }));
-    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^生成$/ }));
+    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^Generate$/ }));
     await waitFor(() => expect(
       useCanvasStore.getState().nodes.find(node => node.id === id)?.data.generationError,
     ).toBe('node.audioNode.selectVoiceFirst'));
@@ -295,7 +295,7 @@ describe('AssetBoard 音频进主从详情', () => {
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
     fireEvent.click(screen.getByRole('button', { name: '旁白' }));
 
-    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^生成$/ }));
+    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^Generate$/ }));
 
     await waitFor(() => expect(submitFreezoneAudioSpeech).toHaveBeenCalled());
     expect(compileFreezoneRecipePrompt).not.toHaveBeenCalled();
@@ -320,7 +320,7 @@ describe('AssetBoard 音频进主从详情', () => {
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
     fireEvent.click(screen.getByRole('button', { name: '旁白' }));
 
-    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^生成$/ }));
+    fireEvent.click(within(detailPanel()).getByRole('button', { name: /^Generate$/ }));
 
     await waitFor(() => expect(submitFreezoneAudioSpeech).toHaveBeenCalled());
     expect(compileFreezoneRecipePrompt).toHaveBeenCalledTimes(1);
@@ -368,12 +368,12 @@ describe('AssetBoard 音频进主从详情', () => {
     seed([audioNode({ audioUrl: '/static/a.mp3', text: '悠扬旋律' }), textNode()]);
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
     fireEvent.click(screen.getByRole('button', { name: '背景音乐' }));
-    expect(screen.queryByRole('region', { name: '资产详情' })).toBeInTheDocument();
+    expect(screen.queryByRole('region', { name: 'Asset details' })).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', { name: '关闭详情' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Close details' }));
 
-    expect(screen.queryByRole('region', { name: '资产详情' })).not.toBeInTheDocument();
-    expect(screen.getByText('文本')).toBeInTheDocument();
+    expect(screen.queryByRole('region', { name: 'Asset details' })).not.toBeInTheDocument();
+    expect(screen.getByText('Text')).toBeInTheDocument();
   });
 
   it('音频切换器在顶栏音频标签：进详情后 chip 仍可点切换（无内联操作面开关）', () => {
@@ -384,7 +384,7 @@ describe('AssetBoard 音频进主从详情', () => {
 
     fireEvent.click(screen.getByRole('button', { name: '背景音乐' }));
     // 进详情后音频切换器留在顶栏音频标签：仍是一处「音频」标题（顶栏标签），左侧是文本栏。
-    expect(screen.getAllByText('音频')).toHaveLength(1);
+    expect(screen.getAllByText('Audio')).toHaveLength(1);
     // 依然没有内联操作面开关（表单已进详情）。
     expect(screen.queryByRole('button', { name: /音频操作/ })).not.toBeInTheDocument();
     // 音频切换器仍可点（chip 保留在顶栏）。

@@ -66,7 +66,7 @@ function seed(nodes: CanvasNode[]) {
  * 图片栏里同名的卡片。
  */
 function keyElementsBar(): HTMLElement {
-  const trigger = screen.getByRole('button', { name: /关键元素 ·/ });
+  const trigger = screen.getByRole('button', { name: /Key elements ·/ });
   const bar = trigger.closest('div')?.parentElement;
   if (!(bar instanceof HTMLElement)) throw new Error('key elements bar not found');
   return bar;
@@ -76,7 +76,7 @@ describe('故事板关键元素栏', () => {
   it('没有任何关键元素 → 不渲染顶部栏', () => {
     seed([imageNode('a', { displayName: '角色A' })]);
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
-    expect(screen.queryByRole('button', { name: /关键元素 ·/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /Key elements ·/ })).not.toBeInTheDocument();
   });
 
   it('有被标记的节点 → 顶部栏渲染其 chip（缩略图 + 名称）', () => {
@@ -105,8 +105,8 @@ describe('故事板关键元素栏', () => {
     expect(within(keyElementsBar()).getByRole('button', { name: '森林场景' })).toBeInTheDocument();
 
     // 打开分类下拉切到「场景」。
-    await user.click(screen.getByRole('button', { name: /关键元素 ·/ }));
-    await user.click(await screen.findByRole('menuitem', { name: '场景' }));
+    await user.click(screen.getByRole('button', { name: /Key elements ·/ }));
+    await user.click(await screen.findByRole('menuitem', { name: 'Scene' }));
 
     expect(within(keyElementsBar()).queryByRole('button', { name: '主角立绘' })).not.toBeInTheDocument();
     expect(within(keyElementsBar()).getByRole('button', { name: '森林场景' })).toBeInTheDocument();
@@ -117,7 +117,7 @@ describe('故事板关键元素栏', () => {
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
 
     fireEvent.click(within(keyElementsBar()).getByRole('button', { name: '主角立绘' }));
-    expect(screen.getByRole('region', { name: '资产详情' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Asset details' })).toBeInTheDocument();
   });
 
   it('关键元素配「添加到对话」pill 入口（对标 liblib 的 hover 浮层）', async () => {
@@ -128,7 +128,7 @@ describe('故事板关键元素栏', () => {
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
 
     await user.hover(within(keyElementsBar()).getByRole('button', { name: '主角立绘' }));
-    expect(await screen.findByRole('button', { name: '添加到对话' })).toBeInTheDocument();
+    expect(await screen.findByRole('button', { name: 'Add to chat' })).toBeInTheDocument();
   });
 
   it('点 pill → 走 add-nodes-to-chat 事件、带该节点 id，且不打开详情', async () => {
@@ -137,13 +137,13 @@ describe('故事板关键元素栏', () => {
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
 
     await user.hover(within(keyElementsBar()).getByRole('button', { name: '主角立绘' }));
-    const pill = await screen.findByRole('button', { name: '添加到对话' });
+    const pill = await screen.findByRole('button', { name: 'Add to chat' });
     const events = captureAddToChat(() => {
       fireEvent.click(pill);
     });
     expect(events).toEqual([['a']]);
     // 点 pill 不误触缩略图的「打开详情」。
-    expect(screen.queryByRole('region', { name: '资产详情' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('region', { name: 'Asset details' })).not.toBeInTheDocument();
   });
 
   it('关键元素 + 音频 → 顶栏两个标签，切到「音频」显示音频 chip（对标 liblib）', async () => {
@@ -155,14 +155,14 @@ describe('故事板关键元素栏', () => {
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
 
     // 两个标签并存。
-    expect(screen.getByRole('button', { name: /关键元素 ·/ })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: '音频' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Key elements ·/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Audio' })).toBeInTheDocument();
     // 默认关键元素标签：栏内是关键元素 chip，音频 chip 未渲染。
     expect(within(keyElementsBar()).getByRole('button', { name: '主角立绘' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: '背景音乐' })).not.toBeInTheDocument();
 
     // 切到音频标签 → 音频 chip 出现、关键元素 chip 收起。
-    await user.click(screen.getByRole('button', { name: '音频' }));
+    await user.click(screen.getByRole('button', { name: 'Audio' }));
     expect(within(keyElementsBar()).getByRole('button', { name: '背景音乐' })).toBeInTheDocument();
     expect(within(keyElementsBar()).queryByRole('button', { name: '主角立绘' })).not.toBeInTheDocument();
   });
@@ -177,10 +177,10 @@ describe('故事板关键元素栏', () => {
 
     // 进详情：关键元素栏与左窄列表同在一个左列容器里，而详情面板在它外面。
     fireEvent.click(within(keyElementsBar()).getByRole('button', { name: '主角立绘' }));
-    const detail = screen.getByRole('region', { name: '资产详情' });
+    const detail = screen.getByRole('region', { name: 'Asset details' });
     const leftColumn = keyElementsBar().parentElement as HTMLElement;
     expect(leftColumn.contains(detail)).toBe(false);
     // 左列里还挂着窄列表（栏切换下拉即它的标题槽）。
-    expect(within(leftColumn).getByRole('button', { name: /切换栏目|图片|视频|文本/ })).toBeTruthy();
+    expect(within(leftColumn).getByRole('button', { name: /Switch column|Image|Video|Text/ })).toBeTruthy();
   });
 });

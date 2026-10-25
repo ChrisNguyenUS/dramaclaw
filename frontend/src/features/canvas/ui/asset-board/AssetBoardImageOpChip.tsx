@@ -127,7 +127,7 @@ export function AssetBoardImageOpChip({
       <button
         ref={triggerRef}
         type="button"
-        title={`${def.label} · 点击切换功能，退格删除`}
+        title={`${def.label} · click to switch, Backspace to remove`}
         disabled={disabled}
         // 别让 mousedown 走默认行为：那会把光标挪到 chip 上（它是 contenteditable=false
         // 的原子块），用户接着打字会落在意料之外的位置。

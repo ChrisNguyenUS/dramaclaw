@@ -31,6 +31,14 @@ describe("canvasCommandUserMessageFromResult", () => {
   });
 });
 
+describe("node-action producer strings", () => {
+  it("maps the AudioNode 'Audio node not found' error to the node-not-found message", () => {
+    expect(canvasCommandUserMessageFromResult(["Audio node not found"], [])).toContain(
+      "could not find the node",
+    );
+  });
+});
+
 describe("timeout handling", () => {
   const CANCEL_MESSAGE = "The canvas action was cancelled and was not applied to the canvas.";
 

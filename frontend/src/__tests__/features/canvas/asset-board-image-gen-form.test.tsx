@@ -74,7 +74,7 @@ function emptyImageGenNode(overrides: Partial<CanvasNode['data']> = {}): CanvasN
 }
 
 function detailPanel() {
-  return screen.getByRole('region', { name: '资产详情' });
+  return screen.getByRole('region', { name: 'Asset details' });
 }
 
 function openDetail(name: string) {
@@ -93,23 +93,23 @@ describe('故事板详情 · 图片生成表单', () => {
 
     const detail = detailPanel();
     // 空态占位（无大图可放大）。
-    expect(within(detail).getAllByText('待确认后生成').length).toBeGreaterThan(0);
-    expect(within(detail).queryByRole('button', { name: '放大查看' })).not.toBeInTheDocument();
+    expect(within(detail).getAllByText('Generates after you confirm').length).toBeGreaterThan(0);
+    expect(within(detail).queryByRole('button', { name: 'Enlarge' })).not.toBeInTheDocument();
     // 生成条：风格 / 资产库 chips + 提示词输入 + 参数 + 翻译 + 提交。
-    expect(within(detail).getByRole('button', { name: '风格' })).toBeInTheDocument();
-    expect(within(detail).getByRole('button', { name: /资产库/ })).toBeInTheDocument();
+    expect(within(detail).getByRole('button', { name: 'Style' })).toBeInTheDocument();
+    expect(within(detail).getByRole('button', { name: /Asset library/ })).toBeInTheDocument();
     // 提示词编辑器是 contenteditable，占位走 data-placeholder + ::before。
     expect(
-      detail.querySelector('[data-placeholder="描述你想要生成的画面内容，@引用素材"]'),
+      detail.querySelector('[data-placeholder="Describe the image you want, use @ to reference assets"]'),
     ).not.toBeNull();
-    expect(within(detail).getByRole('button', { name: '生成' })).toBeInTheDocument();
+    expect(within(detail).getByRole('button', { name: 'Generate' })).toBeInTheDocument();
   });
 
   it('有提示词 → 点提交走真实提交链路（submitFreezoneGen 收到该 prompt）', async () => {
     seed([emptyImageGenNode({ prompt: '一只在雪夜里发光的小猫' })]);
     openDetail('图片节点 3');
 
-    const submit = within(detailPanel()).getByRole('button', { name: '生成' });
+    const submit = within(detailPanel()).getByRole('button', { name: 'Generate' });
     expect(submit).not.toBeDisabled();
     fireEvent.click(submit);
 
@@ -124,7 +124,7 @@ describe('故事板详情 · 图片生成表单', () => {
     seed([emptyImageGenNode()]);
     openDetail('图片节点 3');
 
-    expect(within(detailPanel()).getByRole('button', { name: '生成' })).toBeDisabled();
+    expect(within(detailPanel()).getByRole('button', { name: 'Generate' })).toBeDisabled();
   });
 
   it('已有产物的 imageGen 节点仍挂表单，且不再重复渲染只读提示词块', () => {
@@ -137,10 +137,10 @@ describe('故事板详情 · 图片生成表单', () => {
     openDetail('图片节点 3');
 
     const detail = detailPanel();
-    expect(within(detail).getByRole('button', { name: '放大查看' })).toBeInTheDocument();
-    expect(within(detail).getByRole('button', { name: '生成' })).toBeInTheDocument();
+    expect(within(detail).getByRole('button', { name: 'Enlarge' })).toBeInTheDocument();
+    expect(within(detail).getByRole('button', { name: 'Generate' })).toBeInTheDocument();
     // 只读展示块的小标题不出现——提示词只由表单里的输入框承载一份。
-    expect(within(detail).queryByText('提示词')).not.toBeInTheDocument();
+    expect(within(detail).queryByText('Prompt')).not.toBeInTheDocument();
     // prompt 文本只出现一次（表单输入框里那份）。
     expect(within(detail).getAllByText('已经出图的提示词')).toHaveLength(1);
   });
@@ -168,13 +168,13 @@ describe('故事板详情 · 图片生成表单', () => {
     render(<AssetBoardView visible onLocateNode={() => {}} />);
 
     fireEvent.click(screen.getByRole('button', { name: '角色参考' }));
-    expect(within(detailPanel()).queryByRole('button', { name: '生成' })).not.toBeInTheDocument();
-    expect(within(detailPanel()).queryByRole('button', { name: /资产库/ })).not.toBeInTheDocument();
+    expect(within(detailPanel()).queryByRole('button', { name: 'Generate' })).not.toBeInTheDocument();
+    expect(within(detailPanel()).queryByRole('button', { name: /Asset library/ })).not.toBeInTheDocument();
 
     // imageEdit 有它自己的一套表单（后续切片），本片不接：仍是只读提示词展示。
     fireEvent.click(screen.getByRole('button', { name: '编辑图片' }));
-    expect(within(detailPanel()).queryByRole('button', { name: '生成' })).not.toBeInTheDocument();
-    expect(within(detailPanel()).getByText('提示词')).toBeInTheDocument();
+    expect(within(detailPanel()).queryByRole('button', { name: 'Generate' })).not.toBeInTheDocument();
+    expect(within(detailPanel()).getByText('Prompt')).toBeInTheDocument();
     expect(within(detailPanel()).getByText('把背景改成雪夜')).toBeInTheDocument();
   });
 
@@ -190,10 +190,10 @@ describe('故事板详情 · 图片生成表单', () => {
 
     const detail = detailPanel();
     // 生成表单在场 → 底部「参考素材」只读行被收掉（避免与表单 chip 重复）。
-    expect(within(detail).queryByRole('group', { name: '参考素材' })).not.toBeInTheDocument();
+    expect(within(detail).queryByRole('group', { name: 'Reference assets' })).not.toBeInTheDocument();
     // 共用表单不渲自带参考图，宿主在表单区补一枚 chip（用 referenceImageUrl），
     // 保证自带参考图不因底部行隐藏而消失。
-    const ownRef = within(detail).getByAltText('参考图');
+    const ownRef = within(detail).getByAltText('Reference image');
     expect(ownRef).toHaveAttribute('src', '/static/own-ref.png');
   });
 
@@ -208,11 +208,11 @@ describe('故事板详情 · 图片生成表单', () => {
     openDetail('带参考图的节点');
 
     const detail = detailPanel();
-    expect(within(detail).getByAltText('参考图')).toBeInTheDocument();
+    expect(within(detail).getByAltText('Reference image')).toBeInTheDocument();
     // 移除按钮默认 hover 才显现（display:none），用 title 直接取到并点击。
-    fireEvent.click(within(detail).getByTitle('移除参考图'));
+    fireEvent.click(within(detail).getByTitle('Remove reference image'));
 
-    expect(within(detail).queryByAltText('参考图')).not.toBeInTheDocument();
+    expect(within(detail).queryByAltText('Reference image')).not.toBeInTheDocument();
     const node = useCanvasStore.getState().nodes.find((candidate) => candidate.id === 'gen-1');
     expect((node?.data as { referenceImageUrl?: string | null }).referenceImageUrl).toBeNull();
   });
@@ -235,9 +235,9 @@ describe('故事板详情 · 图片生成表单', () => {
 
     const detail = detailPanel();
     // 生成表单在场 → 无底部「参考素材」只读行。
-    expect(within(detail).queryByRole('group', { name: '参考素材' })).not.toBeInTheDocument();
-    // 上游引用作为表单引用 chip 出现（chip 容器 title="来自上游 · 上游参考"）。
-    expect(within(detail).getByTitle('来自上游 · 上游参考')).toBeInTheDocument();
+    expect(within(detail).queryByRole('group', { name: 'Reference assets' })).not.toBeInTheDocument();
+    // 上游引用作为表单引用 chip 出现（chip 容器 title="From upstream · 上游参考"）。
+    expect(within(detail).getByTitle('From upstream · 上游参考')).toBeInTheDocument();
   });
 
   it('图片卡空占位文案与详情一致', () => {
@@ -245,6 +245,6 @@ describe('故事板详情 · 图片生成表单', () => {
     render(<AssetBoardView visible onLocateNode={() => {}} />);
 
     // 三栏态下图片卡的空媒体区。
-    expect(screen.getByText('待确认后生成')).toBeInTheDocument();
+    expect(screen.getByText('Generates after you confirm')).toBeInTheDocument();
   });
 });
