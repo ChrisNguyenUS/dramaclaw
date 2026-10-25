@@ -48,7 +48,7 @@ describe("Freezone canvas agents", () => {
     expect(state.agents).toEqual([
       {
         id: DEFAULT_FREEZONE_AGENT_ID,
-        name: "新对话",
+        name: "New chat",
         createdAt: 1000,
         lastActiveAt: 1000,
       },
@@ -61,8 +61,8 @@ describe("Freezone canvas agents", () => {
     const second = addFreezoneCanvasAgent("project-a", "canvas-a", 3000);
     const otherCanvas = loadFreezoneCanvasAgents("project-a", "canvas-b", 4000);
 
-    expect(first.agent).toMatchObject({ id: "agent-2000", name: "新对话" });
-    expect(second.agent).toMatchObject({ id: "agent-3000", name: "新对话" });
+    expect(first.agent).toMatchObject({ id: "agent-2000", name: "New chat" });
+    expect(second.agent).toMatchObject({ id: "agent-3000", name: "New chat" });
     expect(second.state.activeAgentId).toBe("agent-3000");
     expect(second.state.agents.map((agent) => agent.id)).toEqual([
       "main",
@@ -101,7 +101,7 @@ describe("Freezone canvas agents", () => {
     try {
       const result = addFreezoneCanvasAgent("project-a", "canvas-a", 2000);
 
-      expect(result.agent).toMatchObject({ id: "agent-2000", name: "新对话" });
+      expect(result.agent).toMatchObject({ id: "agent-2000", name: "New chat" });
       expect(result.state.activeAgentId).toBe("agent-2000");
       expect(result.state.agents.map((agent) => agent.id)).toEqual(["main", "agent-2000"]);
       expect(setItem).toHaveBeenCalled();

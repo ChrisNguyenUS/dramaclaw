@@ -108,7 +108,7 @@ describe("canvas command validator", () => {
     expect(contextLinkType).toMatchObject({
       source_object_types: ["TextNode", "ScriptNode"],
       target_object_types: ["TextNode", "ScriptNode"],
-      description: "文本/剧本规划节点之间的背景、约束或说明关系，用于组织创作思路，不直接驱动媒体生成。",
+      description: "Background, constraints or notes between text/script planning nodes. Organizes creative thinking and does not directly drive media generation.",
       instruction: expect.stringContaining("Never use context_for for image/video/audio generation targets"),
     });
   });

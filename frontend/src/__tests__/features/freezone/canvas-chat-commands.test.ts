@@ -1742,7 +1742,7 @@ describe("canvas chat commands", () => {
     const members = state.nodes.filter((node) => node.parentId === group?.id);
 
     expect(result.errors).toEqual([]);
-    expect(group?.data.displayName).toBe("工作流组");
+    expect(group?.data.displayName).toBe("Workflow group");
     expect(members).toHaveLength(3);
     expect(
       result.commandResults.some((step) => step.type === "group_nodes"),
@@ -1788,7 +1788,7 @@ describe("canvas chat commands", () => {
     const members = state.nodes.filter((node) => node.parentId === group?.id);
 
     expect(result.errors).toEqual([]);
-    expect(group?.data.displayName).toBe("工作流组");
+    expect(group?.data.displayName).toBe("Workflow group");
     expect(members).toHaveLength(4);
     expect(result.commandResults.some((step) => step.type === "group_nodes")).toBe(true);
   });
@@ -3764,9 +3764,9 @@ describe("canvas chat commands", () => {
     const mattingAction = catalog.actions.find(
       (action) => action.action === "run_matting_tool",
     );
-    expect(mattingAction?.description).toContain("抠图");
-    expect(mattingAction?.description).toContain("去背景");
-    expect(mattingAction?.description).toContain("透明背景");
+    expect(mattingAction?.description).toContain("Matting");
+    expect(mattingAction?.description).toContain("remove background");
+    expect(mattingAction?.description).toContain("transparent background");
     expect(catalog.actions.map((action) => action.action)).toContain(
       "open_split_storyboard_tool",
     );
@@ -4041,7 +4041,7 @@ describe("canvas chat commands", () => {
       type: "enum",
       current_value: "清晨",
       options: expect.arrayContaining(["", "清晨"]),
-      option_labels: { "": "未设置" },
+      option_labels: { "": "Not set" },
     });
     expect(agentCatalog.actions).toContainEqual(
       expect.objectContaining({
@@ -4061,11 +4061,11 @@ describe("canvas chat commands", () => {
       agentCatalog.actions.find(
         (action: { action: string }) => action.action === "update_node_data",
       )?.description,
-    ).toContain("出场身份和出场道具不开放给 agent 编辑");
+    ).toContain("appearing identities and props are not open to agent editing");
     expect(agentCatalog.instruction).toContain(
-      "修改这些字段时使用 update_node_data",
+      "Use update_node_data to change these fields",
     );
-    expect(agentCatalog.instruction).toContain("只能由用户使用界面中的手动入口");
+    expect(agentCatalog.instruction).toContain("manual entry in the UI");
     expect(
       agentCatalog.actions.map((action: { action: string }) => action.action),
     ).not.toContain("add_next_node");
@@ -4465,7 +4465,7 @@ describe("canvas chat commands", () => {
     expect(nodeDetail?.data?.nodes).toHaveLength(1);
     expect(nodeDetail?.data?.nodes?.[0]?.action_summary).toBeTruthy();
     expect(nodeDetail?.data?.nodes?.[0]?.parameters?.prompt).toMatchObject({
-      label: "提示词",
+      label: "Prompt",
       type: "string",
       current_value: "A city at dusk",
     });
@@ -4833,7 +4833,7 @@ describe("canvas chat commands", () => {
     const parameters = nodeDetail?.data?.nodes?.[0]?.parameters ?? {};
 
     expect(parameters.upscaleResolution).toMatchObject({
-      label: "分辨率",
+      label: "Resolution",
       current_value: "1080p",
       options: ["1080p", "2k", "4k"],
     });
@@ -5488,7 +5488,7 @@ describe("canvas chat commands", () => {
       expect.objectContaining({
         type: "open_mainline_projection",
         status: "success",
-        label: "打开主线虾画",
+        label: "Open mainline Manna Draw",
         output: expect.objectContaining({
           opened: true,
           canvas_id: "user_canvas",
@@ -6515,7 +6515,7 @@ describe("canvas chat commands", () => {
       ]);
       expect(result.errors).toContain("图片生成失败");
       expect(
-        result.errors.some((error) => error.includes("跳过 generate_video")),
+        result.errors.some((error) => error.includes("Skipped generate_video")),
       ).toBe(true);
     } finally {
       unsubscribe();
@@ -6765,7 +6765,7 @@ describe("canvas chat commands", () => {
 
       expect(events).toEqual([imageNodeId]);
       expect(result.errors).toContain(
-        "画布节点或连线已发生变化，已停止执行旧工作流的后续节点。",
+        "Canvas nodes or connections changed; the remaining nodes of the old workflow were not run.",
       );
     } finally {
       unsubscribe();
@@ -6823,7 +6823,7 @@ describe("canvas chat commands", () => {
       );
 
       expect(events).toEqual([]);
-      expect(result.errors[0]).toContain("环形依赖");
+      expect(result.errors[0]).toContain("circular dependency");
       expect(result.commandResults).toHaveLength(2);
       expect(
         result.commandResults.every((step) => step.status === "error"),
@@ -7334,7 +7334,7 @@ describe("canvas chat commands", () => {
           const state = useCanvasStore.getState();
           const tailFrame = state.nodes.find((node) =>
             node.type === CANVAS_NODE_TYPES.exportImage &&
-            (node.data as Record<string, unknown>).displayName === "上一镜尾帧"
+            (node.data as Record<string, unknown>).displayName === "Previous shot last frame"
           );
           expect(tailFrame?.data).toMatchObject({
             imageUrl: "/static/project/tail-frame.png",
@@ -7355,7 +7355,7 @@ describe("canvas chat commands", () => {
           expect(
             (state.nodes.find((node) => node.id === secondVideoId)?.data as Record<string, unknown>)
               .prompt,
-          ).toContain("上一镜尾帧已作为图片参考接入");
+          ).toContain("last frame is attached as an image reference");
           useCanvasStore.getState().updateNodeData(secondVideoId, {
             videoUrl: "/static/project/shot-2.mp4",
           });
@@ -7461,7 +7461,7 @@ describe("canvas chat commands", () => {
       expect(captureVideoFrameBlob).toHaveBeenCalled();
       expect(events).toEqual([]);
       expect(result.errors).toContain(
-        "工作流运行已结束（interrupted），已停止启动后续节点；请继续工作流以完成未完成的部分。",
+        "Workflow run ended (interrupted); no further nodes were started. Continue the workflow to finish the remaining parts.",
       );
     } finally {
       unsubscribe();
@@ -7529,7 +7529,7 @@ describe("canvas chat commands", () => {
       expect(captureVideoFrameBlob).toHaveBeenCalled();
       expect(events).toEqual([]);
       expect(result.errors).toContain(
-        "工作流运行已结束（interrupted），已停止启动后续节点；请继续工作流以完成未完成的部分。",
+        "Workflow run ended (interrupted); no further nodes were started. Continue the workflow to finish the remaining parts.",
       );
     } finally {
       unsubscribe();
@@ -7593,7 +7593,7 @@ describe("canvas chat commands", () => {
       );
       expect(events).toEqual([]);
       expect(result.errors).toContain(
-        "工作流状态保存失败，已停止启动后续节点：database unavailable",
+        "Failed to save workflow state; no further nodes were started: database unavailable",
       );
     } finally {
       unsubscribe();
@@ -8619,7 +8619,7 @@ describe("canvas chat commands", () => {
         { projectId: "project-a", canvasId: "canvas-a", actionTimeoutMs: 100 },
       );
 
-      expect(result.errors).toEqual(["当前画布已有工作流正在执行，请等待其完成后再试。"]);
+      expect(result.errors).toEqual(["A workflow is already running on this canvas. Wait for it to finish and try again."]);
       expect(events).toEqual([]);
     } finally {
       unsubscribe();
@@ -8657,7 +8657,7 @@ describe("canvas chat commands", () => {
       );
 
       expect(result.errors).toEqual([
-        "无法创建持久化工作流记录，未启动节点动作：database unavailable",
+        "Could not create the persisted workflow record; no node actions were started: database unavailable",
       ]);
       expect(events).toEqual([]);
       expect(persisted).not.toHaveBeenCalled();
@@ -8691,7 +8691,7 @@ describe("canvas chat commands", () => {
       );
 
       expect(result.errors).toEqual([
-        "工作流状态保存失败，已停止启动后续节点：database unavailable",
+        "Failed to save workflow state; no further nodes were started: database unavailable",
       ]);
       expect(events).toEqual([]);
     } finally {
@@ -8727,7 +8727,7 @@ describe("canvas chat commands", () => {
       );
 
       expect(result.errors).toEqual([
-        "工作流运行已结束（interrupted），已停止启动后续节点；请继续工作流以完成未完成的部分。",
+        "Workflow run ended (interrupted); no further nodes were started. Continue the workflow to finish the remaining parts.",
       ]);
       expect(events).toEqual([]);
     } finally {
@@ -8890,7 +8890,7 @@ describe("canvas chat commands", () => {
   it.each([
     [
       "interrupted",
-      "工作流运行已结束（interrupted），已停止启动后续节点；请继续工作流以完成未完成的部分。",
+      "Workflow run ended (interrupted); no further nodes were started. Continue the workflow to finish the remaining parts.",
     ],
   ])("reports %s returned by the final completed PATCH", async (serverStatus, expectedError) => {
     const store = useCanvasStore.getState();
@@ -9047,7 +9047,7 @@ describe("canvas chat commands", () => {
       );
       expect(events).toEqual([firstNodeId]);
       expect(result.errors).toContain(
-        "工作流运行已结束（interrupted），已停止启动后续节点；请继续工作流以完成未完成的部分。",
+        "Workflow run ended (interrupted); no further nodes were started. Continue the workflow to finish the remaining parts.",
       );
     } finally {
       unsubscribe();
@@ -10582,7 +10582,7 @@ describe("canvas chat commands", () => {
       expect(result.errors).toEqual([]);
       expect(events).toEqual([]);
       expect(
-        result.commandResults.some((step) => step.label === "工作流已完成，未重新生成"),
+        result.commandResults.some((step) => step.label === "Workflow already completed; not regenerated"),
       ).toBe(true);
     } finally {
       unsubscribe();
@@ -10635,7 +10635,7 @@ describe("canvas chat commands", () => {
       expect(result.errors).toEqual([]);
       expect(events).toEqual([]);
       expect(
-        result.commandResults.some((step) => step.label === "工作流已完成，未重新生成"),
+        result.commandResults.some((step) => step.label === "Workflow already completed; not regenerated"),
       ).toBe(true);
     } finally {
       unsubscribe();

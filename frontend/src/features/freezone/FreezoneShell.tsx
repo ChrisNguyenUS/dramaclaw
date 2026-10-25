@@ -250,8 +250,8 @@ const FREEZONE_VIEW_MODE_TABS: ReadonlyArray<{
   icon: LucideIcon;
   label: string;
 }> = [
-  { mode: "workflow", icon: Workflow, label: "工作流" },
-  { mode: "board", icon: Clapperboard, label: "故事板" },
+  { mode: "workflow", icon: Workflow, label: "Workflow" },
+  { mode: "board", icon: Clapperboard, label: "Storyboard" },
 ];
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -468,7 +468,7 @@ function canvasCommandValidationFailureResult(errors: string[]): CanvasChatComma
         commandIndex: -1,
         type: "validate",
         status: "error",
-        label: "校验画布命令",
+        label: "Validate canvas commands",
         error: errors.join("; "),
       },
     ],
@@ -1725,7 +1725,7 @@ export function FreezoneShell({
         canvasId,
         agentId,
         status: "running",
-        labels: ["命令校验"],
+        labels: ["Command check"],
         receivedAt: eventReceivedAt,
         surfaceOrder: eventReceivedAt,
         externalMcpCommand: isExternalMcpCommand,
@@ -1744,8 +1744,8 @@ export function FreezoneShell({
 
       if (envelopes.length === 0) {
         const errors = [
-          "画布命令格式无效或不属于当前画布，前端未执行。",
-          "无法解析 canvas_chat_commands.v1 命令；请检查 command 字段是否在正确层级。",
+          "Canvas command is invalid or does not belong to this canvas; the frontend did not run it.",
+          "Could not parse canvas_chat_commands.v1 command; check that the command field is at the correct level.",
         ];
         console.warn("[freezone-canvas-command] frame rejected: no valid envelope", {
           bridgeKey,
@@ -1759,7 +1759,7 @@ export function FreezoneShell({
           canvasId,
           agentId,
           status: "failed",
-          labels: ["命令校验"],
+          labels: ["Command check"],
           errors,
           receivedAt: eventReceivedAt + 1,
           surfaceOrder: eventReceivedAt + 1,
@@ -1786,8 +1786,8 @@ export function FreezoneShell({
               commandIndex: -1,
               type: "validate",
               status: "error",
-              label: "画布命令无效",
-              error: "无法解析 canvas_chat_commands.v1 命令；请检查 command 字段是否在正确层级。",
+              label: "Invalid canvas command",
+              error: "Could not parse canvas_chat_commands.v1 command; check that the command field is at the correct level.",
             },
           ],
         };
@@ -1839,7 +1839,7 @@ export function FreezoneShell({
       );
       if (!validation.ok) {
         const errors = [
-          "画布命令预校验失败，前端未展示确认卡，也未执行。",
+          "Canvas command pre-validation failed; the frontend showed no confirmation card and ran nothing.",
           ...validation.issues.map((issue) => `${issue.path}: ${issue.message}`),
         ];
         console.warn("[freezone-canvas-command] validation failed", {
@@ -1856,7 +1856,7 @@ export function FreezoneShell({
           canvasId,
           agentId,
           status: "failed",
-          labels: ["命令校验"],
+          labels: ["Command check"],
           errors,
           receivedAt: eventReceivedAt + 1,
           surfaceOrder: eventReceivedAt + 1,
@@ -1917,7 +1917,7 @@ export function FreezoneShell({
         canvasId,
         agentId,
         status: "done",
-        labels: ["命令校验"],
+        labels: ["Command check"],
         receivedAt: eventReceivedAt + 1,
         surfaceOrder: eventReceivedAt + 1,
         externalMcpCommand: isExternalMcpCommand,
@@ -2016,7 +2016,7 @@ export function FreezoneShell({
           window.dispatchEvent(new CustomEvent(SUPERCHAT_CANVAS_COMMAND_EVENT, {
             detail: {
               frame,
-              anchorTextPrefix: "外部 Agent",
+              anchorTextPrefix: "外部 Agent", // i18n-exempt: anchor text matched against message text
               receivedAt: now + index,
               externalMcpCommand: true,
             },
@@ -2076,7 +2076,7 @@ export function FreezoneShell({
           canvasId,
           agentId,
           responses: [],
-          errors: ["无法解析 canvas_context_request.v1 请求。"],
+          errors: ["Could not parse canvas_context_request.v1 request."],
         });
         setChatOpen(true);
         return;
@@ -2114,7 +2114,7 @@ export function FreezoneShell({
           });
         } catch (error) {
           const message = error instanceof Error ? error.message : String(error || "unknown error");
-          const errors = [`读取画布上下文失败：${message}`];
+          const errors = [`Failed to read canvas context: ${message}`];
           emitCanvasContextActivity({
             turnId,
             anchorTextPrefix,
@@ -2122,7 +2122,7 @@ export function FreezoneShell({
             canvasId,
             agentId,
             status: "failed",
-            labels: ["画布上下文"],
+            labels: ["Canvas context"],
             errors,
             receivedAt: Date.now(),
           });
@@ -2295,7 +2295,7 @@ export function FreezoneShell({
             <div className="absolute left-4 top-1.5 z-40">
               <TooltipProvider delay={80}>
                 <nav
-                  aria-label="画布视图切换"
+                  aria-label="Switch canvas view"
                   className="relative flex h-8 items-center rounded-[10px] bg-[#262626] p-0.5 shadow-lg"
                 >
                   <span
@@ -2738,8 +2738,8 @@ function FreezoneChatDock({
           variant="ghost"
           size="icon-sm"
           onClick={handleHeaderAddAgent}
-          aria-label="新建 Agent"
-          title="新建 Agent"
+          aria-label="New agent"
+          title="New agent"
           className="text-muted-foreground hover:bg-white/[0.08] hover:text-foreground"
         >
           <Plus className="size-4" />
@@ -2752,8 +2752,8 @@ function FreezoneChatDock({
           size="icon-sm"
           onClick={() => setAgentHistoryOpen((value) => !value)}
           aria-pressed={agentHistoryOpen}
-          aria-label={agentHistoryOpen ? "收起历史 Agent" : "打开历史 Agent"}
-          title={agentHistoryOpen ? "收起历史 Agent" : "打开历史 Agent"}
+          aria-label={agentHistoryOpen ? "Collapse agent history" : "Open agent history"}
+          title={agentHistoryOpen ? "Collapse agent history" : "Open agent history"}
           className={cn(
             "text-muted-foreground hover:bg-white/[0.08] hover:text-foreground",
             agentHistoryOpen && "bg-white/[0.08] text-foreground",
@@ -3107,8 +3107,8 @@ function FreezoneChatDock({
           className="group absolute inset-y-0 left-0 z-30 flex w-3 cursor-col-resize touch-none items-stretch justify-start"
           role="separator"
           aria-orientation="vertical"
-          aria-label="调整聊天宽度"
-          title="调整聊天宽度"
+          aria-label="Resize chat"
+          title="Resize chat"
           onPointerDown={(event) => startPaneResize("chat", event)}
         >
           <span
@@ -3130,8 +3130,8 @@ function FreezoneChatDock({
               className="group relative z-20 flex w-2 shrink-0 cursor-col-resize touch-none items-stretch justify-center bg-white/[0.03] transition-colors hover:bg-white/[0.08]"
               role="separator"
               aria-orientation="vertical"
-              aria-label="调整历史 Agent 宽度"
-              title="调整历史 Agent 宽度"
+              aria-label="Resize agent history"
+              title="Resize agent history"
               onPointerDown={(event) => startPaneResize("history", event)}
             >
               <span
@@ -3194,7 +3194,7 @@ function FreezoneAgentHistoryPanel({
         <input
           value={search}
           onChange={(event) => onSearchChange(event.target.value)}
-          placeholder="搜索会话..."
+          placeholder="Search conversations..."
           className="min-w-0 flex-1 bg-transparent text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
         />
       </label>
@@ -3233,7 +3233,7 @@ function FreezoneAgentHistoryPanel({
         })}
         {visibleAgents.length === 0 && (
           <div className="px-2 py-8 text-center text-xs text-zinc-500">
-            没有匹配的 Agent
+            No matching agents
           </div>
         )}
       </div>
@@ -3246,7 +3246,7 @@ function FreezoneAgentHistoryPanel({
           onClick={onAdd}
         >
           <Plus className="mr-1.5 size-4" />
-          新建 Agent
+          New agent
         </Button>
       )}
     </div>

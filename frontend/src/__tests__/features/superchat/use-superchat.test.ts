@@ -2345,7 +2345,7 @@ describe("Skill Studio question response", () => {
       },
     });
 
-    expect(payload.user_message).toBe("当前文本需要先作为生成提示词连接到图片节点，我会按可执行的提示词来源来处理。");
+    expect(payload.user_message).toBe("This text must first be connected to the image node as a generation prompt. I will use a valid prompt source.");
     expect(payload.agent_hint).toContain("Do not mention");
     expect(payload.agent_hint).toContain("prompt_for");
     expect(payload.message).toBe(payload.user_message);

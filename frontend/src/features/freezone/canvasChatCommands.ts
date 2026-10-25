@@ -526,19 +526,19 @@ const activeOrQueuedWorkflowRunKeys = new Set<string>();
 let nodeActionMountQueue: Promise<void> = Promise.resolve();
 const WORKFLOW_ACTION_CONCURRENCY = 3;
 const WORKFLOW_ACTION_MAX_RETRIES = 2;
-const WORKFLOW_STOPPED_MESSAGE = "工作流已停止，未启动后续节点。";
-const WORKFLOW_LEASE_LOST_MESSAGE = "工作流执行租约已失效，已停止启动后续节点。"; // i18n-exempt
+const WORKFLOW_STOPPED_MESSAGE = "Workflow stopped; no further nodes were started.";
+const WORKFLOW_LEASE_LOST_MESSAGE = "Workflow execution lease expired; no further nodes were started.";
 const STOPPED_WORKFLOW_RUN_STATUSES = new Set<string>([
   "failed",
   "cancelled",
   "interrupted",
 ]);
 const workflowRunEndedMessage = (status: string) =>
-  `工作流运行已结束（${status}），已停止启动后续节点；请继续工作流以完成未完成的部分。`; // i18n-exempt
+  `Workflow run ended (${status}); no further nodes were started. Continue the workflow to finish the remaining parts.`;
 const workflowPersistenceFailureMessage = (error: unknown) =>
-  `工作流状态保存失败，已停止启动后续节点：${errorMessage(error)}`; // i18n-exempt
+  `Failed to save workflow state; no further nodes were started: ${errorMessage(error)}`;
 const workflowCreationFailureMessage = (error: unknown) =>
-  `无法创建持久化工作流记录，未启动节点动作：${errorMessage(error)}`; // i18n-exempt
+  `Could not create the persisted workflow record; no node actions were started: ${errorMessage(error)}`;
 const TERMINAL_WORKFLOW_ACTION_STATUSES = new Set<WorkflowRunActionStatus>([
   "completed",
   "failed",
@@ -735,8 +735,8 @@ function isRetryableWorkflowActionError(error: string | null | undefined): boole
     "econnreset",
     "connection reset",
     "bad_response_body",
-    "队列已满",
-    "队列的任务已达",
+    "队列已满", // i18n-exempt: matches Chinese backend error
+    "队列的任务已达", // i18n-exempt: matches Chinese backend error
     "queue is full",
     "lane is full",
   ]
@@ -892,7 +892,7 @@ function isTruthyRegenerateValue(value: unknown): boolean {
   if (value === true) return true;
   if (typeof value === "number") return value === 1;
   if (typeof value !== "string") return false;
-  return ["1", "true", "yes", "y", "重新生成", "重生成", "覆盖"].includes(value.trim().toLowerCase());
+  return ["1", "true", "yes", "y", "重新生成", "重生成", "覆盖"].includes(value.trim().toLowerCase()); // i18n-exempt: matches Chinese input
 }
 
 function cleanOptionalString(value: unknown): string | undefined {
@@ -1237,7 +1237,7 @@ function hydrateWorkflowAudioInput(nodeId: string): boolean {
 }
 
 const VIDEO_CONTINUITY_PROMPT_NOTE =
-  "上一镜尾帧已作为图片参考接入，请以它作为本镜头开场的动作、构图和角色状态连续依据。";
+  "The previous shot's last frame is attached as an image reference; use it as the continuity basis for the opening action, composition and character state of this shot.";
 
 function continuityFrameData(sourceVideoNodeId: string, targetVideoNodeId: string): JsonRecord {
   return {
@@ -1325,10 +1325,10 @@ async function ensureVideoContinuityTailFrames(
         fallbackDurationSec: durationMs !== null ? durationMs / 1000 : null,
       }),
       projectId,
-      displayName: "上一镜尾帧",
+      displayName: "Previous shot last frame",
     });
     if (!result.nodeId) {
-      throw new Error(result.error ?? "上一镜尾帧抽取失败，已停止启动下一镜视频。");
+      throw new Error(result.error ?? "Failed to extract the previous shot's last frame; the next shot video was not started.");
     }
     useCanvasStore.getState().updateNodeData(result.nodeId, {
       workflowContinuityFrame: continuityFrameData(source.id, action.nodeId),
@@ -1503,7 +1503,7 @@ function deleteNodesOrEdges(
     (id) => !after.edges.some((edge) => edge.id === id),
   );
   if (!removedNode && !removedEdge && projectionNodeIdsByKey.size === 0) {
-    throw new Error("没有删除任何节点或连接；请确认节点 id 正确且节点允许删除");
+    throw new Error("No nodes or connections were deleted; check that the node ids are correct and the nodes can be deleted");
   }
   return {
     removedNodeCount: [...beforeNodeIds].filter(
@@ -1880,7 +1880,7 @@ function isRedundantLegacyComposeGenerator(
   const label = String(data.displayName ?? data.title ?? "").trim().toLowerCase();
   const hasComposeIdentity =
     ["compose", "final_compose", "final_composition", "video_compose"].includes(stepId)
-    || ["最终合成", "成片合成", "最终成片合成", "final compose", "final composition"].includes(label);
+    || ["最终合成", "成片合成", "最终成片合成", "final compose", "final composition"].includes(label); // i18n-exempt: matches Chinese input
   if (!hasComposeIdentity) return false;
   const nodeByIdMap = new Map(nodes.map((candidate) => [candidate.id, candidate] as const));
   return edges.some(
@@ -2185,7 +2185,7 @@ function waitForNodeActionResult(
         nodeId: "",
         action: "",
         status: "error",
-        error: "节点动作执行超时",
+        error: "Node action timed out",
       });
     }, timeoutMs);
 
@@ -2661,7 +2661,7 @@ function mediaRequirementLabel(action: string): string {
     action === "auto_compose_video"
   ) return "videoUrl";
   if (action === "generate_audio") return "audioUrl";
-  return "生成结果";
+  return "generated result";
 }
 
 function orderedNodeActionsByCanvasEdges(actions: PendingNodeAction[]): {
@@ -2752,7 +2752,7 @@ function orderedNodeActionsByCanvasEdges(actions: PendingNodeAction[]): {
       ordered: [],
       levels: [],
       dependenciesByNodeId,
-      cycleError: "画布连接线存在环形依赖，已取消本批节点动作。",
+      cycleError: "The canvas connections contain a circular dependency; this batch of node actions was cancelled.",
     };
   }
 
@@ -2809,7 +2809,7 @@ async function executeQueuedNodeActions(
         commandIndex,
         type: "run_workflow",
         status: "success",
-        label: "工作流正在运行，已忽略重复启动",
+        label: "Workflow is already running; duplicate start ignored",
         output: {
           skipped: true,
           reason: "workflow_already_running",
@@ -2840,7 +2840,7 @@ async function executeQueuedNodeActions(
           commandIndex: action.commandIndex,
           type: "run_node_action",
           status: "success",
-          label: `${action.label}（已有结果，已跳过）`,
+          label: `${action.label} (result already exists, skipped)`,
           nodeId: action.nodeId,
           action: action.action,
           output: {
@@ -2990,7 +2990,7 @@ async function executeQueuedNodeActions(
         }
       } catch (error) {
         if (error instanceof ApiError && error.status === 409) {
-          const message = "当前画布已有工作流正在执行，请等待其完成后再试。";
+          const message = "A workflow is already running on this canvas. Wait for it to finish and try again.";
           result.errors.push(message);
           for (const action of pendingActions) {
             result.commandResults.push({
@@ -3050,7 +3050,7 @@ async function executeQueuedNodeActions(
               && !(status === "completed" && confirmedRun.status === "running")
               && !workflowPersistenceError) {
               workflowPersistenceError =
-                `工作流最终状态未确认（请求 ${status}，服务端返回 ${confirmedRun.status}）。`;
+                `Final workflow status was not confirmed (requested ${status}, server returned ${confirmedRun.status}).`;
             }
             if (typeof window !== "undefined") {
               window.dispatchEvent(new CustomEvent(FREEZONE_WORKFLOW_RUN_UPDATED_EVENT, {
@@ -3241,7 +3241,7 @@ async function executeQueuedNodeActions(
         break;
       }
       if (workflowGraphSignature(pendingActions) !== initialGraphSignature) {
-        const message = "画布节点或连线已发生变化，已停止执行旧工作流的后续节点。";
+        const message = "Canvas nodes or connections changed; the remaining nodes of the old workflow were not run.";
         runFailed = true;
         result.errors.push(message);
         const unsettledActions = pendingActions.filter(
@@ -3299,7 +3299,7 @@ async function executeQueuedNodeActions(
         if (blockedUpstream) {
           return {
             action,
-            failed: `跳过 ${action.action}：上游节点 ${blockedUpstream} 未成功完成。`,
+            failed: `Skipped ${action.action}: upstream node ${blockedUpstream} did not complete successfully.`,
           };
         }
 
@@ -3317,7 +3317,7 @@ async function executeQueuedNodeActions(
             if (workflowCancelled()) {
               return {
                 action,
-                failed: "工作流已停止，未启动后续节点。",
+                failed: WORKFLOW_STOPPED_MESSAGE,
                 retryCount,
               };
             }
@@ -3352,8 +3352,8 @@ async function executeQueuedNodeActions(
                   failed: workflowCancelled()
                     ? WORKFLOW_STOPPED_MESSAGE
                     : workflowLeaseLost
-                      ? "工作流执行租约已失效，已停止等待任务队列。"
-                      : `${lane} 任务队列长时间没有可用容量，请稍后继续工作流。`,
+                      ? "Workflow execution lease expired; stopped waiting for the task queue."
+                      : `The ${lane} task queue has had no capacity for a long time. Continue the workflow later.`,
                   retryCount,
                 };
               }
@@ -3398,7 +3398,7 @@ async function executeQueuedNodeActions(
             if (action.action === "generate_audio" && !hydrateWorkflowAudioInput(action.nodeId)) {
               return {
                 action,
-          failed: "旁白节点缺少上游生成的文本，已停止提交 TTS 请求；请先完成剧本/Beat 文本生成后重试。", // i18n-exempt -- workflow error payload
+          failed: "The narration node has no upstream generated text; the TTS request was not submitted. Finish script/beat text generation first and retry.",
                 retryCount,
               };
             }
@@ -3479,7 +3479,7 @@ async function executeQueuedNodeActions(
                 clearNodeActionRunning(action.nodeId, action.action);
                 return {
                   action,
-                  failed: `节点动作没有处理器：${action.action} (${action.nodeId})。`,
+                  failed: `No handler for node action: ${action.action} (${action.nodeId}).`,
                 };
               }
             } catch (error) {
@@ -3487,7 +3487,7 @@ async function executeQueuedNodeActions(
               clearNodeActionRunning(action.nodeId, action.action);
               return {
                 action,
-                failed: `节点动作执行异常：${errorMessage(error)}`,
+                failed: `Node action failed with an error: ${errorMessage(error)}`,
               };
             }
             const firstSignal = await Promise.race([
@@ -3499,7 +3499,7 @@ async function executeQueuedNodeActions(
               clearNodeActionRunning(action.nodeId, action.action);
               return {
                 action,
-                failed: `节点动作未被目标节点接手：${action.action} (${action.nodeId})。请确认该节点已在画布中渲染后重试。`,
+                failed: `The target node did not pick up the node action: ${action.action} (${action.nodeId}). Make sure the node is rendered on the canvas and retry.`,
               };
             }
             let actionSettled = false;
@@ -3624,12 +3624,12 @@ async function executeQueuedNodeActions(
             const actionWasSkipped =
               isRecord(actionResult.output) && actionResult.output.skipped === true;
             const rawFailed = actionResult.status === "error"
-              ? actionResult.error || "节点动作执行失败"
+              ? actionResult.error || "Node action failed"
               : outputIssue
                 ? outputIssue
               : !actionOpenedUserUi && !actionWasSkipped && !hasRequiredOutput
                 ? nodeGenerationError(action.nodeId) ??
-                  `节点动作完成但未产出 ${mediaRequirementLabel(action.action)}。`
+                  `The node action finished but produced no ${mediaRequirementLabel(action.action)}.`
                 : null;
             const failed = rawFailed && isRecipeAttemptEndedError(rawFailed)
               ? recipeAttemptEndedMessage(rawFailed)
@@ -3659,7 +3659,7 @@ async function executeQueuedNodeActions(
           }
           return {
             action,
-            failed: "节点动作重试次数已耗尽",
+            failed: "Node action retries exhausted",
             retryCount: WORKFLOW_ACTION_MAX_RETRIES,
           };
         } finally {
@@ -3673,7 +3673,7 @@ async function executeQueuedNodeActions(
             status: settled.failed
               ? settled.failed === WORKFLOW_STOPPED_MESSAGE
                 ? "skipped"
-                : settled.failed.startsWith("跳过 ") ? "blocked" : "failed"
+                : (settled.failed.startsWith("Skipped ") || settled.failed.startsWith("跳过 ")) ? "blocked" : "failed" // i18n-exempt: also matches runs persisted with the Chinese prefix
               : isRecord(settled.output) && settled.output.skipped === true
                 ? "skipped"
                 : "completed",
@@ -3826,75 +3826,75 @@ function commandLabel(command: CanvasChatCommand): string {
   switch (command.type) {
     case "html_artifact": return i18next.t("htmlArtifact.saveCommand");
     case "create_node":
-      return "创建节点";
+      return "Create node";
     case "add_next_node":
-      return "添加下游节点";
+      return "Add downstream node";
     case "update_node_data":
-      return "更新节点";
+      return "Update node";
     case "delete_nodes":
-      return "删除节点";
+      return "Delete nodes";
     case "clear_canvas":
-      return "清空画布";
+      return "Clear canvas";
     case "delete_edges":
-      return "断开连接";
+      return "Disconnect";
     case "create_edge":
-      return "创建连接";
+      return "Create connection";
     case "layout_nodes":
-      return "整理布局";
+      return "Arrange layout";
     case "group_nodes":
-      return "创建普通组";
+      return "Create group";
     case "move_nodes":
-      return "移动节点";
+      return "Move nodes";
     case "select_nodes":
-      return "选中节点";
+      return "Select nodes";
     case "run_node_action":
-      if (command.action === "translate_text") return "翻译文本";
-      if (command.action === "reverse_prompt") return "图片反推提示词";
-      if (command.action === "generate_text_video") return "文生视频";
-      if (command.action === "generate_story_script") return "生成故事脚本";
-      if (command.action === "open_upload_picker") return "打开上传选择";
-      if (command.action === "generate_image") return "生成图片";
-      if (command.action === "generate_audio") return "生成音频";
-      if (command.action === "open_voice_picker") return "打开音色选择";
-      if (command.action === "generate_video") return "生成视频";
-      if (command.action === "run_skill") return "运行技能";
-      if (command.action === "open_video_compose_modal") return "打开视频合成";
-      if (command.action === "auto_compose_video") return "自动合成视频";
-      if (command.action === "open_director_world") return "打开导演世界";
-      if (command.action === "generate_3gs_world") return "生成 3GS 世界";
-      if (command.action === "open_split_storyboard_tool") return "打开分格抽取";
-      if (command.action === "run_matting_tool") return "抠图";
-      if (command.action === "run_upscale_tool") return "高清放大";
-      if (command.action === "run_outpaint_tool") return "扩图";
-      if (command.action === "run_scene360_tool") return "生成 360 全景";
-      if (command.action === "run_grid_multi_camera") return "生成多机位九宫格";
-      if (command.action === "run_grid_plot_four") return "生成剧情四宫格";
-      if (command.action === "run_grid_face_three_view") return "生成面部三视图";
-      if (command.action === "run_grid_product_three_view") return "生成产品三视图";
-      if (command.action === "run_grid_serial_storyboard_25") return "生成连续分镜 25 格";
-      if (command.action === "run_grid_cinematic_light_correction") return "生成电影感光影修正";
-      if (command.action === "run_grid_character_three_view") return "生成角色三视图";
-      if (command.action === "run_grid_scene_setting_sheet") return "生成场景设定图";
-      if (command.action === "run_grid_frame_projection_3s_later") return "推演 3 秒后画面";
-      if (command.action === "run_grid_frame_projection_5s_earlier") return "推演 5 秒前画面";
-      if (command.action === "open_video_viewer") return "打开视频";
-      if (command.action === "download_video") return "下载视频";
-      if (command.action === "open_video_clip_tool") return "打开视频剪辑";
-      if (command.action === "open_video_upscale_tool") return "打开视频高清";
-      if (command.action === "run_video_analyze_story") return "解析视频";
-      if (command.action === "run_audio_separate") return "分离音视频";
-      if (command.action === "download_audio") return "下载音频";
-      if (command.action === "open_video_subtitle_erase_smart") return "智能去字幕";
-      if (command.action === "open_video_subtitle_erase_box") return "框选去字幕";
+      if (command.action === "translate_text") return "Translate text";
+      if (command.action === "reverse_prompt") return "Image to prompt";
+      if (command.action === "generate_text_video") return "Text to video";
+      if (command.action === "generate_story_script") return "Generate story script";
+      if (command.action === "open_upload_picker") return "Open upload picker";
+      if (command.action === "generate_image") return "Generate image";
+      if (command.action === "generate_audio") return "Generate audio";
+      if (command.action === "open_voice_picker") return "Open voice picker";
+      if (command.action === "generate_video") return "Generate video";
+      if (command.action === "run_skill") return "Run skill";
+      if (command.action === "open_video_compose_modal") return "Open video compose";
+      if (command.action === "auto_compose_video") return "Auto compose video";
+      if (command.action === "open_director_world") return "Open director world";
+      if (command.action === "generate_3gs_world") return "Generate 3GS world";
+      if (command.action === "open_split_storyboard_tool") return "Open panel extraction";
+      if (command.action === "run_matting_tool") return "Matting";
+      if (command.action === "run_upscale_tool") return "Upscale";
+      if (command.action === "run_outpaint_tool") return "Outpaint";
+      if (command.action === "run_scene360_tool") return "Generate 360 panorama";
+      if (command.action === "run_grid_multi_camera") return "Generate multi-camera 3x3 grid";
+      if (command.action === "run_grid_plot_four") return "Generate plot 4-panel grid";
+      if (command.action === "run_grid_face_three_view") return "Generate face three-view";
+      if (command.action === "run_grid_product_three_view") return "Generate product three-view";
+      if (command.action === "run_grid_serial_storyboard_25") return "Generate serial storyboard 25 panels";
+      if (command.action === "run_grid_cinematic_light_correction") return "Generate cinematic light correction";
+      if (command.action === "run_grid_character_three_view") return "Generate character three-view";
+      if (command.action === "run_grid_scene_setting_sheet") return "Generate scene setting sheet";
+      if (command.action === "run_grid_frame_projection_3s_later") return "Project frame 3s later";
+      if (command.action === "run_grid_frame_projection_5s_earlier") return "Project frame 5s earlier";
+      if (command.action === "open_video_viewer") return "Open video";
+      if (command.action === "download_video") return "Download video";
+      if (command.action === "open_video_clip_tool") return "Open video clip tool";
+      if (command.action === "open_video_upscale_tool") return "Open video upscale";
+      if (command.action === "run_video_analyze_story") return "Analyze video";
+      if (command.action === "run_audio_separate") return "Separate audio from video";
+      if (command.action === "download_audio") return "Download audio";
+      if (command.action === "open_video_subtitle_erase_smart") return "Smart subtitle removal";
+      if (command.action === "open_video_subtitle_erase_box") return "Box-select subtitle removal";
       if (command.action === "run_video_breakdown") return i18next.t("nodeToolbar.video.frameAnalysis");
       if (command.action === "start_video_breakdown") return i18next.t("videoBreakdown.start");
       if (command.action === "open_video_crop_tool") return i18next.t("nodeToolbar.video.frameCrop");
       if (command.action === "open_video_extend_tool") return i18next.t("nodeToolbar.video.extend");
       if (command.action === "run_video_depth_capture") return i18next.t("nodeToolbar.video.motionCapture");
-      if (command.action === "capture_pano_current_view") return "截取当前 360 视角";
-      if (command.action === "capture_pano_2x2_views") return "截取 360 四视角";
-      if (command.action === "capture_pano_4x3_views") return "截取 360 十二视角";
-      if (command.action === "download_image") return "下载图片";
+      if (command.action === "capture_pano_current_view") return "Capture current 360 view";
+      if (command.action === "capture_pano_2x2_views") return "Capture 360 four views";
+      if (command.action === "capture_pano_4x3_views") return "Capture 360 twelve views";
+      if (command.action === "download_image") return "Download image";
       if (command.action === "generate_html") return i18next.t("htmlArtifact.actionGenerate");
       if (command.action === "update_source") return i18next.t("htmlArtifact.actionSaveSource");
       if (command.action === "select_version") return i18next.t("htmlArtifact.actionSelectVersion");
@@ -3902,16 +3902,16 @@ function commandLabel(command: CanvasChatCommand): string {
       if (command.action === "open") return i18next.t("htmlArtifact.actionOpen");
       if (command.action === "export") return i18next.t("htmlArtifact.actionExport");
       if (command.action === "upload") return i18next.t("htmlArtifact.actionUpload");
-      if (command.action === "set_pano_current_view_as_background") return "设为当前背景";
-      if (command.action === "reset_pano_view") return "复位 360 视角";
-      if (command.action === "sync_beat_context_to_mainline") return "同步镜头上下文";
-      return "打开节点动作";
+      if (command.action === "set_pano_current_view_as_background") return "Set as current background";
+      if (command.action === "reset_pano_view") return "Reset 360 view";
+      if (command.action === "sync_beat_context_to_mainline") return "Sync shot context";
+      return "Open node action";
     case "open_mainline_projection":
-      return "打开主线虾画";
+      return "Open mainline Manna Draw";
     case "run_workflow":
-      return "运行工作流";
+      return "Run workflow";
     default:
-      return "画布操作";
+      return "Canvas action";
   }
 }
 
@@ -4140,7 +4140,7 @@ function* applyCanvasChatCommandsInternal(
       commandIndex: -1,
       type: "validate",
       status: "error",
-      label: "校验画布命令",
+      label: "Validate canvas commands",
       error: result.errors.join("; "),
     });
     return result;
@@ -4156,7 +4156,7 @@ function* applyCanvasChatCommandsInternal(
           commandIndex,
           type: command.type,
           status: "success",
-          label: "工作流已存在，跳过重复创建",
+          label: "Workflow already exists; duplicate creation skipped",
           nodeId: commandPrimaryNodeId(command),
           output: {
             skipped: true,
@@ -4211,7 +4211,7 @@ function* applyCanvasChatCommandsInternal(
                 commandIndex: currentCommandIndex,
                 type: command.type,
                 status: "success",
-                label: "复用已有工作流节点",
+                label: "Reused existing workflow nodes",
                 nodeId: command.client_id,
                 createdNodeId: existingWorkflowNode.id,
                 output: {
@@ -4326,7 +4326,7 @@ function* applyCanvasChatCommandsInternal(
               .map((node) => node.id);
             const edgeIds = store.edges.map((edge) => edge.id);
             if (deletableNodeIds.length === 0 && edgeIds.length === 0) {
-              throw new Error("画布中没有可清空的普通节点或连接");
+              throw new Error("The canvas has no regular nodes or connections to clear");
             }
             const deletion = deleteNodesOrEdges(
               [...deletableNodeIds, ...edgeIds],
@@ -4371,7 +4371,7 @@ function* applyCanvasChatCommandsInternal(
                 commandIndex: currentCommandIndex,
                 type: command.type,
                 status: "success",
-                label: "跳过无效连接",
+                label: "Skipped invalid connection",
                 nodeId: source,
                 error: invalidReason,
               });
@@ -4584,13 +4584,13 @@ function* applyCanvasChatCommandsInternal(
             );
             if (actions.length === 0) {
               if (allActions.length === 0) {
-                throw new Error("工作流中没有可执行的生成节点。");
+                throw new Error("The workflow has no generation nodes to run.");
               }
               result.commandResults.push({
                 commandIndex: currentCommandIndex,
                 type: command.type,
                 status: "success",
-                label: "工作流已完成，未重新生成",
+                label: "Workflow already completed; not regenerated",
                 nodeId: allActions[0]?.nodeId,
                 output: {
                   skipped: true,
@@ -4675,7 +4675,7 @@ function* applyCanvasChatCommandsInternal(
     ) {
       const targetNodeIds = [...new Set([...envelopeSourceNodeIds, ...envelopeCreatedNodeIds])];
       const groupId = useCanvasStore.getState().groupNodes(targetNodeIds, {
-        label: "工作流组",
+        label: "Workflow group",
         extraPadding: 20,
       });
       if (groupId) {
@@ -4685,7 +4685,7 @@ function* applyCanvasChatCommandsInternal(
           commandIndex,
           type: "group_nodes",
           status: "success",
-          label: "创建普通组",
+          label: "Create group",
           nodeId: targetNodeIds[0],
           createdNodeId: groupId,
         });
@@ -4703,7 +4703,7 @@ function* applyCanvasChatCommandsInternal(
     ) {
       const targetNodeIds = [...new Set(envelopeCreatedNodeIds)];
       const groupId = useCanvasStore.getState().groupNodes(targetNodeIds, {
-        label: "工作流组",
+        label: "Workflow group",
         extraPadding: 20,
       });
       if (groupId) {
@@ -4713,7 +4713,7 @@ function* applyCanvasChatCommandsInternal(
           commandIndex,
           type: "group_nodes",
           status: "success",
-          label: "创建普通组",
+          label: "Create group",
           nodeId: targetNodeIds[0],
           createdNodeId: groupId,
         });

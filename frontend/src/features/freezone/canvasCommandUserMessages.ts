@@ -11,7 +11,7 @@ function rawText(errors: string[] | undefined, commandResults: Array<Partial<Can
 }
 
 function isUnavailableModelError(text: string): boolean {
-  return /field model value|not a valid option.*model|模型|model/i.test(text) && /not a valid option|不可用|invalid/i.test(text);
+  return /field model value|not a valid option.*model|模型|model/i.test(text) && /not a valid option|不可用|invalid/i.test(text); // i18n-exempt: matches Chinese input
 }
 
 export function canvasCommandUserMessageFromResult(
@@ -19,29 +19,29 @@ export function canvasCommandUserMessageFromResult(
   commandResults: Array<Partial<CanvasChatCommandApplyStep>> | undefined,
 ): string {
   const text = rawText(errors, commandResults);
-  if (!text.trim()) return "画布操作没有完成，我会换一种方式再试。";
+  if (!text.trim()) return "The canvas action did not complete. I will try another way.";
   if (/Recipe\s*文本生成超时|Recipe text generation.*(?:timed out|timeout)|Request timed out/i.test(text)) { // i18n-exempt -- backend error matching
     return "Recipe 文本生成超时：模型在规定时间内未返回结果，请稍后重试。本轮未继续执行下游节点。"; // i18n-exempt -- transport fallback
   }
-  if (/cancel|取消|超时/i.test(text)) return "画布操作已取消，没有应用到画布。";
+  if (/cancel|timed out|取消|超时/i.test(text)) return "The canvas action was cancelled and was not applied to the canvas."; // i18n-exempt: matches Chinese input
   // Switching models changes the output and billing, so the user picks it; the agent must not swap and rerun.
   if (isUnavailableModelError(text)) {
-    return "当前选择的生成模型不可用，请从当前画布支持的模型中选择一个，我再按你的选择修改。";
+    return "The selected generation model is unavailable. Pick one of the models this canvas supports and I will update it with your choice.";
   }
   if (/planning_text|input_text|semanticOutputRole|prompt_for/.test(text)) {
-    return "当前文本需要先作为生成提示词连接到图片节点，我会按可执行的提示词来源来处理。";
+    return "This text must first be connected to the image node as a generation prompt. I will use a valid prompt source.";
   }
-  if (/link_type .*not valid|not valid for .*->|cannot connect|不支持.*连接/i.test(text)) {
-    return "这两个节点不能用刚才的方式连接，我会换成画布支持的连接方式。";
+  if (/link_type .*not valid|not valid for .*->|cannot connect|不支持.*连接/i.test(text)) { // i18n-exempt: matches Chinese input
+    return "These two nodes cannot be connected that way. I will use a link type the canvas supports.";
   }
-  if (/(source node not found|target node not found|node not found|节点.*不存在|没找到.*节点)/i.test(text)) {
-    return "我没找到要操作的节点，请先选中节点，或告诉我具体是哪一个。";
+  if (/(source node not found|target node not found|node not found|节点.*不存在|没找到.*节点)/i.test(text)) { // i18n-exempt: matches Chinese input
+    return "I could not find the node to act on. Select a node first, or tell me which one.";
   }
-  if (/fields are not editable|not editable|不能编辑/i.test(text)) {
-    return "这个节点的部分内容不能直接修改，我会改用它支持的编辑方式。";
+  if (/fields are not editable|not editable|不能编辑/i.test(text)) { // i18n-exempt: matches Chinese input
+    return "Some content of this node cannot be edited directly. I will use an editing method it supports.";
   }
   if (CANVAS_PROTOCOL_DETAIL_PATTERN.test(text)) {
-    return "画布操作没有完成，我会根据当前画布规则换一种可执行方式再试。";
+    return "The canvas action did not complete. I will try another way that follows the current canvas rules.";
   }
   return text.length > 140 ? `${text.slice(0, 140)}...` : text;
 }

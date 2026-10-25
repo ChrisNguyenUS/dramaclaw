@@ -35,9 +35,9 @@ describe("unavailable model failures", () => {
 
   it("asks the user to pick a model instead of promising to switch it", () => {
     const message = canvasCommandUserMessageFromResult(errors, []);
-    expect(message).toContain("生成模型不可用");
-    expect(message).toContain("选择");
-    expect(message).not.toContain("我会改用");
+    expect(message).toContain("generation model is unavailable");
+    expect(message).toContain("Pick one");
+    expect(message).not.toContain("I will switch");
   });
 
   it("tells the agent not to change the model or rerun without the user's choice", () => {

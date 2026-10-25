@@ -79,7 +79,7 @@ function recoverableWorkflowActions(
       // A downstream action blocked by a failed dependency was recorded for
       // visibility, but has never been submitted. Do not surface it as an
       // independent retry target or create another waiting progress item.
-      if (action.status === "blocked" && String(action.error || "").startsWith("跳过 ")) { // i18n-exempt -- workflow payload
+      if (action.status === "blocked" && (String(action.error || "").startsWith("Skipped ") || String(action.error || "").startsWith("跳过 "))) { // i18n-exempt: also matches runs persisted with the Chinese prefix
         return false;
       }
       return !isNodeActionGenerationPending(action.node_id, action.action);
@@ -263,7 +263,7 @@ export function WorkflowRunRecoveryBar({
         { projectId, canvasId },
       );
       if (result.errors.length > 0) {
-        setError(result.errors[0] ?? "恢复执行失败");
+        setError(result.errors[0] ?? "Failed to resume the run");
       }
       await refresh();
     } catch (resumeError) {
@@ -293,7 +293,7 @@ export function WorkflowRunRecoveryBar({
         { projectId, canvasId },
       );
       if (result.errors.length > 0) {
-        setError(result.errors[0] ?? "节点重试失败");
+        setError(result.errors[0] ?? "Failed to retry the nodes");
       }
       await refresh();
     } catch (retryError) {
@@ -322,7 +322,7 @@ export function WorkflowRunRecoveryBar({
           node_id: action.node_id,
           action: action.action,
           status: "skipped" as const,
-          error: "用户选择跳过安全审核失败节点", // i18n-exempt -- workflow payload
+          error: "User chose to skip the node that failed safety review",
         }));
       const updated = await updateFreezoneWorkflowRun(projectId, canvasId, run.run_id, {
         action_updates: updates,
@@ -339,9 +339,9 @@ export function WorkflowRunRecoveryBar({
   return (
     <div className="pointer-events-auto absolute left-1/2 top-4 z-30 flex max-w-[calc(100%-32px)] -translate-x-1/2 items-center gap-3 rounded-md border border-border/70 bg-background/95 px-3 py-2 shadow-lg backdrop-blur">
       <div className="min-w-0 text-sm">
-        <div className="truncate font-medium">发现未完成的工作流</div>
+        <div className="truncate font-medium">Unfinished workflow found</div>
         <div className="truncate text-xs text-muted-foreground">
-          已完成 {completedCount}/{run.actions.length}，剩余 {nodeIds.length} 个节点
+          {completedCount}/{run.actions.length} done, {nodeIds.length} nodes left
         </div>
         {error && <div className="mt-1 max-w-[420px] truncate text-xs text-destructive">{error}</div>}
       </div>
@@ -370,20 +370,20 @@ export function WorkflowRunRecoveryBar({
           disabled={busy}
         >
           <RotateCcw className="size-4" />
-          仅重试失败
+          Retry failed only
         </Button>
       )}
       <Button type="button" size="sm" onClick={() => void handleResume()} disabled={busy}>
         {busy ? <LoaderCircle className="size-4 animate-spin" /> : <RotateCcw className="size-4" />}
-        继续下游
+        Continue downstream
       </Button>
       <Button
         type="button"
         variant="ghost"
         size="icon-sm"
         onClick={() => setDismissedRunId(run.run_id)}
-        aria-label="暂时忽略"
-        title="暂时忽略"
+        aria-label="Dismiss for now"
+        title="Dismiss for now"
       >
         <X className="size-4" />
       </Button>

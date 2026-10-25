@@ -234,7 +234,7 @@ function buildCanvasCommandToolResultPayload({
   const userMessage = accepted
     ? undefined
     : cancelled
-    ? "画布操作已取消，没有应用到画布。"
+    ? "The canvas action was cancelled and was not applied to the canvas."
     : canvasApplyStatus === "pending"
       ? reconciliationPending ? workflowReconciliationPendingMessage() : workflowResultSyncPendingMessage()
     : canvasApplyStatus === "failed"
@@ -279,11 +279,11 @@ function buildCanvasCommandToolResultPayload({
     message: accepted
       ? "Canvas command was submitted and is running in the background."
       : cancelled
-      ? "画布操作已取消，没有应用到画布。"
+      ? "The canvas action was cancelled and was not applied to the canvas."
       : canvasApplyStatus === "pending"
         ? userMessage ?? workflowResultSyncPendingMessage()
       : canvasApplyStatus === "failed"
-        ? userMessage ?? "画布操作没有完成，我会换一种方式再试。"
+        ? userMessage ?? "The canvas action did not complete. I will try another way."
         : "Frontend executor reported the canvas command result.",
     ...(userMessage ? { user_message: userMessage } : {}),
     ...(agentHint ? { agent_hint: agentHint } : {}),

@@ -11606,7 +11606,7 @@ function createThinkingCanvasContextActivity(turnId: string): CanvasContextActiv
 }
 
 function canvasContextActivityIsValidation(activity: CanvasContextActivity): boolean {
-  return activity.labels.includes(CANVAS_CONTEXT_REQUEST_LABELS.validate_canvas_commands) || activity.labels.includes("命令校验"); // i18n-exempt: matches FreezoneShell label
+  return activity.labels.includes(CANVAS_CONTEXT_REQUEST_LABELS.validate_canvas_commands) || activity.labels.includes("Command check") || activity.labels.includes("命令校验"); // i18n-exempt: matches FreezoneShell label
 }
 
 function canvasCommandAnchorEndIndex(text: string, anchorTextPrefix?: string | null): number {
@@ -11649,6 +11649,7 @@ function canvasCommandSemanticAnchorIndex(text: string, event: CanvasCommandSurf
     event.kind === "context" &&
     (
       event.activity.labels.includes(CANVAS_CONTEXT_REQUEST_LABELS.validate_canvas_commands) ||
+      event.activity.labels.includes("Command check") ||
       event.activity.labels.includes("命令校验") // i18n-exempt: matches FreezoneShell label
     )
   ) {
@@ -11682,7 +11683,7 @@ function canvasCommandSemanticAnchorIndex(text: string, event: CanvasCommandSurf
 }
 
 function canvasContextReadSemanticAnchorIndex(text: string, activity: CanvasContextActivity): number | null {
-  if (!activity.labels.some((label) => label !== CANVAS_CONTEXT_REQUEST_LABELS.validate_canvas_commands && label !== "命令校验")) { // i18n-exempt: matches FreezoneShell label
+  if (!activity.labels.some((label) => label !== CANVAS_CONTEXT_REQUEST_LABELS.validate_canvas_commands && label !== "Command check" && label !== "命令校验")) { // i18n-exempt: matches FreezoneShell label
     return null;
   }
   const requestMarkers = [

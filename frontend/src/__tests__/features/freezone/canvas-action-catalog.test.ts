@@ -351,7 +351,7 @@ describe("canvas action catalog", () => {
           action: "run_scene360_tool",
           execution: "frontend_node",
           command_type: "run_node_action",
-          description: expect.stringContaining("全景"),
+          description: expect.stringContaining("panorama"),
         }),
       ]),
     );
@@ -882,8 +882,8 @@ describe("canvas action catalog", () => {
         action: "run_skill",
         command_type: "run_node_action",
         can_run_now: false,
-        blocked_reasons: ["sketch 输入尚未就绪：上游草图节点缺少 imageUrl。"],
-        instruction: expect.stringContaining("不要 emit run_node_action"),
+        blocked_reasons: ["sketch input is not ready: the upstream sketch node has no imageUrl."],
+        instruction: expect.stringContaining("do not emit run_node_action"),
         preconditions: [
           expect.objectContaining({
             type: "required_upstream_output",
@@ -1002,13 +1002,13 @@ describe("canvas action catalog", () => {
     expect(splitAction).toMatchObject({
       execution: "manual_ui",
       command_type: "run_node_action",
-      description: expect.stringContaining("分格抽取"),
+      description: expect.stringContaining("panel extraction"),
       parameters: {
         node_id: "image-a",
         tool_type: "split-storyboard",
       },
     });
-    expect(serialStoryboardAction?.description).toContain("不是分格抽取");
+    expect(serialStoryboardAction?.description).toContain("This is not panel extraction");
   });
 
   it("combines frontend UI command capabilities with business action capabilities", () => {
@@ -1147,8 +1147,8 @@ describe("canvas action catalog", () => {
     const mattingCapability = catalog.frontend_command_catalog.find(
       (item) => item.id === "ui.run_matting_tool",
     );
-    expect(mattingCapability?.frontend_mapping?.description).toContain("去背景");
-    expect(mattingCapability?.frontend_mapping?.description).toContain("透明背景");
+    expect(mattingCapability?.frontend_mapping?.description).toContain("remove background");
+    expect(mattingCapability?.frontend_mapping?.description).toContain("transparent background");
     expect(catalog.frontend_command_catalog.map((item) => item.id)).toContain("ui.run_grid_product_three_view");
     expect(catalog.frontend_command_catalog.map((item) => item.id)).toContain("ui.generate_video");
     expect(catalog.frontend_command_catalog.map((item) => item.id)).toContain("ui.generate_audio");
@@ -1243,17 +1243,17 @@ describe("canvas action catalog", () => {
       }),
     });
     expect(catalog.canvas_action_catalog.find((item) => item.id === "ui.open_multi_angle_tool")).toMatchObject({
-      display_name: expect.stringContaining("多维度"),
+      display_name: expect.stringContaining("Multi-angle"),
       frontend_mapping: expect.objectContaining({
-        description: expect.stringContaining("多维度"),
+        description: expect.stringContaining("Multi-angle"),
       }),
     });
     expect(catalog.canvas_action_catalog.find((item) => item.id === "ui.run_scene360_tool")).toMatchObject({
-      display_name: expect.stringContaining("全景"),
+      display_name: expect.stringContaining("panorama"),
       execution: "frontend_node",
       frontend_mapping: expect.objectContaining({
         action: "run_scene360_tool",
-        description: expect.stringContaining("全景"),
+        description: expect.stringContaining("panorama"),
       }),
     });
     expect(catalog.canvas_action_catalog.find((item) => item.id === "freezone.image.to_3gs")).toMatchObject({
