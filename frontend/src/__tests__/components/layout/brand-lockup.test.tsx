@@ -16,9 +16,12 @@ function branding(updatedAt: string) {
 }
 
 describe("BrandLockup", () => {
-  it("always shows DramaClaw and renders organization branding only at xl", () => {
+  // Manna hook: the header wordmark is the Manna brand, not DramaClaw (attribution moved to
+  // the status bar "Powered by DramaClaw").
+  it("always shows the Manna wordmark and renders organization branding only at xl", () => {
     const { container } = render(<BrandLockup value={branding("2026-08-21T10:00:00Z")} />);
-    expect(container.querySelector('img[src="/brand/dramaclaw-wordmark.png"]')).not.toBeNull();
+    expect(container.querySelector('img[src="/brand/manna-wordmark.svg"]')).not.toBeNull();
+    expect(container.querySelector('img[src="/brand/dramaclaw-wordmark.png"]')).toBeNull();
     const organization = screen.getByTestId("organization-brand");
     const logo = organization.querySelector("img");
     expect(logo).toHaveAttribute("src", logoUrl);

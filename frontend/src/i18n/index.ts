@@ -6,6 +6,7 @@ import HttpBackend from "i18next-http-backend";
 import { useAppStore } from "@/stores/app-store";
 import { BUILD_ID } from "@/lib/app-version";
 import { SUPPORTED, normalize, type Supported } from "./languages";
+import { applyLocaleOverrides, rebrandTranslations } from "@/manna/brand"; // Manna hook
 
 export { SUPPORTED, normalize, type Supported };
 
@@ -37,6 +38,11 @@ i18n
       // 用 BUILD_ID 而非 APP_VERSION —— 后者在 CI 不注入时是个固定默认值，两次发版
       // 长得一样，缓存就破不掉了。
       loadPath: `/locales/{{lng}}/{{ns}}.json?v=${encodeURIComponent(BUILD_ID)}`,
+      // Manna hook: rebrand product names and apply English overrides on every loaded file.
+      parse: (data: string, languages?: string | string[]) =>
+        rebrandTranslations(
+          applyLocaleOverrides(JSON.parse(data), [languages ?? ""].flat()[0] ?? ""),
+        ),
     },
     interpolation: {
       escapeValue: false,

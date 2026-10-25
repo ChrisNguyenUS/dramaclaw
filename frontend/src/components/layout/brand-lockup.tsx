@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import type { OrgBrandingResponse } from "@/types/org-branding";
+import { MANNA_BRAND } from "@/manna/brand"; // Manna hook
 
 function OrganizationBrand({ logoUrl }: { logoUrl: string }) {
   const [failed, setFailed] = useState(false);
@@ -33,7 +34,7 @@ export function BrandLockup({ value }: {
   return (
     <span className="flex min-w-0 shrink-0 items-center">
       <img
-        src="/brand/dramaclaw-wordmark.png"
+        src={MANNA_BRAND.wordmarkSrc}
         alt=""
         aria-hidden="true"
         className="h-[22.7px] w-auto max-w-[113px] object-contain"

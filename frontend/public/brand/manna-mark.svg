@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- Placeholder favicon until the final Manna logo file is supplied. -->
+  <rect width="64" height="64" rx="14" fill="#111111"/>
+  <path fill="#ffffff" d="M14 48V16h7l11 18 11-18h7v32h-7V29l-9 15h-4l-9-15v19z"/>
+</svg>

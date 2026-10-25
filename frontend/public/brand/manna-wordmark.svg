@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="26" viewBox="0 0 128 26" role="img" aria-label="Manna Studio">
+  <!-- Placeholder wordmark until the final Manna logo file is supplied. -->
+  <g fill="#ffffff">
+    <path d="M2 21V5h3.2l4.3 7.4L13.8 5H17v16h-3.1V11l-3.6 6.2H8.7L5.1 11v10z"/>
+    <text x="21" y="20" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="17" font-weight="700" letter-spacing="0.2">anna</text>
+    <text x="64" y="20" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="17" font-weight="400" fill-opacity="0.72">Studio</text>
+  </g>
+</svg>

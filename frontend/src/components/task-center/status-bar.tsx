@@ -16,6 +16,7 @@ import { FREEZONE_DOCK_OFFSET_ANIMATED_STYLE } from "@/features/freezone/dockOff
 import { APP_VERSION } from "@/lib/app-version";
 import { cn } from "@/lib/utils";
 import type { StreamHealth, TaskState } from "@/task-center/types";
+import { PoweredByDramaClaw } from "@/manna/powered-by"; // Manna hook
 
 const HEALTH_COLOR: Record<StreamHealth, string> = {
   connecting: "text-muted-foreground",
@@ -177,6 +178,7 @@ export function TaskStatusBar({ onOpenPikoStation }: TaskStatusBarProps) {
             </span>
           </span>
         ) : null}
+        <PoweredByDramaClaw />
       </div>
       <div className="flex shrink-0 items-center gap-2 text-muted-foreground">
         {onOpenPikoStation ? (
