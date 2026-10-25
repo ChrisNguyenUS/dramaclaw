@@ -170,6 +170,10 @@ PROVIDER_PRESETS: dict[str, dict[str, Any]] = {
     "codex": {"label": "Codex", "type": 57, "base_url": "https://chatgpt.com"},
 }
 
+from novelvideo.manna_ext.providers import MANNA_PROVIDER_PRESETS  # noqa: E402  Manna hook
+
+PROVIDER_PRESETS.update(MANNA_PROVIDER_PRESETS)
+
 
 @dataclass(frozen=True)
 class NewApiProvisionerConfig:
