@@ -740,6 +740,8 @@ function isRetryableWorkflowActionError(error: string | null | undefined): boole
     "队列已满", // i18n-exempt: matches Chinese backend error
     "队列的任务已达", // i18n-exempt: matches Chinese backend error
     "queue is full",
+    "queue limit",
+    "reached your personal limit",
     "lane is full",
   ]
     .some((marker) => normalized.includes(marker));

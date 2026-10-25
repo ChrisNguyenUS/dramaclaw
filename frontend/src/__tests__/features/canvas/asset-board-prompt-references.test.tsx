@@ -79,8 +79,8 @@ describe('详情提示词的 @引用 chip', () => {
 
     const detail = detailPanel();
     // @图1 / @图2 各渲染一个 chip，缩略图按连线顺序对应上游 A / B。
-    const chip1 = within(detail).getByRole('button', { name: '图1' });
-    const chip2 = within(detail).getByRole('button', { name: '图2' });
+    const chip1 = within(detail).getByRole('button', { name: 'Image 1' });
+    const chip2 = within(detail).getByRole('button', { name: 'Image 2' });
     expect(within(chip1).getByRole('img')).toHaveAttribute('src', '/static/a.png');
     expect(within(chip2).getByRole('img')).toHaveAttribute('src', '/static/b.png');
     // 非引用文本原样。
@@ -92,8 +92,8 @@ describe('详情提示词的 @引用 chip', () => {
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
     fireEvent.click(screen.getByRole('button', { name: '生成图' }));
 
-    const chip = within(detailPanel()).getByRole('button', { name: '图1' });
-    expect(screen.getAllByRole('img', { name: '图1' })).toHaveLength(1);
+    const chip = within(detailPanel()).getByRole('button', { name: 'Image 1' });
+    expect(screen.getAllByRole('img', { name: 'Image 1' })).toHaveLength(1);
     fireEvent.mouseEnter(chip.parentElement as HTMLElement);
     // 预览图是第二个同源 img（chip 缩略图 + portal 大图）。
     const previews = screen.getAllByRole('img').filter((img) => img.getAttribute('src') === '/static/a.png');
@@ -108,7 +108,7 @@ describe('详情提示词的 @引用 chip', () => {
     fireEvent.click(screen.getByRole('button', { name: '生成图' }));
 
     const detail = detailPanel();
-    expect(within(detail).queryByRole('button', { name: '图9' })).not.toBeInTheDocument();
+    expect(within(detail).queryByRole('button', { name: 'Image 9' })).not.toBeInTheDocument();
     expect(within(detail).getByText(/用 @图9 试试/)).toBeInTheDocument();
   });
 
@@ -116,7 +116,7 @@ describe('详情提示词的 @引用 chip', () => {
     render(<AssetBoardView visible onLocateNode={vi.fn()} />);
     fireEvent.click(screen.getByRole('button', { name: '生成图' }));
 
-    const chip = within(detailPanel()).getByRole('button', { name: '图1' });
+    const chip = within(detailPanel()).getByRole('button', { name: 'Image 1' });
     expect(within(chip.parentElement as HTMLElement).queryByRole('button', { name: /取消引用|移除|detach/i }))
       .not.toBeInTheDocument();
   });

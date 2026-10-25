@@ -12,6 +12,7 @@ import {
 import { MapPin, PenLine } from 'lucide-react';
 
 import type { AssetBoardReference } from '@/features/canvas/domain/assetBoard';
+import { localizeMentionLabel } from '@/features/canvas/nodes/mentionLabels';
 import { cn } from '@/lib/utils';
 
 // 菜单项样式（与 AssetBoardDetailToolbar 的「...」菜单项同款：rounded-[6px]、
@@ -114,10 +115,10 @@ export function AssetBoardReferenceThumbMenu({
       <button
         ref={triggerRef}
         type="button"
-        aria-label={reference.label}
+        aria-label={localizeMentionLabel(reference.label)}
         aria-haspopup="menu"
         aria-expanded={open}
-        title={reference.label}
+        title={localizeMentionLabel(reference.label)}
         onClick={() => {
           if (onThumbClick) {
             onThumbClick();
@@ -135,7 +136,7 @@ export function AssetBoardReferenceThumbMenu({
       >
         <img
           src={reference.thumbnailUrl}
-          alt={reference.label}
+          alt={localizeMentionLabel(reference.label)}
           loading="lazy"
           draggable={false}
           className="h-full w-full object-cover"
@@ -144,7 +145,7 @@ export function AssetBoardReferenceThumbMenu({
       {open && (
         <div
           role="menu"
-          aria-label={`${reference.label} actions`}
+          aria-label={`${localizeMentionLabel(reference.label)} actions`}
           className="absolute left-0 top-full z-50 mt-1.5 min-w-[120px] rounded-md border border-white/10 bg-[#2e2e2e] p-1 text-white/85 shadow-xl"
         >
           <button

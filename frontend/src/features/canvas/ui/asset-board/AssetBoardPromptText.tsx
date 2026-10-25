@@ -12,6 +12,7 @@ import {
 } from '@/features/canvas/domain/promptReferences';
 import type { CanvasNode } from '@/features/canvas/domain/canvasNodes';
 import { buildMentionRegex } from '@/lib/mention-markers';
+import { localizeMentionLabel } from '@/features/canvas/nodes/mentionLabels';
 
 /**
  * 提示词里的引用 chip（只读）：缩略图方块 + 「图片N」标签，hover 在上方浮出大图预览。
@@ -50,8 +51,8 @@ function PromptReferenceChip({
       <Tag
         ref={triggerRef as never}
         {...(clickable ? { type: 'button' as const, onClick: () => onOpen?.(target) } : {})}
-        aria-label={target.label}
-        title={target.label}
+        aria-label={localizeMentionLabel(target.label)}
+        title={localizeMentionLabel(target.label)}
         className={`inline-flex items-center gap-1 rounded-[6px] border border-white/15 bg-white/10 py-0.5 pl-0.5 pr-1.5 align-middle text-[12px] leading-4 text-white/85 ${
           clickable ? 'cursor-pointer transition-colors hover:bg-white/20' : ''
         }`}
@@ -59,13 +60,13 @@ function PromptReferenceChip({
         {previewUrl ? (
           <img
             src={previewUrl}
-            alt={target.label}
+            alt={localizeMentionLabel(target.label)}
             className="h-4 w-4 shrink-0 rounded-[3px] object-cover"
           />
         ) : (
           <Music className="h-3.5 w-3.5 shrink-0 text-white/70" aria-hidden />
         )}
-        {target.label}
+        {localizeMentionLabel(target.label)}
       </Tag>
       {anchor &&
         previewUrl &&

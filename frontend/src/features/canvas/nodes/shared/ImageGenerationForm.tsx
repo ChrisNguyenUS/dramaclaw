@@ -70,6 +70,7 @@ import {
   NODE_TEXT_CONTROL_ICON_CLASS,
   NODE_TEXT_CONTROL_TRIGGER_CLASS,
 } from '@/features/canvas/ui/nodeControlStyles';
+import { TRANSLATE_PROMPT_TITLE, UPSTREAM_CONTENT_PLACEHOLDER } from '@/features/canvas/nodes/shared/promptFormCopy';
 
 const COUNT_OPTIONS: ReadonlyArray<ImageGenCount> = [1, 2, 4];
 
@@ -744,7 +745,7 @@ export const ImageGenerationForm = memo((props: ImageGenerationFormProps) => {
         placeholder={
           promptPlaceholder
           ?? (upstreamTextJoined.length > 0
-            ? 'Upstream content is wired in. Add more prompt detail…'
+            ? UPSTREAM_CONTENT_PLACEHOLDER
             : 'Describe the image you want, use @ to reference assets')
         }
         className={`nodrag nowheel min-h-0 w-full flex-1 overflow-y-auto whitespace-pre-wrap break-words border-none bg-transparent px-3 py-2 text-sm leading-6 text-text-dark outline-none ${CANVAS_NODE_INPUT_PLACEHOLDER_CLASS}`}
@@ -791,7 +792,7 @@ export const ImageGenerationForm = memo((props: ImageGenerationFormProps) => {
           )}
           <button
             type="button"
-            title="Translate prompt (Chinese ↔ English)"
+            title={TRANSLATE_PROMPT_TITLE}
             disabled={isTranslatingPrompt || isGenerating || prompt.trim().length === 0}
             onClick={(event) => {
               event.stopPropagation();

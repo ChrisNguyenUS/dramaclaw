@@ -99,7 +99,7 @@ describe("apiCall backend errors", () => {
       name: "ProjectQueueLimitError",
       queueKind: "default",
       limitScope: "project",
-      message: "当前项目默认队列已满",
+      message: "The current project's default queue is full",
     });
     await expect(promise).rejects.toBeInstanceOf(ProjectQueueLimitError);
   });
@@ -141,15 +141,15 @@ describe("apiCall backend errors", () => {
       name: "ProjectQueueLimitError",
       queueKind: "default",
       limitScope: "user",
-      message: "你在当前默认队列的任务已达个人上限",
+      message: "Your tasks in the current default queue have reached your personal limit",
     });
     await expect(promise).rejects.toBeInstanceOf(ProjectQueueLimitError);
   });
 
   it.each([
-    ["channel", "organization", "当前组织视频队列已满"],
-    ["platform", "platform", "平台视频队列已满"],
-    ["global_lane_queue", "node", "当前节点视频队列已满"],
+    ["channel", "organization", "The organization's video queue is full"],
+    ["platform", "platform", "The platform video queue is full"],
+    ["global_lane_queue", "node", "This node's video queue is full"],
   ] as const)("preserves the %s lane scope from EE", (limitScope, scopeKind, message) => {
     const error = errorFromBackendBody(
       429,

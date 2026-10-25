@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils';
 
 import { useEstimatedProgress } from '../useEstimatedProgress';
 import { AssetBoardReferenceThumbMenu } from './AssetBoardReferenceThumbMenu';
+import { localizeMentionLabel } from '@/features/canvas/nodes/mentionLabels';
 import { writeBoardReferenceDragPayload } from './boardReferenceDrag';
 
 interface AssetBoardCardProps {
@@ -411,8 +412,8 @@ export function AssetBoardCard({
                   <button
                     key={refNodeId ?? `own:${ref.thumbnailUrl}`}
                     type="button"
-                    aria-label={ref.label}
-                    title={ref.label}
+                    aria-label={localizeMentionLabel(ref.label)}
+                    title={localizeMentionLabel(ref.label)}
                     onClick={(event) => {
                       event.stopPropagation();
                       onPreviewImage(ref.thumbnailUrl);
@@ -421,7 +422,7 @@ export function AssetBoardCard({
                     // 圆角但不发圆，是用户拍板的手感。
                     className="h-10 w-10 shrink-0 overflow-hidden rounded-[5px] border border-border"
                   >
-                    <img src={ref.thumbnailUrl} alt={ref.label} loading="lazy" draggable={false} className="h-full w-full object-cover" />
+                    <img src={ref.thumbnailUrl} alt={localizeMentionLabel(ref.label)} loading="lazy" draggable={false} className="h-full w-full object-cover" />
                   </button>
                 );
               }

@@ -136,12 +136,12 @@ export const AudioNode = memo(({ id, data, selected, width, height }: AudioNodeP
                 isGenerating: false,
                 generationStartedAt: null,
                 voiceAvailable: false,
-                generationError: '未选择可用自定义声线，已跳过生成', // i18n-exempt -- workflow payload
+                generationError: 'No usable custom voice selected. Generation skipped.',
               });
               publishNodeActionSuccess(requestId, id, action, {
                 skipped: true,
                 reason: 'missing_custom_voice',
-                agent_instruction: '未选择自定义声线，本音频节点已跳过，继续其它工作流节点。', // i18n-exempt -- agent protocol
+                agent_instruction: 'No custom voice is selected, so this audio node was skipped. Continue with the other workflow nodes.',
               });
               return;
             }

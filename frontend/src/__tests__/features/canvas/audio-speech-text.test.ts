@@ -64,6 +64,27 @@ describe('extractSpeakableAudioText', () => {
     expect(extractSpeakableAudioText(instruction)).toBe('');
   });
 
+  it.each([
+    'Generate a voiceover from the script',
+    'generate narration audio based on the script.',
+    'Please create a voice-over using the ad copy',
+    'Based on the script, generate the narration audio',
+    'Using this copy, make a voiceover',
+  ])('rejects the English narration-generation instruction %j', (instruction) => {
+    expect(isSpeechGenerationInstruction(instruction)).toBe(true);
+    expect(extractSpeakableAudioText(instruction)).toBe('');
+  });
+
+  it.each([
+    'The city sleeps as the rain falls.',
+    'Make no mistake: this voice will be heard.',
+    'Generate excitement from the very first scene.',
+    'From the script of fate, nobody escapes.',
+  ])('keeps ordinary English narration %j speakable', (text) => {
+    expect(isSpeechGenerationInstruction(text)).toBe(false);
+    expect(extractSpeakableAudioText(text)).toBe(text);
+  });
+
   it('rejects workflow narration placeholders instead of speaking them literally', () => {
     expect(extractSpeakableAudioText('这是短剧的第一段旁白')).toBe('');
     expect(extractSpeakableAudioText('This is the second narration')).toBe('');

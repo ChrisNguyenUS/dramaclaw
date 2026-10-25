@@ -236,7 +236,7 @@ vi.mock("react-i18next", () => ({
         "settings.freezoneCatalog.newSkill.schemaVersion": "Schema 版本",
         "settings.freezoneCatalog.newSkill.version": "版本",
         "settings.freezoneCatalog.newSkill.allowedRecipeIds": "关联 Recipes",
-        "settings.freezoneCatalog.newSkill.allowedRecipeIdsPlaceholder": "Enter Recipe ID",
+        "settings.freezoneCatalog.newSkill.allowedRecipeIdsPlaceholder": "输入 Recipe ID",
         "settings.freezoneCatalog.newSkill.allowedRecipeIdsHint": "动态规划时使用",
         "settings.freezoneCatalog.newSkill.inputParameters": "开始前选项",
         "settings.freezoneCatalog.newSkill.inputParametersEmpty": "没有选项",

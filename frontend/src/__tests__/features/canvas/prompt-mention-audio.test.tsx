@@ -27,11 +27,11 @@ describe("PromptMentionEditor — 音频引用 chip", () => {
     const chip = container.querySelector(".mention-chip");
     expect(chip).not.toBeNull();
     // Visible label is capped at 10 chars + ellipsis.
-    expect(chip?.querySelector(".mention-chip-label")?.textContent).toBe("音频_long-vo…");
+    expect(chip?.querySelector(".mention-chip-label")?.textContent).toBe("Audio_long…");
     // ...but the serialized token stays the numbered name (what reaches the backend).
     expect(chip?.getAttribute("data-name")).toBe("音频1");
     // Full name remains available in the tooltip.
-    expect(chip?.getAttribute("title")).toContain("音频_long-voice-clip-name.mp3");
+    expect(chip?.getAttribute("title")).toContain("Audio_long-voice-clip-name.mp3");
   });
 
   it("renders a clickable play control carrying the audio url", () => {
@@ -46,15 +46,15 @@ describe("PromptMentionEditor — 音频引用 chip", () => {
   });
 
   it("mentionChipLabel appends filename only for audio; image keeps its base label", () => {
-    expect(mentionChipLabel(audioCandidate)).toBe("音频_long-voice-clip-name.mp3");
+    expect(mentionChipLabel(audioCandidate)).toBe("Audio_long-voice-clip-name.mp3");
     expect(
       mentionChipLabel({ key: "I", name: "图片2", imageUrl: "x", index: 2 }),
-    ).toBe("图片");
+    ).toBe("Image");
   });
 
   it("truncateChipLabel caps at 10 chars and leaves short labels intact", () => {
-    expect(truncateChipLabel("音频_long-voice-clip-name.mp3")).toBe("音频_long-vo…");
-    expect(truncateChipLabel("音频_短")).toBe("音频_短");
+    expect(truncateChipLabel("Audio_long-voice-clip-name.mp3")).toBe("Audio_long…");
+    expect(truncateChipLabel("Audio_短")).toBe("Audio_短");
     expect(truncateChipLabel("1234567890")).toBe("1234567890"); // exactly 10, no ellipsis
   });
 });

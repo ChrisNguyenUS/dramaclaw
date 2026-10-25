@@ -42,11 +42,13 @@ import type {
 } from "@/api/ops";
 import { useModelTaskAccess } from "@/lib/model-task-access";
 import { useCanvasStore } from "@/stores/canvasStore";
+import { TRANSLATE_PROMPT_TITLE, UPSTREAM_CONTENT_PLACEHOLDER } from "@/features/canvas/nodes/shared/promptFormCopy";
 import { ReferenceTextChip } from "@/features/canvas/nodes/shared/ReferenceTextChip";
 import { ReferenceDetachButton } from "@/features/canvas/nodes/shared/ReferenceDetachButton";
 import {
   clampVideoDuration,
   isHappyHorseVideoModel,
+  referenceOverCapTitle,
   type ReferenceMediaCapEntry,
   type ReferenceMediaItem,
 } from "@/features/canvas/nodes/shared/videoFormOptions";
@@ -161,31 +163,33 @@ export function videoModeDisabledReason(
   //   图片参考  — 上游 1~9 张图片时可用
   //   视频编辑  — 仅上游有 1 个视频时可用
   // 不可用时返回 hover 文案（提示用户需要连接什么）。
+  // Quote the visible tab labels (node.videoNode.tabs.*) so hover text names tabs that exist.
+  const tab = (m: VideoGenMode) => `"${t(`node.videoNode.tabs.${m}`)}"`;
   if (isHappyHorseVideoModel(modelId)) {
     const { images, videos } = upstreamCounts;
     switch (mode) {
       case "textToVideo":
-        if (videos > 0) return "A video node is connected. Use \"Video editing\"";
-        if (images > 0) return "An image node is connected. Pick \"First frame\" or \"Image reference\"";
+        if (videos > 0) return `A video node is connected. Use ${tab("videoEdit")}`;
+        if (images > 0) return `An image node is connected. Pick ${tab("firstFrame")} or ${tab("imageReference")}`;
         return null;
       case "firstFrame":
-        if (videos > 0) return "A video node is connected. \"First frame\" is unavailable";
+        if (videos > 0) return `A video node is connected. ${tab("firstFrame")} is unavailable`;
         if (images === 0) return "Connect an image node (exactly 1)";
-        if (images > 1) return "\"First frame\" takes a single image only. Use \"Image reference\"";
+        if (images > 1) return `${tab("firstFrame")} takes a single image only. Use ${tab("imageReference")}`;
         return null;
       case "imageToVideo":
-        if (videos > 0) return "A video node is connected. \"Image to video\" is unavailable";
+        if (videos > 0) return `A video node is connected. ${tab("imageToVideo")} is unavailable`;
         if (images === 0) return "Connect an image node (exactly 1)";
-        if (images > 1) return "\"Image to video\" takes a single image only. Use \"Image reference\"";
+        if (images > 1) return `${tab("imageToVideo")} takes a single image only. Use ${tab("imageReference")}`;
         return null;
       case "imageReference": // 图片参考 (r2v)
-        if (videos > 0) return "A video node is connected. \"Image reference\" is unavailable";
+        if (videos > 0) return `A video node is connected. ${tab("imageReference")} is unavailable`;
         if (images === 0) return "Connect image nodes (1–9)";
-        if (images > 9) return "\"Image reference\" supports at most 9 images";
+        if (images > 9) return `${tab("imageReference")} supports at most 9 images`;
         return null;
       case "videoEdit":
         if (videos === 0) return "Connect a video node (exactly 1)";
-        if (videos > 1) return "\"Video editing\" supports exactly 1 connected video node";
+        if (videos > 1) return `${tab("videoEdit")} supports exactly 1 connected video node`;
         return null;
       default:
         return "HappyHorse doesn't support this mode";
@@ -203,9 +207,9 @@ export function videoModeDisabledReason(
     : modelId;
   const supportsVideoEdit = isVideoModeSupportedByModel("videoEdit", model);
   if (mode === "videoEdit") {
-    if (!supportsVideoEdit) return "This model doesn't support \"Video editing\"";
+    if (!supportsVideoEdit) return `This model doesn't support ${tab("videoEdit")}`;
     if (upstreamCounts.videos === 0) return "Connect a video node (exactly 1)";
-    if (upstreamCounts.videos > 1) return "\"Video editing\" supports exactly 1 connected video node";
+    if (upstreamCounts.videos > 1) return `${tab("videoEdit")} supports exactly 1 connected video node`;
     return null;
   }
   if (mode === "videoExtend") {
@@ -217,8 +221,8 @@ export function videoModeDisabledReason(
   }
   if (upstreamCounts.videos > 0 && mode !== "allReference") {
     return supportsVideoEdit
-      ? "With video upstream, only \"All-purpose reference\" or \"Video editing\" are available"
-      : "With video upstream, only \"All-purpose reference\" is available";
+      ? `With video upstream, only ${tab("allReference")} or ${tab("videoEdit")} are available`
+      : `With video upstream, only ${tab("allReference")} is available`;
   }
   if (
     mode === "textToVideo" &&
@@ -960,27 +964,11 @@ function ReferenceMediaRow({
         // 「超出当前模式上限」只在 REFERENCE_CAPS_BY_MODE 里登记过的模式生效。
         const overCap = caps != null && !withinCap;
         const modeCap = caps?.[item.kind] ?? 0;
-        const modeLabel =
-          {
-            textToVideo: "Text to video",
-            firstFrame: "First frame",
-            imageToVideo: "Image to video",
-            imageReference: "Multi-image reference",
-            firstLastFrame: "First & last frame",
-            videoEdit: "Video editing",
-            videoExtend: t("node.videoNode.tabs.videoExtend"),
-            allReference: "All-purpose reference",
-          }[genMode] ?? "the current mode";
+        const modeLabel = genMode
+          ? t(`node.videoNode.tabs.${genMode}`)
+          : "the current mode";
         const overCapTitle = overCap
-          ? `${
-              item.kind === "image"
-                ? "Image"
-                : item.kind === "video"
-                  ? "Video"
-                  : "Audio"
-            } references exceed the ${modeLabel} limit (${modeCap} ${
-              item.kind === "image" ? "images" : "clips"
-            }); this asset will not be used in this generation.`
+          ? referenceOverCapTitle(item.kind, modeLabel, modeCap)
           : undefined;
         // 首尾帧模式下，前两张图片打 首帧/尾帧 角标；超出 cap 的图片就回退到
         // 数字角标，让用户看到「这张图被忽略」的同时仍能在 prompt 里通过原序号
@@ -1623,7 +1611,7 @@ export const VideoGenerationForm = memo((props: VideoGenerationFormProps) => {
         candidates={mentionCandidates}
         placeholder={
           upstreamTextJoined.length > 0
-            ? "Upstream content attached automatically. Add more prompt details…"
+            ? UPSTREAM_CONTENT_PLACEHOLDER
             : t("node.videoNode.placeholder")
         }
         className={`nodrag nowheel min-h-0 w-full flex-1 overflow-y-auto whitespace-pre-wrap break-words border-none bg-transparent px-3 py-2 text-sm leading-6 text-text-dark outline-none ${CANVAS_NODE_INPUT_PLACEHOLDER_CLASS}`}
@@ -1700,7 +1688,7 @@ export const VideoGenerationForm = memo((props: VideoGenerationFormProps) => {
           />
           <button
             type="button"
-            title="Translate prompt (Chinese ⇄ English)"
+            title={TRANSLATE_PROMPT_TITLE}
             disabled={translateDisabled}
             onClick={(event) => {
               event.stopPropagation();

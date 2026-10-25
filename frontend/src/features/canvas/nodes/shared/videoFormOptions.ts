@@ -146,3 +146,17 @@ export function formatReferenceMediaCompilerLabel(entry: ReferenceMediaCapEntry)
       : item.nodeId;
   return `${REFERENCE_MEDIA_KIND_LABEL[item.kind]}${typeIndex}：${title}`;
 }
+
+/** Hover text for a reference asset that exceeds the current mode's cap. */
+export function referenceOverCapTitle(
+  kind: ReferenceMediaItem["kind"],
+  modeLabel: string,
+  modeCap: number,
+): string {
+  const kindLabel = kind === "image" ? "Image" : kind === "video" ? "Video" : "Audio";
+  const unit =
+    kind === "image"
+      ? modeCap === 1 ? "image" : "images"
+      : modeCap === 1 ? "clip" : "clips";
+  return `${kindLabel} references exceed the ${modeLabel} limit (${modeCap} ${unit}); this asset will not be used in this generation.`;
+}

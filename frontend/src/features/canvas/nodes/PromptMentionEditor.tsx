@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Elastic-2.0
 // Copyright (c) 2026 ClaymoreLab
+import { localizeMentionLabel } from '@/features/canvas/nodes/mentionLabels';
 import {
   forwardRef,
   useCallback,
@@ -117,10 +118,11 @@ function escapeRegex(input: string): string {
   return input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-// 前端展示用：把 mention 的「图片1 / 音频2」去掉尾号，统一显示为「图片 / 音频」。
+// Display only: strips the trailing number and shows the English kind (Image / Video / Audio).
 // 仅影响显示——序列化仍用 dataset.name（含编号），传给后端的 prompt 保持 @图片N。
 export function mentionDisplayLabel(name: string): string {
-  return name.replace(/\d+$/, '') || name;
+  const stripped = name.replace(/\d+$/, '').trim() || name;
+  return localizeMentionLabel(stripped);
 }
 
 // 音频和文本 chip 带上文件/节点显示名（图片/视频有缩略图，无需名称辅助识别）。

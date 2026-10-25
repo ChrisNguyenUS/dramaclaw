@@ -232,6 +232,23 @@ export function spawnAssetBoardImageOpNode(
   return nextNodeId;
 }
 
+// i18n-exempt-start
+/** Op labels persisted as node displayNames by earlier versions (matches displayNames persisted by earlier versions). */
+const LEGACY_ASSET_BOARD_IMAGE_OP_LABELS_ZH: Record<AssetBoardImageOpKey, string> = {
+  plotFourGrid: '剧情推演四宫格',
+  serialStoryboard25: '25宫格连贯分镜',
+  frameProjection3sLater: '画面推演 - 3秒后',
+  frameProjection5sEarlier: '画面推演 - 5秒前',
+  multiCameraGrid: '多机位九宫格',
+  scene360: '全景',
+  characterThreeView: '角色三视图生成',
+  faceThreeView: '角色脸部三视图',
+  productThreeView: '产品三视图',
+  sceneSettingSheet: '场景设定图',
+  cinematicLightCorrection: '电影级光影校正',
+};
+// i18n-exempt-end
+
 /** 在功能框里换功能：改 key + 跟着改节点名（用户没自己改过名时）。 */
 export function switchAssetBoardImageOp(nodeId: string, nextKey: AssetBoardImageOpKey): void {
   const store = useCanvasStore.getState();
@@ -247,7 +264,10 @@ export function switchAssetBoardImageOp(nodeId: string, nextKey: AssetBoardImage
     : null;
   const displayName = readString(data, 'displayName');
   const patch: Record<string, unknown> = { imageOpKey: nextKey };
-  if (!displayName || displayName === currentLabel) {
+  const legacyLabel = isAssetBoardImageOpKey(currentKey)
+    ? LEGACY_ASSET_BOARD_IMAGE_OP_LABELS_ZH[currentKey]
+    : null;
+  if (!displayName || displayName === currentLabel || displayName === legacyLabel) {
     patch.displayName = nextDef.label;
   }
   if (nextKey === 'scene360') {

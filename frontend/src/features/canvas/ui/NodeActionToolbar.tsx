@@ -1069,7 +1069,7 @@ export const NodeActionToolbar = memo(
       const { resolution } = resolveVideoUpscaleParams(parameters);
       const upscaleNodeId = createVideoUpscaleResultNode(node.id, {
         sourceUrl: url,
-        displayName: `${t("node.videoUpscale.nodeTitle")}（${VIDEO_UPSCALE_RESOLUTION_LABEL[resolution]}）`,
+        displayName: `${t("node.videoUpscale.nodeTitle")} (${VIDEO_UPSCALE_RESOLUTION_LABEL[resolution]})`,
         resolution,
       });
       if (!upscaleNodeId) {
@@ -2228,7 +2228,7 @@ export const NodeActionToolbar = memo(
                   }
                   const upscaleNodeId = createVideoUpscaleResultNode(node.id, {
                     sourceUrl: videoUrl,
-                    displayName: `${t("node.videoUpscale.nodeTitle")}（1080P）`,
+                    displayName: `${t("node.videoUpscale.nodeTitle")} (1080P)`,
                     resolution: "1080p",
                   });
                   if (!upscaleNodeId) {

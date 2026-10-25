@@ -6711,6 +6711,62 @@ describe("canvas chat commands", () => {
     }
   });
 
+  it.each([
+    ["English project queue message", "The current project's video queue is full"],
+    ["English personal limit message", "Your tasks in the current video queue have reached your personal limit"],
+    ["English organization queue message", "The organization's video queue is full"],
+    ["Chinese project queue message from the backend", "当前项目视频队列已满"], // i18n-exempt: backend may still emit Chinese
+    ["Chinese personal limit message from the backend", "你在当前视频队列的任务已达个人上限"], // i18n-exempt: backend may still emit Chinese
+  ])("retries a queue-limit failure (%s)", async (_label, queueError) => {
+    const store = useCanvasStore.getState();
+    const imageNodeId = store.addNode(
+      CANVAS_NODE_TYPES.imageGen,
+      { x: 0, y: 0 },
+      { prompt: "product shot" },
+    );
+    let attempts = 0;
+    const unsubscribe = canvasEventBus.subscribe("freezone/run-node-action", (payload) => {
+      if (!payload.requestId) return;
+      attempts += 1;
+      if (attempts < 2) {
+        canvasEventBus.publish("freezone/node-action-result", {
+          requestId: payload.requestId,
+          nodeId: payload.nodeId,
+          action: payload.action,
+          status: "error",
+          error: queueError,
+        });
+        return;
+      }
+      store.updateNodeData(payload.nodeId, { imageUrl: "/static/project/image.png" });
+      canvasEventBus.publish("freezone/node-action-result", {
+        requestId: payload.requestId,
+        nodeId: payload.nodeId,
+        action: payload.action,
+        status: "success",
+      });
+    });
+
+    try {
+      const result = await applyCanvasChatCommandsAsync(
+        extractCanvasChatCommandEnvelopes([{
+          schema_version: CANVAS_CHAT_COMMANDS_SCHEMA_VERSION,
+          commands: [{ type: "run_workflow", node_ids: [imageNodeId] }],
+        }]),
+        {
+          projectId: "project-a",
+          canvasId: "canvas-a",
+          actionTimeoutMs: 100,
+          actionRetryDelayMs: 1,
+        },
+      );
+      expect(attempts).toBe(2);
+      expect(result.errors).toEqual([]);
+    } finally {
+      unsubscribe();
+    }
+  });
+
   it("asks for a rerun instead of retrying an ended Recipe attempt", async () => {
     const store = useCanvasStore.getState();
     const imageNodeId = store.addNode(

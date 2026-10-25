@@ -163,7 +163,9 @@ export function MentionReplacePopover({
   const matchedReferenced = useMemo(
     () =>
       q
-        ? referenced.filter((c) => mentionChipLabel(c).toLowerCase().includes(q))
+        ? referenced.filter(
+            (c) => mentionChipLabel(c).toLowerCase().includes(q) || c.name.toLowerCase().includes(q),
+          )
         : referenced,
     [q, referenced],
   );

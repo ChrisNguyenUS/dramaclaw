@@ -37,6 +37,11 @@ import {
 } from '@/features/canvas/application/nodeActionResult';
 import { useUpstreamContents } from '@/features/canvas/application/useUpstreamGraph';
 import { generateWorkflowText } from '@/features/canvas/application/workflowRecipeRuntime';
+import {
+  IMAGE_TO_PROMPT_DEFAULT_CONTENT,
+  LEGACY_IMAGE_TO_PROMPT_DEFAULT_CONTENT_ZH,
+  TEXT_TO_MUSIC_DEFAULT_CONTENT,
+} from '@/features/canvas/application/textNodeModes';
 import { isSystemManagedNodeData } from '@/features/canvas/domain/mainlineNodeFlags';
 import { localizeNodeDisplayName } from '@/features/canvas/domain/nodeDisplay';
 import { NodeHeader, NODE_HEADER_FLOATING_POSITION_CLASS } from '@/features/canvas/ui/NodeHeader';
@@ -108,18 +113,9 @@ const COMPACT_OPS_PANEL_MIN_WIDTH = 480;
 
 const COMPACT_MODES = new Set<TextNodeMode>(['textToVideo', 'imageToPrompt']);
 
-// Default reverse-prompt instruction, pre-filled into the text node and sent to the model as is.
-const IMAGE_TO_PROMPT_DEFAULT_CONTENT =
-  'Generate a structured prompt from the image, including subject description, environment, lighting, camera language, and style keywords.';
-
 function countBillableTextChars(text: string): number {
   return text.replace(/[\s\u3000]+/gu, '').length;
 }
-
-// 「文字生成音乐」的默认音乐描述——点击后预填进文本节点，用户可在此基础上改。
-// Also sent to the model as is.
-const TEXT_TO_MUSIC_DEFAULT_CONTENT =
-  'Generate a modern branded electronic track (about 110 BPM) with a clean, punchy bass line, crisp electronic drums, and a polished, futuristic feel overall. The intro builds a groove with a rhythmic bass and a simple synth tone. The main section adds a steady beat and clear rhythm, keeping the tension restrained. The build adds richer layers and a brighter synth, with more drive but without getting crowded. The outro eases the drums back, leaving only the low end and ambience to fade out for a clean finish.';
 
 const SPAWN_UPLOAD_WIDTH = 320;
 
@@ -791,7 +787,10 @@ export const TextAnnotationNode = memo(({
               <textarea
                 value={
                   mode === 'imageToPrompt' || mode === 'textToVideo'
-                    ? instruction === IMAGE_TO_PROMPT_DEFAULT_CONTENT ? '' : instruction
+                    ? instruction === IMAGE_TO_PROMPT_DEFAULT_CONTENT
+                      || instruction === LEGACY_IMAGE_TO_PROMPT_DEFAULT_CONTENT_ZH
+                      ? ''
+                      : instruction
                     : content
                 }
                 onChange={(event) => {

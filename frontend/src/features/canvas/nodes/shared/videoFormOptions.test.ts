@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   formatReferenceMediaCompilerLabel,
+  referenceOverCapTitle,
   type ReferenceMediaCapEntry,
 } from "./videoFormOptions";
 
@@ -35,5 +36,19 @@ describe("formatReferenceMediaCompilerLabel", () => {
     };
 
     expect(formatReferenceMediaCompilerLabel(entry)).toBe("音频2：audio-node");
+  });
+});
+
+describe("referenceOverCapTitle", () => {
+  it("pluralizes the cap unit", () => {
+    expect(referenceOverCapTitle("image", "First Frame", 1)).toBe(
+      "Image references exceed the First Frame limit (1 image); this asset will not be used in this generation.",
+    );
+    expect(referenceOverCapTitle("image", "Image Reference", 9)).toBe(
+      "Image references exceed the Image Reference limit (9 images); this asset will not be used in this generation.",
+    );
+    expect(referenceOverCapTitle("video", "Video Edit", 1)).toContain("(1 clip)");
+    expect(referenceOverCapTitle("video", "All Reference", 3)).toContain("(3 clips)");
+    expect(referenceOverCapTitle("audio", "All Reference", 3)).toMatch(/^Audio references/);
   });
 });

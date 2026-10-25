@@ -212,7 +212,7 @@ export function FreezoneSkillRecipeSettings({
     const cleanPayload = stripCatalogMetadata(payload);
     const validation = validateFreezoneAgentConfigPayload(kind, cleanPayload);
     if (!validation.ok) {
-      toast.error(`${t("settings.freezoneCatalog.saveFailed")}：${validation.message}`);
+      toast.error(`${t("settings.freezoneCatalog.saveFailed")}: ${validation.message}`);
       return;
     }
     try {
@@ -261,7 +261,7 @@ export function FreezoneSkillRecipeSettings({
       });
       toast.success(t("settings.freezoneCatalog.deleted"));
     } catch (error) {
-      const detail = error instanceof Error && error.message ? `：${error.message}` : "";
+      const detail = error instanceof Error && error.message ? `: ${error.message}` : "";
       toast.error(`${t("settings.freezoneCatalog.deleteFailed")}${detail}`);
     }
   };
@@ -344,7 +344,7 @@ export function FreezoneSkillRecipeSettings({
       downloadJson(bundle, `${item.id}-bundle.json`);
       toast.success(t("settings.freezoneCatalog.bundleExported"));
     } catch (error) {
-      const message = error instanceof Error && error.message ? `：${error.message}` : "";
+      const message = error instanceof Error && error.message ? `: ${error.message}` : "";
       toast.error(`${t("settings.freezoneCatalog.bundleExportFailed")}${message}`);
     }
   };
@@ -398,7 +398,7 @@ export function FreezoneSkillRecipeSettings({
       }
       toast.success(t("settings.freezoneCatalog.imported"));
     } catch (error) {
-      const message = error instanceof Error && error.message ? `：${error.message}` : "";
+      const message = error instanceof Error && error.message ? `: ${error.message}` : "";
       toast.error(`${t("settings.freezoneCatalog.importFailed")}${message}`);
     } finally {
       if (importInputRef.current) {
@@ -422,7 +422,7 @@ export function FreezoneSkillRecipeSettings({
         }),
       );
     } catch (error) {
-      const message = error instanceof Error && error.message ? `：${error.message}` : "";
+      const message = error instanceof Error && error.message ? `: ${error.message}` : "";
       toast.error(`${t("settings.freezoneCatalog.bundleImportFailed")}${message}`);
     } finally {
       if (bundleImportInputRef.current) {
@@ -3469,7 +3469,7 @@ function CatalogList({
               ) : null}
               {item.customized ? (
                 <span className="shrink-0 rounded border border-white/[0.08] bg-white/[0.025] px-1.5 py-0.5 text-[10px] leading-none text-muted-foreground/70">
-                  {t("settings.freezoneCatalog.customizedShort", { defaultValue: "定制" })}
+                  {t("settings.freezoneCatalog.customizedShort", { defaultValue: "Customized" })}
                 </span>
               ) : null}
             </div>

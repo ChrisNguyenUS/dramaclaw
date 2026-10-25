@@ -213,7 +213,7 @@ describe("render plan dialog — 尽力投递 / 只重投被拒的那部分", ()
 
     await waitFor(() => expect(onDispatched).toHaveBeenCalledWith(["t0", "t1", "t2", "t3"]));
     expect(onOpenChange).toHaveBeenCalledWith(false);
-    expect(screen.queryByText(/已投/)).toBeNull();
+    expect(screen.queryByText(/Submitted/)).toBeNull();
     expect(recorded.execute).toHaveLength(1);
   });
 
@@ -231,7 +231,7 @@ describe("render plan dialog — 尽力投递 / 只重投被拒的那部分", ()
 
     await waitFor(() => expect(onDispatched).toHaveBeenCalledWith(["t0", "t1", "t2", "t3"]));
     expect(onOpenChange).toHaveBeenCalledWith(false);
-    expect(screen.queryByText(/已投/)).toBeNull();
+    expect(screen.queryByText(/Submitted/)).toBeNull();
     expect(recorded.execute).toHaveLength(1);
   });
 
@@ -250,7 +250,7 @@ describe("render plan dialog — 尽力投递 / 只重投被拒的那部分", ()
     const { onDispatched, onOpenChange } = renderDialog();
     await confirm();
 
-    expect(await screen.findByText(/已投 2 \/ 被拒 2/)).toBeTruthy();
+    expect(await screen.findByText(/Submitted 2 \/ rejected 2/)).toBeTruthy();
     expect(onDispatched).toHaveBeenCalledWith(["t0", "t1"]);
     expect(onOpenChange).not.toHaveBeenCalledWith(false);
   });
@@ -274,7 +274,7 @@ describe("render plan dialog — 尽力投递 / 只重投被拒的那部分", ()
     ];
     const { qc, onDispatched } = renderDialog();
     await confirm();
-    await screen.findByText(/已投 2 \/ 被拒 2/);
+    await screen.findByText(/Submitted 2 \/ rejected 2/);
 
     await pushTasks(qc, [task("t0", "running"), task("t1", "running")]);
     expect(recorded.execute).toHaveLength(1);
@@ -311,7 +311,7 @@ describe("render plan dialog — 尽力投递 / 只重投被拒的那部分", ()
     ];
     const { qc } = renderDialog();
     await confirm();
-    await screen.findByText(/已投 2 \/ 被拒 2/);
+    await screen.findByText(/Submitted 2 \/ rejected 2/);
     await pushTasks(qc, [task("t0", "completed"), task("t1", "completed")]);
     await waitFor(() => expect(recorded.execute).toHaveLength(2));
 
@@ -343,11 +343,11 @@ describe("render plan dialog — 尽力投递 / 只重投被拒的那部分", ()
     ];
     const { qc } = renderDialog();
     await confirm();
-    await screen.findByText(/已投 2 \/ 被拒 2/);
+    await screen.findByText(/Submitted 2 \/ rejected 2/);
     await pushTasks(qc, [task("t0", "completed"), task("t1", "completed")]);
     await waitFor(() => expect(recorded.execute).toHaveLength(2));
 
-    expect(await screen.findByRole("button", { name: "继续" })).toBeTruthy();
+    expect(await screen.findByRole("button", { name: "Continue" })).toBeTruthy();
 
     // 再喂一轮「在途下降」，不许出现第三次自动重投。
     await pushTasks(qc, [task("t0", "completed"), task("t1", "completed")]);
@@ -372,11 +372,11 @@ describe("render plan dialog — 尽力投递 / 只重投被拒的那部分", ()
     ];
     const { qc } = renderDialog();
     await confirm();
-    await screen.findByText(/已投 2 \/ 被拒 2/);
+    await screen.findByText(/Submitted 2 \/ rejected 2/);
     await pushTasks(qc, [task("t0", "completed"), task("t1", "completed")]);
     await waitFor(() => expect(recorded.execute).toHaveLength(2));
 
-    await userEvent.click(await screen.findByRole("button", { name: "继续" }));
+    await userEvent.click(await screen.findByRole("button", { name: "Continue" }));
     await waitFor(() => expect(recorded.execute).toHaveLength(3));
 
     expect(recorded.plan[2].beat_indices).toEqual([5, 6, 7, 8]);
@@ -431,8 +431,8 @@ describe("render plan dialog — 尽力投递 / 只重投被拒的那部分", ()
     renderDialog();
     await confirm();
 
-    expect(await screen.findByRole("status")).toHaveTextContent(/已投 2 \/ 被拒 2/);
-    expect(screen.queryByRole("button", { name: "继续" })).not.toBeInTheDocument();
+    expect(await screen.findByRole("status")).toHaveTextContent(/Submitted 2 \/ rejected 2/);
+    expect(screen.queryByRole("button", { name: "Continue" })).not.toBeInTheDocument();
   });
 
   it("429（一个都没投出去）仍走既有 429 路径，不当部分投递", async () => {
@@ -452,7 +452,7 @@ describe("render plan dialog — 尽力投递 / 只重投被拒的那部分", ()
 
     await waitFor(() => expect(toast.error).toHaveBeenCalled());
     expect(onDispatched).not.toHaveBeenCalled();
-    expect(screen.queryByText(/已投/)).toBeNull();
-    expect(screen.queryByRole("button", { name: "继续" })).toBeNull();
+    expect(screen.queryByText(/Submitted/)).toBeNull();
+    expect(screen.queryByRole("button", { name: "Continue" })).toBeNull();
   });
 });

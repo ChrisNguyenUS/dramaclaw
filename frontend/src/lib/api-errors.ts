@@ -102,17 +102,18 @@ export class BillingRuleNotConfiguredError extends BackendStatusError {
   }
 }
 
-// 下面这两段合成的是 Error 对象自带的 message，只在拿不到 t 的地方兜底；界面上
-// 真正显示的是 backendErrorToastMessage()，它按同样的措辞查 common.*QueueFull 词条。
-// api-errors 位于 api/client 的依赖里，把 @/i18n 拉进来会在测试里二次 init i18next，
-// 所以这里保留中文兜底，不入词条。
-// i18n-exempt-start
+// These two helpers build the Error object's own message, used only where `t` is not available;
+// what the UI actually shows is backendErrorToastMessage(), which looks up the same wording in
+// common.*QueueFull. api-errors sits in api/client's dependency graph, and pulling @/i18n in would
+// init i18next twice in tests, so the fallback stays a plain English string.
+// The retry markers for these messages live in freezone/canvasChatCommands.ts
+// (isRetryableWorkflowActionError) and must be kept in sync.
 function queueLabelForPlainMessage(queueKind: string): string {
-  if (queueKind === "default") return "默认";
-  if (queueKind === "image") return "图片";
-  if (queueKind === "video") return "视频";
-  if (queueKind === "world") return "世界";
-  if (queueKind === "ffmpeg") return "合成";
+  if (queueKind === "default") return "default";
+  if (queueKind === "image") return "image";
+  if (queueKind === "video") return "video";
+  if (queueKind === "world") return "world";
+  if (queueKind === "ffmpeg") return "compose";
   return queueKind;
 }
 
@@ -123,18 +124,17 @@ function taskQueueLimitPlainMessage(
   const queueLabel = queueLabelForPlainMessage(queueKind);
   switch (limitScope) {
     case "user":
-      return `你在当前${queueLabel}队列的任务已达个人上限`;
+      return `Your tasks in the current ${queueLabel} queue have reached your personal limit`;
     case "channel":
-      return `当前组织${queueLabel}队列已满`;
+      return `The organization's ${queueLabel} queue is full`;
     case "platform":
-      return `平台${queueLabel}队列已满`;
+      return `The platform ${queueLabel} queue is full`;
     case "global_lane_queue":
-      return `当前节点${queueLabel}队列已满`;
+      return `This node's ${queueLabel} queue is full`;
     default:
-      return `当前项目${queueLabel}队列已满`;
+      return `The current project's ${queueLabel} queue is full`;
   }
 }
-// i18n-exempt-end
 
 function taskLaneLimitScope(value: unknown): TaskLaneLimitScope | null {
   if (

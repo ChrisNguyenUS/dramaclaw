@@ -67,6 +67,9 @@ const MUSIC_INTENT =
   /(?:^|[\s_-])bgm(?:$|[\s_-])|background[_\s-]*music|背景音乐|配乐|纯音乐/i; // i18n-exempt: matches Chinese input
 const SPEECH_GENERATION_INSTRUCTION =
   /(?:根据|基于|使用|提取|将).{0,40}(?:旁白|文案|脚本|广告词).{0,40}(?:生成|制作|转换|合成).{0,12}(?:旁白|配音|语音|音频)|(?:生成|制作).{0,20}(?:旁白配音|语音音频)/i; // i18n-exempt: matches Chinese input
+// English narration-generation instructions (start-anchored so ordinary narration is not caught).
+const SPEECH_GENERATION_INSTRUCTION_EN =
+  /^(?:please\s+)?(?:generate|create|make|produce|synthesi[sz]e|convert)\b.{0,40}?\b(?:narration|voice[\s-]?over|speech|audio)\b.{0,40}?\b(?:from|based\s+on|using)\s+(?:the\s+|this\s+)?(?:script|copy|narration(?:\s+text)?|ad\s+copy)\b|^(?:based\s+on|using|from)\s+(?:the\s+|this\s+)?(?:script|copy|narration(?:\s+text)?|ad\s+copy)\b.{0,40}?\b(?:generate|create|make|produce|synthesi[sz]e)\b.{0,20}?\b(?:narration|voice[\s-]?over|speech|audio)\b/i;
 const PLACEHOLDER_SPEECH_TEXT =
   /^(?:这是|本段(?:是|为)?|该段(?:是|为)?|this\s+is\s+)?(?:短剧|视频|广告)?(?:的\s*)?(?:第\s*(?:\d+|[一二三四五六七八九十]+)\s*(?:段|条|句)\s*)?(?:(?:the\s+)?(?:first|second|third)\s+)?(?:旁白|配音|解说|narration|voiceover)(?:内容|文本)?[。.!！]?$/i; // i18n-exempt -- parser vocabulary
 
@@ -107,7 +110,8 @@ export function resolveAudioKind(data: AudioKindSource): 'speech' | 'music' {
 }
 
 export function isSpeechGenerationInstruction(value: string): boolean {
-  return SPEECH_GENERATION_INSTRUCTION.test(String(value || '').trim());
+  const text = String(value || '').trim();
+  return SPEECH_GENERATION_INSTRUCTION.test(text) || SPEECH_GENERATION_INSTRUCTION_EN.test(text);
 }
 
 function parseDurationMs(value: string): number | null {
