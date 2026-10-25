@@ -12,6 +12,7 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
+from novelvideo.manna_ext.catalog_en import apply_catalog_en  # Manna hook
 from novelvideo.freezone.workflow_schema import (
     PORTABLE_VIDEO_GENERATION_MODES,
     WORKFLOW_INTENT_SCHEMA_VERSION,
@@ -4956,7 +4957,7 @@ def _load_agent_config_items(
 
     if project_dir is None:
         project_dir = _PLUGIN_RECIPES_DIR if kind == "recipes" else _PLUGIN_SKILLS_DIR
-    fallback_items = _load_json_dir(fallback_dir)
+    fallback_items = apply_catalog_en(kind, _load_json_dir(fallback_dir))  # Manna hook
     if project_dir is not None:
         project_items = [
             {**item, "_catalog_source": "builtin"}

@@ -3600,17 +3600,17 @@ def test_image_style_templates_have_assets_and_prompts() -> None:
         # 类目是受控词表,不是自由文本 —— 图墙的筛选 tab 直接按它铺,多一个错别字
         # 就多一个只有一张卡的 tab。加风格时如果确实要新类目,在这里显式登记。
         assert item["category"] in {
-            "古装",
-            "都市",
-            "年代",
-            "生活",
-            "科幻",
-            "类型",
-            "写意",
+            "Period",
+            "Urban",
+            "Eras",
+            "Lifestyle",
+            "Sci-Fi",
+            "Genre",
+            "Artistic",
             # 第二批素材:以画法/媒介立类。
-            "动画",
-            "绘画",
-            "神话",
+            "Animation",
+            "Painting",
+            "Myth",
         }, item["id"]
         # 下限只为拦住「提示词被截成空壳/占位符」——不是质量分。第二批里 大友克洋(97)
         # 与 埃及壁画(102) 素材本身就短,原来的 120 会把两条合法风格判死。

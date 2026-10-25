@@ -1,0 +1,97 @@
+{
+  "ecommerce-ad": {
+    "name": "E-commerce Ad",
+    "description": "Plans ad shots dynamically from the product and its selling points, then generates product anchors, ad visuals, video clips, and voiceover, and composes them automatically."
+  },
+  "japanese-anime-drama-video": {
+    "name": "Japanese Anime Drama Studio",
+    "description": "Creates short anime dramas in a Japanese realistic anime style, covering youth romance, city light and shadow, missed connections and reunions, with dense dialogue in multiple language styles including Mandarin, Taiwanese Mandarin, and Japanese.",
+    "input_parameters": {
+      "total_duration": "Target duration",
+      "language_style": "Language and accent style",
+      "delivery_resolution": "Delivery resolution",
+      "series_mode": "Series format"
+    }
+  },
+  "lego-minifigure-animation-video": {
+    "name": "LEGO Minifigure Animation Short",
+    "description": "Develops a theme, characters, scenes, conflict, or reference material into a LEGO minifigure-style animated short, moving stage by stage through script outline, storyboard plan, key element anchoring, and single-shot video while keeping minifigure proportions, brick-world logic, and cross-shot consistency.",
+    "input_parameters": {
+      "total_duration": "Target duration",
+      "aspect_ratio": "Aspect ratio",
+      "dialogue_language": "Dialogue language"
+    }
+  },
+  "ling-cage-cinematic-video": {
+    "name": "Ling Cage-Style Sci-Fi Short",
+    "description": "Develops an idea, character design, reference material, or script into a semi-realistic 3D post-apocalyptic sci-fi animated short in the Ling Cage style, moving stage by stage through story script, storyboard, key elements, per-shot video, and audio layers.",
+    "input_parameters": {
+      "total_duration": "Target duration",
+      "output_language": "Output language",
+      "director_style": "Director style",
+      "asset_mode": "Asset approach",
+      "audio_mode": "Background music"
+    }
+  },
+  "outdoor-stage-duel-video": {
+    "name": "Outdoor Stage Two-Person Showdown",
+    "description": "Develops a character description, ability type, stage setting, or climax structure into an audience-POV outdoor stage showdown short between two performers, moving stage by stage through creative spec, storyboard, key elements, single-shot video, and audio layers.",
+    "input_parameters": {
+      "aspect_ratio": "Aspect ratio",
+      "resolution": "Resolution",
+      "venue_type": "Stage setting",
+      "vo_language": "Voiceover language"
+    }
+  },
+  "pixar-ip-ad-video": {
+    "name": "Pixar-Style IP Brand Ad Short",
+    "description": "Develops an IP character description, brand or prop design, ad storyline, or reference material into a Pixar-style 3D cartoon brand ad short, moving stage by stage through character attribute locking, prop anchoring, storyboard planning, video clip generation, and audio composition so characters, props, shots, and video references stay consistent.",
+    "input_parameters": {
+      "aspect_ratio": "Aspect ratio",
+      "duration": "Target duration",
+      "tone": "Narrative tone",
+      "dialogue_mode": "Dialogue needs",
+      "character_input_method": "Character source",
+      "has_brand_logo": "Brand logo end card",
+      "audio_mode": "Audio mode"
+    }
+  },
+  "retro-hong-kong-kungfu-comedy-video": {
+    "name": "Retro Hong Kong Kung Fu Pet Short",
+    "description": "Develops a person, pet, animal reference, or a single idea into a 1980s retro Hong Kong kung fu comedy short; first builds a complete workflow of script, storyboard, key elements, per-shot video, and audio layers, then hands it to the canvas workflow to run stage by stage.",
+    "input_parameters": {
+      "total_duration": "Target duration",
+      "character_input_method": "Character source",
+      "bgm_mode": "Background music",
+      "aspect_ratio": "Aspect ratio"
+    }
+  },
+  "short-drama-quick": {
+    "name": "Short Drama (Quick Test)",
+    "description": "For quickly validating the dynamic short drama workflow: story planning, character anchors, storyboard, video, voiceover, and automatic composition.",
+    "input_parameters": {
+      "visual_style": "Confirmed visual style (write \"Unspecified\" if not confirmed)"
+    }
+  },
+  "social-content-campaign": {
+    "name": "Social Content Image Set",
+    "description": "Plans social platform copy, a shared visual, and platform-adapted images dynamically from the brand, product, or campaign goal.",
+    "input_parameters": {
+      "platforms": "Publishing platforms",
+      "image_count": "Number of images",
+      "aspect_ratio": "Image aspect ratio"
+    }
+  },
+  "text-to-image-video": {
+    "name": "Text to Image to Video (Dynamic)",
+    "description": "Expands a text idea into multiple shots dynamically: generates key images first, then generates video shot by shot and composes them automatically."
+  },
+  "text-to-image": {
+    "name": "Text to Image (Dynamic)",
+    "description": "Plans and generates one or more plain images from a text request, without adding video, audio, or social platform template stages."
+  },
+  "video-tutorial": {
+    "name": "Video Explainer Tutorial",
+    "description": "Turns knowledge points, procedure steps, or product usage into a segmented explainer tutorial video."
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "period_idol": {
+    "label": "Period Idol",
+    "category": "Period"
+  },
+  "palace_intrigue": {
+    "label": "Palace Intrigue",
+    "category": "Period"
+  },
+  "wuxia": {
+    "label": "Wuxia Jianghu",
+    "category": "Period"
+  },
+  "cn_urban": {
+    "label": "Chinese Urban",
+    "category": "Urban"
+  },
+  "urban_romance": {
+    "label": "Urban Romance",
+    "category": "Urban"
+  },
+  "crime_suspense": {
+    "label": "Crime Suspense",
+    "category": "Urban"
+  },
+  "korean_muted": {
+    "label": "Korean Muted",
+    "category": "Urban"
+  },
+  "nineties": {
+    "label": "Nineties",
+    "category": "Eras"
+  },
+  "golden_age": {
+    "label": "Golden Age",
+    "category": "Eras"
+  },
+  "documentary_realism": {
+    "label": "Documentary Realism",
+    "category": "Eras"
+  },
+  "retro_narrative": {
+    "label": "Retro Narrative",
+    "category": "Eras"
+  },
+  "american_nineties": {
+    "label": "American Nineties",
+    "category": "Eras"
+  },
+  "showa_monochrome": {
+    "label": "Showa Monochrome",
+    "category": "Eras"
+  },
+  "vintage_industrial": {
+    "label": "Vintage Industrial",
+    "category": "Eras"
+  },
+  "sixties_poster": {
+    "label": "Sixties Poster",
+    "category": "Eras"
+  },
+  "hk_retro": {
+    "label": "Retro Hong Kong Cinema",
+    "category": "Eras"
+  },
+  "retro_film": {
+    "label": "Retro Film",
+    "category": "Eras"
+  },
+  "healing_life": {
+    "label": "Healing Life",
+    "category": "Lifestyle"
+  },
+  "youth_film": {
+    "label": "Youth Film",
+    "category": "Lifestyle"
+  },
+  "atompunk": {
+    "label": "Atompunk",
+    "category": "Sci-Fi"
+  },
+  "neon_punk": {
+    "label": "Neon Punk",
+    "category": "Sci-Fi"
+  },
+  "hard_scifi": {
+    "label": "Hard Sci-Fi",
+    "category": "Sci-Fi"
+  },
+  "steampunk": {
+    "label": "Steampunk",
+    "category": "Sci-Fi"
+  },
+  "biopunk": {
+    "label": "Biopunk",
+    "category": "Sci-Fi"
+  },
+  "psychological_horror": {
+    "label": "Psychological Horror",
+    "category": "Genre"
+  },
+  "cult_film": {
+    "label": "Cult Film",
+    "category": "Genre"
+  },
+  "modern_warfare": {
+    "label": "Modern Warfare",
+    "category": "Genre"
+  },
+  "wasteland_road": {
+    "label": "Wasteland Road",
+    "category": "Genre"
+  },
+  "western_cowboy": {
+    "label": "Western Cowboy",
+    "category": "Genre"
+  },
+  "neo_chinese": {
+    "label": "Neo-Chinese",
+    "category": "Artistic"
+  },
+  "high_key_absurd": {
+    "label": "High-Key Absurd",
+    "category": "Artistic"
+  },
+  "shanghai_animation": {
+    "label": "Shanghai Animation",
+    "category": "Animation"
+  },
+  "otomo_akira": {
+    "label": "Otomo Akira",
+    "category": "Animation"
+  },
+  "stop_motion": {
+    "label": "Stop Motion",
+    "category": "Animation"
+  },
+  "claymation": {
+    "label": "Claymation",
+    "category": "Animation"
+  },
+  "chinese_ink": {
+    "label": "Chinese Ink",
+    "category": "Painting"
+  },
+  "ukiyo_e": {
+    "label": "Ukiyo-e",
+    "category": "Painting"
+  },
+  "shadow_puppet": {
+    "label": "Shadow Puppetry",
+    "category": "Painting"
+  },
+  "egyptian_mural": {
+    "label": "Egyptian Mural",
+    "category": "Painting"
+  },
+  "minimal_illustration": {
+    "label": "Minimal Illustration",
+    "category": "Painting"
+  },
+  "dali_surreal": {
+    "label": "Dali Surreal",
+    "category": "Painting"
+  },
+  "game_concept": {
+    "label": "Game Concept",
+    "category": "Painting"
+  },
+  "chinese_myth": {
+    "label": "Chinese Myth",
+    "category": "Myth"
+  },
+  "greek_myth": {
+    "label": "Greek Myth",
+    "category": "Myth"
+  },
+  "western_fantasy": {
+    "label": "Western Fantasy",
+    "category": "Myth"
+  }
+}

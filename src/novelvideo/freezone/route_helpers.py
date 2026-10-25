@@ -14,6 +14,8 @@ from typing import Optional
 
 from fastapi import HTTPException
 
+from novelvideo.manna_ext.catalog_en import apply_catalog_en  # Manna hook
+
 from novelvideo.api.schemas import (
     FreezoneCharacterMultiViewRequest,
     FreezoneImageCameraConfig,
@@ -116,7 +118,7 @@ def get_freezone_image_camera_options() -> dict:
 
 
 def get_freezone_image_style_templates() -> list[dict]:
-    return load_style_templates()
+    return apply_catalog_en("styles", load_style_templates())  # Manna hook
 
 
 def get_freezone_image_style_manifest_version() -> str:

@@ -3044,7 +3044,7 @@ def test_dynamic_item_supports_ordered_recipe_pipeline(monkeypatch):
     assert compiled["ok"] is True
     workflow_catalog = compiled["plan"]["nodes"][1]["data"]["workflowCatalog"]
     assert workflow_catalog["recipeId"] == "general-image"
-    assert workflow_catalog["recipeName"] == "通用图片"
+    assert workflow_catalog["recipeName"] == "General Image Enhancement"
     assert workflow_catalog["recipePipeline"] == [
         {"id": "custom-shot-image", "name": "自定义分镜图", "version": 1}
     ]
@@ -4910,17 +4910,17 @@ def test_project_catalog_uses_canonical_pixar_skill_and_recipes(monkeypatch):
         for item in catalog._load_agent_config_items("recipes", catalog._RECIPES_DIR)
     }
 
-    assert skills["ecommerce-ad"]["name"] == "电商广告"
-    assert skills["video-tutorial"]["name"] == "视频解说教程"
-    assert skills["text-to-image-video"]["name"] == "文生图生视频（动态）"
-    assert skills["text-to-image"]["name"] == "文生图（动态）"
-    assert skills["short-drama-quick"]["name"] == "短剧（快速测试）"
-    assert skills["pixar-ip-ad-video"]["name"] == "皮克斯 IP 品牌广告短片"
-    assert skills["lego-minifigure-animation-video"]["name"] == "乐高小人动画短片"
-    assert skills["retro-hong-kong-kungfu-comedy-video"]["name"] == "港风功夫萌宠短片"
-    assert skills["outdoor-stage-duel-video"]["name"] == "户外舞台双人能力秀"
-    assert skills["ling-cage-cinematic-video"]["name"] == "灵笼风格科幻短片"
-    assert skills["japanese-anime-drama-video"]["name"] == "日系漫剧梦工坊"
+    assert skills["ecommerce-ad"]["name"] == "E-commerce Ad"
+    assert skills["video-tutorial"]["name"] == "Video Explainer Tutorial"
+    assert skills["text-to-image-video"]["name"] == "Text to Image to Video (Dynamic)"
+    assert skills["text-to-image"]["name"] == "Text to Image (Dynamic)"
+    assert skills["short-drama-quick"]["name"] == "Short Drama (Quick Test)"
+    assert skills["pixar-ip-ad-video"]["name"] == "Pixar-Style IP Brand Ad Short"
+    assert skills["lego-minifigure-animation-video"]["name"] == "LEGO Minifigure Animation Short"
+    assert skills["retro-hong-kong-kungfu-comedy-video"]["name"] == "Retro Hong Kong Kung Fu Pet Short"
+    assert skills["outdoor-stage-duel-video"]["name"] == "Outdoor Stage Two-Person Showdown"
+    assert skills["ling-cage-cinematic-video"]["name"] == "Ling Cage-Style Sci-Fi Short"
+    assert skills["japanese-anime-drama-video"]["name"] == "Japanese Anime Drama Studio"
     assert all(
         parameter.get("id") != "execution_mode"
         for skill in skills.values()
@@ -5456,7 +5456,7 @@ def test_ling_cage_skill_keeps_style_while_recipes_are_survival_sci_fi_stages(
         for parameter in skill["input_parameters"]
         if parameter["id"] == "audio_mode"
     )
-    assert audio_mode["label"] == "背景音乐"
+    assert audio_mode["label"] == "Background music"
     assert audio_mode["default"] == "生成BGM"
     assert audio_mode["options"] == ["生成BGM", "不生成BGM"]
     assert "对白旁白音效和BGM" not in planning_text

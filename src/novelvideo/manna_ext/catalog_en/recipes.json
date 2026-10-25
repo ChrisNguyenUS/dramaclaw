@@ -1,0 +1,185 @@
+{
+  "ad-ip-character-anchor": {
+    "name": "Ad IP Character Anchor Portrait"
+  },
+  "ad-product-prop-anchor": {
+    "name": "Ad Product Prop Anchor"
+  },
+  "anthropomorphic-kungfu-key-elements": {
+    "name": "Anthropomorphic Kung Fu Key Elements"
+  },
+  "anthropomorphic-kungfu-shot-video": {
+    "name": "Anthropomorphic Kung Fu Shot Video"
+  },
+  "dialogue-continuity-shot-video": {
+    "name": "Dialogue Continuity Shot Video"
+  },
+  "dialogue-drama-story-script": {
+    "name": "Dialogue Drama Story Script"
+  },
+  "dialogue-drama-storyboard-plan": {
+    "name": "Dialogue Continuity Storyboard Plan"
+  },
+  "digital-product-ad-image": {
+    "name": "Digital Product Detail Image"
+  },
+  "digital-product-text-plan": {
+    "name": "Digital Product Detail Page Copy Plan"
+  },
+  "drama-background-music": {
+    "name": "Drama BGM",
+    "description": "Generates standalone background music from the theme and mood of the whole drama."
+  },
+  "drama-character-extraction": {
+    "name": "Character Look Extraction"
+  },
+  "drama-character-turnaround": {
+    "name": "Character Model Sheet (Multi-Angle)"
+  },
+  "drama-plot-outline": {
+    "name": "Drama Plot Outline"
+  },
+  "drama-prop-extraction": {
+    "name": "Prop Design Extraction"
+  },
+  "drama-prop-image": {
+    "name": "Prop Multi-Angle Image"
+  },
+  "drama-scene-extraction": {
+    "name": "Scene Design Extraction"
+  },
+  "drama-scene-image": {
+    "name": "Scene Multi-Angle Image"
+  },
+  "drama-shot-group-detail": {
+    "name": "Shot Group Detail"
+  },
+  "drama-shot-group-storyboard": {
+    "name": "Shot Group Storyboard Image"
+  },
+  "drama-shot-planning": {
+    "name": "Director Shot Planning"
+  },
+  "drama-shot-voice": {
+    "name": "Per-Shot Drama Voiceover",
+    "description": "Converts the narration or dialogue of a single shot plan into speakable voice audio."
+  },
+  "ecommerce-ad-image": {
+    "name": "E-commerce Detail Page Image"
+  },
+  "ecommerce-remix-image": {
+    "name": "E-commerce Detail Page Remix"
+  },
+  "ecommerce-scene-image": {
+    "name": "Product Scene Image"
+  },
+  "ecommerce-style-reference": {
+    "name": "E-commerce Full Visual Reference"
+  },
+  "ecommerce-text-plan": {
+    "name": "E-commerce Detail Page Copy Plan"
+  },
+  "four-act-comedy-story-outline": {
+    "name": "Four-Act Comedy Story Outline"
+  },
+  "general-audio": {
+    "name": "General Audio Generation",
+    "description": "Generates executable music, narration, or sound-effect prompts from the user's goal and node context."
+  },
+  "general-image": {
+    "name": "General Image Enhancement"
+  },
+  "general-text": {
+    "name": "General Text Enhancement"
+  },
+  "general-video": {
+    "name": "General Video Enhancement"
+  },
+  "keyframe-scene-script": {
+    "name": "Keyframe Script"
+  },
+  "outdoor-stage-duel-audio-layers": {
+    "name": "Stage Duel Audio Layers"
+  },
+  "outdoor-stage-duel-key-elements": {
+    "name": "Stage Duel Key Elements"
+  },
+  "outdoor-stage-duel-shot-video": {
+    "name": "Stage Duel Shot Video"
+  },
+  "outdoor-stage-duel-storyboard": {
+    "name": "Stage Duel Storyboard"
+  },
+  "sci-fi-survival-audio-layers": {
+    "name": "Post-Apocalyptic Sci-Fi BGM"
+  },
+  "sci-fi-survival-key-elements": {
+    "name": "Post-Apocalyptic Sci-Fi Key Elements"
+  },
+  "sci-fi-survival-shot-video": {
+    "name": "Post-Apocalyptic Sci-Fi Shot Video"
+  },
+  "sci-fi-survival-story-script": {
+    "name": "Post-Apocalyptic Sci-Fi Story Script"
+  },
+  "sci-fi-survival-storyboard": {
+    "name": "Post-Apocalyptic Sci-Fi Storyboard"
+  },
+  "short-film-script-outline": {
+    "name": "Short Film Script Outline"
+  },
+  "social-content-image": {
+    "name": "Social Media General Image"
+  },
+  "social-copywriting": {
+    "name": "Viral Social Copy Breakdown"
+  },
+  "social-douyin-cover": {
+    "name": "Douyin/TikTok Cover"
+  },
+  "social-ig-post": {
+    "name": "Instagram Post Image"
+  },
+  "social-weibo-wechat-image": {
+    "name": "Weibo/WeChat Article Image"
+  },
+  "social-xiaohongshu-image": {
+    "name": "Xiaohongshu Cover/Image"
+  },
+  "storyboard-plan": {
+    "name": "Storyboard Plan"
+  },
+  "storyboard-shot-video": {
+    "name": "Storyboard Shot Video"
+  },
+  "video-ad-brief": {
+    "name": "Video Ad Script"
+  },
+  "video-ad-creative-outline": {
+    "name": "Ad Creative Outline"
+  },
+  "video-audio-layer": {
+    "name": "Video Audio Layer"
+  },
+  "video-clip-generation": {
+    "name": "Storyboard/Keyframe Video Generation"
+  },
+  "video-creative-outline": {
+    "name": "Video Creative Outline"
+  },
+  "video-frame-extraction": {
+    "name": "Storyboard Frame Extraction"
+  },
+  "video-storyboard-grid": {
+    "name": "Multi-Grid Storyboard Image"
+  },
+  "video-storyboard-script": {
+    "name": "Video Storyboard Script"
+  },
+  "visual-key-elements": {
+    "name": "Visual Key Elements Image"
+  },
+  "workflow-input-analysis": {
+    "name": "Workflow Input Analysis"
+  }
+}
