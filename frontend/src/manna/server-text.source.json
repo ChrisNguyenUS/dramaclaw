@@ -1,0 +1,2472 @@
+[
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 592,
+  "zh": "解析场景块..."
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 593,
+  "zh": "[AssetCompiler] 共识别 {0} 个场景块"
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 595,
+  "zh": "AI校对基础场景..."
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 598,
+  "zh": "编译场景资产..."
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 603,
+  "zh": "从解说稿规划场景资产..."
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 610,
+  "zh": "编译道具资产..."
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 613,
+  "zh": "写入本集资产..."
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 623,
+  "zh": "完成"
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 648,
+  "zh": "从解说稿规划场景资产..."
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 653,
+  "zh": "解析本集剧本场景..."
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 659,
+  "zh": "[AssetCompiler] 当前精品剧未识别到有效场景头，已回退为正文语义场景规划；项目类型仍保持精品剧。"
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 663,
+  "zh": "从正文语义规划场景资产..."
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 668,
+  "zh": "AI 逐场校对场景元数据..."
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 672,
+  "zh": "[AssetCompiler] 共识别 {0} 个场景块"
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 674,
+  "zh": "AI校对基础场景..."
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 677,
+  "zh": "编译场景资产..."
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 686,
+  "zh": "写入本集场景规划..."
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 697,
+  "zh": "完成"
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 721,
+  "zh": "  第 {0} 个场景头 AI 规范化失败: {1}"
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 760,
+  "zh": "解析场景块..."
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 761,
+  "zh": "[AssetCompiler] 共识别 {0} 个场景块"
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 763,
+  "zh": "编译道具资产..."
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 766,
+  "zh": "写入本集道具规划..."
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 773,
+  "zh": "完成"
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 877,
+  "zh": "  AI补全基础场景: {0}"
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 949,
+  "zh": "  跳过缺失基础场景: {0}（AI校对未创建或未复用）"
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 1002,
+  "zh": "  场景: {0}{1}"
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 1035,
+  "zh": "  补齐解说场景环境描述: {0}"
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 1039,
+  "zh": "  新建解说场景: {0}"
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 1041,
+  "zh": "  场景: {0}"
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 1143,
+  "zh": "  解说场景分析失败，改用文本规则兜底: {0}"
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 1180,
+  "zh": "  补齐场景环境描述: {0}"
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 1257,
+  "zh": "  道具[{0}]: {1}"
+ },
+ {
+  "file": "src/novelvideo/agents/asset_compiler.py",
+  "line": 1276,
+  "zh": "  道具[{0}]: {1} [{2}]"
+ },
+ {
+  "file": "src/novelvideo/agents/episode_planner.py",
+  "line": 246,
+  "zh": "初始化规划..."
+ },
+ {
+  "file": "src/novelvideo/agents/episode_planner.py",
+  "line": 252,
+  "zh": "已知角色: {0} 个"
+ },
+ {
+  "file": "src/novelvideo/agents/episode_planner.py",
+  "line": 285,
+  "zh": "Agent 搜索故事信息..."
+ },
+ {
+  "file": "src/novelvideo/agents/episode_planner.py",
+  "line": 286,
+  "zh": "开始多轮搜索..."
+ },
+ {
+  "file": "src/novelvideo/agents/episode_planner.py",
+  "line": 292,
+  "zh": "解析规划结果..."
+ },
+ {
+  "file": "src/novelvideo/agents/episode_planner.py",
+  "line": 297,
+  "zh": "Agent 返回 {0} 集规划"
+ },
+ {
+  "file": "src/novelvideo/agents/episode_planner.py",
+  "line": 320,
+  "zh": "完成"
+ },
+ {
+  "file": "src/novelvideo/agents/episode_planner.py",
+  "line": 326,
+  "zh": "Agent 规划失败: {0}"
+ },
+ {
+  "file": "src/novelvideo/agents/episode_planner.py",
+  "line": 358,
+  "zh": "修正编号：从 {0} 改为从 1 开始"
+ },
+ {
+  "file": "src/novelvideo/agents/episode_planner.py",
+  "line": 365,
+  "zh": "修正编号 {0} → {1}"
+ },
+ {
+  "file": "src/novelvideo/agents/episode_planner.py",
+  "line": 370,
+  "zh": "警告：规划的集数 ({0}) 少于目标 ({1})"
+ },
+ {
+  "file": "src/novelvideo/agents/episode_planner.py",
+  "line": 372,
+  "zh": "警告：规划的集数 ({0}) 多于目标 ({1})"
+ },
+ {
+  "file": "src/novelvideo/api/routes/characters.py",
+  "line": 924,
+  "zh": "角色补充任务已进入队列"
+ },
+ {
+  "file": "src/novelvideo/api/routes/characters.py",
+  "line": 1642,
+  "zh": "身份已删除"
+ },
+ {
+  "file": "src/novelvideo/api/routes/characters.py",
+  "line": 1691,
+  "zh": "肖像生成任务已进入队列: {0}"
+ },
+ {
+  "file": "src/novelvideo/api/routes/characters.py",
+  "line": 2034,
+  "zh": "身份 Portrait 生成任务已进入队列: {0}"
+ },
+ {
+  "file": "src/novelvideo/api/routes/characters.py",
+  "line": 2164,
+  "zh": "身份图生成任务已进入队列: {0}"
+ },
+ {
+  "file": "src/novelvideo/api/routes/chat.py",
+  "line": 2229,
+  "zh": "项目不存在或已删除，已切回首页聊天。"
+ },
+ {
+  "file": "src/novelvideo/api/routes/chat.py",
+  "line": 3312,
+  "zh": "正在整理 Skill 方向..."
+ },
+ {
+  "file": "src/novelvideo/api/routes/episodes.py",
+  "line": 250,
+  "zh": "第 {0} 集{1}规划已进入队列"
+ },
+ {
+  "file": "src/novelvideo/api/routes/episodes.py",
+  "line": 341,
+  "zh": "分集规划任务已进入队列 (目标 {0} 集)"
+ },
+ {
+  "file": "src/novelvideo/api/routes/episodes.py",
+  "line": 603,
+  "zh": "第 {0} 集身份规划已进入队列"
+ },
+ {
+  "file": "src/novelvideo/api/routes/episodes.py",
+  "line": 671,
+  "zh": "第 {0} 集身份规划任务已启动"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 7729,
+  "zh": "文本翻译完成"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 7756,
+  "zh": "错误: {0}"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 7800,
+  "zh": "开始生成文本"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 7835,
+  "zh": "文本生成完成"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 7861,
+  "zh": "错误: {0}"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 8136,
+  "zh": "开始合成视频时间线"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 8159,
+  "zh": "视频合成完成"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 8174,
+  "zh": "错误: {0}"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 8205,
+  "zh": "开始视频擦除处理"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 8227,
+  "zh": "视频擦除完成"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 8242,
+  "zh": "错误: {0}"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 8280,
+  "zh": "开始视频高清处理"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 8305,
+  "zh": "视频高清处理完成"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 8322,
+  "zh": "错误: {0}"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 8354,
+  "zh": "开始音视频分离"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 8379,
+  "zh": "音视频分离完成"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 8390,
+  "zh": "错误: {0}"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 8423,
+  "zh": "开始文本生成语音"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 8433,
+  "zh": "正在调用 TTS 服务"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 8498,
+  "zh": "文本生成语音完成"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 8509,
+  "zh": "错误: {0}"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 8990,
+  "zh": "故事脚本生成完成"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 9017,
+  "zh": "错误: {0}"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 9203,
+  "zh": "图片提示词反推完成"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 9228,
+  "zh": "错误: {0}"
+ },
+ {
+  "file": "src/novelvideo/api/routes/freezone.py",
+  "line": 15722,
+  "zh": "完成（晚到结果已对账）"
+ },
+ {
+  "file": "src/novelvideo/api/routes/generation.py",
+  "line": 2055,
+  "zh": "第 {0} 集成片合成已进入队列"
+ },
+ {
+  "file": "src/novelvideo/api/routes/generation.py",
+  "line": 2307,
+  "zh": "第 {0} 集全集草图生成已进入队列 ({1})"
+ },
+ {
+  "file": "src/novelvideo/api/routes/generation.py",
+  "line": 2317,
+  "zh": "第 {0} 集草图生成已进入队列 (网格 {1})"
+ },
+ {
+  "file": "src/novelvideo/api/routes/generation.py",
+  "line": 2492,
+  "zh": "第 {0} 集系统声线准备已进入队列"
+ },
+ {
+  "file": "src/novelvideo/api/routes/generation.py",
+  "line": 2638,
+  "zh": "第 {0} 集语音批量生成已进入队列"
+ },
+ {
+  "file": "src/novelvideo/api/routes/generation.py",
+  "line": 2831,
+  "zh": "第 {0} 集全局视频优化已进入队列"
+ },
+ {
+  "file": "src/novelvideo/api/routes/generation.py",
+  "line": 2996,
+  "zh": "第 {0} 集网格 {1} 重新生成已进入队列"
+ },
+ {
+  "file": "src/novelvideo/api/routes/generation.py",
+  "line": 3471,
+  "zh": "第 {0} 集选中 Beats 画面再生已进入队列"
+ },
+ {
+  "file": "src/novelvideo/api/routes/generation.py",
+  "line": 3572,
+  "zh": "第 {0} 集选中 Beats 草图再生已进入队列"
+ },
+ {
+  "file": "src/novelvideo/api/routes/generation.py",
+  "line": 4396,
+  "zh": "Beat {0} Direct Render 转草图任务已进入队列"
+ },
+ {
+  "file": "src/novelvideo/api/routes/generation.py",
+  "line": 4425,
+  "zh": "Beat {0} Direct Render 转草图任务已启动"
+ },
+ {
+  "file": "src/novelvideo/api/routes/generation.py",
+  "line": 4661,
+  "zh": "没有缺草图的手工分镜"
+ },
+ {
+  "file": "src/novelvideo/api/routes/generation.py",
+  "line": 4748,
+  "zh": "已启动 {0} 组新增分镜草图生成"
+ },
+ {
+  "file": "src/novelvideo/api/routes/generation.py",
+  "line": 5048,
+  "zh": "第 {0} 集 Beat {1} 视频生成已入队"
+ },
+ {
+  "file": "src/novelvideo/api/routes/generation.py",
+  "line": 5611,
+  "zh": "第 {0} 集 Beat {1} 语音生成已进入队列"
+ },
+ {
+  "file": "src/novelvideo/api/routes/ingest.py",
+  "line": 468,
+  "zh": "导入任务已进入队列: {0}"
+ },
+ {
+  "file": "src/novelvideo/api/routes/props.py",
+  "line": 399,
+  "zh": "道具「{0}」参考图生成任务已进入队列"
+ },
+ {
+  "file": "src/novelvideo/api/routes/scenes.py",
+  "line": 1345,
+  "zh": "场景补充任务已进入队列"
+ },
+ {
+  "file": "src/novelvideo/api/routes/scenes.py",
+  "line": 1500,
+  "zh": "场景「{0}」{1} 生成任务已进入队列"
+ },
+ {
+  "file": "src/novelvideo/api/routes/scenes.py",
+  "line": 1704,
+  "zh": "场景「{0}」{1} → SOG 任务已启动"
+ },
+ {
+  "file": "src/novelvideo/api/routes/scenes.py",
+  "line": 1794,
+  "zh": "场景「{0}」360 → SOG 任务已启动"
+ },
+ {
+  "file": "src/novelvideo/api/routes/scenes.py",
+  "line": 1845,
+  "zh": "场景「{0}」360 全景生成任务已启动"
+ },
+ {
+  "file": "src/novelvideo/api/routes/scripts.py",
+  "line": 384,
+  "zh": "第 {0} 集剧本生成任务已进入队列"
+ },
+ {
+  "file": "src/novelvideo/api/routes/scripts.py",
+  "line": 539,
+  "zh": "第 {0} 集 Beat {1} 提示词生成已入队"
+ },
+ {
+  "file": "src/novelvideo/api/routes/styles.py",
+  "line": 222,
+  "zh": "风格已创建"
+ },
+ {
+  "file": "src/novelvideo/api/routes/styles.py",
+  "line": 251,
+  "zh": "风格已删除"
+ },
+ {
+  "file": "src/novelvideo/cognee/event_extractor.py",
+  "line": 75,
+  "zh": "开始提取第 {0} 章事件..."
+ },
+ {
+  "file": "src/novelvideo/cognee/event_extractor.py",
+  "line": 82,
+  "zh": "章节内容过长 ({0} 字)，已截取前 12000 字"
+ },
+ {
+  "file": "src/novelvideo/cognee/event_extractor.py",
+  "line": 111,
+  "zh": "LLM 返回 {0} 个事件"
+ },
+ {
+  "file": "src/novelvideo/cognee/event_extractor.py",
+  "line": 114,
+  "zh": "事件提取失败: {0}"
+ },
+ {
+  "file": "src/novelvideo/cognee/event_extractor.py",
+  "line": 163,
+  "zh": "第 {0} 章提取完成: {1} 个事件"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 341,
+  "zh": "通过图谱检索人物信息..."
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 342,
+  "zh": "使用 cognee.search(only_context=True) 获取图谱上下文..."
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 366,
+  "zh": "图谱上下文获取成功: {0} 字符"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 371,
+  "zh": "cognee.search 失败: {0}"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 375,
+  "zh": "⚠️ 图谱搜索无数据，请先构建图谱（cognify）"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 385,
+  "zh": "已注入人物设定上下文: {0} 字符"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 388,
+  "zh": "LLM 结构化提取角色..."
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 389,
+  "zh": "使用图谱上下文进行 LLM 结构化提取..."
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 461,
+  "zh": "⚠️ LLM 返回 {0} 个解说主角，已只保留第一个: {1}"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 462,
+  "zh": "LLM 结构化提取完成: {0} 个角色"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 467,
+  "zh": "⚠️ LLM 结构化提取失败: {0}"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 470,
+  "zh": "提取完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 472,
+  "zh": "完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 518,
+  "zh": "开始规划 {0} 集..."
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 528,
+  "zh": "已知角色: {0} 个"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 549,
+  "zh": "调用 LLM 规划剧集..."
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 556,
+  "zh": "LLM 返回 {0} 集"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 560,
+  "zh": "剧集编号: {0}"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 563,
+  "zh": "⚠️ 警告：LLM 返回的集数 ({0}) 少于目标 ({1})"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 569,
+  "zh": "⚠️ 警告：剧集编号不是从 1 开始，最小编号: {0}，正在自动修正..."
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 575,
+  "zh": "  修正剧集编号: {0} → {1}"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 582,
+  "zh": "⚠️ 警告：剧集编号不连续，正在自动修正..."
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 586,
+  "zh": "  修正剧集编号: {0} → {1}"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 589,
+  "zh": "剧集规划完成: {0} 集，编号: {1}"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1387,
+  "zh": "通过图谱检索场景信息..."
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1410,
+  "zh": "图谱场景上下文获取成功: {0} 字符"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1415,
+  "zh": "图谱场景搜索失败: {0}"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1419,
+  "zh": "⚠️ 图谱搜索无场景数据，请先完成知识图谱构建"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1422,
+  "zh": "从图谱结构化提取基础场景..."
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1444,
+  "zh": "LLM 图谱场景提取失败: {0}"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1469,
+  "zh": "  跳过缺少图谱证据的场景候选: {0}"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1477,
+  "zh": "⚠️ 图谱上下文未提取到稳定物理场景"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1480,
+  "zh": "生成场景环境描述..."
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1489,
+  "zh": "生成场景描述 ({0}/{1}): {2}"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1508,
+  "zh": "完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1509,
+  "zh": "图谱场景提取完成: {0} 个"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1665,
+  "zh": "提取梗概+人物设定: {0} 字符"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1696,
+  "zh": "AI 规范化得到 {0} 个基础场景: {1}"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1711,
+  "zh": "⚠️ {0}，回退到程序定位 + 本地规范化"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1713,
+  "zh": "定位剧本场景块..."
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1715,
+  "zh": "程序定位得到 {0} 个场景块: {1}"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1718,
+  "zh": "⚠️ 未从剧本中解析出任何场景"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1768,
+  "zh": "规范化后得到 {0} 个基础场景: {1}"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1775,
+  "zh": "LLM 生成场景环境描述..."
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1779,
+  "zh": "⚠️ 场景规范化后为空"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1807,
+  "zh": "生成场景描述 ({0}/{1}): {2}"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1811,
+  "zh": "  ✓ {0}: environment_prompt={1}字"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1843,
+  "zh": "场景提取完成: {0} 个"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1844,
+  "zh": "完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1901,
+  "zh": "通过图谱检索道具信息..."
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1925,
+  "zh": "图谱上下文获取成功: {0} 字符"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1933,
+  "zh": "⚠️ 图谱搜索无数据，请先构建图谱"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1938,
+  "zh": "已注入原文全文辅助上下文: {0} 字符"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1940,
+  "zh": "LLM 结构化提取道具..."
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1986,
+  "zh": "LLM 结构化提取完成: {0} 个道具"
+ },
+ {
+  "file": "src/novelvideo/cognee/pipeline.py",
+  "line": 1993,
+  "zh": "完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 461,
+  "zh": "{0}失败，准备重试(1/1): {1}"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 663,
+  "zh": "清理旧图谱..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 669,
+  "zh": "清除 cognee 图谱数据..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 676,
+  "zh": "解析原文..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 677,
+  "zh": "Step 1/3: 导入原文到 Cognee..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 683,
+  "zh": "原文导入完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 684,
+  "zh": "原文解析完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 688,
+  "zh": "构建知识图谱..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 689,
+  "zh": "Step 2/3: 构建知识图谱（这可能需要几分钟）..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 695,
+  "zh": "知识图谱构建完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 699,
+  "zh": "知识图谱校验完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 700,
+  "zh": "知识图谱校验完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 703,
+  "zh": "创建向量索引..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 704,
+  "zh": "Step 3/3: 创建向量索引（用于三元组检索）..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 710,
+  "zh": "向量索引创建完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 711,
+  "zh": "向量索引创建完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 716,
+  "zh": "生成图谱预览..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 718,
+  "zh": "知识图谱预览已保存"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 719,
+  "zh": "图谱预览已保存"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 724,
+  "zh": "保存导入结果..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 726,
+  "zh": "原文已保存到文件"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 728,
+  "zh": "导入完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1013,
+  "zh": "从图谱提取人物节点..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1014,
+  "zh": "从图谱提取角色候选..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1026,
+  "zh": "⚠️ 图谱提取无结果，保留现有角色数据"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1027,
+  "zh": "提取无结果"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1030,
+  "zh": "从图谱提取了 {0} 个角色"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1032,
+  "zh": "保存新增角色..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1033,
+  "zh": "保存新增角色到数据库..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1042,
+  "zh": "已新增 {0} 个角色，跳过已有 {1} 个"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1044,
+  "zh": "角色提取完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1045,
+  "zh": "角色提取完成: 新增 {0} 个，已有 {1} 个"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1085,
+  "zh": "已知角色: {0} 个"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1088,
+  "zh": "规划剧集..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1089,
+  "zh": "开始规划 {0} 集..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1099,
+  "zh": "LLM 返回 {0} 集"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1104,
+  "zh": "保存新剧集..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1105,
+  "zh": "保存新剧集到数据库..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1107,
+  "zh": "已原子替换 {0} 个旧剧集"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1110,
+  "zh": "⚠️ 警告：内存缓存 ({0}) 与返回结果 ({1}) 不一致"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1112,
+  "zh": "剧集规划完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1113,
+  "zh": "剧集规划完成: {0} 集，编号: {1}"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1174,
+  "zh": "检测章节结构..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1181,
+  "zh": "检测到 {0} 个章节，目标 {1} 集"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1189,
+  "zh": "提取第 {0} 章事件..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1197,
+  "zh": "第 {0} 章: {1} 个事件"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1199,
+  "zh": "共提取 {0} 个事件"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1202,
+  "zh": "存储事件..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1205,
+  "zh": "AI 规划剧集分配..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1206,
+  "zh": "AI 分配事件到剧集..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1215,
+  "zh": "创建第 {0} 集..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1220,
+  "zh": "⚠️ 第 {0} 集没有分配到事件，跳过"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1252,
+  "zh": "保存到数据库..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1254,
+  "zh": "已原子替换 {0} 个旧剧集"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1256,
+  "zh": "事件级规划完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1257,
+  "zh": "事件级规划完成: {0} 集"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1310,
+  "zh": "调用 LLM 分配事件..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1322,
+  "zh": "LLM 分配完成: {0} 集"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1326,
+  "zh": "LLM 分配失败: {0}，使用均匀分配"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1369,
+  "zh": "提取角色..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1375,
+  "zh": "规划剧集..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1386,
+  "zh": "导入完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1818,
+  "zh": "从图谱提取场景节点..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1819,
+  "zh": "从图谱提取基础场景候选..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1831,
+  "zh": "⚠️ 图谱提取无结果，保留现有场景数据"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1832,
+  "zh": "提取无结果"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1835,
+  "zh": "从图谱提取了 {0} 个场景"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1836,
+  "zh": "保存新增场景..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1837,
+  "zh": "保存新增场景到数据库..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1865,
+  "zh": "已新增 {0} 个场景，修复占位描述 {1} 个，跳过已有 {2} 个"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1870,
+  "zh": "场景提取完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1871,
+  "zh": "场景提取完成: 新增 {0} 个，修复 {1} 个，已有 {2} 个"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1900,
+  "zh": "收集已有道具数据..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1927,
+  "zh": "收集了 {0} 个已有道具线索"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1930,
+  "zh": "从图谱提取道具节点..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1931,
+  "zh": "从图谱提取道具候选..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1934,
+  "zh": "已加载原文全文用于辅助道具提取: {0} 字符"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1946,
+  "zh": "⚠️ 图谱提取无结果，保留现有道具数据"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1947,
+  "zh": "提取无结果"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1950,
+  "zh": "从图谱提取了 {0} 个道具"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 1991,
+  "zh": "保留更具体的已有道具名: {0} -> {1}"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 2006,
+  "zh": "清理旧道具数据..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 2009,
+  "zh": "已删除 {0} 个旧道具"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 2011,
+  "zh": "删除旧道具失败: {0}"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 2013,
+  "zh": "保存新道具..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 2014,
+  "zh": "保存新道具到数据库..."
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 2017,
+  "zh": "已保存 {0} 个道具"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 2019,
+  "zh": "道具提取完成"
+ },
+ {
+  "file": "src/novelvideo/cognee/store.py",
+  "line": 2020,
+  "zh": "道具提取完成: {0} 个"
+ },
+ {
+  "file": "src/novelvideo/freezone/agent_workflows/catalog.py",
+  "line": 1932,
+  "zh": "已加载完整 Workflow Skill 包，可直接规划 freezone_workflow_plan.v1。"
+ },
+ {
+  "file": "src/novelvideo/freezone/agent_workflows/catalog.py",
+  "line": 1932,
+  "zh": "已加载 Workflow Skill，但必须先补全或修正 input_contract。"
+ },
+ {
+  "file": "src/novelvideo/freezone/agent_workflows/drafts.py",
+  "line": 147,
+  "zh": "工作流方案草稿已准备完成，可继续调整或确认创建。"
+ },
+ {
+  "file": "src/novelvideo/freezone/workflow_drafts.py",
+  "line": 553,
+  "zh": "该工作流方案已经创建，不会重复创建节点。"
+ },
+ {
+  "file": "src/novelvideo/freezone/workflow_drafts.py",
+  "line": 560,
+  "zh": "该工作流方案正在创建或已经提交，不会重复创建节点。"
+ },
+ {
+  "file": "src/novelvideo/freezone/workflow_drafts.py",
+  "line": 721,
+  "zh": "工作流方案草稿已准备完成，可继续调整或确认创建。"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 563,
+  "zh": "记账失败(accepted): {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 578,
+  "zh": "记账失败({0}): {1}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 596,
+  "zh": "首帧已转换为 data URL"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 610,
+  "zh": "尾帧已转换为 data URL"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 651,
+  "zh": "正在提交 Seedance 视频生成任务 ({0}, {1}, {2}s)..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 672,
+  "zh": "任务提交失败: HTTP {0} - {1}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 681,
+  "zh": "未获取到 task_id: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 687,
+  "zh": "任务已提交: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 691,
+  "zh": "任务提交异常: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 708,
+  "zh": "查询状态失败: HTTP {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 720,
+  "zh": "视频生成完成，正在下载..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 738,
+  "zh": "视频已保存: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 749,
+  "zh": "视频下载失败"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 759,
+  "zh": "API 未返回视频 URL: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 773,
+  "zh": "视频生成失败: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 783,
+  "zh": "正在生成中... ({0}, {1}/{2})"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 786,
+  "zh": "查询状态异常: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 790,
+  "zh": "视频生成超时"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 986,
+  "zh": "警告: 素材不存在: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1038,
+  "zh": "正在提交 Seedance 2.0 视频生成任务 ({0}, model={1}, {2}s, audio={3})..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1058,
+  "zh": "任务提交失败: HTTP {0} - {1}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1066,
+  "zh": "未获取到 task_id: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1071,
+  "zh": "任务已提交: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1073,
+  "zh": "任务提交异常: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1089,
+  "zh": "查询状态失败: HTTP {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1099,
+  "zh": "视频生成完成，正在下载..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1115,
+  "zh": "视频已保存: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1125,
+  "zh": "视频下载失败"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1132,
+  "zh": "API 未返回视频 URL: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1143,
+  "zh": "视频生成失败: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1151,
+  "zh": "正在生成中... ({0}, {1}/{2})"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1154,
+  "zh": "查询状态异常: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1158,
+  "zh": "视频生成超时"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1265,
+  "zh": "首帧已转换为 data URL"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1285,
+  "zh": "正在提交 Grok 视频生成任务 ({0}, {1}s, {2})..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1317,
+  "zh": "任务已提交: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1347,
+  "zh": "视频生成完成，正在下载..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1373,
+  "zh": "正在生成中... ({0}, {1}/{2})"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1552,
+  "zh": "{0}已上传/复用 OSS URL"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1554,
+  "zh": "{0}已转换为 data URL"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1651,
+  "zh": "记账失败(accepted): {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1668,
+  "zh": "记账失败({0}): {1}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1685,
+  "zh": "时长已调整: {0}s -> {1}s"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1807,
+  "zh": "正在提交 HuiMeng 视频任务 ({0}, refs={1}图/{2}视频/{3}音频, {4}s, {5})..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1816,
+  "zh": "任务已提交: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1846,
+  "zh": "视频生成完成，正在下载..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 1876,
+  "zh": "已保存 HuiMeng 返回尾帧"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 2322,
+  "zh": "{0} 参考素材已上传到媒体中转"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 2627,
+  "zh": "{0}已上传到媒体中转"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 2983,
+  "zh": "记账失败(accepted): {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 3000,
+  "zh": "记账失败({0}): {1}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 3027,
+  "zh": "时长已调整: {0}s -> {1}s"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 3167,
+  "zh": "提示词已截断到 HappyHorse 1.0 上限 2500 字符"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 3208,
+  "zh": "HappyHorse 不支持尾帧，已忽略尾帧输入"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 3216,
+  "zh": "HappyHorse 参考/视频编辑模式不支持首帧，已将首帧降级为参考图"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 3233,
+  "zh": "视频参考已上传到媒体中转"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 3243,
+  "zh": "图片参考已上传到媒体中转"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 3249,
+  "zh": "首帧已上传到媒体中转"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 3282,
+  "zh": "首帧已上传到媒体中转"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 3290,
+  "zh": "参考图片已上传到媒体中转"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 3303,
+  "zh": "首帧已上传到媒体中转"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 3312,
+  "zh": "尾帧已上传到媒体中转"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 3405,
+  "zh": "正在提交 DramaClawAPI 视频任务 ({0}, {1}s, {2})..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 3495,
+  "zh": "计费调用证据暂存失败，将由对账核实: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 3497,
+  "zh": "任务已提交: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 3776,
+  "zh": "已保存 DramaClawAPI 返回尾帧"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 3976,
+  "zh": "计费无成本拒绝证据暂存失败，将由对账核实: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4362,
+  "zh": "开始生成视频 | 模式: {0} | 固定帧数: {1} (~{2}s)"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4368,
+  "zh": "开始生成视频 | 模式: {0} | 时长: {1}s"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4372,
+  "zh": "上传图片到 ComfyUI..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4376,
+  "zh": "首帧已上传: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4383,
+  "zh": "尾帧已上传: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4386,
+  "zh": "准备工作流..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4405,
+  "zh": "帧数: {0} (duration={1}s, fps={2})"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4413,
+  "zh": "帧数: {0} (duration={1}s, fps={2})"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4421,
+  "zh": "帧数: {0} (duration={1}s, fps={2})"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4428,
+  "zh": "提示词: {0}{1}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4438,
+  "zh": "随机种子: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4441,
+  "zh": "连接 WebSocket..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4453,
+  "zh": "提交工作流到队列..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4461,
+  "zh": "等待 ComfyUI 执行..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4474,
+  "zh": "推理完成!"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4483,
+  "zh": "执行节点: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4490,
+  "zh": "进度: {0}/{1} ({2}%)"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4502,
+  "zh": "获取输出文件..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4519,
+  "zh": "重试 {0}/3: 等待历史记录..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4527,
+  "zh": "输出文件: {0}/{1}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4527,
+  "zh": "输出文件: {0}"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4537,
+  "zh": "下载视频..."
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4545,
+  "zh": "视频已保存: {0} ({1} MB)"
+ },
+ {
+  "file": "src/novelvideo/generators/video_generator.py",
+  "line": 4554,
+  "zh": "错误: {0}"
+ },
+ {
+  "file": "src/novelvideo/ports/local/tasks.py",
+  "line": 200,
+  "zh": "任务已进入队列"
+ },
+ {
+  "file": "src/novelvideo/ports/local/tasks.py",
+  "line": 381,
+  "zh": "任务已取消"
+ },
+ {
+  "file": "src/novelvideo/sqlite_store.py",
+  "line": 1851,
+  "zh": "检测章节结构..."
+ },
+ {
+  "file": "src/novelvideo/sqlite_store.py",
+  "line": 1852,
+  "zh": "检测章节结构..."
+ },
+ {
+  "file": "src/novelvideo/sqlite_store.py",
+  "line": 1859,
+  "zh": "检测到 {0} 个章节"
+ },
+ {
+  "file": "src/novelvideo/sqlite_store.py",
+  "line": 1867,
+  "zh": "处理第 {0} 章..."
+ },
+ {
+  "file": "src/novelvideo/sqlite_store.py",
+  "line": 1873,
+  "zh": "为第 {0} 章生成元数据..."
+ },
+ {
+  "file": "src/novelvideo/sqlite_store.py",
+  "line": 1902,
+  "zh": "合并剧集数据..."
+ },
+ {
+  "file": "src/novelvideo/sqlite_store.py",
+  "line": 1903,
+  "zh": "合并剧集数据（保留身份、场景、道具和颜色）..."
+ },
+ {
+  "file": "src/novelvideo/sqlite_store.py",
+  "line": 1919,
+  "zh": "保存到数据库..."
+ },
+ {
+  "file": "src/novelvideo/sqlite_store.py",
+  "line": 1920,
+  "zh": "保存剧集到数据库..."
+ },
+ {
+  "file": "src/novelvideo/sqlite_store.py",
+  "line": 1935,
+  "zh": "已删除 {0} 个旧剧集"
+ },
+ {
+  "file": "src/novelvideo/sqlite_store.py",
+  "line": 1942,
+  "zh": "章节映射完成"
+ },
+ {
+  "file": "src/novelvideo/sqlite_store.py",
+  "line": 1943,
+  "zh": "章节映射完成: {0} 集"
+ },
+ {
+  "file": "src/novelvideo/stage_asset_tasks.py",
+  "line": 599,
+  "zh": "生成调度区域（{0}精度）..."
+ },
+ {
+  "file": "src/novelvideo/stage_asset_tasks.py",
+  "line": 619,
+  "zh": "调度区域过细，自动降低精度重试..."
+ },
+ {
+  "file": "src/novelvideo/stage_asset_tasks.py",
+  "line": 739,
+  "zh": "DA-2 未安装，降级使用 constant depth；几何质量会降低。"
+ },
+ {
+  "file": "src/novelvideo/stage_asset_tasks.py",
+  "line": 823,
+  "zh": "启动 360 → depth 3GS..."
+ },
+ {
+  "file": "src/novelvideo/stage_asset_tasks.py",
+  "line": 823,
+  "zh": "启动 pano_sharp：360 → cubemap → SHARP → 3GS..."
+ },
+ {
+  "file": "src/novelvideo/stage_asset_tasks.py",
+  "line": 873,
+  "zh": "{0} 已写入 3GS 资产包"
+ },
+ {
+  "file": "src/novelvideo/stage_asset_tasks.py",
+  "line": 1040,
+  "zh": "启动 single-face SHARP：{0} → 单面 3GS..."
+ },
+ {
+  "file": "src/novelvideo/stage_asset_tasks.py",
+  "line": 1083,
+  "zh": "{0} single-face SOG 已写入 3GS 资产包"
+ },
+ {
+  "file": "src/novelvideo/stage_asset_tasks.py",
+  "line": 1362,
+  "zh": "分析 master/reverse 侧边 overlap 和 continuation..."
+ },
+ {
+  "file": "src/novelvideo/stage_asset_tasks.py",
+  "line": 1423,
+  "zh": "分析 master/reverse 空间合同 ({0})..."
+ },
+ {
+  "file": "src/novelvideo/stage_asset_tasks.py",
+  "line": 1474,
+  "zh": "启动 {0} 生成 {1}/{2} 360 全景..."
+ },
+ {
+  "file": "src/novelvideo/stage_asset_tasks.py",
+  "line": 1577,
+  "zh": "pano_360.png 已写入 3GS 资产包"
+ },
+ {
+  "file": "src/novelvideo/stage_asset_tasks.py",
+  "line": 1577,
+  "zh": "360 全景候选已写入画布输出"
+ },
+ {
+  "file": "src/novelvideo/stage_asset_tasks.py",
+  "line": 1707,
+  "zh": "准备 spatial_layout voxel 参考图..."
+ },
+ {
+  "file": "src/novelvideo/stage_asset_tasks.py",
+  "line": 1760,
+  "zh": "正在生成 voxel world.json..."
+ },
+ {
+  "file": "src/novelvideo/stage_asset_tasks.py",
+  "line": 1791,
+  "zh": "voxel world.json 已写出"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
+  "line": 417,
+  "zh": "⚠️ 片段 {0} 抽取失败，已跳过: {1}"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
+  "line": 433,
+  "zh": "片段抽取完成: {0}/{1} 成功"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
+  "line": 910,
+  "zh": "⚠️ 归一裁决失败，保留规则归一结果: {0}"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
+  "line": 948,
+  "zh": "  拒绝归并 {0} → {1}：证据 {2} 条{3}"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
+  "line": 967,
+  "zh": "  归并 {0} → {1}"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
+  "line": 976,
+  "zh": "  裁决认为不是角色（仅记录，未删除）：{0}"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
+  "line": 979,
+  "zh": "裁决完成: {0} → {1} 个角色"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
+  "line": 1420,
+  "zh": "复用 {0} 个角色形象设定，未调用模型"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
+  "line": 1463,
+  "zh": "⚠️ 角色形象设定失败（{0} 个角色）：{1}"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
+  "line": 1520,
+  "zh": "⚠️ {0} 个角色未取得形象设定，面部提示词留空：{1}"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
+  "line": 1521,
+  "zh": "形象设定完成: {0}/{1} 个角色"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
+  "line": 1650,
+  "zh": "复用上次场景裁决分组：{0} 组，未调用模型"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
+  "line": 1658,
+  "zh": "⚠️ 场景归一裁决失败，保留原始场景: {0}"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
+  "line": 1701,
+  "zh": "  拒绝归并场景 {0} → {1}：出现 {2} 场"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
+  "line": 1712,
+  "zh": "  归并场景 {0} → {1}"
+ },
+ {
+  "file": "src/novelvideo/structured_extraction.py",
+  "line": 1715,
+  "zh": "场景裁决完成: {0} → {1} 个"
+ },
+ {
+  "file": "src/novelvideo/task_backend/run_core.py",
+  "line": 899,
+  "zh": "任务已取消"
+ },
+ {
+  "file": "src/novelvideo/task_backend/run_core.py",
+  "line": 1060,
+  "zh": "等待 Agent 交付工作流草稿"
+ },
+ {
+  "file": "src/novelvideo/task_backend/run_core.py",
+  "line": 1161,
+  "zh": "任务已取消"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/audio.py",
+  "line": 54,
+  "zh": "正在匹配系统声线"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/audio.py",
+  "line": 54,
+  "zh": "开始准备缺失的系统声线"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/audio.py",
+  "line": 54,
+  "zh": "正在匹配系统声线"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/audio.py",
+  "line": 54,
+  "zh": "开始准备缺失的系统声线"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/audio.py",
+  "line": 74,
+  "zh": "系统声线准备完成"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/audio.py",
+  "line": 74,
+  "zh": "已准备 {0} 项系统声线"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/audio.py",
+  "line": 74,
+  "zh": "系统声线准备完成"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/audio.py",
+  "line": 74,
+  "zh": "已准备 {0} 项系统声线"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/prop_reference.py",
+  "line": 73,
+  "zh": "调用图像模型生成三视图..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 235,
+  "zh": "开始 Batch Render 生成..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 252,
+  "zh": "场景参考图检查完成: requested={0}, generated={1}, skipped={2}, missing={3}, director_world_refs={4}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 262,
+  "zh": "场景分组 (2x2): {0} 个网格"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 264,
+  "zh": "网格 {0}: {1} ({2}x{3}, {4} beats)"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 310,
+  "zh": "准备网格 {0}/{1}: {2}x{3} ({4})"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 337,
+  "zh": "提交 {0} 个请求到 Batch API..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 340,
+  "zh": "Batch 状态: {0}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 347,
+  "zh": "保存结果并入池..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 405,
+  "zh": "✅ Batch Render 完成！{0}/{1} 成功"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 587,
+  "zh": "模式: {0}, 选中 {1} 个 beats: {2}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 611,
+  "zh": "场景参考图检查完成: requested={0}, generated={1}, skipped={2}, missing={3}, director_world_refs={4}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 621,
+  "zh": "生成 {0} {1}..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 625,
+  "zh": "已生成 {0}/{1} 张{2}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 646,
+  "zh": "分割网格并更新图片池..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 657,
+  "zh": "{0}生成失败: {1}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 707,
+  "zh": "入池: {0} 新增, {1} 去重跳过"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 722,
+  "zh": "✅ {0}完成！更新了 {1} 个 beats"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 850,
+  "zh": "开始重新生成网格 {0}: mode={1}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 946,
+  "zh": "切割网格到 render/ 并更新图片池..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/render.py",
+  "line": 978,
+  "zh": "✅ 网格 {0} 重新生成完成"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/script.py",
+  "line": 172,
+  "zh": "已清理 {0} 个旧草图文件"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/script.py",
+  "line": 189,
+  "zh": "已分配 {0} 个身份配色"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/script.py",
+  "line": 196,
+  "zh": "自动配色失败（不影响脚本）: {0}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 163,
+  "zh": "当前 beats 无 scene_id，跳过场景资产检查"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 190,
+  "zh": "未找到场景，跳过场景资产检查: {0}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 194,
+  "zh": "场景资产就绪: {0} (master=yes)"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 197,
+  "zh": "场景缺少主线资产: {0} (需要 master 作为默认 sketch 场景参考)"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 223,
+  "zh": "DirectorWorld 控制图已就绪: {0} 个 beat"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 225,
+  "zh": "未发现 DirectorWorld 控制图；导演单镜不会回退到旧参考图。"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 283,
+  "zh": "DirectorWorld sheet 跳过：缺少 beat refs {0}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 315,
+  "zh": "DirectorWorld sheet 已生成: {0}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 351,
+  "zh": "开始生成草图..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 410,
+  "zh": "导演草图模式: {0}x{1} (beats {2}), director_ref_mode={3}, director_ref_beats={4}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 425,
+  "zh": "生成网格 {0}/{1}: {2}x{3} [{4}] (beats {5})"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 462,
+  "zh": "当前网格场景参考图检查完成: requested={0}, generated={1}, skipped={2}, missing={3}, director_world_refs={4}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 469,
+  "zh": "普通草图网格使用场景 master + reverse 弱参考。"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 485,
+  "zh": "角色: {0} 个"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 498,
+  "zh": "生成 {0}x{1} 草图..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 506,
+  "zh": "[Sketch Image] 3GS 导演实景草图强制使用 OpenAI provider"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 534,
+  "zh": "[Two-Pass] Pass 1: 生成 1:1 中间草图 (mode_key={0})"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 564,
+  "zh": "[Two-Pass] Pass 1 完成，耗时 {0}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 575,
+  "zh": "[Two-Pass] Pass 2 完成，耗时 {0}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 582,
+  "zh": "[Two-Pass] Pass 2 失败 ({0})，回退使用 1:1 草图"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 607,
+  "zh": "[NanoBananaPro] 网格图生成完成，耗时 {0}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 612,
+  "zh": "[Deface] 跳过去脸后处理（SeedEdit 模型暂不可用）"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 613,
+  "zh": "切割草图入池..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 632,
+  "zh": "草图切割完成：{0} 个 beat 图片已入池"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/sketch.py",
+  "line": 648,
+  "zh": "✅ 草图 {0}/{1} 生成完成！"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/video.py",
+  "line": 151,
+  "zh": "生成 Beat {0} 视频"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/video.py",
+  "line": 379,
+  "zh": "生成 Beat {0} 视频..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/video.py",
+  "line": 391,
+  "zh": "Beat {0} 缺少首帧，跳过: {1}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/video.py",
+  "line": 522,
+  "zh": "合成 Beat {0}..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/video.py",
+  "line": 554,
+  "zh": "Beat {0} 使用独立音频: {1}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/video.py",
+  "line": 588,
+  "zh": "Beat {0} 使用视频内置音轨"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/video.py",
+  "line": 626,
+  "zh": "Beat {0} 合成失败: {1}"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/video.py",
+  "line": 723,
+  "zh": "开始全局视频提示词优化（仅 first_frame）..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/video.py",
+  "line": 753,
+  "zh": "Beat {0}/{1}: 生成视频提示词..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/video.py",
+  "line": 764,
+  "zh": "Beat {0}: 无草图帧，跳过"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/video.py",
+  "line": 797,
+  "zh": "Beat {0}: 生成失败 ({1})"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/video.py",
+  "line": 805,
+  "zh": "全局优化完成：成功更新 {0}/{1} 个 Beat"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/video.py",
+  "line": 868,
+  "zh": "调用视频生成器..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/video.py",
+  "line": 868,
+  "zh": "开始 freezone 视频生成"
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/video.py",
+  "line": 868,
+  "zh": "调用视频生成器..."
+ },
+ {
+  "file": "src/novelvideo/task_backend/runners/video.py",
+  "line": 868,
+  "zh": "开始 freezone 视频生成"
+ },
+ {
+  "file": "src/novelvideo/utils/screenplay_quality.py",
+  "line": 399,
+  "zh": "没有识别到场景头，系统无法判断每个场景从哪里开始。"
+ },
+ {
+  "file": "src/novelvideo/utils/screenplay_quality.py",
+  "line": 418,
+  "zh": "已识别场景边界，但部分场景元数据不完整。"
+ },
+ {
+  "file": "src/novelvideo/utils/screenplay_quality.py",
+  "line": 508,
+  "zh": "场景头“{0}”缺少{1}。"
+ },
+ {
+  "file": "src/novelvideo/utils/screenplay_quality.py",
+  "line": 544,
+  "zh": "场景头缺少“内/外”。"
+ },
+ {
+  "file": "src/novelvideo/utils/screenplay_quality.py",
+  "line": 571,
+  "zh": "检测到重复章节序号 {0}：{1}。"
+ },
+ {
+  "file": "src/novelvideo/utils/screenplay_quality.py",
+  "line": 583,
+  "zh": "章节序号从 {0} 跳回或重复为 {1}。"
+ },
+ {
+  "file": "src/novelvideo/verification/routes.py",
+  "line": 234,
+  "zh": "第 {0} 集 sketch edit execute 任务已进入队列"
+ },
+ {
+  "file": "src/novelvideo/workflows/literal_script_writing.py",
+  "line": 548,
+  "zh": "[Literal] 共切分出 {0} 行，识别 {1} 个场次块"
+ },
+ {
+  "file": "src/novelvideo/workflows/literal_script_writing.py",
+  "line": 714,
+  "zh": "[Literal][WARN] 第 {0}/{1} 行未重试，已使用安全占位 Beat，后续行继续处理。"
+ },
+ {
+  "file": "src/novelvideo/workflows/literal_script_writing.py",
+  "line": 730,
+  "zh": "[Literal][WARN] beat {0} scene_id `{1}` 不属于当前场次候选，回落 `{2}`"
+ },
+ {
+  "file": "src/novelvideo/workflows/literal_script_writing.py",
+  "line": 737,
+  "zh": "[Literal] beat {0} scene_id 字符串匹配失败，LLM 兜底选用 `{1}`（block.location={2}）"
+ },
+ {
+  "file": "src/novelvideo/workflows/literal_script_writing.py",
+  "line": 742,
+  "zh": "[Literal][WARN] beat {0} scene_id 留空 (block.location={1}, LLM 输出={2})"
+ },
+ {
+  "file": "src/novelvideo/workflows/literal_script_writing.py",
+  "line": 800,
+  "zh": "[Literal] 行 {0}/{1} -> {2}"
+ },
+ {
+  "file": "src/novelvideo/workflows/literal_script_writing.py",
+  "line": 845,
+  "zh": "[Literal][WARN] 第 {0}/{1} 行结构化输出失败，正在重新调用模型: {2}"
+ },
+ {
+  "file": "src/novelvideo/workflows/literal_script_writing.py",
+  "line": 858,
+  "zh": "[Literal][WARN] 第 {0}/{1} 行重试仍失败，已使用原文生成本地兜底 Beat，后续行继续处理。"
+ },
+ {
+  "file": "src/novelvideo/workflows/literal_script_writing.py",
+  "line": 862,
+  "zh": "[Literal][WARN] 第 {0}/{1} 行最终模型错误: {2}"
+ }
+]

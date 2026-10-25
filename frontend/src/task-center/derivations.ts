@@ -3,6 +3,7 @@
 import type { TaskLogEntry, TaskState, TaskStatus } from "./types";
 import { stageForTaskType } from "@/lib/episode-stage-registry";
 import type { TFn } from "@/lib/i18n-types";
+import { translateServerText } from "@/manna/server-text"; // Manna hook
 
 export const isTerminal = (t: TaskState): boolean =>
   t.status === "completed" || t.status === "failed" || t.status === "cancelled";
@@ -107,7 +108,7 @@ export const currentTaskText = (
       ...(t.current_task_params ?? {}),
     });
   }
-  return raw;
+  return translateServerText(raw); // Manna hook
 };
 
 /**
@@ -143,9 +144,9 @@ export const taskLogLinesOf = (
   );
 
 export const taskLogText = (entry: TaskLogEntry, tFn: TFn): string => {
-  if (typeof entry === "string") return entry;
+  if (typeof entry === "string") return translateServerText(entry); // Manna hook
   const text = String(entry?.text ?? "");
-  if (!entry?.code) return text;
+  if (!entry?.code) return translateServerText(text); // Manna hook
   return tFn(entry.code, { defaultValue: text, ...(entry.params ?? {}) });
 };
 

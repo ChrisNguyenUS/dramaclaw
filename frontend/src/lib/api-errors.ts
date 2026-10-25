@@ -3,6 +3,7 @@
 import type { TFunction } from "i18next";
 import { HTTPError } from "ky";
 import type { ErrorResponse } from "@/types/api";
+import { translateServerText } from "@/manna/server-text"; // Manna hook
 
 export const NOVEL_IMPORT_REQUIRED_CODE = "NOVEL_IMPORT_REQUIRED";
 
@@ -32,7 +33,7 @@ export function taskResponseToastMessage(
   t: TFunction,
 ): string {
   const text = String(response.message ?? "");
-  if (!response.message_code) return text;
+  if (!response.message_code) return translateServerText(text); // Manna hook
   return t(response.message_code, { defaultValue: text, ...(response.message_params ?? {}) });
 }
 

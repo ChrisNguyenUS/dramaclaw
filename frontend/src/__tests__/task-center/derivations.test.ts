@@ -225,6 +225,14 @@ describe("currentTaskText", () => {
       currentTaskText(sampleTask({ status: "completed", current_task: "生成 12 个 Beat" }), t),
     ).toBe("生成 12 个 Beat");
   });
+  it("translates untagged backend progress to English (Manna hook)", () => {
+    expect(
+      currentTaskText(sampleTask({ status: "running", current_task: "解析原文..." }), t),
+    ).toBe("Parsing the source text...");
+    expect(
+      currentTaskText(sampleTask({ status: "running", current_task: "提取第 3 章事件..." }), t),
+    ).toBe("Extracting events from chapter 3...");
+  });
   it("returns empty for a blank current task", () => {
     expect(currentTaskText(sampleTask({ status: "running", current_task: "" }), t)).toBe("");
   });
@@ -270,6 +278,11 @@ describe("taskLogLines", () => {
   it("passes plain strings through untouched", () => {
     // 还没迁移的后端调用点直接发中文字符串，不能被丢掉。
     expect(taskLogLines(["原文已保存", "任务已开始"], t)).toEqual(["原文已保存", "任务已开始"]);
+  });
+  it("translates known untagged backend log lines to English (Manna hook)", () => {
+    expect(
+      taskLogLines(["原文导入完成", { text: "视频已保存: a.mp4 (3 MB)" }, "没人认识这句"], t),
+    ).toEqual(["Source text imported", "Video saved: a.mp4 (3 MB)", "没人认识这句"]);
   });
   it("keeps structured and plain entries side by side", () => {
     expect(
