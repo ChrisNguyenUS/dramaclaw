@@ -41,6 +41,18 @@ def test_style_labels_become_english_and_prompts_stay():
     assert items[0]["label"] == "古装偶像"  # input not mutated
 
 
+@pytest.mark.parametrize("kind,source", [("styles", None), ("recipes", "recipes"), ("skills", "skills")])
+def test_overlay_ids_match_builtin_ids(kind, source):
+    """A builtin removed or renamed upstream must not leave a dead overlay entry."""
+    from novelvideo.manna_ext.catalog_en import _overlay
+
+    if source is None:
+        ids = {i["id"] for i in json.loads(STYLE_JSON.read_text(encoding="utf-8"))["templates"]}
+    else:
+        ids = {i["id"] for i in _raw(source)}
+    assert set(_overlay(kind)) == ids
+
+
 def test_unknown_ids_pass_through():
     assert apply_catalog_en("recipes", [{"id": "x", "name": "未知"}]) == [{"id": "x", "name": "未知"}]
 
@@ -175,3 +187,36 @@ def test_audio_kind_detection_is_unchanged_by_english_names():
         after = apply_catalog_en("recipes", [copy.deepcopy(before)])[0]
         assert catalog._dynamic_default_model(before) == catalog._dynamic_default_model(after), before["id"]
         assert catalog._intent_audio_kind({}, before) == catalog._intent_audio_kind({}, after), before["id"]
+
+
+def _quick_drama_plan(catalog, style):
+    compiled = catalog.compile_workflow_intent({
+        "skill_id": "short-drama-quick", "user_goal": "two shot drama",
+        "inputs": {"visual_style": style},
+        "planner": {"mode": "standard", "deliverable": "video", "item_count": 2,
+                    "include_audio": False, "units": [
+                        {"title": "Opening", "prompt": "hero enters"},
+                        {"title": "Ending", "prompt": "hero stays"},
+                    ]},
+    })
+    assert compiled["ok"] is True, compiled
+    return compiled["plan"]
+
+
+@pytest.mark.parametrize("sentinel", ["Unspecified", "unspecified", "未指定"])
+def test_unspecified_visual_style_counts_as_unset_in_both_languages(monkeypatch, sentinel):
+    """The English visual_style label tells users to write "Unspecified"; it must mean "not confirmed"."""
+    from novelvideo.freezone.agent_workflows import catalog
+
+    monkeypatch.setattr(catalog, "list_user_agent_config_items", None)
+    plan = _quick_drama_plan(catalog, sentinel)
+    assert "已确认视觉风格" not in json.dumps(plan, ensure_ascii=False)
+    assert catalog._confirmed_input_guidance("short-drama-quick", {"visual_style": sentinel}) == ""
+    assert catalog._quick_drama_visual_style_blockers(plan, sentinel) == []
+    assert catalog.validate_agent_workflow_plan(plan, allow_template_reroute=False)["ok"] is True
+
+
+def test_a_real_visual_style_is_still_confirmed():
+    from novelvideo.freezone.agent_workflows import catalog
+
+    assert "Anime" in catalog._confirmed_input_guidance("short-drama-quick", {"visual_style": "Anime"})

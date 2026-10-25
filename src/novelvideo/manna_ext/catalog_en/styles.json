@@ -12,7 +12,7 @@
     "category": "Period"
   },
   "cn_urban": {
-    "label": "Chinese Urban",
+    "label": "Chinese Urban Drama",
     "category": "Urban"
   },
   "urban_romance": {
@@ -20,7 +20,7 @@
     "category": "Urban"
   },
   "crime_suspense": {
-    "label": "Crime Suspense",
+    "label": "Grounded Suspense",
     "category": "Urban"
   },
   "korean_muted": {
@@ -29,46 +29,46 @@
   },
   "nineties": {
     "label": "Nineties",
-    "category": "Eras"
+    "category": "Retro"
   },
   "golden_age": {
     "label": "Golden Age",
-    "category": "Eras"
+    "category": "Retro"
   },
   "documentary_realism": {
     "label": "Documentary Realism",
-    "category": "Eras"
+    "category": "Retro"
   },
   "retro_narrative": {
     "label": "Retro Narrative",
-    "category": "Eras"
+    "category": "Retro"
   },
   "american_nineties": {
     "label": "American Nineties",
-    "category": "Eras"
+    "category": "Retro"
   },
   "showa_monochrome": {
     "label": "Showa Monochrome",
-    "category": "Eras"
+    "category": "Retro"
   },
   "vintage_industrial": {
     "label": "Vintage Industrial",
-    "category": "Eras"
+    "category": "Retro"
   },
   "sixties_poster": {
     "label": "Sixties Poster",
-    "category": "Eras"
+    "category": "Retro"
   },
   "hk_retro": {
     "label": "Retro Hong Kong Cinema",
-    "category": "Eras"
+    "category": "Retro"
   },
   "retro_film": {
     "label": "Retro Film",
-    "category": "Eras"
+    "category": "Retro"
   },
   "healing_life": {
-    "label": "Healing Life",
+    "label": "Feel-Good Slice of Life",
     "category": "Lifestyle"
   },
   "youth_film": {
@@ -128,7 +128,7 @@
     "category": "Animation"
   },
   "otomo_akira": {
-    "label": "Otomo Akira",
+    "label": "Katsuhiro Otomo",
     "category": "Animation"
   },
   "stop_motion": {

@@ -2541,7 +2541,7 @@ def _confirmed_input_guidance(
     visual_style = _text(resolved_inputs.get("visual_style"))
     if (
         visual_style
-        and visual_style.casefold() != "未指定"
+        and visual_style.casefold() not in _UNSET_VISUAL_STYLES  # Manna hook
         and skill_id == "short-drama-quick"
     ):
         parts.append(
@@ -4399,7 +4399,7 @@ def _quick_drama_visual_style_blockers(
 ) -> list[dict[str, str]]:
     """Require a confirmed style in each executable visual task's prompt context."""
     style = _text(visual_style)
-    if not style or style.casefold() == "未指定":
+    if not style or style.casefold() in _UNSET_VISUAL_STYLES:  # Manna hook
         return []
     nodes = plan.get("nodes") if isinstance(plan.get("nodes"), list) else []
     edges = plan.get("edges") if isinstance(plan.get("edges"), list) else []
@@ -4926,6 +4926,9 @@ def _recipe_planning_summary(recipe: dict[str, Any]) -> dict[str, Any]:
             _text(item) for item in recipe.get("conflicts_with") or [] if _text(item)
         ],
     }
+
+
+_UNSET_VISUAL_STYLES = {"未指定", "unspecified"}  # Manna hook  # i18n-exempt
 
 
 def _without_private_fields(value: Any) -> Any:

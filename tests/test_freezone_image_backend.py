@@ -3602,7 +3602,7 @@ def test_image_style_templates_have_assets_and_prompts() -> None:
         assert item["category"] in {
             "Period",
             "Urban",
-            "Eras",
+            "Retro",
             "Lifestyle",
             "Sci-Fi",
             "Genre",
