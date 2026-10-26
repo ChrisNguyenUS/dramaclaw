@@ -15,6 +15,7 @@ from anyio.lowlevel import RunVar
 from fastapi import APIRouter, Depends, File, HTTPException, Query, Response, UploadFile
 from fastapi.responses import JSONResponse
 
+from novelvideo.manna_ext.project_defaults import manna_create_config  # Manna hook
 from novelvideo.api.auth import get_api_user, require_scope
 from novelvideo.api.deps import (
     make_sqlite_store_for_context,
@@ -761,6 +762,7 @@ async def create_project(
         save_project_config_in_state_dir(
             record.state_dir,
             config={
+                **manna_create_config(body.film_language),  # Manna hook
                 "user": user["username"],
                 KNOWLEDGE_PIPELINE_KEY: KNOWLEDGE_PIPELINE_STRUCTURED,
             },

@@ -44,6 +44,7 @@ class ErrorResponse(BaseModel):
 
 class ProjectCreate(BaseModel):
     name: str = Field(max_length=64)
+    film_language: Optional[Literal["en", "vi"]] = None  # Manna hook
 
 
 class ProjectSummary(BaseModel):
@@ -87,6 +88,7 @@ class ProjectGrantSummary(BaseModel):
 
 
 class ProjectUpdate(BaseModel):
+    film_language: Optional[Literal["en", "vi"]] = None  # Manna hook
     spine_template: Optional[Literal["drama", "narrated"]] = None
     aspect_ratio: Optional[Literal["2:3", "9:16", "16:9"]] = None
     visual_style: Optional[str] = None
