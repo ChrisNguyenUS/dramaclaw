@@ -19,6 +19,7 @@ import shutil
 from pathlib import Path
 from urllib.parse import urlsplit
 
+from novelvideo.manna_ext import prompts as manna_prompts, prompts_en as manna_prompts_en  # Manna hook
 import yaml
 
 _log = logging.getLogger(__name__)
@@ -767,6 +768,8 @@ def _freezone_workflow_skill_items(username: str) -> list[dict]:
 
 
 def _workflow_skill_description(item: dict) -> str:
+    if manna_prompts.english_on():  # Manna hook
+        return manna_prompts_en.workflow_skill_description(item)  # Manna hook
     description = str(item.get("description") or "").strip()
     triggers = item.get("triggers") if isinstance(item.get("triggers"), dict) else {}
     keywords = triggers.get("keywords") if isinstance(triggers, dict) else []
@@ -783,6 +786,8 @@ def _workflow_skill_description(item: dict) -> str:
 
 
 def _render_workflow_skill(item: dict) -> tuple[str, dict[str, object]]:
+    if manna_prompts.english_on():  # Manna hook
+        return manna_prompts_en.render_workflow_skill(item)  # Manna hook
     skill_id = str(item.get("id") or "").strip()
     display_name = str(
         item.get("name")

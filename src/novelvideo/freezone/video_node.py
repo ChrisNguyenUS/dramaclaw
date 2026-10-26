@@ -23,6 +23,7 @@ from typing import Any
 
 import portalocker
 
+from novelvideo.manna_ext import prompts as manna_prompts, prompts_en as manna_prompts_en  # Manna hook
 from novelvideo.freezone.paths import freezone_root
 from novelvideo.video_duration import (
     normalize_video_duration_for_backend as normalize_video_duration_for_backend,
@@ -128,13 +129,15 @@ FREEZONE_DISABLED_VIDEO_BACKENDS = {"newapi_grok-video-channel"}
 
 
 def get_video_camera_templates() -> list[dict[str, str]]:
+    if manna_prompts.english_on():  # Manna hook
+        return manna_prompts_en.camera_templates(VIDEO_CAMERA_TEMPLATES)  # Manna hook
     return [dict(item) for item in VIDEO_CAMERA_TEMPLATES]
 
 
 def get_video_camera_template(template_id: str | None) -> dict[str, str] | None:
     if not template_id:
         return None
-    for item in VIDEO_CAMERA_TEMPLATES:
+    for item in get_video_camera_templates():  # Manna hook: English names/prompts when on
         if item["id"] == template_id:
             return dict(item)
     return None
@@ -453,6 +456,8 @@ def build_freezone_video_prompt(
     character_names: list[str] | None = None,
     marks: list[dict[str, Any]] | None = None,
 ) -> str:
+    if manna_prompts.english_on():  # Manna hook
+        return manna_prompts_en.video_prompt(user_prompt=user_prompt, template=get_video_camera_template(camera_template_id), character_names=character_names, marks=marks)  # Manna hook
     parts = [str(user_prompt or "").strip()]
 
     template = get_video_camera_template(camera_template_id)
@@ -483,6 +488,8 @@ def build_freezone_image_to_video_prompt(
     marks: list[dict[str, Any]] | None = None,
     reference_image_count: int = 1,
 ) -> str:
+    if manna_prompts.english_on():  # Manna hook
+        return manna_prompts_en.image_to_video_prompt(user_prompt=user_prompt, template=get_video_camera_template(camera_template_id), marks=marks, reference_image_count=reference_image_count)  # Manna hook
     parts: list[str] = []
 
     if user_prompt and user_prompt.strip():
@@ -529,6 +536,8 @@ def build_freezone_video_extend_prompt(
     camera_template_id: str | None = None,
 ) -> str:
     """Build an explicit continuation prompt without reference/edit wording."""
+    if manna_prompts.english_on():  # Manna hook
+        return manna_prompts_en.video_extend_prompt(user_prompt=user_prompt, template=get_video_camera_template(camera_template_id))  # Manna hook
 
     parts = [str(user_prompt or "").strip()]
     template = get_video_camera_template(camera_template_id)
@@ -546,6 +555,8 @@ def build_freezone_keyframe_video_prompt(
     has_first_frame: bool = True,
     has_last_frame: bool = True,
 ) -> str:
+    if manna_prompts.english_on():  # Manna hook
+        return manna_prompts_en.keyframe_video_prompt(user_prompt=user_prompt, template=get_video_camera_template(camera_template_id), marks=marks, has_first_frame=has_first_frame, has_last_frame=has_last_frame)  # Manna hook
     parts: list[str] = []
 
     if user_prompt and user_prompt.strip():
@@ -589,6 +600,8 @@ def build_freezone_omni_video_prompt(
 ) -> str:
     """continuation：画布「智能续写」。要求与「视频延长」一致，不带全能参考那套措辞
     （其中「这是视频参考生成新的视频」与续写正相反）。"""
+    if manna_prompts.english_on():  # Manna hook
+        return manna_prompts_en.omni_video_prompt(user_prompt=user_prompt, theme=theme, template=get_video_camera_template(camera_template_id), marks=marks, counts=summarize_omni_reference_counts(reference_items or []), continuation=continuation)  # Manna hook
 
     parts = [str(user_prompt or "").strip()]
 

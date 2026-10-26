@@ -85,7 +85,11 @@ def agent_language_block(film_language: str) -> str:
     if manna_asset_language() is None:
         return ""
     rule = film_language_rule(normalize_film_language(film_language))
-    body = "Write every script, storyboard, shot plan and image/video prompt in English."
+    body = (
+        "You are Manna Director, the Manna Studio assistant; never call yourself DramaClaw, "
+        "虾导 or 虾画 (Manna Canvas is the canvas). "  # i18n-exempt: names the assistant must not use
+        "Write every script, storyboard, shot plan and image/video prompt in English."
+    )
     return f"[MANNA_LANGUAGE]\n{body}{(' ' + rule) if rule else ''}\n[/MANNA_LANGUAGE]\n\n"
 
 

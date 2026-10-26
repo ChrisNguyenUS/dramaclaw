@@ -12,6 +12,7 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
+from novelvideo.manna_ext import prompts as manna_prompts, prompts_en as manna_prompts_en  # Manna hook
 from novelvideo.manna_ext.catalog_en import apply_catalog_en  # Manna hook
 from novelvideo.freezone.workflow_schema import (
     PORTABLE_VIDEO_GENERATION_MODES,
@@ -779,9 +780,9 @@ def template_isomorphism(skill_id: str, plan: Any) -> dict[str, Any]:
         data = node.get("data") if isinstance(node.get("data"), dict) else {}
         unit: dict[str, Any] = {
             "title": _node_text(node, "title", "name", "label", "displayName")
-            or f"内容段 {index + 1}",
+            or manna_prompts.plan_text(f"内容段 {index + 1}"),  # Manna hook
             "prompt": _node_text(node, "prompt", "description", "content")
-            or f"内容段 {index + 1}",
+            or manna_prompts.plan_text(f"内容段 {index + 1}"),  # Manna hook
         }
         if narrations[index] is not None:
             unit["narration"] = narrations[index]
@@ -2145,7 +2146,7 @@ def _standard_outline_prompt(
         briefs.append(" ".join(parts))
     if not briefs:
         return user_goal
-    return f"{user_goal}\n逐段事实与旁白（必须完整保留）：\n" + "\n".join(briefs)
+    return manna_prompts.plan_text(f"{user_goal}\n逐段事实与旁白（必须完整保留）：\n" + "\n".join(briefs))  # Manna hook
 
 
 def _standard_skill_items(
@@ -2240,7 +2241,7 @@ def _standard_skill_items(
                         timeline_role="voiceover",
                     )
                 )
-        return items
+        return manna_prompts.translate_items(items)  # Manna hook
 
     outline_recipe = {
         "text-to-image": "general-text",
@@ -2450,7 +2451,7 @@ def _standard_skill_items(
                 timeline_role="music",
             )
         )
-    return items
+    return manna_prompts.translate_items(items)  # Manna hook
 
 
 def _standard_planner_units(
@@ -2471,7 +2472,7 @@ def _standard_planner_units(
             raw_unit = {}
         number = index + 1
         title = (
-            _text(raw_unit.get("title") or raw_unit.get("name")) or f"内容段 {number}"
+            _text(raw_unit.get("title") or raw_unit.get("name")) or manna_prompts.plan_text(f"内容段 {number}")  # Manna hook
         )
         prompt = (
             _text(
@@ -2479,7 +2480,7 @@ def _standard_planner_units(
                 or raw_unit.get("description")
                 or raw_unit.get("goal")
             )
-            or f"{user_goal}，第 {number} 段：{title}"
+            or manna_prompts.plan_text(f"{user_goal}，第 {number} 段：{title}")  # Manna hook
         )
         narration = _text(
             raw_unit.get("narration")
@@ -2537,6 +2538,9 @@ def _confirmed_input_guidance(
     """
     if not isinstance(resolved_inputs, dict):
         return ""
+    if manna_prompts.english_on():  # Manna hook
+        _style = _text(resolved_inputs.get("visual_style"))  # Manna hook
+        return " ".join(manna_prompts_en.confirmed_input_guidance(skill_id, resolved_inputs, bool(_style) and _style.casefold() not in _UNSET_VISUAL_STYLES and skill_id == "short-drama-quick"))  # Manna hook
     parts: list[str] = []
     visual_style = _text(resolved_inputs.get("visual_style"))
     if (
@@ -2914,12 +2918,12 @@ def _compile_dynamic_recipe_items_intent(
         {
             "id": "workflow_input",
             "node_type": "textAnnotationNode",
-            "name": "用户需求 / 输入素材",
+            "name": manna_prompts.plan_text("用户需求 / 输入素材"),  # Manna hook
             "description": user_goal,
             "stage": "input",
             "data": {
-                "displayName": "用户需求 / 输入素材",
-                "title": "用户需求 / 输入素材",
+                "displayName": manna_prompts.plan_text("用户需求 / 输入素材"),  # Manna hook
+                "title": manna_prompts.plan_text("用户需求 / 输入素材"),  # Manna hook
                 "content": user_goal,
                 "prompt": user_goal,
                 "workflowCatalogRole": "user_input",
@@ -3244,14 +3248,14 @@ def _compile_dynamic_recipe_items_intent(
                 {
                     "id": compose_id,
                     "node_type": "videoComposeNode",
-                    "name": "成片合成",
-                    "description": "汇总视频片段、配乐和旁白，进入时间线完成最终编排。",
+                    "name": manna_prompts.plan_text("成片合成"),  # Manna hook
+                    "description": manna_prompts.plan_text("汇总视频片段、配乐和旁白，进入时间线完成最终编排。"),  # Manna hook
                     "stage": "compose",
                     "data": {
-                        "displayName": "成片合成",
-                        "title": "成片合成",
-                        "content": "汇总视频片段、配乐和旁白，进入时间线完成最终编排。",
-                        "prompt": "汇总视频片段、配乐和旁白，进入时间线完成最终编排。",
+                        "displayName": manna_prompts.plan_text("成片合成"),  # Manna hook
+                        "title": manna_prompts.plan_text("成片合成"),  # Manna hook
+                        "content": manna_prompts.plan_text("汇总视频片段、配乐和旁白，进入时间线完成最终编排。"),  # Manna hook
+                        "prompt": manna_prompts.plan_text("汇总视频片段、配乐和旁白，进入时间线完成最终编排。"),  # Manna hook
                         # Keep the intent's semantic source order. Canvas node ids
                         # are allocated later, so the frontend resolves these plan
                         # ids through each node's workflowPlanNodeId.

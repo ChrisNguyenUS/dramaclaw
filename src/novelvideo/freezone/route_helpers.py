@@ -14,6 +14,7 @@ from typing import Optional
 
 from fastapi import HTTPException
 
+from novelvideo.manna_ext import prompts as manna_prompts  # Manna hook
 from novelvideo.manna_ext.catalog_en import apply_catalog_en  # Manna hook
 
 from novelvideo.api.schemas import (
@@ -206,6 +207,10 @@ def build_style_prompt(style: Optional[FreezoneImageStyleConfig]) -> str:
     template = resolve_freezone_image_style_template(style)
     if template is None:
         return ""
+    if manna_prompts.english_on():  # Manna hook
+        from novelvideo.manna_ext.catalog_en import apply_catalog_en  # Manna hook
+        _label = apply_catalog_en("styles", [template])[0].get("label", template["label"])  # Manna hook
+        return f"Style template:\n- {_label}\n- {manna_prompts.style_prompt(template['id'], template['style_prompt'])}"  # Manna hook
     return (
         "风格模板:\n"
         f"- {template['label']}\n"

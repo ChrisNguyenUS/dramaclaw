@@ -15,6 +15,7 @@ from typing import Any, Literal, Optional
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent
 
+from novelvideo.manna_ext import prompts as manna_prompts, prompts_en as manna_prompts_en  # Manna hook
 from novelvideo.egress_context import TrustedEgressContext
 from novelvideo.model_gateway_runtime import (
     current_model_gateway_context,
@@ -318,7 +319,7 @@ def create_freezone_story_script_agent(model: str | None = None) -> Agent:
     )
     return Agent(
         llm_model,
-        system_prompt=FREEZONE_STORY_SCRIPT_SYSTEM_PROMPT,
+        system_prompt=manna_prompts.text("text_node.story_script_system", FREEZONE_STORY_SCRIPT_SYSTEM_PROMPT),  # Manna hook
         model_settings=get_newapi_structured_output_model_settings(),
         output_type=FreezoneStoryScriptGenerateData,
         # 结构化脚本表字段多、且 shot_no/duration 是严格 int，模型偶尔会把时长写成
@@ -348,7 +349,7 @@ def build_freezone_translation_task(
     node_type: Literal["generic", "image", "video", "audio", "text"],
 ) -> str:
     """构建翻译任务。"""
-    node_label = FREEZONE_NODE_TYPE_LABELS[node_type]
+    node_label = manna_prompts.text("text_node.node_type_labels", FREEZONE_NODE_TYPE_LABELS)[node_type]  # Manna hook
 
     parts = [
         f"Translate the following {node_label}.",
@@ -476,6 +477,8 @@ def build_freezone_story_script_task(
     character_refs: Sequence[Mapping[str, Any]] | None = None,
 ) -> str:
     """构建故事脚本生成任务。"""
+    if manna_prompts.english_on():  # Manna hook
+        return manna_prompts_en.story_script_task(source_text=source_text, prompt=prompt, character_refs=character_refs)  # Manna hook
     parts = [
         "根据以下上传剧本内容生成一个完整的故事脚本表。",
         *_STORY_SCRIPT_COMMON_RULES,
@@ -502,6 +505,8 @@ def build_freezone_video_story_script_task(
     与文本模式共用同一张输出表，区别是源素材换成了按时间顺序抽取的关键帧，
     并要求模型给出 ``keyframe_index`` 以便后端回填每一镜的参考图。
     """
+    if manna_prompts.english_on():  # Manna hook
+        return manna_prompts_en.video_story_script_task(frame_count=frame_count, prompt=prompt, duration_sec=duration_sec, character_refs=character_refs)  # Manna hook
     duration_hint = (
         f"该视频总时长约 {duration_sec:.2f} 秒，所有镜头时长加起来应接近这个值。"
         if duration_sec and duration_sec > 0
@@ -541,6 +546,8 @@ def build_freezone_character_story_script_task(
     这一路没有参考视频，只有角色参考图：剧情来自用户提示词（和可选的源剧本），
     图片只负责钉死角色长相，所以 ``keyframe_index`` 一律为 0。
     """
+    if manna_prompts.english_on():  # Manna hook
+        return manna_prompts_en.character_story_script_task(image_count=image_count, prompt=prompt, source_text=source_text, character_refs=character_refs)  # Manna hook
     parts = [
         f"下面按顺序给你 {image_count} 张角色参考图，请据此生成一张完整的故事脚本表。",
         "这是角色参考模式，没有参考视频：角色1 / 角色2 的外貌、服饰、年代、气质"
@@ -605,7 +612,7 @@ def create_freezone_video_story_script_agent() -> Agent:
             brainclaw_profile=BrainClawProfile.FREEZONE_VISION_ANALYSIS,
             capability="vision.analyze",
         ),
-        system_prompt=FREEZONE_VIDEO_STORY_SCRIPT_SYSTEM_PROMPT,
+        system_prompt=manna_prompts_en.video_story_script_system() if manna_prompts.english_on() else FREEZONE_VIDEO_STORY_SCRIPT_SYSTEM_PROMPT,  # Manna hook
         model_settings=get_newapi_structured_output_model_settings(),
         output_type=FreezoneStoryScriptGenerateData,
         output_retries=model_gateway_output_retries(3),

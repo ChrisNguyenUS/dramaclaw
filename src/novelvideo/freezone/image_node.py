@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from novelvideo.manna_ext import prompts as manna_prompts, prompts_en as manna_prompts_en  # Manna hook
 from novelvideo.freezone.vision_gateway import (
     FREEZONE_IMAGE_REVERSE_PROMPT_TIMEOUT_SECONDS,
     VisionInput,
@@ -19,6 +20,8 @@ DEFAULT_IMAGE_REVERSE_PROMPT_INSTRUCTION = (
 
 
 def build_image_reverse_prompt_task(instruction: str = "") -> str:
+    if manna_prompts.english_on():  # Manna hook
+        return manna_prompts_en.image_reverse_prompt_task(instruction)  # Manna hook
     lines = [
             "你是一个图片节点提示词反推助手。",
             "我会给你一张图片，请根据图片内容反推出一段直接可用于文生图或图生图的中文提示词。",
