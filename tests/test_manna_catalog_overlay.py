@@ -17,8 +17,9 @@ OVERLAY = Path("src/novelvideo/manna_ext/catalog_overlay")
 TOKEN = re.compile(r"@?(图片|视频|音频|文本)N?\d*")  # i18n-exempt: protocol reference tokens
 CJK = re.compile(r"[㐀-鿿　-〿＀-￯]")
 # Option values agent_workflows/catalog.py compares against code-injected Chinese values
-# (_SOCIAL_IMAGE_RECIPE_PLATFORMS, character_input_method): protocol, not copy.
-PROTECTED = re.compile("小红书|抖音|微博/微信|自定义角色")  # i18n-exempt: protocol option values
+# (_SOCIAL_IMAGE_RECIPE_PLATFORMS, character_input_method), plus the legacy last-frame node
+# title older canvases still carry (P2a renamed new ones "Previous shot last frame"): protocol, not copy.
+PROTECTED = re.compile("小红书|抖音|微博/微信|自定义角色|上一镜尾帧|尾帧")  # i18n-exempt: protocol values
 
 
 def _walk(value):
@@ -101,3 +102,18 @@ def test_overlay_dir_is_off_without_switch(monkeypatch):
     assert catalog_overlay.overlay_dir("recipes") is None
     monkeypatch.setenv("MANNA_ASSET_LANGUAGE", "en")
     assert catalog_overlay.overlay_dir("recipes") == OVERLAY.resolve() / "recipes"
+
+
+def test_overlays_are_not_stale_against_upstream_builtins():
+    """An upstream change to a builtin must be re-translated (scripts/manna-catalog-sheet.py stale)."""
+    import hashlib
+
+    sources = json.loads((OVERLAY / "SOURCES.json").read_text(encoding="utf-8"))
+    stale = [
+        key
+        for key, sha in sources.items()
+        if hashlib.sha256((BUILTINS / key).read_bytes()).hexdigest() != sha
+    ]
+    assert not stale, f"re-translate: {stale} (run scripts/manna-catalog-sheet.py extract/apply)"
+    tracked = {f"{kind}/{p.name}" for kind in ("recipes", "skills") for p in (BUILTINS / kind).glob("*.json")}
+    assert tracked <= set(sources), sorted(tracked - set(sources))

@@ -1,0 +1,30 @@
+{
+  "schema_version": "dramaclaw.recipe.v1",
+  "id": "dialogue-continuity-shot-video",
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "Dialogue Continuity Shot Video",
+  "output_kind": "video",
+  "action_keys": [
+    "dialogue-continuity-shot-video"
+  ],
+  "system_prompt": "Turn the confirmed storyboard Shot, the upstream text continuity information and the reference assets connected to the current node into a single-shot video prompt that can go straight into a videoGeneration node. Important: your output is a downstream node prompt/instruction, not the final video; output only the prompt, with no explanation.\n\nReference rules: use only assets connected to the current node that this shot actually needs. For a connected image, use @图片N to say whether it locks a character, scene, prop, outfit or frame state. If an image's title or note is \"Previous shot last frame\" (or the legacy 上一镜尾帧 / 尾帧), treat it as this shot's opening continuity reference, and state at the start of the prompt: use @图片N as the final frame of the previous clip / the starting frame of this clip, strictly carrying over character positions, screen direction, action end state, composition, key light direction, outfit and prop state, and expression. Then describe the action that continues from that last frame, the direction of momentum, changes in gaze/hands/center of gravity, and how the camera pushes, pulls, pans, trucks or keeps a handheld breathing feel starting from that frame. Never treat the last frame as a character sheet, scene image, prop image or generic style reference; express \"continue seamlessly from this reference frame\". For a connected previous-shot video, use @视频N to say it is only for action, screen direction, start/end frame or lighting continuity; use @音频N only when the node actually supports audio references, for dialogue rhythm or lip-sync reference. Numbering follows the left-to-right order of the reference thumbnails at the top of the node; when an asset type is not connected, never invent its reference or placeholder. Reference counts, whether image/video/audio is supported and duration limits follow the constraints shown for the node's selected model and generation mode.\n\nWrite the prompt as a compact paragraph in order of events: connected reference assets and their purpose (if any) → opening frame state → shot scale, off-axis camera and composition → camera movement and acceleration → character action, gaze and micro-expressions → light and environment changes → dialogue and ambience → end state and handoff to the next shot.\n\nThe shot inherits the camera position, shot scale, key light direction, color temperature, shadows and action end state from the storyboard plan; it never stays completely still for more than 1.5 seconds. Frontal character shots are turned at least 15°, and adjacent shots never repeat camera position or shot scale. Close-ups keep a restrained handheld breathing feel; camera movement states its speed changes, start and end states and motivation, avoiding mechanical constant-speed push-pulls and unmotivated drift.\n\nWrite the performance in visible order: micro-reactions before speaking such as a change of gaze, breathing, swallowing or looking away, then action, mouth movement and the close. Dialogue keeps the original text verbatim, tagged with emotion, pace, pauses, stressed words and mouth movement; language and accent follow the global creative spec. In-picture sound covers only the dialogue, ambience or action sounds specified for that shot; whether to add music, subtitles or on-screen text follows the global creative spec.",
+  "must_have_items": [
+    "Connected reference assets and their purpose (if any)",
+    "@图片N",
+    "@视频N",
+    "@音频N",
+    "Opening frame state",
+    "End state",
+    "Shot continuity",
+    "1.5 seconds",
+    "Handheld breathing feel",
+    "Turned 15°",
+    "Lip-sync"
+  ],
+  "planning_prompt": "Generate a dialogue single-shot video prompt from the storyboard Shot, the connected canvas reference assets and continuity information.",
+  "result_summary": "Continuity dialogue single-shot video generation prompt.",
+  "requires_source_media": false,
+  "force_enhancement": false,
+  "skip_detail_check": false
+}

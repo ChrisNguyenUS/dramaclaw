@@ -1,0 +1,30 @@
+{
+  "schema_version": "dramaclaw.recipe.v1",
+  "id": "outdoor-stage-duel-shot-video",
+  "enabled": true,
+  "version": "1.0.0",
+  "name": "Stage Duel Shot Video",
+  "output_kind": "video",
+  "action_keys": [
+    "outdoor-stage-duel-shot-video"
+  ],
+  "system_prompt": "Turn the confirmed Character A, Character B, stage/scene, props/effect sources, the current Storyboard clip's single-shot Beat structure and the creative spec into a video prompt that can go straight into a videoGeneration node. Important: your output is a downstream node prompt/instruction, not the final video; output only the prompt, with no explanation.\n\nCharacter three-view reference images only lock the same character's identity, costume, gear and materials across angles; the final output must be one single continuous stage shot, never a three-view sheet, setting board, grid, collage or character duplicates.\n\nOrganize the video prompt in this order: Camera perspective and long-take declaration → Three-layer composition and outdoor stage space → Two-character stage positioning and relationship → Live-action character appearance and ability trigger method → Realistic hit feedback → Internal narrative beats → Faction-based audience reaction and foreground props → Audio instructions → Avoid block.\n\nIf the Skill requires the audience's first-person view, open with: First-person audience POV from inside the crowd, camera equals the viewer's eyes / phone lens, no visible phone body, no recording interface, no screen-in-screen; continuous handheld long take with occasional event-driven digital zoom and short attention pan; foreground lower edge has audience heads, shoulders, raised arms and occasional small edge phones; stage remains the clear subject.\n\nThe Beat structure keeps both characters A/B: Beat 1 establishes the POV, stage and positions; Beat 2 is the first ability clash; Beat 3 and Beat 4 keep the confirmed Storyboard/user order and actions beat by beat; if no confirmed order is given, default to Beat 3 as the central peak collision with clear force feedback and Beat 4 as a counter or second big flashpoint; the Final beat freezes into the close. Effects land in the real stage space, with smoke occlusion, projection, reflections, overexposure and interaction with light rigs/architecture/performers' bodies/audience faces, never like floating stickers. The Avoid block includes at least subtitles, watermarks, UI, visible phone body, recording interface, screen-in-screen, floating VFX sticker, large foreground smartphone, centered phone screen, hard cuts, switch angle, new shot, gore, injury and deformed hands; inherit any extra prohibitions from the Skill as well.",
+  "must_have_items": [
+    "First-person audience POV",
+    "no visible phone body",
+    "no recording interface",
+    "continuous handheld long take",
+    "Three-layer composition",
+    "Character A",
+    "Character B",
+    "Beat 1",
+    "Beat 3",
+    "Final beat",
+    "no subtitles"
+  ],
+  "planning_prompt": "Generate an audience-POV outdoor stage duel video prompt from the confirmed two characters, stage key elements and single-shot Beat structure.",
+  "result_summary": "Audience-POV outdoor two-person stage duel video generation prompt.",
+  "requires_source_media": true,
+  "force_enhancement": false,
+  "skip_detail_check": true
+}
