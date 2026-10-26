@@ -86,6 +86,7 @@ import {
 } from "@/stores/episode-workbench-store";
 import { useProjectNavStore } from "@/stores/project-nav-store";
 import { surfaceAccess, useProductSurfaces } from "@/lib/queries/product-surfaces";
+import { FilmLanguageSelect, type FilmLanguage } from "@/manna/film-language-select"; // Manna hook
 
 type PendingAction =
   | { kind: "archive"; project: string; name: string }
@@ -1084,6 +1085,7 @@ function ProjectDashboard() {
   const [sort, setSort] = useState<SortKey>("updated-desc");
   const [createOpen, setCreateOpen] = useState(false);
   const [newName, setNewName] = useState("");
+  const [newFilmLanguage, setNewFilmLanguage] = useState<FilmLanguage>("en"); // Manna hook
   const [recentlyCreatedProject, setRecentlyCreatedProject] = useState<
     string | null
   >(() => readRecentlyCreatedProject());
@@ -1190,7 +1192,7 @@ function ProjectDashboard() {
     const name = trimmedNewName;
     if (!name || createNameError) return;
     try {
-      const res = await createProject.mutateAsync(name);
+      const res = await createProject.mutateAsync({ name, film_language: newFilmLanguage }); // Manna hook
       const createdName = res.data.name || name;
       setRecentlyCreatedProject(createdName);
       window.localStorage.setItem(RECENTLY_CREATED_PROJECT_KEY, createdName);
@@ -1374,6 +1376,7 @@ function ProjectDashboard() {
                     {createNameError}
                   </p>
                 )}
+                <FilmLanguageSelect value={newFilmLanguage} onChange={setNewFilmLanguage} />{/* Manna hook */}
               </div>
               <DialogFooter className="-mx-7 -mb-7 border-t-0 bg-transparent p-7 pt-3 sm:flex-row sm:justify-end">
                 <Button

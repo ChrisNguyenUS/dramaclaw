@@ -3,6 +3,7 @@
 export type SpineTemplate = "drama" | "narrated";
 
 export interface ProjectConfig {
+  film_language?: "en" | "vi"; // Manna hook
   spine_template?: SpineTemplate;
   aspect_ratio?: "2:3" | "9:16" | "16:9";
   visual_style?: string;

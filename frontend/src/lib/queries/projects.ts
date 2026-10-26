@@ -37,9 +37,10 @@ export function useProject(project: string) {
 export function useCreateProject() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (name: string) =>
+    // Manna hook: also accepts { name, film_language }; a plain name still works.
+    mutationFn: (input: string | { name: string; film_language?: "en" | "vi" }) =>
       api
-        .post("api/v1/projects", { json: { name } })
+        .post("api/v1/projects", { json: typeof input === "string" ? { name: input } : input })
         .json<OkResponse<{ id?: string; project_id?: string; name: string }>>(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.projects() });

@@ -87,6 +87,7 @@ import {
 import { cn } from "@/lib/utils";
 import type { ProjectConfig, SpineTemplate } from "@/types/project";
 import type { Chapter, ChapterSceneBlock } from "@/types/episode";
+import { FilmLanguageSelect } from "@/manna/film-language-select"; // Manna hook
 
 // ─── form schema ─────────────────────────────────────────────────────────────
 
@@ -1890,6 +1891,13 @@ export function IngestPageContent({ project }: { project: string }) {
                     <span>{t("ingest.novelFormat.button")}</span>
                   </button>
                 )}
+
+                {/* Manna hook: film language saves on change, independent of the ingest settings form. */}
+                <FilmLanguageSelect
+                  value={config?.film_language}
+                  onChange={(film_language) => updateProject.mutate({ film_language })}
+                  disabled={updateProject.isPending}
+                />
 
                 <div className="col-span-2 flex w-full shrink-0 items-center justify-end gap-3 md:ml-auto md:w-auto">
                   <Button
