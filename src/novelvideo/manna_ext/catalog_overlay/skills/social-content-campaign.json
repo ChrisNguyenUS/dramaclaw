@@ -1,0 +1,121 @@
+{
+  "schema_version": "dramaclaw.workflow-skill.v1",
+  "id": "social-content-campaign",
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "Social Content Image Set",
+  "description": "Plans social platform copy, a shared visual, and platform-adapted images dynamically from the brand, product, or campaign goal.",
+  "category": "social",
+  "triggers": {
+    "keywords": [
+      "social media content",
+      "social image set",
+      "Xiaohongshu images",
+      "Douyin cover",
+      "Weibo images",
+      "WeChat article images",
+      "Instagram post",
+      "multi-platform content"
+    ],
+    "node_scopes": [
+      "textGeneration",
+      "imageGeneration"
+    ]
+  },
+  "input_parameters": [
+    {
+      "id": "platforms",
+      "label": "Publishing platforms",
+      "type": "multi_select",
+      "required": false,
+      "default": [
+        "小红书"
+      ],
+      "options": [
+        "小红书",
+        "抖音",
+        "微博/微信",
+        "Instagram"
+      ]
+    },
+    {
+      "id": "image_count",
+      "label": "Number of images",
+      "type": "number",
+      "required": false,
+      "default": 3,
+      "options": []
+    },
+    {
+      "id": "aspect_ratio",
+      "label": "Image aspect ratio",
+      "type": "single_select",
+      "required": false,
+      "default": "3:4",
+      "options": [
+        "3:4",
+        "1:1",
+        "16:9",
+        "9:16"
+      ]
+    }
+  ],
+  "allowed_recipe_ids": [
+    "social-copywriting",
+    "social-content-image",
+    "social-xiaohongshu-image",
+    "social-douyin-cover",
+    "social-weibo-wechat-image",
+    "social-ig-post"
+  ],
+  "planning": {
+    "planning_notes": "First write one core copy from the user's goal, then create image plan items for the platforms and count the user picked; create only the platform versions actually needed. Platform option values (小红书 = Xiaohongshu, 抖音 = Douyin, 微博/微信 = Weibo/WeChat, Instagram) are fixed identifiers; keep them exactly as written.",
+    "prompt_guide": "All platform versions share the brand facts and core message, but composition, text density, aspect ratio and visual rhythm follow each platform.",
+    "conduct_rules": [
+      "Decide the number of nodes from platforms and image_count",
+      "One content set keeps the brand, product and core selling points consistent",
+      "Each platform uses only the Recipe that matches its delivery format",
+      "Generate and confirm a dynamic plan before creating canvas nodes"
+    ]
+  },
+  "evaluation": {
+    "rating_bands": [
+      {
+        "score": 10,
+        "description": "Brand information is consistent, platform fit is accurate, and both copy and images are ready to use"
+      },
+      {
+        "score": 7,
+        "description": "Core content is complete; a few platform formats need adjusting"
+      },
+      {
+        "score": 4,
+        "description": "Wrong platform fit, or brand information differs between versions"
+      }
+    ],
+    "visual_review_items": [
+      {
+        "name": "Brand consistency",
+        "description": "Subject, brand and selling points stay consistent across platform images",
+        "weight": 0.5
+      },
+      {
+        "name": "Platform fit",
+        "description": "Composition, aspect ratio and information density suit the target platform",
+        "weight": 0.5
+      }
+    ],
+    "text_review_items": [
+      {
+        "name": "Consistent core message",
+        "description": "Platform copy never changes the brand facts or core selling points",
+        "weight": 1
+      }
+    ],
+    "quality_threshold": 7,
+    "domain_constraints": [
+      "Never invent product features, prices, certifications or promotions",
+      "All platform versions share the same confirmed brand facts"
+    ]
+  }
+}

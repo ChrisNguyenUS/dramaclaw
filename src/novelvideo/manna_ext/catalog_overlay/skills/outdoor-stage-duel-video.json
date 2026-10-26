@@ -1,0 +1,157 @@
+{
+  "schema_version": "dramaclaw.workflow-skill.v1",
+  "id": "outdoor-stage-duel-video",
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "Outdoor Stage Two-Person Showdown",
+  "description": "Develops a character description, ability type, stage setting, or climax structure into an audience-POV outdoor stage showdown short between two performers, moving stage by stage through creative spec, storyboard, key elements, single-shot video, and audio layers.",
+  "category": "video",
+  "triggers": {
+    "keywords": [
+      "stage duel",
+      "two-performer power show",
+      "outdoor stage",
+      "audience POV",
+      "live performance",
+      "power face-off",
+      "tokusatsu stage",
+      "theme park theater",
+      "convention outdoor stage",
+      "one continuous take"
+    ],
+    "node_scopes": [
+      "textGeneration",
+      "imageGeneration",
+      "videoGeneration",
+      "audioGeneration"
+    ]
+  },
+  "input_parameters": [
+    {
+      "id": "aspect_ratio",
+      "label": "Aspect ratio",
+      "type": "single_select",
+      "required": true,
+      "default": "16:9",
+      "options": [
+        "9:16",
+        "16:9"
+      ]
+    },
+    {
+      "id": "resolution",
+      "label": "Resolution",
+      "type": "single_select",
+      "required": true,
+      "default": "720p",
+      "options": [
+        "720p",
+        "1080p"
+      ]
+    },
+    {
+      "id": "venue_type",
+      "label": "Stage setting",
+      "type": "single_select",
+      "required": true,
+      "default": "Outdoor theme park theater",
+      "options": [
+        "Outdoor theme park theater",
+        "Open-air plaza stage",
+        "Festival stage",
+        "Convention outdoor area",
+        "Night stage"
+      ]
+    },
+    {
+      "id": "vo_language",
+      "label": "Voiceover language",
+      "type": "single_select",
+      "required": true,
+      "default": "English short lines",
+      "options": [
+        "English short lines",
+        "Vietnamese short lines",
+        "Japanese short lines",
+        "No voiceover"
+      ]
+    }
+  ],
+  "allowed_recipe_ids": [
+    "outdoor-stage-duel-storyboard",
+    "outdoor-stage-duel-key-elements",
+    "outdoor-stage-duel-shot-video",
+    "outdoor-stage-duel-audio-layers"
+  ],
+  "planning": {
+    "planning_notes": "Dynamic path: first decide the entry from aspect_ratio, resolution, venue_type, vo_language, the user's character/ability description and the canvas assets. Before creating generation nodes, settle the creative spec at the Skill level: lock 15 seconds per video, one shot per video, two characters A/B, both abilities, stage blocking, the conflict between them, aspect ratio, resolution, outdoor-stage realism and the voiceover language; this spec does not create its own node. If the user gives only one character, first complete or propose a second original rival/partner; never make a solo ability showcase. After the spec, create the storyboard: each video has exactly 1 shot, written as Beat 1 → Beat 2 → Beat 3 → Beat 4 → Final beat escalating inside one continuous take, with no seconds and no hard cuts. After the storyboard, create the key element stage with a separate key element node for each independently referenced asset: Character A, Character B, the complete outdoor stage/theater space, key props, and each side's ability effect source; do not create an audience POV asset. Never merge several subjects into one key element sheet; only an asset always referenced downstream as one whole may share a node. After the key elements, create the single-shot videos; each 15-second video references the confirmed Character A, Character B, stage/scene and any needed props/effect sources; generate visuals only at first, without VO/BGM. After the visual videos, create the audio layer and generate the VO and BGM prompts in one pass. Finally create the composite node automatically and connect all single-shot videos and the audio layer in playback order; BGM defaults to 0.7, VO to 1.0, and each video fades out over its last 2 seconds.",
+    "prompt_guide": "The core is the audience's first-person view of a two-person supernatural performance/duel on an outdoor stage. The camera feels like an audience member's eyes or phone camera, but never shows the phone body, a recording UI, picture-in-picture or a large centered phone. By default it is not a professional camera position, drone, broadcast camera or third-person film shot. Each 15-second video is one continuous handheld long take; write the internal rhythm only as narrative beats, with no timestamps, no hard cut/switch angle/new shot. Characters must read as real stage actors/stunt performers: real body proportions, fabric folds, leather/metal/armor texture, props with weight. Abilities must be translated into stage lighting, smoke, fire rings, LED light curtains, light columns, shockwaves, projections and live post-production enhancement.",
+    "conduct_rules": [
+      "Default to two characters A/B; if the user gives only one, complete or ask for a second original rival/partner. Never default to a solo ability show.",
+      "If the user mentions a famous anime/game character, use it only as inspiration; never write the official character name, title, move names, organization names, village names, catchphrases, emblems or patterns in the storyboard or prompts.",
+      "Each 15-second video is exactly 1 shot; escalate inside it with Beat 1/2/3/4/Final beat, without seconds and without splitting into multiple shots.",
+      "The key element stage must be split into several independent nodes, at least Element_Character_A, Element_Character_B and the complete stage space; each side's ability effect source, core props or special stage rigs that are referenced across shots must also get their own node. Audience POV is a shot constraint, not a separate asset.",
+      "Every shot uses three-layer composition: foreground audience heads/shoulders/arms and a little phone edge, midground stage and both characters, background outdoor theater architecture/light rigs/flags/sky/smoke layer.",
+      "Every Beat keeps the other character present as target, defender, reactor or spatial anchor; it must never become two separate showcases.",
+      "Hit feedback must be specific: center of gravity, footwork, face guard, sliding step, bent knees, bracing and recovering balance; effects never replace the body's reaction.",
+      "Audience reactions change by side: when A leads, A's supporters cheer; when B counters, the other side of the audience stands, raises hands and phones shake.",
+      "Video prompts default to no music and no subtitles; VO and BGM are generated separately only after the visual videos are done."
+    ]
+  },
+  "evaluation": {
+    "rating_bands": [
+      {
+        "score": 5,
+        "description": "The two characters' stage relationship is clear, the audience-POV long take is stable, and three-layer composition, IP avoidance, stage effects, hit feedback, side-based audience reactions and stage boundaries are all complete."
+      },
+      {
+        "score": 3,
+        "description": "Basically a stage duel, but character B, foreground audience, real stage texture, hit feedback, IP rewriting or staged audio handling has gaps."
+      },
+      {
+        "score": 1,
+        "description": "Turned into a solo ability show, professional film camera positions, third-person shots, hard-cut multi-shot, official IP written directly, a centered phone screen recording or a pure CG arena."
+      }
+    ],
+    "visual_review_items": [
+      {
+        "name": "Audience POV",
+        "weight": 1.5,
+        "description": "The camera must feel like a live long take through an audience member's eyes/phone camera, without showing a recording device or UI."
+      },
+      {
+        "name": "Two-character relationship",
+        "weight": 1.4,
+        "description": "A and B share one stage coordinate system; attack, defense, reactions and the climax happen between them."
+      },
+      {
+        "name": "Live realism",
+        "weight": 1.2,
+        "description": "Foreground audience, stage architecture, lighting and smoke, prop materials and body impact reactions must all be believable."
+      }
+    ],
+    "text_review_items": [
+      {
+        "name": "Single-shot rule",
+        "weight": 1,
+        "description": "Each 15-second video is exactly 1 shot, using narrative beats inside, with no timestamps or hard cuts."
+      },
+      {
+        "name": "IP avoidance",
+        "weight": 1,
+        "description": "Famous characters must become original stage-performer designs, with official names, logos and moves removed."
+      },
+      {
+        "name": "Audio separation",
+        "weight": 1,
+        "description": "The video stage generates no VO/BGM; short VO and instrumental/sound-effect BGM are generated after the visual videos are done."
+      }
+    ],
+    "quality_threshold": 4,
+    "domain_constraints": [
+      "Never create an audience POV key element.",
+      "Never use official anime/game character names, move names, organization names, emblems or catchphrases.",
+      "Never show a large centered phone, recording UI, picture-in-picture, third-person film camera positions, drone shots, hard cuts or multi-shot switching."
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "id": "general-text",
+  "enabled": true,
+  "version": 1,
+  "name": "General Text Enhancement",
+  "output_kind": "text",
+  "action_keys": [
+    "general-text"
+  ],
+  "system_prompt": "You are an Expert Prompt Engineer for text generation tasks.\nRewrite rough user intent into a clear, structured and executable instruction.\nOutput ONLY refined prompt text.",
+  "planning_prompt": "Plan this node's concrete generation requirements from the user's goal, the current plan item and upstream results.",
+  "result_summary": "General text enhancement done.",
+  "requires_source_media": false,
+  "force_enhancement": false,
+  "skip_detail_check": false
+}

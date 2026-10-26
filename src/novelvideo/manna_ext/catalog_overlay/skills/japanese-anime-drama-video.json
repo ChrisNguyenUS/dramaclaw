@@ -1,0 +1,178 @@
+{
+  "schema_version": "dramaclaw.workflow-skill.v1",
+  "id": "japanese-anime-drama-video",
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "Japanese Anime Drama Studio",
+  "description": "Creates short anime dramas in a Japanese realistic anime style, covering youth romance, city light and shadow, missed connections and reunions, with dense dialogue in multiple language styles including Mandarin, Taiwanese Mandarin, and Japanese.",
+  "category": "video",
+  "triggers": {
+    "keywords": [
+      "Japanese anime drama",
+      "Japanese anime short",
+      "realistic anime",
+      "youth romance",
+      "city light and shadow",
+      "missed connections and reunion",
+      "golden-hour backlight",
+      "raindrops on glass",
+      "train platform",
+      "dialogue-heavy short drama"
+    ],
+    "node_scopes": [
+      "textGeneration",
+      "imageGeneration",
+      "videoGeneration",
+      "audioGeneration"
+    ]
+  },
+  "input_parameters": [
+    {
+      "id": "total_duration",
+      "label": "Target duration",
+      "type": "single_select",
+      "required": true,
+      "default": "60 seconds",
+      "options": [
+        "30 seconds",
+        "60 seconds",
+        "2 minutes",
+        "5 minutes",
+        "10 minutes"
+      ]
+    },
+    {
+      "id": "language_style",
+      "label": "Language and accent style",
+      "type": "single_select",
+      "required": true,
+      "default": "English",
+      "options": [
+        "English",
+        "Vietnamese",
+        "Japanese"
+      ]
+    },
+    {
+      "id": "delivery_resolution",
+      "label": "Delivery resolution",
+      "type": "single_select",
+      "required": true,
+      "default": "1080p",
+      "options": [
+        "1080p",
+        "4K"
+      ]
+    },
+    {
+      "id": "series_mode",
+      "label": "Series format",
+      "type": "single_select",
+      "required": true,
+      "default": "Single episode",
+      "options": [
+        "Single episode",
+        "Series"
+      ]
+    }
+  ],
+  "allowed_recipe_ids": [
+    "dialogue-drama-story-script",
+    "dialogue-drama-storyboard-plan",
+    "visual-key-elements",
+    "dialogue-continuity-shot-video"
+  ],
+  "planning": {
+    "planning_notes": "[Stage path]\n1. Before starting, decide the entry from total_duration, language_style, delivery_resolution, series_mode, the user input and canvas/uploaded assets, and lock the global creative spec at the Skill level: 16:9 landscape, 24fps timeline, Japanese realistic anime youth light and shadow, no BGM, no subtitles, core emotion, target duration, delivery resolution and whether it is a series; this spec does not create its own node. Total length can be 10 seconds to 10 minutes, with non-preset durations as the user specifies; a single shot is limited by the video node's maximum duration and is planned at 7-15 seconds by default. Always ask the user about language and accent style; after \"story direction and language style\" is settled, produce a reviewable global spec.\n2. Parse the user's idea, script and references into a story script: if there is only a one-line idea, expand it into a short script and mark it \"auto-expanded, to be verified\"; if there is a complete script, parse it faithfully without rewriting the core plot; if there is no story input at all, first ask the user for an idea, synopsis or script. Make this stage's output clear and reviewable.\n3. Analyze user-provided images, video, audio and documents first, without creating separate nodes: extract identity traits, outfits, micro-expressions, materials, spatial layout, character blocking, prop positions, key light direction, color temperature, shadows and reflections, reusable camera positions and action end states; if the user marks a piece of audio or video as a voice reference, note which characters or shots it can bind to for voice, lip-sync, tone or rhythm reference, and output cross-shot continuity cues.\n4. After the script, enter the storyboard stage: build key_element, character identity boards, scene boards and shots in order. Submit the scene boards only after the character identity boards are done, and the complete storyboard and shot continuity sheet only after the scene boards are done.\n5. After the storyboard, enter the key element stage: first list from the storyboard's key_element the independent assets reused across shots, and create a draft node for each. Each recurring character gets its own node and a four-panel identity board; each main reused scene gets its own node with front, aerial and detail reference images; each core prop, vehicle or environment object that must look the same across shots gets its own node. Register and bind the user's existing visual assets first; do not regenerate visual assets the user explicitly chose that can be used directly. Never create a single generic \"key elements\" node, and never merge several independently referenced characters, scenes or props into one sheet; only an asset always referenced downstream as one whole may share a node. Make each key element output clear and reviewable.\n6. After the key elements, generate final_shot: first generate one sample that best represents the characters, lighting, camera work and dialogue rhythm; once the sample is done and meets the locked requirements, batch-generate the remaining final_shots. Each shot is 7-15 seconds, with at most 9 image references and at most 3 audio references totaling under 15 seconds; it can connect characters, scenes, props, the previous shot's video or the voice reference the user specified, with supported types, counts and duration limits following the current node's model and generation mode. Dialogue, breathing, action sounds and per-shot ambience go into the matching video prompt by default; only when the user specifies an uploaded or on-canvas audio/video as a voice reference, use @音频N or @视频N in the video prompt, in the order of the node's connected assets, to explain its voice, lip-sync, tone or rhythm purpose.\n7. After all shots are done, final assembly, mixing, 4K upscaling and export are handled by the canvas compose node. For 4K delivery, finish the 1080p cut first and then upscale, and make the upscaled cut clear and reviewable.\n\n[Planning rules]\nEvery node leaves room for the user to review and adjust: character boards, scene boards, storyboard sheets, samples and final cuts all support editing, regenerating or skipping; the storyboard stage can also target a single shot or adjust rhythm/duration.\nWhen a single generation attempt misses the confirmed character, scene, shot or continuity requirements, retry once on the same path; if it still misses, explain the deviation instead of silently downgrading to a weaker path.\nAfter three rounds of revisions still fail, offer three clear creative directions instead of generating again in the same direction.\nThe locked duration, language and accent style, delivery resolution, series format and visual spec carry through the script, storyboard, key element and video stages.\nBy default 2-3 element scenes and at most 4 element characters; these are caps on the number of independent key element nodes, not a reason to merge several elements into one node. A series must also lock character looks, scene prop positions, lighting state and the purpose of chosen voice references, so each episode's ending flows naturally into the next episode's opening.",
+    "prompt_guide": "All stage outputs use English Markdown, and all downstream prompts are written in English.\n\n[Visual language]\nJapanese realistic anime, clear high-saturation color, golden-hour backlight, a blue-violet to orange-gold sky gradient, raindrop reflections on glass, volumetric clouds and fine environment detail. Characters keep a clear Japanese realistic anime texture: 2-3 star catchlights in the eyes, translucent grouped hair strands when backlit, restrained eye and lip texture that follows the expression, natural warm-cool skin transitions, visible hand joints and fabric materials. Keep a fine sense of life but never turn into a live-action photo, over-smoothed skin, plastic skin, flat shading or unsourced outer glow. Do not use specific films, directors or character names as style instructions; use executable visual descriptions instead, and describe only what the camera can see or hear.\n\n[Light and visual motifs]\nEvery light has a visible or inferable physical source; adjacent shots keep a consistent key light direction, shadows keep material detail and highlights keep texture. Use at least three of: passing trains, raindrops on glass, golden-hour backlight, starry sky, sea of clouds, city rooftops, and land visible details such as rail perspective, raindrop trails with background blur, long shadows or a clear Milky Way. Give trains, raindrops, shadows, rails, clouds or the Milky Way concrete spatial relationships and physical causes rather than piling up visual nouns.\n\n[Prompt organization]\nkey_element image prompts follow identity and appearance → pose/composition → environment or white background → physical light source and direction → light color → texture constraints.\nScene image prompts follow space and story props → relative positions of people/props → time and weather → key light direction and color temperature → shadows/sky/reflections and material detail → composition.\nfinal_shot prompts are written as a compact paragraph in order of events: connected reference assets and their purpose → opening frame state → shot scale/off-axis camera/composition → handheld breathing feel, camera movement and acceleration → character action, gaze and micro-expressions → light and environment changes → dialogue, breathing, action sounds and ambience → end state and handoff to the next shot. Use @图片N, @视频N and @音频N to point at the node's connected reference thumbnails and explain each reference's purpose; never invent references for asset types that are not connected. If the user did not specify a voice reference, do not invent @音频N or treat an unrelated video as a voice reference. Reference capabilities and limits follow the current node's model and generation mode, and append \"no music, no subtitles, no on-screen text\".\n\n[Dialogue delivery]\nDialogue follows the language and accent style locked at the start: English uses natural conversational delivery; Vietnamese uses natural spoken Vietnamese with full diacritics; Japanese follows spoken Japanese rhythm and pause habits. Heavy lines are delivered calmly, slowed and held back; require every word to be clear, sentence endings complete and key words stressed, with pace and pauses driven by the emotion (slow, restrained, confronting, sad, explosive or tender), avoiding swallowed syllables and awkward splicing. Lines match the mouth movements exactly. If the user specified an uploaded or on-canvas audio/video as a voice reference, use @音频N or @视频N in the video prompt, in the order of the node's connected assets, to explain its voice, lip-sync, tone or rhythm purpose; without a voice reference, write the dialogue performance and sound intent directly in the video prompt.",
+    "conduct_rules": [
+      "Create the complete workflow draft first; story script, character boards, scene boards, storyboard sheet, sample and batch videos all need clear stage outputs, and the canvas workflow controls the actual continue, retry and execution pace.",
+      "dependency_for only sets execution order; the target node does not consume the upstream output. Story script to storyboard must use context_for; storyboard text to image or video nodes must use prompt_for; visual assets to video nodes must use media_input_for. dependency_for is allowed only when the target does not consume the source output.",
+      "Always ask the user about language and accent style at the start (English/Vietnamese/Japanese); once locked, it carries through all dialogue writing and performance direction.",
+      "Default 16:9 landscape and a 24fps timeline; total length 10 seconds to 10 minutes, with a single shot at 7-15 seconds by default and limited by the video node's maximum duration.",
+      "Submit the scene boards only after the character identity boards are done, and the complete storyboard and shot continuity sheet only after the scene boards are done; never skip steps or break the dependency order.",
+      "No shot stays completely still for more than 1.5 seconds; close-ups keep a restrained handheld breathing feel, and empty shots need a slow pan, tilt or in-scene movement.",
+      "Each short uses at least 4 camera angles, with shot scales progressing (or reverse-progressing) through wide, full, medium, close and extreme close-up; frontal character shots are turned at least 15°, and adjacent shots never repeat camera position or shot scale.",
+      "Avoid angle-less frontal static shots, unmotivated medium shots, mechanical constant-speed push-pulls and over-smooth stabilizer paths; snap push-ins and pull-outs include a slight inertial overshoot, and push-pulls, tracking and orbits all state organic acceleration and deceleration.",
+      "Build a continuity sheet for adjacent shots: 30° rule, match on action, eyeline match, screen direction, character frame position, prop state, key light direction and color temperature continuity; within one scene, adjacent shot durations differ by no more than 3 seconds in principle.",
+      "Write the performance in visible order: micro-reactions before speaking such as a change of gaze, breathing, swallowing or looking away, then action, mouth movement and the close; emotion is restrained but clear, with no screaming, out-of-control crying, smashing things or exaggerated physical comedy.",
+      "Dialogue lives in the matching shot, by default one meaningful line every 3-5 seconds, each tagged with the speaking element character, emotion, performance rhythm and stressed words.",
+      "Do not design music, a cross-shot BGM audio_layer or subtitles; ambience such as rain, trains, cicadas and wind goes into the relevant shot's sound intent, and only an ambient bed that must continue across shots gets an audio_layer with its coverage and volume level noted, never masking the dialogue.",
+      "First register user-uploaded or existing characters, scenes and props and bind them to the matching key_element or shot; do not regenerate visual assets the user explicitly chose that can be used directly, and series projects keep reusing the same character, scene and prop states.",
+      "The key element stage never creates just one generic \"key elements\" node. Each recurring character, each main reused scene, and each core prop/vehicle/environment object that must look the same across shots gets its own node; never replace several independent elements with one combined sheet.",
+      "No separate audio nodes by default; dialogue, breathing, action sounds and per-shot ambience go into the matching video prompt. Only when the user specifies an uploaded or on-canvas audio/video as a voice reference, connect that asset to the matching video node and use @音频N or @视频N in the video prompt to explain its voice, lip-sync, tone or rhythm purpose.",
+      "Each shot references at most 9 images and at most 3 audio clips totaling under 15 seconds; reference the previous final_shot's short video only when action matching, screen direction, frame state or lighting must be continuous, to avoid character and scene drift.",
+      "Generate one representative sample first; only after it is done and meets the locked requirements, batch-generate the remaining final_shots.",
+      "When a generation fails or misses the confirmed requirements, first retry once with the same configuration; if it still fails, explain the deviation and leave room to adjust, never silently switching voice mode or downgrading to a path that does not match the user's choice.",
+      "Video generation never outputs 4K directly; 4K delivery is upscaled only after the 1080p cut is finished, and assets already at the target resolution are not upscaled again.",
+      "Final editing, mixing, upscaling and export are handled by the canvas compose node."
+    ]
+  },
+  "evaluation": {
+    "rating_bands": [
+      {
+        "score": 5,
+        "description": "Stages are clear and their boundaries complete; Japanese realistic anime texture, physical lighting, multi-angle shot storytelling, cross-shot continuity, restrained performance and verbatim dialogue all land reliably in the outputs, with no BGM and no subtitles in the whole film."
+      },
+      {
+        "score": 3,
+        "description": "The flow is mostly complete, but some stages lack asset analysis, asset binding, the continuity sheet, camera variety, performance micro-reactions or audio node voice parameters."
+      },
+      {
+        "score": 1,
+        "description": "Muddled stage boundaries, a live-action photo look or flat shading, shots completely still for long stretches, light with no physical source, or added BGM, subtitles and on-screen text."
+      }
+    ],
+    "visual_review_items": [
+      {
+        "name": "Japanese realistic anime texture",
+        "weight": 1.5,
+        "description": "Characters have star catchlights, translucent grouped backlit hair, restrained eye and lip texture, natural warm-cool skin transitions and visible hand joints and fabric materials; never a live-action photo look, smoothed plastic skin or flat shading."
+      },
+      {
+        "name": "Physical light and visual motifs",
+        "weight": 1.3,
+        "description": "Every light has a visible or inferable source, shadows keep material and highlights keep texture, and concrete details of at least three motifs land: trains, raindrops on glass, golden-hour backlight, starry sky, sea of clouds or rooftops."
+      },
+      {
+        "name": "Cross-shot continuity",
+        "weight": 1.4,
+        "description": "Character looks, outfits, prop states, blocking, screen direction, key light direction and color temperature stay continuous between adjacent shots and across the film."
+      },
+      {
+        "name": "Shot language variety",
+        "weight": 1.2,
+        "description": "At least 4 camera angles, shot scale progression, frontal shots turned 15°, handheld breathing feel and organic acceleration, with no fully still frame longer than 1.5 seconds."
+      }
+    ],
+    "text_review_items": [
+      {
+        "name": "Stage boundaries and adjustability",
+        "weight": 1.4,
+        "description": "Character boards, scene boards, storyboard sheet, sample and final cut all have clear outputs, input dependencies and room to adjust, so the canvas workflow is easy to review and advance."
+      },
+      {
+        "name": "Storyboard and continuity sheet executability",
+        "weight": 1.2,
+        "description": "Every shot's fields are complete: referenced elements, emotional motivation, start and end frame states, shot scale, camera angle, camera movement, key light direction, sound intent and handoff rationale, plus a continuity sheet for adjacent shots."
+      },
+      {
+        "name": "Dialogue and performance direction",
+        "weight": 1.2,
+        "description": "Line density, language and accent style, emotion, pace and pauses, stressed words and the order of micro-reactions are clear and match the mouth movements."
+      }
+    ],
+    "quality_threshold": 4,
+    "domain_constraints": [
+      "Fixed 16:9 landscape and 24fps timeline; total length 10 seconds to 10 minutes, a single shot 7-15 seconds by default.",
+      "No BGM, no subtitles and no on-screen text in the whole film; this Skill has no narration by default.",
+      "Dialogue language and accent style follow the English, Vietnamese or Japanese locked at the start.",
+      "Characters keep a Japanese realistic anime texture, with no live-action photo look, over-smoothed skin, plastic skin, flat shading or unsourced outer glow.",
+      "Every light has a visible or inferable physical source; no flat ambient light, crushed blacks, blown whites or effect glows detached from a light source.",
+      "No shot stays completely still for more than 1.5 seconds, and the film uses at least 4 camera angles.",
+      "Each shot references at most 9 images and at most 3 audio clips totaling under 15 seconds.",
+      "A final_shot prompt, placeholders included, stays within 2300 characters.",
+      "Never use specific films, directors or character names as style instructions."
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "id": "drama-character-extraction",
+  "enabled": true,
+  "version": 2,
+  "name": "Character Look Extraction",
+  "output_kind": "text",
+  "action_keys": [
+    "drama-character-extraction"
+  ],
+  "system_prompt": "You are a senior character designer and concept artist. From the plot outline and the current input, directly extract and output complete character visual settings.\n\nYour output is the final character settings; do not return a prompt or instructions for another model.\n\nThe final output must include these structured elements:\n-[Role] You are a senior character designer and concept artist, expert in character visual design and consistency standards\n-[Task] From the plot outline below, extract complete visual settings for each main character: [summary of the character-related information extracted from the upstream plot outline]\n-[Output structure] For each character, output: character name, age and build, facial features (face shape/brows and eyes/skin tone/signature traits), hairstyle and hair color (down to the shade), signature outfit (style/color/material of top/bottom/shoes/accessories), scene costume changes (if any), color tags (main/secondary/accent), temperament keywords (3-5)\n-[Quality bar] Descriptions must be specific enough for an AI image model to recreate a visually consistent character; no vague descriptions such as \"a pretty girl\" — break them into concrete features, build and outfit; if there is a character reference image, extract from it; output in English, one paragraph per character, so characters can be split later for character sheet generation",
+  "must_have_items": [
+    "[Character name]",
+    "[Appearance]",
+    "[Signature outfit]"
+  ],
+  "planning_prompt": "Directly extract each character's appearance and outfit settings from the character information.",
+  "result_summary": "Complete appearance, outfit and color tag settings for each character.",
+  "requires_source_media": true,
+  "force_enhancement": false,
+  "skip_detail_check": true
+}

@@ -1,0 +1,165 @@
+{
+  "schema_version": "dramaclaw.workflow-skill.v1",
+  "id": "ling-cage-cinematic-video",
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "Ling Cage-Style Sci-Fi Short",
+  "description": "Develops an idea, character design, reference material, or script into a semi-realistic 3D post-apocalyptic sci-fi animated short in the Ling Cage style, moving stage by stage through story script, storyboard, key elements, per-shot video, and audio layers.",
+  "category": "video",
+  "triggers": {
+    "keywords": [
+      "Ling Cage style",
+      "post-apocalyptic sci-fi",
+      "semi-realistic 3D",
+      "lighthouse",
+      "surface wasteland",
+      "Mana ecology",
+      "devourer beasts",
+      "dust folk",
+      "wasteland hunters",
+      "post-apocalyptic animated short"
+    ],
+    "node_scopes": [
+      "textGeneration",
+      "imageGeneration",
+      "videoGeneration",
+      "audioGeneration"
+    ]
+  },
+  "input_parameters": [
+    {
+      "id": "total_duration",
+      "label": "Target duration",
+      "type": "single_select",
+      "required": true,
+      "default": "2 minutes",
+      "options": [
+        "1 minute",
+        "2 minutes",
+        "3 minutes"
+      ]
+    },
+    {
+      "id": "output_language",
+      "label": "Output language",
+      "type": "single_select",
+      "required": true,
+      "default": "English",
+      "options": [
+        "English",
+        "Vietnamese"
+      ]
+    },
+    {
+      "id": "director_style",
+      "label": "Director style",
+      "type": "single_select",
+      "required": true,
+      "default": "Immersive documentary",
+      "options": [
+        "Immersive documentary",
+        "Epic tragedy",
+        "Horror thriller",
+        "Mixed by section"
+      ]
+    },
+    {
+      "id": "asset_mode",
+      "label": "Asset approach",
+      "type": "single_select",
+      "required": true,
+      "default": "Use existing assets first",
+      "options": [
+        "Use existing assets first",
+        "Generate only missing assets",
+        "Remake everything in one style"
+      ]
+    },
+    {
+      "id": "audio_mode",
+      "label": "Background music",
+      "type": "single_select",
+      "required": true,
+      "default": "Generate BGM",
+      "options": [
+        "Generate BGM",
+        "No BGM"
+      ]
+    }
+  ],
+  "allowed_recipe_ids": [
+    "sci-fi-survival-story-script",
+    "sci-fi-survival-storyboard",
+    "sci-fi-survival-key-elements",
+    "sci-fi-survival-shot-video",
+    "sci-fi-survival-audio-layers"
+  ],
+  "planning": {
+    "planning_notes": "Dynamic path: first decide the entry from total_duration, output_language, director_style, asset_mode, audio_mode, the user input and canvas/uploaded assets, and lock the creative spec at the Skill level: default 16:9, 24fps, 720p, target duration, output language, director style, asset strategy, whether to generate BGM, and visual style; this spec does not create its own node. If the user only has keywords or an idea, first offer several story directions to choose from, then expand into a scene-by-scene script and make the story stage output clear and reviewable; if the user already has a complete script, skip direction picking but still do a structured extraction. After the story stage, produce the storyboard: Key Elements, a Shot List and the BGM plan, and check that every shot binds scene, characters, action, dialogue/voiceover, duration and transition intent. After the storyboard, enter the key element image stage: first list from the Key Elements the independent assets reused across shots, then create a draft node for each. Each recurring character or squad gets its own node; each main reused scene gets its own node; each monster, machine, core prop or environment source that must look the same across shots gets its own node. Character nodes produce three-view sheets, scene nodes produce a 2x2 character-free grid, and monster/machine/prop nodes produce a complete structure or multi-angle reference; bind the user's assets first, and remake them in the style when they do not match. Never create a single generic \"key elements\" node, and never merge several independently referenced characters, scenes, monsters, machines or props into one sheet; only an asset always referenced downstream as one whole may share a node. After the key elements, create single-shot videos per Shot List entry or clear scene section: every Shot List entry must be its own video intent item and canvas node, 4-15 seconds per shot, each referencing only the character, scene and monster/machine/prop element images it actually needs; write dialogue and sound effects into the matching video prompt, and express voiceover and in-shot ambience through the shot prompt too, without separate audio nodes; at most 9 image references and 3 audio references, and reference the previous shot's video only for strong continuity. The runner executes only nodes already on the canvas and never expands later nodes from a finished script or storyboard, so the complete draft must list the key element nodes and all single-shot video nodes at once, and create a BGM audio node only when music is needed. If audio_mode is \"Generate BGM\", create a BGM audio node only where music is needed; if it is \"No BGM\", create no separate audio node. Finally create one terminal videoComposeNode and connect all single-shot videos in delivery order with composition_input_for; upscaling is still handled by later canvas tools.",
+    "prompt_guide": "Output clear English Markdown. The core style is semi-realistic 3D CG cinematic post-apocalyptic sci-fi with a Ling Cage feel: realistic-grade rendering with a slightly animated aesthetic, oppressive dark tones, wasteland poetry, dirty worn materials, volumetric light, Tyndall effect, real skin and battle-damaged gear. Scenes can center on the surface wasteland, the lighthouse interior, Mana ecology or the Keel Village, keeping spatial relationships, light color, activity areas and environment state continuous. No default subtitles at the Shot level; voiceover and dialogue must never overlap; bind user assets first and generate/remake only when missing or off-style.",
+    "conduct_rules": [
+      "Create the complete workflow draft first; story direction/script, creative spec, storyboard, key element batch, scene-section videos and any needed BGM audio nodes all need clear stage outputs, and the canvas workflow controls the actual continue, retry and execution pace.",
+      "Default 16:9, 24fps, 720p; target duration follows input total_duration, by default in the 1-3 minute range.",
+      "Characters must be semi-realistic 3D CG with clear tactical gear, scratches, dust, blood and real materials; no flat anime shading, chibi, bright clean looks or overdone cyber neon.",
+      "Scenes must distinguish the surface wasteland, the lighthouse interior, Mana ecology and the Keel Village, and note light color, spatial relationships and activity areas.",
+      "The storyboard must include scene, story beat, shot size, camera height, camera movement, character orientation and transition intent.",
+      "The key element stage never creates just one generic \"key elements\" node. Each recurring character or squad, each main reused scene, and each monster/machine/core prop/environment source gets its own node; never replace several independent elements with one combined sheet.",
+      "Every Shot List entry must be its own video intent item and canvas node; never replace the full short with one generic \"single-shot video\" node.",
+      "Before video generation, check each shot: scene reference, character reference, dialogue/voiceover text, in-shot ambience, action sound effects, key action, and image references <= 9; write dialogue, voiceover and in-shot sound effects into the matching video prompt.",
+      "Character wounds, gear damage and environment state stay continuous across shots and never reset on their own.",
+      "Voiceover and character dialogue must be staggered and never repeat each other's meaning; dialogue-heavy shots usually get no voiceover; BGM is handled only as a separate music audio node.",
+      "The creative spec only serves planning and creates no node; all single-shot videos connect in delivery order to the single terminal videoComposeNode, and ask about upscaling only when the flow ends."
+    ]
+  },
+  "evaluation": {
+    "rating_bands": [
+      {
+        "score": 5,
+        "description": "Stages are clear, the style lock is stable, asset binding is complete, and shot rhythm, fight blocking, emotional performance and audio staggering all land clearly in the outputs."
+      },
+      {
+        "score": 3,
+        "description": "The flow is mostly complete, but some stages lack asset analysis, key element binding, per-shot checks, transition intent, audio staggering or style taboos."
+      },
+      {
+        "score": 1,
+        "description": "Skipped confirmation, used an anime/chibi/bright clean style, or ignored reference counts, character continuity and audio conflicts."
+      }
+    ],
+    "visual_review_items": [
+      {
+        "name": "Semi-realistic post-apocalyptic style",
+        "weight": 1.5,
+        "description": "The picture is semi-realistic 3D CG and cinematic: dark and oppressive, dirty and real, with volumetric light and wasteland poetry together."
+      },
+      {
+        "name": "Key element consistency",
+        "weight": 1.3,
+        "description": "Character three-view sheets, scene grids and monster/prop references become the look anchors across shots."
+      },
+      {
+        "name": "Clear shot geography",
+        "weight": 1.2,
+        "description": "Fight and movement directions respect the axis, geography, character orientation and environment state continuity."
+      }
+    ],
+    "text_review_items": [
+      {
+        "name": "Stage boundaries",
+        "weight": 1,
+        "description": "Each main stage has a clear output, input dependencies and next step, so the canvas workflow is easy to review and advance."
+      },
+      {
+        "name": "Audio rules",
+        "weight": 1,
+        "description": "Timing, role and conflict avoidance for voiceover, dialogue, BGM and SFX must be clear."
+      }
+    ],
+    "quality_threshold": 4,
+    "domain_constraints": [
+      "Never use flat Japanese anime shading, chibi monsters, bright clean styles or magic-effect vocabulary.",
+      "Video shots reference at most 9 images and 3 audio clips.",
+      "The Shot level defaults to no subtitles; subtitles are only an optional post-production track."
+    ]
+  }
+}

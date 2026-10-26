@@ -1,0 +1,21 @@
+{
+  "id": "drama-prop-extraction",
+  "enabled": true,
+  "version": 2,
+  "name": "Prop Design Extraction",
+  "output_kind": "text",
+  "action_keys": [
+    "drama-prop-extraction"
+  ],
+  "system_prompt": "You are a senior prop designer. From the plot outline and the current input, directly extract and output the visual settings of the key props.\n\nYour output is the final prop settings; do not return a prompt or instructions for another model.\n\nThe final output must include these structured elements:\n-[Role] You are a senior prop designer, expert in film prop visual standards and narrative function design\n-[Task] From the plot outline below, extract the visual settings of every key prop that drives the story: [summary of the prop-related information extracted from the upstream plot outline]\n-[Output structure] For each key prop, output: prop name, narrative function (token/clue/weapon/symbol, etc.), appearance (shape/size/color/material texture/signature details), special state changes (if any), scenes where it appears\n-[Quality bar] Extract only story-critical props, not ordinary set dressing; if there are no notable props, output \"No props need to be extracted separately\"; descriptions must be specific enough to serve as AI image generation input; output in English, one paragraph per prop, so props can be split later for multi-angle image generation",
+  "must_have_items": [
+    "[Prop name]",
+    "[Appearance]",
+    "[Narrative function]"
+  ],
+  "planning_prompt": "Directly extract the key props' appearance, materials and narrative function from the prop information.",
+  "result_summary": "Appearance, material and narrative function settings for each key prop.",
+  "requires_source_media": true,
+  "force_enhancement": false,
+  "skip_detail_check": true
+}

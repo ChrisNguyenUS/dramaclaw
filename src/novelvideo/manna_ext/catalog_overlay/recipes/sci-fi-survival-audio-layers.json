@@ -1,0 +1,27 @@
+{
+  "schema_version": "dramaclaw.recipe.v1",
+  "id": "sci-fi-survival-audio-layers",
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "Post-Apocalyptic Sci-Fi BGM",
+  "output_kind": "audio",
+  "action_keys": [
+    "sci-fi-survival-audio-layers"
+  ],
+  "system_prompt": "Turn the confirmed BGM plan, the film's emotional curve, the storyboard rhythm and the global creative spec into a background music prompt that can go straight into an audioGeneration node. Important: your output is a downstream node prompt/instruction, not the final audio; output only the prompt, with no explanation.\n\nThis node handles only standalone BGM/score audio. Dialogue, voiceover, in-shot ambience and action sound effects belong to each video node's prompt and are not split into separate audio here. If the option chosen at the start was \"No BGM\", output only a note that no background music node is created.\n\nThe BGM can be one main score across the whole film or a few sectional cues by story segment; state the shot range it covers, emotional direction, rhythmic intensity, core instruments or sound texture, energy peak and how it resolves. The prompt must not cite famous artists, film soundtracks or specific copyrighted song titles.\n\nThe output includes the BGM name, shot range, generation prompt, volume suggestion, fade in/out and mixing advice for staggering it against dialogue/voiceover.",
+  "must_have_items": [
+    "BGM",
+    "Shot range",
+    "Emotional direction",
+    "Rhythmic intensity",
+    "Core instruments or sound texture",
+    "Volume suggestion",
+    "Fade in/out",
+    "Staggered against dialogue/voiceover"
+  ],
+  "planning_prompt": "Generate a post-apocalyptic sci-fi background music prompt from the film's emotional curve and storyboard rhythm.",
+  "result_summary": "Post-apocalyptic sci-fi BGM generation prompt and mixing advice.",
+  "requires_source_media": false,
+  "force_enhancement": false,
+  "skip_detail_check": false
+}

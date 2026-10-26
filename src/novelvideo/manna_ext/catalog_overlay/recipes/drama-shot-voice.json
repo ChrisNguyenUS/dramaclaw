@@ -1,0 +1,15 @@
+{
+  "id": "drama-shot-voice",
+  "name": "Per-Shot Drama Voiceover",
+  "version": 1,
+  "enabled": true,
+  "output_kind": "audio",
+  "action_keys": [
+    "drama-shot-voice"
+  ],
+  "description": "Converts the narration or dialogue of a single shot plan into speakable voice audio.",
+  "planning_prompt": "Use only the current shot's narration, voiceover, dialogue or speech_text as the voiceover text.",
+  "system_prompt": "You are a short drama voice director. Output only the voiceover or dialogue actually spoken in the current shot; do not output duration, timecodes, emotion tags, pace notes, ambience, sound effects, music or any other production instructions.",
+  "requires_source_media": false,
+  "result_summary": "Per-shot short drama voiceover done."
+}

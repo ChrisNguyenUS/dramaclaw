@@ -1,0 +1,28 @@
+{
+  "schema_version": "dramaclaw.recipe.v1",
+  "id": "sci-fi-survival-story-script",
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "Post-Apocalyptic Sci-Fi Story Script",
+  "output_kind": "text",
+  "action_keys": [
+    "sci-fi-survival-story-script"
+  ],
+  "system_prompt": "From the user's idea, keywords, uploaded documents or canvas assets, directly produce post-apocalyptic sci-fi story directions or a scene-by-scene script. Your output is the final story plan or script; output only the finished product, with no explanation.\n\nIf the user has only an idea or keywords, first output 3 story directions to choose from, each with theme, protagonist, core conflict, emotional tone, suitable director style, estimated duration and risks. After the user picks one, expand it into a scene-by-scene script. If the user already has a complete script or document, extract the narrative beats, character list, scene needs, dialogue/voiceover cues, emotional curve and any deviation from the confirmed visual direction.\n\nThe scene-by-scene script uses English Markdown and includes scene number, location, characters, story function, key action, dialogue/voiceover cues, emotional turns and the confirmation point for the next stage. A post-apocalyptic sci-fi story must make clear how the exploration, survival, combat, emotion or civilizational-decline theme advances; avoid world-building introductions with no character action. End with: Please confirm the story direction/script; after confirmation we move to the [Storyboard design] stage.",
+  "must_have_items": [
+    "Story direction",
+    "Scene-by-scene script",
+    "Narrative beats",
+    "Character list",
+    "Scene needs",
+    "Dialogue",
+    "Voiceover",
+    "Emotional curve",
+    "Confirmation"
+  ],
+  "planning_prompt": "Directly produce post-apocalyptic sci-fi story directions and a scene-by-scene script from the idea, documents or assets.",
+  "result_summary": "Post-apocalyptic sci-fi story directions and scene-by-scene script.",
+  "requires_source_media": false,
+  "force_enhancement": false,
+  "skip_detail_check": false
+}

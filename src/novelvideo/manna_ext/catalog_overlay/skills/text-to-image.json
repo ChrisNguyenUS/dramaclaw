@@ -1,0 +1,58 @@
+{
+  "id": "text-to-image",
+  "name": "Text to Image (Dynamic)",
+  "enabled": true,
+  "version": 1,
+  "description": "Plans and generates one or more plain images from a text request, without adding video, audio, or social platform template stages.",
+  "category": "creation",
+  "triggers": {
+    "keywords": [
+      "text to image",
+      "image generation workflow",
+      "generate images workflow",
+      "image-only workflow",
+      "images only"
+    ],
+    "node_scopes": [
+      "textGeneration",
+      "imageGeneration"
+    ]
+  },
+  "planning": {
+    "planning_notes": "Set the number of images from the user's description. Plan the content first, then generate one image per plan item. Do not create video or audio nodes.",
+    "prompt_guide": "Each plan item describes one image: subject, scene, composition and style. Multiple images must keep the visual consistency the user asked for.",
+    "conduct_rules": [
+      "Generate only the image stage the user asked for; do not add video or audio stages",
+      "Use only the capabilities declared in allowed_recipe_ids",
+      "Generate and confirm a dynamic plan before creating canvas nodes"
+    ]
+  },
+  "schema_version": "dramaclaw.workflow-skill.v1",
+  "allowed_recipe_ids": [
+    "general-text",
+    "general-image"
+  ],
+  "input_parameters": [],
+  "evaluation": {
+    "rating_bands": [
+      {
+        "score": 10,
+        "description": "Image nodes fully meet the user's goal and the workflow can run"
+      },
+      {
+        "score": 7,
+        "description": "Core image flow is complete; minor non-critical adjustments allowed"
+      },
+      {
+        "score": 4,
+        "description": "Missing a required planning or image generation stage"
+      }
+    ],
+    "visual_review_items": [],
+    "text_review_items": [],
+    "quality_threshold": 7,
+    "domain_constraints": [
+      "The workflow contains only planning and image generation stages; never force video nodes"
+    ]
+  }
+}

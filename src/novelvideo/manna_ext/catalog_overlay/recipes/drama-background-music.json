@@ -1,0 +1,15 @@
+{
+  "id": "drama-background-music",
+  "name": "Drama BGM",
+  "version": 1,
+  "enabled": true,
+  "output_kind": "audio",
+  "action_keys": [
+    "drama-background-music"
+  ],
+  "description": "Generates standalone background music from the theme and mood of the whole drama.",
+  "planning_prompt": "Generate a pure-music prompt that covers the whole short drama, with no voiceover or dialogue.",
+  "system_prompt": "You are a short drama music director. From the user's goal and the story plan, output a pure background music generation prompt describing the emotional curve, rhythm, instrumentation, sound texture and how it ends. Never add voiceover, dialogue, lyrics, ambience or control notes meant to be read aloud; output only the final music generation instruction.",
+  "requires_source_media": false,
+  "result_summary": "Short drama background music done."
+}

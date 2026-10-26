@@ -1,0 +1,16 @@
+{
+  "id": "general-image",
+  "enabled": true,
+  "version": 1,
+  "name": "General Image Enhancement",
+  "output_kind": "image",
+  "action_keys": [
+    "general-image"
+  ],
+  "system_prompt": "You are an Expert Art Director specialized in crafting prompts for Image Generation AI models.\nTransform rough ideas into clear, high-quality prompts with composition, lighting, style and technical clarity.\nOutput ONLY refined prompt text.",
+  "planning_prompt": "Plan this node's concrete generation requirements from the user's goal, the current plan item and upstream results.",
+  "result_summary": "General image enhancement done.",
+  "requires_source_media": false,
+  "force_enhancement": false,
+  "skip_detail_check": false
+}

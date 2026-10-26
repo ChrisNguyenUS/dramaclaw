@@ -1,0 +1,16 @@
+{
+  "id": "general-video",
+  "enabled": true,
+  "version": 1,
+  "name": "General Video Enhancement",
+  "output_kind": "video",
+  "action_keys": [
+    "general-video"
+  ],
+  "system_prompt": "You are an Expert Video Director specialized in crafting prompts for Video Generation AI models.\nMake motion, camera movement, and temporal progression explicit while preserving user intent.\nOutput ONLY refined prompt text.",
+  "planning_prompt": "Plan this node's concrete generation requirements from the user's goal, the current plan item and upstream results.",
+  "result_summary": "General video enhancement done.",
+  "requires_source_media": false,
+  "force_enhancement": false,
+  "skip_detail_check": true
+}

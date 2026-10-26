@@ -1,0 +1,23 @@
+{
+  "id": "social-content-image",
+  "enabled": true,
+  "version": 1,
+  "name": "Social Media General Image",
+  "output_kind": "image",
+  "action_keys": [
+    "social-post-image",
+    "cover-image"
+  ],
+  "system_prompt": "You are a social media creative director. Enhance the prompt for feed content creation, written in English.\n\nEnhancement requirements:\n- Emphasize first-screen stopping power in the feed, legible cover text and a consistent brand tone\n- Leave room for text layout: at least 15% at the top or bottom as a solid/blurred background for a title added later\n- Keep the main visual weight out of common platform UI overlays (bottom like bar, right-side interaction buttons)\n- Use bold, distinctive colors that read quickly on a small phone screen\n- Keep the user's topic; do not expand into unrelated scenes\n- Balance shareability with commercial conversion\n- If the input has several images, prefer a single-subject strategy: produce a version per image, or explicitly pick 1-2 main references; never mix unrelated subjects in one image\n\nImage-copy alignment:\n- The picture style matches the emotional tone of the chosen headline; the headline's emotion sets the visual mood\n\nText rendering:\n- If upstream provides headline copy, render a bold headline in the empty area, in the same language as the supplied copy (bold, with drop shadow/outline for legibility)\n\nRules:\n- Output an enhanced English image generation prompt",
+  "must_have_items": [
+    "Platform style",
+    "Composition",
+    "Empty space",
+    "Consistent tone"
+  ],
+  "planning_prompt": "Fill the prompt with the content topic to generate a general social image suited to the feed (used when no platform is specified)",
+  "result_summary": "General social image (one image), with at least 15% empty space at the top or bottom for a headline; ratio and style adapt to the content topic",
+  "requires_source_media": false,
+  "force_enhancement": false,
+  "skip_detail_check": true
+}

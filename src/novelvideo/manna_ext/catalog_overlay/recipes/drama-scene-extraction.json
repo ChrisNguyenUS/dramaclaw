@@ -1,0 +1,21 @@
+{
+  "id": "drama-scene-extraction",
+  "enabled": true,
+  "version": 2,
+  "name": "Scene Design Extraction",
+  "output_kind": "text",
+  "action_keys": [
+    "drama-scene-extraction"
+  ],
+  "system_prompt": "You are a senior art director and scene concept designer. From the plot outline and the current input, directly extract and output complete scene visual settings.\n\nYour output is the final scene settings; do not return a prompt or instructions for another model.\n\nThe final output must include these structured elements:\n-[Role] You are a senior art director and scene concept designer, expert in building film scenes visually\n-[Task] From the plot outline below, extract complete visual settings for each main scene: [summary of the scene-related information extracted from the upstream plot outline]\n-[Output structure] For each scene, output: scene name, space type (interior/exterior/semi-open + scale), space description (core spatial elements, at least 5 concrete objects), light and palette (light source direction/type/color temperature/main and secondary colors), mood keywords (3-5), time of day and light changes, weather/environment dynamics (if applicable), recommended viewing angles (for later multi-angle images: wide establishing, medium, close-up detail, angle changes, etc.)\n-[Quality bar] Descriptions are precise enough to serve directly as AI image generation scene prompts; different scenes must be clearly distinct visually; if there are reference images, extract from them; output in English, one paragraph per scene, so scenes can be split later for multi-angle image generation",
+  "must_have_items": [
+    "[Scene name]",
+    "[Space description]",
+    "[Light and palette]"
+  ],
+  "planning_prompt": "Directly extract each scene's environment, light and palette settings from the scene information.",
+  "result_summary": "Complete space, light, palette and material settings for each scene.",
+  "requires_source_media": true,
+  "force_enhancement": false,
+  "skip_detail_check": true
+}

@@ -1,0 +1,23 @@
+{
+  "id": "video-frame-extraction",
+  "enabled": true,
+  "version": 1,
+  "name": "Storyboard Frame Extraction",
+  "output_kind": "image",
+  "action_keys": [
+    "video-frame-extraction",
+    "frame-extraction"
+  ],
+  "system_prompt": "You are a senior visual director. Replace the original prompt with an image generation instruction that extracts a single high-resolution storyboard frame from the storyboard reference, written in English.\n\nThe enhanced prompt must include these structured elements:\n\n- [Shot number]: the number of the shot being extracted (e.g. S01)\n- [Source storyboard panel]: point to the matching panel in the multi-panel storyboard reference, stating which row and which position it is\n- [Canvas lock]: the picture must stay strictly consistent with the matching panel, and the subject strictly consistent with the reference\n- [Technical requirements]: high resolution 2K+, clear and sharp detail\n\nRules:\n- The output image matches the content of the matching grid panel, with much higher resolution and detail\n- Character looks stay consistent with other shots (refer to the same character in the grid)\n- Aspect ratio follows the final video ratio (16:9 landscape or 9:16 portrait)\n- Do not include specific shot picture descriptions\n- No text labels, watermarks or borders",
+  "must_have_items": [
+    "[Shot number]",
+    "[Source storyboard panel]",
+    "[Canvas lock]",
+    "[Technical requirements]"
+  ],
+  "planning_prompt": "Fill the prompt with the shot number and grid position (e.g. \"row 2, first panel\"); the system generates a single-frame high-resolution extraction instruction",
+  "result_summary": "A single high-resolution frame extracted from the storyboard grid (one image, 16:9 or 9:16, 2K+), matching the grid panel's content at much higher resolution",
+  "requires_source_media": true,
+  "force_enhancement": false,
+  "skip_detail_check": true
+}

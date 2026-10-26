@@ -1,0 +1,150 @@
+{
+  "schema_version": "dramaclaw.workflow-skill.v1",
+  "id": "retro-hong-kong-kungfu-comedy-video",
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "Retro Hong Kong Kung Fu Pet Short",
+  "description": "Develops a person, pet, animal reference, or a single idea into a 1980s retro Hong Kong kung fu comedy short; first builds a complete workflow of script, storyboard, key elements, per-shot video, and audio layers, then hands it to the canvas workflow to run stage by stage.",
+  "category": "video",
+  "triggers": {
+    "keywords": [
+      "Hong Kong-style kung fu",
+      "kung fu comedy",
+      "cute pet martial arts",
+      "animal kung fu short",
+      "1980s Hong Kong film",
+      "retro Hong Kong movie",
+      "Hong Kong-accented dialogue",
+      "neighborhood comedy"
+    ],
+    "node_scopes": [
+      "textGeneration",
+      "imageGeneration",
+      "videoGeneration",
+      "audioGeneration"
+    ]
+  },
+  "input_parameters": [
+    {
+      "id": "total_duration",
+      "label": "Target duration",
+      "type": "single_select",
+      "required": true,
+      "default": "15s",
+      "options": [
+        "10s",
+        "15s",
+        "30s"
+      ]
+    },
+    {
+      "id": "character_input_method",
+      "label": "Character source",
+      "type": "single_select",
+      "required": true,
+      "default": "Decide from the current input",
+      "options": [
+        "Decide from the current input",
+        "Reference images",
+        "Text description",
+        "Built-in character library"
+      ]
+    },
+    {
+      "id": "bgm_mode",
+      "label": "Background music",
+      "type": "single_select",
+      "required": true,
+      "default": "No BGM",
+      "options": [
+        "No BGM",
+        "Generate Hong Kong light-comedy martial arts BGM"
+      ]
+    },
+    {
+      "id": "aspect_ratio",
+      "label": "Aspect ratio",
+      "type": "single_select",
+      "required": true,
+      "default": "16:9",
+      "options": [
+        "16:9",
+        "9:16",
+        "1:1",
+        "4:3"
+      ]
+    }
+  ],
+  "allowed_recipe_ids": [
+    "four-act-comedy-story-outline",
+    "storyboard-plan",
+    "anthropomorphic-kungfu-key-elements",
+    "anthropomorphic-kungfu-shot-video",
+    "video-audio-layer"
+  ],
+  "planning": {
+    "planning_notes": "Before starting, use total_duration, character_input_method, bgm_mode, aspect_ratio, the user's text idea and the canvas/uploaded assets to judge whether there is enough information. If there is neither a usable character reference nor a text idea, ask the director first; do not create a workflow draft or canvas nodes yet, and do not write the entry prompt into node content. Once there is enough, confirm the global creative brief in the conversation, locking title, duration, aspect ratio, character source, comedy direction and audio choice; the brief only serves planning and creates no node. Then list the complete workflow in the draft in one go: a four-act comedy script outline, the storyboard plan, a key element image stage for the anthropomorphic kung fu with a separate key element node for each independently referenced character/animal, scene and key prop, and all anthropomorphic kung fu single-segment videos split from the confirmed story and target duration, then add the audio layer as chosen; videos and audio finally connect to the video compose node. Never merge several subjects into one key element node; only an asset always referenced downstream as one whole may share a node. Every shot must be its own intent item and canvas node; never create only the first stage or replace the full short with one generic video node. Shots run in parallel by default: they depend on the confirmed storyboard plan and the key element nodes they actually need; add a dependency and video reference between shots only when a later shot needs the earlier shot's generated video as a real continuity input. The runner executes only nodes already on the canvas and never expands later nodes from a finished outline. After the complete workflow is on the canvas, run the story/storyboard, key element, video and audio stages in order; each stage's output stays as a reviewable node, but this must not delay creating those nodes. Add the audio layer to the draft only when bgm_mode is \"Generate Hong Kong light-comedy martial arts BGM\" or the director explicitly asks. The final composite is handled by the canvas tools: the video compose node connects videos and audio in storyboard order.",
+    "prompt_guide": "The creative core is 1980s retro Hong Kong kung fu comedy: comedy first, kung fu as the shell; pets/animals keep their instinctive behavior, making an absurd contrast with the martial arts styling. The global look is warm yellow leaning dark, strong low-saturation light, 35mm old film grain, hard-light rims, heavy shadows with soft highlights, slightly faded reds and yellows; smoke, dust and dim indoor lamps can strengthen the old Hong Kong film texture. Common scenes include old alleys, cha chaan teng diners, old martial arts schools, rooftops, bamboo groves, temples and piers. Every video node must spell out, for each core action in the current shot, the wind-up, motion and finish, with the body part, direction, force and end state; never write only generic demands such as \"actions need three phases\" or \"the fight is intense\". Prefer push-ins and pull-outs, tracking, low angles, quick cuts to reaction shots and comedic pauses. Dialogue or voiceover uses a retro Hong Kong film delivery with old-microphone grain.",
+    "conduct_rules": [
+      "All images and videos keep the aspect ratio confirmed in input_parameters; never change it on your own.",
+      "No subtitles by default; background music is generated only when chosen at the start or explicitly requested by the director.",
+      "Pets or animals keep both their species habits and the martial arts styling; the jokes come from the contrast in behavioral logic.",
+      "The video opening establishes the conflict or contrast quickly, and every action has a wind-up, motion and finish.",
+      "No drone aerials, no obvious handheld shake and no overly smooth stabilizer/slider feel."
+    ]
+  },
+  "evaluation": {
+    "rating_bands": [
+      {
+        "score": 5,
+        "description": "Dynamic stages are clear and their boundaries complete; Hong Kong kung fu comedy, pet-instinct contrast, old-film texture and the hard audio rules all land reliably in every output."
+      },
+      {
+        "score": 3,
+        "description": "The flow is mostly complete, but some stages lack stage boundaries, action arcs, Hong Kong film texture, reference binding or audio/subtitle constraints."
+      },
+      {
+        "score": 1,
+        "description": "Skipped stages, mechanically applied a fixed template, added subtitles/BGM by default, used the wrong aspect ratio, or treated pure martial arts as the comedy core."
+      }
+    ],
+    "visual_review_items": [
+      {
+        "name": "Retro Hong Kong film texture",
+        "weight": 1.2,
+        "description": "Warm yellow leaning dark, strong low-saturation light, 35mm grain, hard-light rims, heavy shadows with soft highlights, slightly faded reds and yellows."
+      },
+      {
+        "name": "Cute pet kung fu contrast",
+        "weight": 1.4,
+        "description": "Animal instinct and martial arts styling coexist; the jokes come from the contrast in behavioral logic, not simple exaggerated faces."
+      },
+      {
+        "name": "Action realism",
+        "weight": 1,
+        "description": "Each action is written as wind-up, motion and finish, showing speed, range, body part and end state."
+      }
+    ],
+    "text_review_items": [
+      {
+        "name": "Stage boundaries",
+        "weight": 1.5,
+        "description": "Each stage has a clear output, input dependencies and next step, so the canvas workflow is easy to review and advance."
+      },
+      {
+        "name": "Structured output",
+        "weight": 1,
+        "description": "Use English Markdown tables with complete fields, easy for downstream nodes and the director to edit."
+      }
+    ],
+    "quality_threshold": 4,
+    "domain_constraints": [
+      "Follow the aspect ratio chosen at the start.",
+      "No subtitles and no background music by default.",
+      "Keep ambience by default; dialogue/voiceover uses a retro Hong Kong film delivery with old-microphone grain.",
+      "The first 3 seconds must establish conflict or contrast.",
+      "Pets/animals keep both their species habits and the martial arts styling.",
+      "No drone aerials, no obvious handheld shake, no overly smooth stabilizer/slider feel."
+    ]
+  }
+}

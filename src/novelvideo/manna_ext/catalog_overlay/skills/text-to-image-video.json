@@ -1,0 +1,62 @@
+{
+  "id": "text-to-image-video",
+  "name": "Text to Image to Video (Dynamic)",
+  "enabled": true,
+  "version": 2,
+  "description": "Expands a text idea into multiple shots dynamically: generates key images first, then generates video shot by shot and composes them automatically.",
+  "category": "creation",
+  "triggers": {
+    "keywords": [
+      "text to image to video",
+      "text to video",
+      "generate video from text",
+      "text-generated video"
+    ],
+    "node_scopes": [
+      "textGeneration",
+      "imageGeneration",
+      "videoGeneration"
+    ]
+  },
+  "planning": {
+    "planning_notes": "Set the number of shots from the user's description and duration. Each plan item maps to one key image and one video clip.",
+    "prompt_guide": "Keep subject, scene and visual style continuous between shots. A single plan item describes exactly one shot.",
+    "conduct_rules": [
+      "Decide the number of nodes and their dependencies from the user's goal",
+      "Use only the capabilities declared in allowed_recipe_ids",
+      "Generate and confirm a dynamic plan before creating canvas nodes"
+    ]
+  },
+  "schema_version": "dramaclaw.workflow-skill.v1",
+  "allowed_recipe_ids": [
+    "general-text",
+    "video-creative-outline",
+    "video-storyboard-grid",
+    "general-image",
+    "general-video",
+    "video-frame-extraction"
+  ],
+  "input_parameters": [],
+  "evaluation": {
+    "rating_bands": [
+      {
+        "score": 10,
+        "description": "Fully meets the user's goal and the workflow can run"
+      },
+      {
+        "score": 7,
+        "description": "Core flow is complete; minor non-critical adjustments allowed"
+      },
+      {
+        "score": 4,
+        "description": "Missing key stages or incomplete dependencies"
+      }
+    ],
+    "visual_review_items": [],
+    "text_review_items": [],
+    "quality_threshold": 7,
+    "domain_constraints": [
+      "The workflow must match the user's goal and keep input assets consistent"
+    ]
+  }
+}

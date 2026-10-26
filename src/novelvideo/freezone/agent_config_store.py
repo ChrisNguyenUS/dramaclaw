@@ -8,6 +8,7 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Literal
 
+from novelvideo.manna_ext.catalog_overlay import overlay_items as manna_overlay_items, overlay_signature as manna_overlay_signature  # Manna hook
 from novelvideo.config import OUTPUT_DIR
 from novelvideo.manna_ext.catalog_en import apply_catalog_en  # Manna hook
 from novelvideo.freezone.agent_catalog_schema import (
@@ -60,6 +61,7 @@ def list_user_agent_config_items(
         _directory_signature(builtin_root),
         _directory_signature(project_root),
         _directory_signature(user_root),
+        manna_overlay_signature(checked_kind, _directory_signature),  # Manna hook
     )
     cached = _CATALOG_CACHE.get(cache_key)
     if cached is not None:
@@ -69,6 +71,8 @@ def list_user_agent_config_items(
     for payload in apply_catalog_en(checked_kind, _read_agent_config_items(builtin_root)):  # Manna hook
         item_id = str(payload["id"])
         builtin_items_by_id[item_id] = payload
+    for payload in manna_overlay_items(checked_kind, _read_agent_config_items):  # Manna hook
+        builtin_items_by_id[str(payload["id"])] = payload
     for payload in _read_agent_config_items(project_root):
         item_id = str(payload["id"])
         builtin_items_by_id[item_id] = payload

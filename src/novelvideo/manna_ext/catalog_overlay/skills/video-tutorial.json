@@ -1,0 +1,63 @@
+{
+  "id": "video-tutorial",
+  "name": "Video Explainer Tutorial",
+  "enabled": true,
+  "version": 1,
+  "description": "Turns knowledge points, procedure steps, or product usage into a segmented explainer tutorial video.",
+  "category": "education",
+  "triggers": {
+    "keywords": [
+      "video tutorial with narration",
+      "tutorial video",
+      "how-to tutorial",
+      "explainer",
+      "step-by-step demo"
+    ],
+    "node_scopes": [
+      "textGeneration",
+      "imageGeneration",
+      "videoGeneration",
+      "audioGeneration"
+    ]
+  },
+  "planning": {
+    "planning_notes": "Expand the teaching sections from the steps or topic the user gives; each section maps to a visual and a video clip.",
+    "prompt_guide": "Accurate content, clear steps, and visuals that match the narration one to one. Never invent product features the user did not provide.",
+    "conduct_rules": [
+      "Decide the number of nodes and their dependencies from the user's goal",
+      "Use only the capabilities declared in allowed_recipe_ids",
+      "Pass the tutorial plan copy to every step image with prompt_for so the images consume the upstream content; dependency_for only sets ordering and cannot replace content input",
+      "Generate and confirm a dynamic plan before creating canvas nodes"
+    ]
+  },
+  "schema_version": "dramaclaw.workflow-skill.v1",
+  "allowed_recipe_ids": [
+    "general-text",
+    "general-image",
+    "general-video",
+    "general-audio"
+  ],
+  "input_parameters": [],
+  "evaluation": {
+    "rating_bands": [
+      {
+        "score": 10,
+        "description": "Fully meets the user's goal and the workflow can run"
+      },
+      {
+        "score": 7,
+        "description": "Core flow is complete; minor non-critical adjustments allowed"
+      },
+      {
+        "score": 4,
+        "description": "Missing key stages or incomplete dependencies"
+      }
+    ],
+    "visual_review_items": [],
+    "text_review_items": [],
+    "quality_threshold": 7,
+    "domain_constraints": [
+      "The workflow must match the user's goal and keep input assets consistent"
+    ]
+  }
+}

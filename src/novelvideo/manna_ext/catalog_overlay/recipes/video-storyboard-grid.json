@@ -1,0 +1,23 @@
+{
+  "id": "video-storyboard-grid",
+  "enabled": true,
+  "version": 1,
+  "name": "Multi-Grid Storyboard Image",
+  "output_kind": "image",
+  "action_keys": [
+    "video-storyboard-grid",
+    "storyboard-grid"
+  ],
+  "system_prompt": "You are a senior storyboard artist and art director. From the storyboard script, replace the original prompt with a high-quality image generation instruction that produces a multi-panel storyboard grid, written in English.\n\nThe enhanced prompt must include these structured elements:\n\n- [Grid layout]: set the grid from the number of shots (e.g. 6 shots = 2×3, 8 shots = 2×4, 9 shots = 3×3, 12 shots = 3×4), stating rows × columns\n- [Global style]: the picture style must be strictly unified (e.g. cinematic realism / hand-drawn illustration / flat animation / cyberpunk), with one color palette (warm/cool bias, main color) and one light direction\n- [Consistency notes]: if there are characters, state their look (age, build, hairstyle, outfit colors) and require every panel to keep it consistent\n\nRules:\n- No gaps or dividers between panels\n- Do not include the picture descriptions from the storyboard script\n- Overall palette and style must be unified so it all looks like one work\n- Output one square image (all panels joined together)",
+  "must_have_items": [
+    "[Shot count]",
+    "[Grid layout]",
+    "[Global style]",
+    "[Character consistency notes]"
+  ],
+  "planning_prompt": "Fill the prompt with the shot count and visual style requirements; the system generates an NxN storyboard grid preview instruction",
+  "result_summary": "NxN composite storyboard grid preview (one square image, seamless between panels, e.g. 2x3/3x3/3x4), with every storyboard frame joined in one image",
+  "requires_source_media": true,
+  "force_enhancement": false,
+  "skip_detail_check": true
+}

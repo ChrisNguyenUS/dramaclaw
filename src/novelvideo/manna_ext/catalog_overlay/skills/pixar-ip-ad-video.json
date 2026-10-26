@@ -1,0 +1,228 @@
+{
+  "schema_version": "dramaclaw.workflow-skill.v1",
+  "id": "pixar-ip-ad-video",
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "Pixar-Style IP Brand Ad Short",
+  "description": "Develops an IP character description, brand or prop design, ad storyline, or reference material into a Pixar-style 3D cartoon brand ad short, moving stage by stage through character attribute locking, prop anchoring, storyboard planning, video clip generation, and audio composition so characters, props, shots, and video references stay consistent.",
+  "category": "video",
+  "triggers": {
+    "keywords": [
+      "Pixar ad",
+      "3D cartoon IP short",
+      "Pixar-style ad",
+      "cartoon IP character ad",
+      "Pixar product ad",
+      "IP character short",
+      "cartoon brand ad",
+      "animated brand ad",
+      "Pixar brand ad",
+      "IP character short film",
+      "3D cartoon ad",
+      "character-anchored ad",
+      "storyboard ad short",
+      "Pixar-style short",
+      "brand IP ad"
+    ],
+    "node_scopes": [
+      "imageGeneration",
+      "videoGeneration",
+      "audioGeneration",
+      "textGeneration"
+    ]
+  },
+  "input_parameters": [
+    {
+      "id": "aspect_ratio",
+      "label": "Aspect ratio",
+      "type": "single_select",
+      "required": false,
+      "default": "16:9",
+      "options": [
+        "16:9",
+        "9:16",
+        "1:1",
+        "3:4"
+      ]
+    },
+    {
+      "id": "duration",
+      "label": "Target duration",
+      "type": "single_select",
+      "required": false,
+      "default": "15",
+      "options": [
+        "15",
+        "30",
+        "60"
+      ]
+    },
+    {
+      "id": "tone",
+      "label": "Narrative tone",
+      "type": "single_select",
+      "required": false,
+      "default": "Cheerful and energetic",
+      "options": [
+        "Cheerful and energetic",
+        "Warm and cozy",
+        "Calm and techy"
+      ]
+    },
+    {
+      "id": "dialogue_mode",
+      "label": "Dialogue needs",
+      "type": "single_select",
+      "required": false,
+      "default": "Visuals only",
+      "options": [
+        "Visuals only",
+        "Needs voiceover",
+        "Needs character dialogue"
+      ]
+    },
+    {
+      "id": "character_input_method",
+      "label": "Character source",
+      "type": "single_select",
+      "required": false,
+      "default": "Use a preset character",
+      "options": [
+        "Use a preset character",
+        "自定义角色",
+        "Reuse the canvas character"
+      ]
+    },
+    {
+      "id": "has_brand_logo",
+      "label": "Brand logo end card",
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "options": []
+    },
+    {
+      "id": "audio_mode",
+      "label": "Audio mode",
+      "type": "single_select",
+      "required": false,
+      "default": "Light, cheerful background music",
+      "options": [
+        "Light, cheerful background music",
+        "Warm, lyrical background music",
+        "Upbeat rhythmic background music",
+        "Sound effects only, no music"
+      ]
+    }
+  ],
+  "allowed_recipe_ids": [
+    "ad-ip-character-anchor",
+    "ad-product-prop-anchor",
+    "storyboard-plan",
+    "storyboard-shot-video",
+    "video-audio-layer"
+  ],
+  "planning": {
+    "planning_notes": "[Interactive, progressive information gathering]\nGate 1: confirm brand name, product category, character archetype and aspect ratio.\nGate 2: confirm target duration, narrative tone and dialogue needs.\nGate 3: confirm the character attribute sheet, including at least color, body shape, eyes, body appendages such as ears/horns/wings/tail, profession markers, outfit and accessories, and key exclusions; if the user picks a preset character, offer 4 complete attribute options plus a custom option. The character source option 自定义角色 means \"custom character\"; keep that value exactly as written.\nGate 4: only after the character attributes are locked, move to prop anchoring, distinguishing product props from character-linked props.\nGate 5: offer 3 narrative frameworks to choose from: discovery, challenge and vision, and allow a custom one.\nGate 6: combine brand, character, props, narrative, aspect ratio, tone and audio needs into a style lock card and scene outline.\n\n[Execution path]\n1. After the character attributes are locked, generate the ad IP character anchor illustration; the character anchor must be a source node that does not reference the character itself, and after it is done move to prop anchoring.\n2. The prop anchoring stage distinguishes product props from character-linked props: product props are shown on their own, character-linked props must reference the character anchor; several props can run in parallel.\n3. From the character anchor, prop anchors and narrative framework, produce the storyboard plan organized as Sequence → Shot Group → Shot, and make it clear and reviewable.\n4. Split the storyboard plan into video clips and generate them. A 15-second ad usually splits into 4 clips; a 30-second ad usually into 6; no single clip exceeds 8 seconds.\n5. Generate the audio layer only after all video clips are done, including background music, sound effects, voiceover or dubbing; video clips contain only English sound effect descriptions by default and never pre-mix BGM.\n6. After all video clips and the audio layer are done, final editing, mixing and export are handled by the canvas compose node.\n\n[Panel count formula]\n15-second ad = 9 panels; 30-second ad = 12-15 panels; 60-second ad = 18-24 panels.\nThe aspect ratio confirmed at the start carries through every image and video stage.",
+    "prompt_guide": "Write all prompts in English.\n\n[Pixar visual language]\nPixar 3D cartoon rendering with a C4D + Octane feel, rounded character modeling, fine plush or glossy materials, soft warm-orange lighting, bright, friendly and commercial-ad friendly overall; avoid realistic, horror, cyberpunk, ink-wash, cold gray or adult-looking textures.\n\n[Anchor image style]\nCharacter and prop anchors use a minimal plain light-beige or light-gray background, with the subject complete and edges clean for cut-outs and downstream reference; logos and brand text must be clearly legible.\n\n[Storyboard and video style]\nStoryboard sketches stay black-and-white pencil line art with no color or gray fill; video clips keep the same Pixar cartoon look, warm natural light, rounded character proportions and clean ad-grade composition.\n\n[Cross-stage wording]\nCharacter prompts include the complete attribute sheet and \"Character design lock: ..., later nodes must not change it\"; downstream prompts quote the character's core traits, the prop anchors and the brand name verbatim, keeping one tone and concrete shot descriptions.",
+    "conduct_rules": [
+      "Gather information strictly in gate order; do not ask about later complex details before the basic creative identity is confirmed",
+      "Do not generate the character anchor before the character attribute sheet is complete",
+      "The character illustration must be a source node that does not reference the character itself; only after it is done may the prop anchor and storyboard sketch stages start",
+      "Run strictly in the order character illustration → prop anchors → storyboard sketches → video clips → audio layer → final composite, without skipping steps",
+      "Each stage creates only its own nodes; never merge character, props, storyboard, video and audio into one output",
+      "Prop anchors distinguish product props from character-linked props: product props are shown on their own, character-linked props must reference the character anchor",
+      "Prop anchors and the storyboard plan take the character illustration as a reference input.",
+      "Props prioritize clear structure and legible branding by default; show multiple angles only when the user explicitly chooses it",
+      "The storyboard plan includes numbering, time ranges, shot goals, action, scene, when props appear and the final brand/product lock-up frame.",
+      "Enter the video stage only after the storyboard plan stage is done.",
+      "Per-shot videos use the confirmed storyboard as their guide and reference both the character illustration and the prop anchors.",
+      "Video clips can be generated in parallel, but each clip binds a continuous range of storyboard panels and runs no longer than 8 seconds",
+      "Every video clip keeps the complete reference chain of character illustration, prop anchors and storyboard sketch, unbroken",
+      "Video prompts include the character design lock and a no-duplicate-lead constraint",
+      "Sound effects in video clip prompts are described in English and state clearly that there is no background music",
+      "The audio layer is generated after all video clips are done; never pre-mix BGM into video clips",
+      "The final composite is handled by the canvas compose node.",
+      "The final composite accepts only video and audio outputs; never use text, briefs or prompts as media inputs",
+      "The character's core traits (fur color, body shape, ears, expression and so on) are quoted and locked verbatim in every downstream prompt",
+      "Brand name and product selling points are never rewritten or omitted in storyboard and video prompts",
+      "When the user changes the character, regenerate the character anchor and cascade updates to the props, storyboard and videos that reference it",
+      "When the user changes a prop, regenerate only that prop anchor and the video clips that reference it",
+      "When the user changes the storyboard, regenerate only the affected panels and their video clips, not the whole flow"
+    ]
+  },
+  "evaluation": {
+    "rating_bands": [
+      {
+        "score": 9,
+        "description": "Character/prop/storyboard/video styles are highly unified, brand elements are clear, and the story flows completely"
+      },
+      {
+        "score": 7,
+        "description": "Style is mostly unified, with occasional detail drift that does not hurt the overall look"
+      },
+      {
+        "score": 5,
+        "description": "Style is visibly inconsistent, characters/props are deformed, or brand elements are missing"
+      },
+      {
+        "score": 3,
+        "description": "Characters/props depart badly from the design and storyboard and video do not match; unusable"
+      }
+    ],
+    "visual_review_items": [
+      {
+        "name": "Character consistency",
+        "description": "The character looks the same in the illustration, props, storyboard and videos",
+        "weight": 0.3
+      },
+      {
+        "name": "Prop consistency",
+        "description": "Props match their anchor images and brand text is clear",
+        "weight": 0.2
+      },
+      {
+        "name": "Style unity",
+        "description": "Pixar 3D cartoon rendering, soft warm tones and rounded modeling stay unified",
+        "weight": 0.25
+      },
+      {
+        "name": "Storyboard quality",
+        "description": "Storyboard composition is clear, action cues are explicit and the shot language makes sense",
+        "weight": 0.25
+      }
+    ],
+    "text_review_items": [
+      {
+        "name": "Narrative completeness",
+        "description": "Whether the storyboard covers the ad's narrative arc (intro → discovery → climax → close)",
+        "weight": 0.3
+      },
+      {
+        "name": "Brand accuracy",
+        "description": "Whether the brand name, slogan and product selling points are embedded accurately",
+        "weight": 0.25
+      },
+      {
+        "name": "Prompt structure quality",
+        "description": "Whether per-shot prompts include the character lock, prop references, scene and performance direction",
+        "weight": 0.25
+      },
+      {
+        "name": "Audio and composite readiness",
+        "description": "Whether the audio layer covers every video clip and can be aligned with the video outputs in the composite",
+        "weight": 0.2
+      }
+    ],
+    "quality_threshold": 7.5,
+    "domain_constraints": [
+      "The character design stays locked throughout; never change core traits in the storyboard, video or composite stages",
+      "Props strictly match their anchors, with no deformation, unrelated extra details or rewritten brand spelling",
+      "The storyboard plan covers the ad's narrative arc, the brand/product showcase and the final closing frame",
+      "Video clips follow the action and composition of the matching confirmed storyboard shots",
+      "Every video clip references the character illustration and, as needed, the relevant prop anchors, with an unbroken reference chain",
+      "The lead appears only once per video shot, with no duplicate characters or clones",
+      "The brand logo matches the prop anchor and its text is clearly legible"
+    ]
+  }
+}

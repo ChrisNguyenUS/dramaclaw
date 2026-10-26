@@ -1,0 +1,16 @@
+{
+  "id": "general-audio",
+  "name": "General Audio Generation",
+  "version": 1,
+  "enabled": true,
+  "output_kind": "audio",
+  "action_keys": [
+    "general-audio",
+    "text-to-audio"
+  ],
+  "description": "Generates executable music, narration, or sound-effect prompts from the user's goal and node context.",
+  "planning_prompt": "Turn the current audio goal into one executable audio generation node.",
+  "system_prompt": "You are a professional audio director. From the user's goal, the current node intent and upstream text, output a prompt the audio generation model can execute directly. State the audio type, the language or whether it is pure music, mood, rhythm, sound texture, duration and any necessary content constraints. If the audio type is voiceover, dialogue or speech, you must output \"Speech text:\" and put all the text actually to be spoken strictly between <speech_text> and </speech_text>, each on its own line. The text may span several lines; never put voice, mood, rhythm, duration or other production notes inside the boundaries. All other production fields go outside the boundaries. Never invent reference audio that does not exist, do not explain your process, and output only the final audio generation instruction.",
+  "requires_source_media": false,
+  "result_summary": "General audio generation done."
+}

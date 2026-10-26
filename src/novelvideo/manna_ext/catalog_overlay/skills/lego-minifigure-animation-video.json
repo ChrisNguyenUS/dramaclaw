@@ -1,0 +1,144 @@
+{
+  "schema_version": "dramaclaw.workflow-skill.v1",
+  "id": "lego-minifigure-animation-video",
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "LEGO Minifigure Animation Short",
+  "description": "Develops a theme, characters, scenes, conflict, or reference material into a LEGO minifigure-style animated short, moving stage by stage through script outline, storyboard plan, key element anchoring, and single-shot video while keeping minifigure proportions, brick-world logic, and cross-shot consistency.",
+  "category": "video",
+  "triggers": {
+    "keywords": [
+      "LEGO animation",
+      "LEGO Minifigure",
+      "LEGO minifigure",
+      "brick animation",
+      "toy stop-motion feel",
+      "minifigure short film",
+      "LEGO storyboard",
+      "brick-built scene"
+    ],
+    "node_scopes": [
+      "textGeneration",
+      "imageGeneration",
+      "videoGeneration"
+    ]
+  },
+  "input_parameters": [
+    {
+      "id": "total_duration",
+      "label": "Target duration",
+      "type": "single_select",
+      "required": true,
+      "default": "30s",
+      "options": [
+        "15s",
+        "30s",
+        "60s"
+      ]
+    },
+    {
+      "id": "aspect_ratio",
+      "label": "Aspect ratio",
+      "type": "single_select",
+      "required": true,
+      "default": "16:9",
+      "options": [
+        "16:9",
+        "9:16",
+        "1:1",
+        "4:3"
+      ]
+    },
+    {
+      "id": "dialogue_language",
+      "label": "Dialogue language",
+      "type": "single_select",
+      "required": true,
+      "default": "English",
+      "options": [
+        "English",
+        "Vietnamese",
+        "No dialogue"
+      ]
+    }
+  ],
+  "allowed_recipe_ids": [
+    "short-film-script-outline",
+    "storyboard-plan",
+    "visual-key-elements",
+    "storyboard-shot-video"
+  ],
+  "planning": {
+    "planning_notes": "[Stage path]\n1. Before starting, decide the entry from the target duration, aspect ratio, dialogue language, user input and canvas/uploaded assets; when more is needed, first confirm theme, characters, scenes, conflict, mood, target audience and asset availability with the user.\n2. From the confirmed information, write a logline and a three-act script outline, and make this stage's output clear and reviewable.\n3. From the script outline and confirmed information, produce Key Elements and a three-level Sequence → Shot Group → Shot storyboard, and make this stage's output clear and reviewable.\n4. After the storyboard, enter the visual key element stage: first list from the Key Elements the independent assets reused across shots, and create a draft node for each. One node per recurring lead or important character; one per main scene reused by several shots; one per core prop, vehicle or creature whose look must stay consistent. Bind the user's existing assets first and generate a node only when one is missing. Never create a single generic \"visual key elements\" node, and never merge several independently referenced characters, scenes or props into one sheet; only an asset always referenced downstream as one whole may share a node. Make each key element output clear and reviewable.\n5. After the key elements, generate video clips per Shot Group or single Shot; each clip references only the character, scene and prop element images it actually needs, and usually skips the previous shot's video, using it only for strongly continuous action.\n6. Final editing and export are handled by the canvas compose node.\n\n[Planning rules]\nThe aspect ratio, target duration and dialogue language confirmed at the start carry through the storyboard, key element and video stages.\nA Shot Group serves one narrative goal, usually 8-15 seconds and 3-8 Shots; every Shot serves the story logic, with no meaningless camera moves piled up.",
+    "prompt_guide": "All stage outputs use English Markdown.\n\n[LEGO visual language]\nThe core style is locked to LEGO Minifigure animation: official minifigure proportions, ABS plastic material, printed faces, brick hands, short-leg proportions, cinematic lighting and a crisp, high-quality toy photography look. No realistic human proportions, no long anime proportions, no non-brick toy styles and no organic realistic materials.\n\n[Brick scene language]\nEvery scene element follows LEGO building logic: buildings, roads, furniture, vehicles, trees, water and props are all made of brick geometry; avoid realistic organic curved structures. Scene descriptions state the building layout, roads, key prop positions, time of day and light direction.\n\n[Prompt writing]\nImage prompts describe only what is visible, locking hairstyle, outfit colors and patterns, accessories, face print, scene spatial relationships and key prop positions. Video prompts are organized as Subject description → Action beats → Scene and environment → Shot scale + camera movement → Lighting effects → style anchoring; write dialogue as {original dialogue} and sound effects as <sound effect description>.",
+    "conduct_rules": [
+      "Create the complete workflow draft first; each main stage's output must be clear and reviewable, and the canvas workflow controls the actual continue, retry and execution pace.",
+      "Before starting, confirm theme, characters, scenes, conflict, mood, target audience and existing asset availability; this information is the planning basis and does not create an extra stage.",
+      "The confirmed duration, aspect ratio, language and LEGO visual style carry through the storyboard, key element and video stages.",
+      "Every character keeps LEGO Minifigure proportions and the official minifigure style; no realistic human proportions, anime proportions or non-brick toy styles.",
+      "Every scene follows LEGO building logic and avoids realistic organic curved structures.",
+      "Once confirmed, the key elements become the look anchors for the whole film; every later shot reuses the matching character and scene elements and never changes hairstyle, outfit, accessories, face print or scene spatial relationships on its own.",
+      "The key element stage never creates just one generic \"visual key elements\" node. Each recurring lead or important character, each main reused scene, and each core prop/vehicle/creature that must look the same across shots gets its own node; never replace several independent elements with one combined sheet.",
+      "If the user already uploaded matching character or scene assets, register and bind them to the matching Key Element first; do not generate duplicates.",
+      "Shot design uses the three-level Sequence → Shot Group → Shot structure; each Shot Group serves one narrative goal.",
+      "Every Shot includes shot scale, camera movement, visible character action, the complete original dialogue and sound effect notes; never design on-screen subtitles or floating text at the Shot level.",
+      "Action descriptions contain only visible action; never replace the picture with invisible mental states such as \"lost in thought\" or \"feels pain\".",
+      "Video shots bind the relevant character and scene element images; the previous shot's video is a reference only for strongly continuous action and is usually skipped to avoid style drift.",
+      "Final editing, mixing and export are handled by the canvas compose node."
+    ]
+  },
+  "evaluation": {
+    "rating_bands": [
+      {
+        "score": 5,
+        "description": "Stages are clear and their boundaries complete; minifigure proportions, brick scene logic, key element consistency, the three-level storyboard and final QA all land reliably in the outputs."
+      },
+      {
+        "score": 3,
+        "description": "The flow is mostly complete, but some stages lack asset analysis, element locking, the three-level storyboard, shot fields or stage boundaries."
+      },
+      {
+        "score": 1,
+        "description": "Skipped stages, muddled stage boundaries, realistic/anime proportions, scenes that break brick logic, or ignored key element binding and subtitle rules."
+      }
+    ],
+    "visual_review_items": [
+      {
+        "name": "LEGO minifigure style",
+        "weight": 1.5,
+        "description": "Characters have official LEGO Minifigure proportions, ABS plastic texture, printed faces, brick hands and short-leg proportions."
+      },
+      {
+        "name": "Brick scene logic",
+        "weight": 1.2,
+        "description": "Scenes, props, vehicles, roads and natural elements all follow brick-built geometry, with no realistic organic structures."
+      },
+      {
+        "name": "Cross-shot consistency",
+        "weight": 1.3,
+        "description": "Hairstyle, outfit colors, patterns, accessories, face print and scene spatial relationships stay consistent across all shots."
+      }
+    ],
+    "text_review_items": [
+      {
+        "name": "Stage boundaries",
+        "weight": 1.4,
+        "description": "Each main stage has a clear output, input dependencies and next step, so the canvas workflow is easy to review and advance."
+      },
+      {
+        "name": "Storyboard executability",
+        "weight": 1.2,
+        "description": "The storyboard has Sequence/Shot Group/Shot levels; every shot's fields are complete, action is visible, and dialogue and sound effects are directly executable."
+      }
+    ],
+    "quality_threshold": 4,
+    "domain_constraints": [
+      "Follow the aspect ratio, target duration and dialogue language chosen at the start.",
+      "Characters must be LEGO Minifigure style, never realistic human or anime proportions.",
+      "Scenes must follow LEGO building logic.",
+      "Once confirmed, key elements are reused as anchors for the whole film.",
+      "No subtitles or floating text at the Shot level.",
+      "Video clips must bind the relevant character and scene element images."
+    ]
+  }
+}
