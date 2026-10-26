@@ -45,6 +45,17 @@ describe("Manna brand", () => {
     expect(applyLocaleOverrides(resource, "zh")).toEqual(resource);
   });
 
+  it("adds missing English keys, creating intermediate objects, without touching other languages", () => {
+    const resource = { common: { cancel: "Cancel" } };
+    const out = applyLocaleOverrides(resource, "en") as Record<string, any>;
+    expect(out.common.processing).toBe("Processing...");
+    expect(out.common.cancel).toBe("Cancel");
+    expect(out.nodeToolbar.nodeId).toBe("Node ID");
+    expect(out.settings.modelConfig.featureModels.addChannel).toBe("Add channel");
+    expect(resource).toEqual({ common: { cancel: "Cancel" } });
+    expect(applyLocaleOverrides(resource, "vi")).toEqual(resource);
+  });
+
   it("keeps the DramaClaw attribution and defaults the UI to English", () => {
     expect(MANNA_BRAND.poweredByLabel).toBe("Powered by DramaClaw");
     expect(MANNA_BRAND.defaultLanguage).toBe("en");

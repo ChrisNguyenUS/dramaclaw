@@ -30,7 +30,8 @@ import {
   type CanvasAssetBuckets,
   type CanvasAssetKind,
 } from '@/features/canvas/domain/canvasAssets';
-import { CANVAS_NODE_TYPES } from '@/features/canvas/domain/canvasNodes';
+import { CANVAS_NODE_TYPES, type CanvasNode } from '@/features/canvas/domain/canvasNodes';
+import { localizeNodeDisplayName } from '@/features/canvas/domain/nodeDisplay';
 import { useCanvasGenerationHistory } from '@/features/canvas/hooks/useCanvasGenerationHistory';
 import {
   historyRecordOutputUrl,
@@ -249,13 +250,19 @@ export function CanvasHistoryAssetsModal({
       const sourceData = (sourceNodeId ? byId.get(sourceNodeId)?.data : undefined) as
         | Record<string, unknown>
         | undefined;
+      const sourceNode = sourceNodeId ? byId.get(sourceNodeId) : undefined;
+      // Default names ("图片节点1") are stored in Chinese; show them in the UI language.
+      const titleOf = (target: CanvasNode | undefined): string | null =>
+        target?.type && trimmed((target.data as Record<string, unknown>).displayName)
+          ? localizeNodeDisplayName(target.type, target.data, t)
+          : null;
       const name =
-        trimmed(sourceData?.displayName) ??
+        titleOf(sourceNode) ??
         trimmed(sourceData?.sourceFileName) ??
-        trimmed(data.displayName);
+        titleOf(node);
       return { cover, name };
     };
-  }, [nodes]);
+  }, [nodes, t]);
 
   const buckets = useMemo(
     () =>

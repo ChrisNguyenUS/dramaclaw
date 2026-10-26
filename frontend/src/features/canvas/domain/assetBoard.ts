@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: Elastic-2.0
 // Copyright (c) 2026 ClaymoreLab
+import type { TFunction } from 'i18next';
+
 import { resolveImageDisplayUrl } from '@/features/canvas/application/imageData';
 import { resolveMediaUrl } from '@/lib/media-url';
 
@@ -12,7 +14,7 @@ import {
   type CanvasNodeData,
 } from './canvasNodes';
 import { readKeyElementCategory, type KeyElementCategory } from './keyElements';
-import { resolveNodeDisplayName } from './nodeDisplay';
+import { localizeNodeDisplayName, resolveNodeDisplayName } from './nodeDisplay';
 import { getStoryboardCellPreview, type StoryboardCellPreview } from './storyboardCellPreview';
 import { sortUpstreamByReferenceOrder } from '../nodes/referenceOrdering';
 
@@ -198,10 +200,20 @@ function getCachedPreview(
   return preview;
 }
 
+/** 显示用标题：传了 t 就按界面语言本地化默认名，不传（agent 提及检索等）保持原始值。 */
+function nodeTitle(
+  type: NonNullable<CanvasNode['type']>,
+  data: Partial<CanvasNodeData>,
+  t?: TFunction,
+): string {
+  return t ? localizeNodeDisplayName(type, data, t) : resolveNodeDisplayName(type, data);
+}
+
 function referencesOf(
   node: CanvasNode,
   upstreamIndex: Map<string, CanvasNode[]>,
   previewCache: Map<string, StoryboardCellPreview>,
+  t?: TFunction,
 ): AssetBoardReference[] {
   const upstream = upstreamIndex.get(node.id) ?? [];
   const referenceOrder = asRecord(node.data).referenceOrder;
@@ -235,7 +247,7 @@ function referencesOf(
     seenUrls.add(preview.imageUrl);
     refs.push({
       nodeId: up.id,
-      label: resolveNodeDisplayName(up.type, asRecord(up.data) as Partial<CanvasNodeData>),
+      label: nodeTitle(up.type, asRecord(up.data) as Partial<CanvasNodeData>, t),
       thumbnailUrl: preview.imageUrl,
     });
   }
@@ -247,7 +259,11 @@ function referencesOf(
  * 纯函数（对标 liblib「故事板 = 图数据第二投影」的机制），调用方用
  * `useMemo(() => buildAssetBoard(nodes, edges), [nodes, edges])` 订阅。
  */
-export function buildAssetBoard(nodes: CanvasNode[], edges: CanvasEdge[]): AssetBoardData {
+export function buildAssetBoard(
+  nodes: CanvasNode[],
+  edges: CanvasEdge[],
+  t?: TFunction,
+): AssetBoardData {
   const board: AssetBoardData = { text: [], image: [], video: [], audio: [] };
   const upstreamIndex = buildUpstreamIndex(nodes, edges);
   const previewCache = new Map<string, StoryboardCellPreview>();
@@ -268,7 +284,7 @@ export function buildAssetBoard(nodes: CanvasNode[], edges: CanvasEdge[]): Asset
     board[column].push({
       nodeId: node.id,
       column,
-      title: resolveNodeDisplayName(node.type, data as Partial<CanvasNodeData>),
+      title: nodeTitle(node.type, data as Partial<CanvasNodeData>, t),
       mediaUrl: mediaUrlOf(column, data, thumbnailUrl),
       thumbnailUrl,
       textPreview: column === 'text' ? textPreviewOf(node, data) : null,
@@ -280,7 +296,7 @@ export function buildAssetBoard(nodes: CanvasNode[], edges: CanvasEdge[]): Asset
         column !== 'video' ? null : node.type === CANVAS_NODE_TYPES.videoCompose ? 'final' : 'clip',
       references:
         column === 'image' || column === 'video'
-          ? referencesOf(node, upstreamIndex, previewCache)
+          ? referencesOf(node, upstreamIndex, previewCache, t)
           : [],
       timestamp: timestampOf(data),
       isGenerating: Boolean(data.isGenerating) || Boolean(data.isUploading) || Boolean(data.isAnalyzing),

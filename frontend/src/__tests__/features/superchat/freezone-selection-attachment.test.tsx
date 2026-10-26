@@ -433,7 +433,10 @@ describe("SuperChatPanel Freezone selection attachment state", () => {
       await Promise.resolve();
     });
 
-    expect(screen.getAllByRole("button", { name: /图片节点 · image-node-1/ })).toHaveLength(1);
+    // Manna: the stored default name is shown localized (the t mock renders the key).
+    expect(
+      screen.getAllByRole("button", { name: /node\.displayName\.imageNode · image-node-1/ }),
+    ).toHaveLength(1);
     expect(screen.getAllByLabelText("Remove canvas reference")).toHaveLength(1);
     expect(screen.getByText("Used this turn")).toBeInTheDocument();
   });

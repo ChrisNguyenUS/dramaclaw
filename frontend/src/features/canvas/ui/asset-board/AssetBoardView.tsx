@@ -12,6 +12,7 @@ import {
   type ReactElement,
   type ReactNode,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Check, ChevronDown, ImageIcon, Maximize2, Minimize2, Play } from 'lucide-react';
 
 import {
@@ -70,6 +71,7 @@ const VIDEO_FILTERS: ReadonlyArray<{ value: VideoFilter; label: string }> = [
 const MemoAssetBoardCard = memo(AssetBoardCard);
 
 export function AssetBoardView({ visible, onLocateNode }: AssetBoardViewProps): ReactElement {
+  const { t } = useTranslation();
   // 隐藏时 selector 恒返回 null（Object.is 相等）→ 画布拖拽/生成进度不会重渲染隐藏的故事板。
   const liveNodes = useCanvasStore((state) => (visible ? state.nodes : null));
   const liveEdges = useCanvasStore((state) => (visible ? state.edges : null));
@@ -86,7 +88,7 @@ export function AssetBoardView({ visible, onLocateNode }: AssetBoardViewProps): 
     }
   }
   const { nodes, edges } = dataRef.current;
-  const board = useMemo(() => buildAssetBoard(nodes, edges), [nodes, edges]);
+  const board = useMemo(() => buildAssetBoard(nodes, edges, t), [nodes, edges, t]);
 
   const [videoFilter, setVideoFilter] = useState<VideoFilter>('all');
   // 放大态：把图片/视频栏摊成右半边的宽幅网格（左边只留关键元素 + 文本栏），

@@ -33,7 +33,7 @@ import {
   type VideoBreakdownDimension,
   type VideoBreakdownNodeData,
 } from "@/features/canvas/domain/canvasNodes";
-import { resolveNodeDisplayName } from "@/features/canvas/domain/nodeDisplay";
+import { localizeNodeDisplayName } from "@/features/canvas/domain/nodeDisplay";
 import {
   NodeHeader,
   NODE_HEADER_FLOATING_POSITION_CLASS,
@@ -121,7 +121,7 @@ export const VideoBreakdownNode = memo(
         : null) ?? data.sourceVideoUrl ?? null;
     const sourceLabel =
       (upstreamVideo
-        ? resolveNodeDisplayName(CANVAS_NODE_TYPES.video, upstreamVideo.data)
+        ? localizeNodeDisplayName(CANVAS_NODE_TYPES.video, upstreamVideo.data, t)
         : data.sourceFileName) ?? null;
 
     const videoSource = videoUrl ? resolveImageDisplayUrl(videoUrl) : null;
@@ -141,8 +141,8 @@ export const VideoBreakdownNode = memo(
     );
 
     const resolvedTitle = useMemo(
-      () => resolveNodeDisplayName(CANVAS_NODE_TYPES.videoBreakdown, data),
-      [data],
+      () => localizeNodeDisplayName(CANVAS_NODE_TYPES.videoBreakdown, data, t),
+      [data, t],
     );
     const cardToneClass = canvasNodeFrameClass({ selected });
 

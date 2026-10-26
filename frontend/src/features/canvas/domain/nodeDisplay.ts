@@ -70,6 +70,9 @@ const CANONICAL_DEFAULT_NAMES = new Set<string>([
   ...Object.values(EXPORT_RESULT_DISPLAY_NAME),
 ]);
 
+/** 以 CJK 字符结尾的名字和序号之间不加空格。 */
+const CJK_TAIL_PATTERN = /[\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af\uff00-\uffef]$/;
+
 function resolveExportResultKind(data: Partial<CanvasNodeData>): ExportImageNodeResultKind {
   return (data as { resultKind?: ExportImageNodeResultKind }).resultKind ?? 'generic';
 }
@@ -182,9 +185,24 @@ export function localizeNodeDisplayName(
   t: TFunction,
 ): string {
   const name = resolveNodeDisplayName(type, data);
-  return CANONICAL_DEFAULT_NAMES.has(name)
-    ? localizeDefaultNodeDisplayName(type, data, t)
-    : name;
+  if (CANONICAL_DEFAULT_NAMES.has(name)) {
+    return localizeDefaultNodeDisplayName(type, data, t);
+  }
+  // 带序号的默认名（「图片节点1」）：落盘的是规范中文名 + 序号，不在上面那张表里。
+  // 恰好等于「这个节点此刻的带序号默认名」说明用户没改过，按当前语言拼回去。
+  const index = (data as { autoTitleIndex?: unknown }).autoTitleIndex;
+  if (
+    typeof index === 'number' &&
+    Number.isFinite(index) &&
+    index > 0 &&
+    name === getDefaultNodeDisplayName(type, data)
+  ) {
+    const base = localizeDefaultNodeDisplayName(type, data, t);
+    // Latin-script bases read better with a space ("Image node 1"); CJK bases stay
+    // joined ("图片节点1"), which is what the stored value looks like.
+    return `${base}${CJK_TAIL_PATTERN.test(base) ? '' : ' '}${index}`;
+  }
+  return name;
 }
 
 export function isNodeUsingDefaultDisplayName(type: CanvasNodeType, data: Partial<CanvasNodeData>): boolean {

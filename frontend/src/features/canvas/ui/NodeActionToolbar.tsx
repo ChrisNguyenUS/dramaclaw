@@ -78,6 +78,7 @@ import {
   type AudioDownloadFormat,
 } from "@/lib/audioTranscode";
 import { nodeMainlineFlags } from "@/features/canvas/domain/mainlineNodeFlags";
+import { localizeNodeDisplayName } from "@/features/canvas/domain/nodeDisplay";
 import { inheritMainlineFields } from "@/features/canvas/domain/inheritMainlineFields";
 import {
   extractMainlineContextsFromNode,
@@ -983,11 +984,11 @@ export const NodeActionToolbar = memo(
       canvasEventBus.publish("video-viewer/open", {
         videoUrl: url,
         title:
-          typeof node.data.displayName === "string"
-            ? node.data.displayName
+          typeof node.data.displayName === "string" && node.type
+            ? localizeNodeDisplayName(node.type, node.data, t)
             : undefined,
       });
-    }, [node.data, requireVideoUrl]);
+    }, [node.data, node.type, requireVideoUrl, t]);
 
     const handleDownloadVideo = useCallback(async () => {
       const url = requireVideoUrl();

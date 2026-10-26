@@ -159,7 +159,7 @@ import type {
 } from "@/api/ops";
 import type { ErrorResponse, OkResponse, TaskResponse } from "@/types/api";
 import type { CanvasOntologyContext } from "@/features/canvas/ontology/canvasOntology";
-import { resolveNodeDisplayName } from "@/features/canvas/domain/nodeDisplay";
+import { localizeNodeDisplayName } from "@/features/canvas/domain/nodeDisplay";
 import { useCanvasStore, type CanvasNode } from "@/stores/canvasStore";
 import {
   CANVAS_NODE_TYPES,
@@ -10065,9 +10065,9 @@ async function writeClipboardText(text: string): Promise<boolean> {
   }
 }
 
-function getCanvasNodeLabel(node: CanvasNode): string {
+function getCanvasNodeLabel(node: CanvasNode, t: TFunction): string {
   if (!node.type) return node.id;
-  return resolveNodeDisplayName(node.type as CanvasNodeType, node.data);
+  return localizeNodeDisplayName(node.type as CanvasNodeType, node.data, t);
 }
 
 function stringOrNull(value: unknown): string | null {
@@ -10128,10 +10128,10 @@ function canvasReferencePreviewUrl(node: CanvasNode): string | null {
   return stringOrNull(data.previewImageUrl) || stringOrNull(data.imageUrl) || stringOrNull(data.referenceImageUrl);
 }
 
-function canvasNodeToReferencePreview(node: CanvasNode): CanvasNodeReferencePreview {
+function canvasNodeToReferencePreview(node: CanvasNode, t: TFunction): CanvasNodeReferencePreview {
   return {
     nodeId: node.id,
-    label: getCanvasNodeLabel(node),
+    label: getCanvasNodeLabel(node, t),
     nodeType: node.type ?? null,
     mediaType: canvasReferenceMediaType(node),
     sourceUrl: canvasReferenceSourceUrl(node),
@@ -12917,8 +12917,8 @@ export function SuperChatPanel({
   const canSend = hasSendableContent && chat.connected && !preparingSend;
   const composerWaiting = chat.busy && (!hasSendableContent || !chat.connected || preparingSend);
   const selectedFreezoneNodePreviews = useMemo(
-    () => selectedFreezoneNodes.map((node) => canvasNodeToReferencePreview(node)),
-    [selectedFreezoneNodes],
+    () => selectedFreezoneNodes.map((node) => canvasNodeToReferencePreview(node, t)),
+    [selectedFreezoneNodes, t],
   );
   const deselectFreezoneNodeReferences = useCallback((nodeIds: ReadonlySet<string>) => {
     if (!isFreezoneLayout) return;

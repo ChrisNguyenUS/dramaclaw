@@ -14,6 +14,11 @@ ENV VITE_APP_VERSION=${VITE_APP_VERSION}
 ARG VITE_EDITION=ce
 ENV VITE_EDITION=${VITE_EDITION}
 
+# Manna Studio: announcement feed URL (empty keeps the upstream default). compose.manna.yml
+# passes /manna-announcements.json so the app never calls the upstream vendor CDN.
+ARG VITE_LOGIN_ANNOUNCEMENTS_URL=
+ENV VITE_LOGIN_ANNOUNCEMENTS_URL=${VITE_LOGIN_ANNOUNCEMENTS_URL}
+
 # Use pnpm (matches local dev) instead of npm — a single lockfile as source of
 # truth, which removes the npm/pnpm dual-lockfile drift that made `npm ci` fail.
 # corepack picks the version pinned in package.json's "packageManager" field.

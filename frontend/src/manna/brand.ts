@@ -45,9 +45,17 @@ const LOCALE_OVERRIDES: Record<string, Record<string, string>> = {
     "settings.storyboardGenAutoInferEmptyFrameDesc":
       'When enabled, empty grid cells automatically append "infer from the previous content" during generation prompt construction.',
     "myBuddy.debug.accessoryFeedback.redStar": "Red star shining!",
+    // Keys upstream calls with t() but ships in no locale (the UI would show the raw key).
+    "nodeToolbar.nodeId": "Node ID",
+    "nodeToolbar.copyNodeId": "Copy node ID",
+    "common.processing": "Processing...",
+    "freezone.chat.canvasCommandsCancelled": "Canvas commands cancelled",
+    "settings.modelConfig.featureModels.addChannel": "Add channel",
   },
 };
 
+// Overrides replace existing strings and also ADD keys the upstream locale files lack,
+// creating intermediate objects as needed. An intermediate that is already a string is left alone.
 export function applyLocaleOverrides<T>(resource: T, language: string): T {
   const overrides = LOCALE_OVERRIDES[language];
   if (!overrides || !resource || typeof resource !== "object") return resource;
@@ -56,11 +64,13 @@ export function applyLocaleOverrides<T>(resource: T, language: string): T {
     const keys = path.split(".");
     let node: Record<string, unknown> | undefined = out;
     for (const key of keys.slice(0, -1)) {
-      const next: unknown = node?.[key];
+      if (!node) break;
+      if (node[key] === undefined) node[key] = {};
+      const next: unknown = node[key];
       node = next && typeof next === "object" ? (next as Record<string, unknown>) : undefined;
     }
     const leaf = keys[keys.length - 1];
-    if (node && typeof node[leaf] === "string") node[leaf] = value;
+    if (node && (node[leaf] === undefined || typeof node[leaf] === "string")) node[leaf] = value;
   }
   return out as T;
 }
