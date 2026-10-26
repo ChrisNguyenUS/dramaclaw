@@ -70,3 +70,47 @@ def instruction_suffix() -> str:
         return ""
     rule = film_language_rule(current_film_language())
     return f" {rule}" if rule else ""
+
+
+def load_film_language_for_project(username: str, project: str) -> FilmLanguage:
+    try:
+        from novelvideo.project_config import load_project_config
+
+        return normalize_film_language(load_project_config(username, project).get("film_language"))
+    except Exception:
+        return "en"
+
+
+def agent_language_block(film_language: str) -> str:
+    if manna_asset_language() is None:
+        return ""
+    rule = film_language_rule(normalize_film_language(film_language))
+    body = "Write every script, storyboard, shot plan and image/video prompt in English."
+    return f"[MANNA_LANGUAGE]\n{body}{(' ' + rule) if rule else ''}\n[/MANNA_LANGUAGE]\n\n"
+
+
+def recipe_language_line() -> str:
+    if manna_asset_language() is None:
+        return ""
+    rule = film_language_rule(current_film_language())
+    return "\n\nLanguage: write the output in English." + (f" {rule}" if rule else "")
+
+
+# Placement-free tasks may run on a node without the project's state, so the API side copies
+# the film language into the task payload (hook: task_backend/client.py enqueue_project_task).
+PAYLOAD_KEY = "manna_film_language"
+
+
+def payload_with_film_language(state_dir: str | Path | None, payload: dict | None) -> dict | None:
+    if manna_asset_language() is None:
+        return payload
+    return {**(payload or {}), PAYLOAD_KEY: load_film_language_from_state_dir(state_dir)}
+
+
+def task_film_language(
+    payload: object, state_dir: str | Path | None, *, may_read_state: bool
+) -> FilmLanguage:
+    """Worker side: payload first; project state only for home-node-bound tasks."""
+    if isinstance(payload, dict) and PAYLOAD_KEY in payload:
+        return normalize_film_language(payload[PAYLOAD_KEY])
+    return load_film_language_from_state_dir(state_dir) if may_read_state else "en"

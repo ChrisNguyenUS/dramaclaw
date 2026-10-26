@@ -15,6 +15,7 @@ from typing import Any, Literal
 
 from pydantic_ai import Agent
 
+from novelvideo.manna_ext.language import recipe_language_line  # Manna hook
 from novelvideo.brainclaw_contract import (
     BrainClawProfile,
     builtin_text_recipe_profile_variant,
@@ -569,7 +570,7 @@ def build_recipe_compiler_task(
             "Trusted Skill constraints:\n"
             + _limited_json(skill_constraints or {}, _MAX_SKILL_CONSTRAINTS_CHARS),
             "Current node intent:\n" + (prompt or "(not provided)"),
-            "Trusted Recipe instructions:\n" + system_prompt,
+            "Trusted Recipe instructions:\n" + system_prompt + recipe_language_line(),  # Manna hook
             "Upstream text context:\n" + (upstream or "(none)"),
             "Available reference media metadata:\n"
             + json.dumps(normalized_media, ensure_ascii=False),

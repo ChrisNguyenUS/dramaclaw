@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from novelvideo.manna_ext.language import payload_with_film_language  # Manna hook
 from novelvideo.ports import get_task_backend
 from novelvideo.ports.tasks import QueuedTask
 from novelvideo.project_context import ProjectContext
@@ -21,6 +22,7 @@ async def enqueue_project_task(
     scope: str | None = None,
     payload: dict[str, Any] | None = None,
 ) -> QueuedTask:
+    payload = payload_with_film_language(getattr(ctx, "state_dir", None), payload)  # Manna hook
     return await get_task_backend().enqueue_project_task(
         ctx,
         task_type=task_type,

@@ -37,6 +37,7 @@ from fastapi import (
 from fastapi.responses import FileResponse, JSONResponse
 from starlette.concurrency import run_in_threadpool
 
+from novelvideo.manna_ext.language import bind_film_language_from_state_dir, reset_film_language  # Manna hook
 from novelvideo.api.auth import get_api_user
 from novelvideo.chat import evidence_metrics
 from novelvideo.chat import service as chat_service
@@ -5688,6 +5689,20 @@ async def _fail_recipe_product_operation(
         )
 
 
+async def _manna_recipe_state_dir(body: Any, user: dict) -> Path | None:  # Manna hook
+    """Project state dir for the recipe's film language; None when unknown."""
+    project_id = str(getattr(body, "project_id", "") or "").strip()
+    if not project_id:
+        return None
+    try:
+        ctx, _username, _project_name, project_dir, _output_dir = (
+            await _resolve_freezone_project(project_id, user)
+        )
+        return _canvas_state_project_dir(ctx, project_dir)
+    except Exception:
+        return None
+
+
 @router.post(
     "/freezone/recipes/compile",
     response_model=FreezoneRecipeCompileResponse,
@@ -5704,10 +5719,14 @@ async def compile_freezone_recipe(
     )
     if replayed is not None:
         return _recipe_compile_response(replayed)
+    film_token = bind_film_language_from_state_dir(await _manna_recipe_state_dir(body, user))  # Manna hook
     try:
-        compiled = await compile_recipe_prompt_result(
-            **_recipe_compile_args(body, username)
-        )
+        try:  # Manna hook
+            compiled = await compile_recipe_prompt_result(
+                **_recipe_compile_args(body, username)
+            )
+        finally:  # Manna hook
+            reset_film_language(film_token)  # Manna hook
         await _record_recipe_compile_product_evidence(
             body=body,
             compiled=compiled,

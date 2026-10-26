@@ -2831,6 +2831,7 @@ tests/test_local_runtime_dependency_isolation.py,Elastic-2.0,2026 SuperTale cont
 tests/test_m10_final_gate.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
 tests/test_manna_catalog_en.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
 tests/test_manna_language.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
+tests/test_manna_language_binding.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
 tests/test_manna_project_language.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
 tests/test_manna_provider_presets.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
 tests/test_manna_skill_trigger_pair.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation

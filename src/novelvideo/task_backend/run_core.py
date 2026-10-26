@@ -10,6 +10,7 @@ import time
 from typing import Any, Mapping
 import uuid
 
+from novelvideo.manna_ext.language import bind_film_language, reset_film_language, task_film_language  # Manna hook
 from novelvideo.egress_context import (
     TRUSTED_EGRESS_CONTEXT_KEY,
     TrustedEgressContext,
@@ -910,6 +911,7 @@ def run_project_task_core_sync(
         )
         return {"cancelled": True}
 
+    film_token = bind_film_language(task_film_language(delivery.payload, getattr(ctx, "state_dir", None), may_read_state=requires_home_node))  # Manna hook
     try:
         with (
             project_task_run_context(run_task_id),
@@ -1258,3 +1260,4 @@ def run_project_task_core_sync(
         return result or {"ok": True}
     finally:
         _clear_project_task_metrics_context()
+        reset_film_language(film_token)  # Manna hook

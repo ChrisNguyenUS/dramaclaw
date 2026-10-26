@@ -24,6 +24,7 @@ from urllib.request import urlopen
 
 import portalocker
 
+from novelvideo.manna_ext import language as manna_language  # Manna hook
 from novelvideo.chat import display_fallback, media_presentation, message_repository, presentation, presentation_mapping, runtime_event_mapper, session_registry
 from novelvideo.chat.backend_sdk import (
     ClaudeSdkClient,
@@ -1849,6 +1850,7 @@ def _prompt_with_user_context(
         f"{continuation_instructions}"
         f"{surface_instructions}\n\n"
         f"{execution_context_block}"
+        f"{manna_language.agent_language_block(manna_language.load_film_language_for_project(username, project) if project else 'en')}"  # Manna hook
         "[USER_MESSAGE]\n"
         f"{user_message}"
     )
