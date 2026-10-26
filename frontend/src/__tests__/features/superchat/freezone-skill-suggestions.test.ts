@@ -163,7 +163,7 @@ describe("freezone skill slash suggestions", () => {
       "create-with-agent",
     ]);
     expect(insertFreezoneSkillEmptyActionPrompt("/", FREEZONE_SKILL_EMPTY_ACTIONS[0].prompt)).toBe(
-      "Summarize the current canvas into a reusable Skill",
+      "Summarize the canvas as a Skill",
     );
     expect(insertFreezoneSkillEmptyActionPrompt("I want /skill", FREEZONE_SKILL_EMPTY_ACTIONS[1].prompt)).toBe(
       "I want Help me create a Skill: ",

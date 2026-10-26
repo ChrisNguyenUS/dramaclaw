@@ -158,6 +158,7 @@ import type {
   FreezoneVideoUpscaleResolution,
 } from "@/api/ops";
 import type { ErrorResponse, OkResponse, TaskResponse } from "@/types/api";
+import { translateServerText } from "@/manna/server-text"; // Manna hook
 import type { CanvasOntologyContext } from "@/features/canvas/ontology/canvasOntology";
 import { localizeNodeDisplayName } from "@/features/canvas/domain/nodeDisplay";
 import { useCanvasStore, type CanvasNode } from "@/stores/canvasStore";
@@ -8118,11 +8119,11 @@ function SkillStudioDraftCard({
   );
 }
 
-function SkillStudioStatusCard({ event }: { event: Extract<SkillStudioUiEvent, { type: "skill_studio.status" }> }) {
+export function SkillStudioStatusCard({ event }: { event: Extract<SkillStudioUiEvent, { type: "skill_studio.status" }> }) {
   return (
     <div className="flex items-center gap-2 px-1 py-1 text-xs text-muted-foreground">
       <ListTree className="size-3.5 shrink-0 text-cyan-100/70" />
-      <span>{event.message || "Entering Skill Studio..."}</span>
+      <span>{translateServerText(event.message ?? "") || "Entering Skill Studio..."}</span>{/* Manna hook */}
       <DotsIndicator />
     </div>
   );

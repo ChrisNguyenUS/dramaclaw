@@ -30,7 +30,9 @@ export const FREEZONE_SKILL_EMPTY_ACTIONS: FreezoneSkillEmptyAction[] = [
   {
     id: "summarize-canvas",
     label: "Summarize canvas as a Skill",
-    prompt: "Summarize the current canvas into a reusable Skill",
+    // Must match chat/service.py _FREEZONE_SKILL_STUDIO_TRIGGER_RE (verb within 24 chars of
+    // "Skill"); pinned by tests/test_manna_skill_trigger_pair.py.
+    prompt: "Summarize the canvas as a Skill",
   },
   {
     id: "create-with-agent",
