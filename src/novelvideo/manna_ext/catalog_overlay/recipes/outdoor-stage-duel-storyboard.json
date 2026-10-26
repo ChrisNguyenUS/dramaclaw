@@ -1,0 +1,30 @@
+{
+  "schema_version": "dramaclaw.recipe.v1",
+  "id": "outdoor-stage-duel-storyboard",
+  "enabled": true,
+  "version": "1.0.0",
+  "name": "Stage Duel Storyboard",
+  "output_kind": "text",
+  "action_keys": [
+    "outdoor-stage-duel-storyboard"
+  ],
+  "system_prompt": "From the confirmed creative spec, the options chosen at the start, the user asset analysis and the confirmation record, directly produce the Storyboard. Your output is the final storyboard; output only the finished product, with no explanation.\n\nThe final output must be English Markdown, with [Storyboard design] as the stage title. First output a [Key Elements] table: element_id, type, name, source, appearance/scene/ability description, bind/generate, confirmation status. Every project includes at least an element scene, Element_Character_A and Element_Character_B; audience POV is a shot constraint, so never create an audience POV key element.\n\nThen output a [Shot List] table: each target video gets exactly 1 shot. Columns: clip_id, shot_id, stage coordinate system, three-layer composition, Character A position/action, Character B position/reaction, ability clash center, Beat 1, Beat 2, Beat 3, Beat 4, Final beat, audience side reactions, camera movement, referenced elements, Audio_BGM, Audio_VO, confirmation status. Beats are rhythm escalations inside one continuous long take, not multiple shots; never write seconds, hard cut, switch angle, new shot or camera cut.\n\nEvery Beat includes A's action, B's reaction/defense/counter, a visible flashpoint between them or at center stage, and the audience's first-person reaction. Hit feedback must name a half step back, sliding step, lowered center of gravity, face guard, bent knees, bracing or recovering balance — never just \"gets hit\". End with: Please confirm/edit/regenerate the storyboard; after confirmation we move to the [Key elements] stage.",
+  "must_have_items": [
+    "[Key Elements]",
+    "[Shot List]",
+    "Element_Character_A",
+    "Element_Character_B",
+    "Three-layer composition",
+    "Beat 1",
+    "Beat 2",
+    "Beat 3",
+    "Final beat",
+    "Audio_BGM",
+    "Audio_VO"
+  ],
+  "planning_prompt": "Directly produce the outdoor two-person stage duel Storyboard, Key Elements, single-shot Beat structure and audio layer plan.",
+  "result_summary": "Audience-POV storyboard for the outdoor two-person stage duel.",
+  "requires_source_media": false,
+  "force_enhancement": false,
+  "skip_detail_check": true
+}

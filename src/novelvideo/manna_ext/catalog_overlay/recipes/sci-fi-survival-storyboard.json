@@ -1,0 +1,29 @@
+{
+  "schema_version": "dramaclaw.recipe.v1",
+  "id": "sci-fi-survival-storyboard",
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "Post-Apocalyptic Sci-Fi Storyboard",
+  "output_kind": "text",
+  "action_keys": [
+    "sci-fi-survival-storyboard"
+  ],
+  "system_prompt": "From the confirmed creative spec, story script, asset analysis and user confirmation record, directly produce the post-apocalyptic sci-fi Storyboard. Your output is the final storyboard; output only the finished product, with no explanation.\n\nThe final output must be English Markdown, with [Storyboard design] as the stage title. First output a [Key Elements] table with element_id, type, name, source, appearance/scene description, generate/bind and confirmation status. Characters require full-body three-view sheets; scenes require a 2x2 character-free grid; monsters, machines, weapons or key props must state structure, material, wear state and multi-angle reference needs.\n\nThen output a [Shot List] table, one video generation task per row, with columns: shot_id, scene element, grid sub-area, story stage, duration 4-15s, shot scale, camera height, camera movement, character orientation (front/side/back/facing away from camera), character action, dialogue, voiceover timing, sound effects, reference image priority, Transition Intent, continuity anchors, confirmation status. Every shot must check image references <= 9 and audio references <= 3.\n\nFight shots include the action initiator, attack/defense type, direction of movement through space, hit feedback, micro-shake and damage continuity; emotional shots include Cause + Expression Details + Body Language + Tone of Voice. End with: Please confirm/edit/regenerate the storyboard; after confirmation we move to the [Key elements] stage.",
+  "must_have_items": [
+    "[Key Elements]",
+    "[Shot List]",
+    "shot_id",
+    "Duration",
+    "Character orientation",
+    "Transition Intent",
+    "Image references <=9",
+    "Audio references <=3",
+    "Cause",
+    "Expression Details"
+  ],
+  "planning_prompt": "Directly produce post-apocalyptic sci-fi Key Elements, a per-shot Shot List, audio layers and transition intent.",
+  "result_summary": "Post-apocalyptic sci-fi Storyboard, Key Elements and Shot List.",
+  "requires_source_media": false,
+  "force_enhancement": false,
+  "skip_detail_check": false
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": "dramaclaw.recipe.v1",
+  "id": "dialogue-drama-storyboard-plan",
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "Dialogue Continuity Storyboard Plan",
+  "output_kind": "text",
+  "action_keys": [
+    "dialogue-drama-storyboard-plan"
+  ],
+  "system_prompt": "From the confirmed global creative spec, story script, asset analysis and user confirmation record, directly produce the storyboard plan. Your output is the final storyboard plan; output only the finished product, with no explanation.\n\nThe final output uses Markdown and has three parts: [Key Elements], [Shot List] and [Shot continuity sheet]. The Key Elements table lists element_id, type, name, source, appearance or space description, generate/bind and confirmation status. Character entries give apparent age, build, face shape and features, hairstyle, outfit materials and signature details; scene entries state the spatial structure, character activity areas, key prop positions, key light direction, color temperature, shadow direction, reflections and story role.\n\nThe Shot List has one video generation task per row, with columns: shot_id, scene, characters, props, emotional motivation, story action, start_frame state, end_frame state, duration, shot scale, camera angle, camera movement with acceleration, key light direction, dialogue, ambience intent, handoff rationale, confirmation status.\n\nThe shot continuity sheet marks, for each pair of adjacent shots, match on action, eyeline match, screen direction, character frame position, prop state, key light direction, color temperature, and how the previous shot's end state becomes the next shot's starting basis. Audio intent covers only shot-related dialogue, ambience, voice references or cross-shot ambient bed needs; whether to generate music, subtitles or voiceover follows the global creative spec.",
+  "must_have_items": [
+    "[Key Elements]",
+    "[Shot List]",
+    "[Shot continuity sheet]",
+    "shot_id",
+    "start_frame",
+    "end_frame",
+    "Shot scale",
+    "Camera angle",
+    "Key light direction",
+    "dialogue",
+    "Ambience intent",
+    "Confirmation status"
+  ],
+  "planning_prompt": "Directly produce the dialogue short drama's Key Elements, Shot List and shot continuity sheet.",
+  "result_summary": "Dialogue short drama Shot List and shot continuity sheet.",
+  "requires_source_media": false,
+  "force_enhancement": false,
+  "skip_detail_check": false
+}

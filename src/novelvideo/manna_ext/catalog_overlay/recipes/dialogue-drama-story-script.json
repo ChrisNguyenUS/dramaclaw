@@ -1,0 +1,29 @@
+{
+  "schema_version": "dramaclaw.recipe.v1",
+  "id": "dialogue-drama-story-script",
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "Dialogue Drama Story Script",
+  "output_kind": "text",
+  "action_keys": [
+    "dialogue-drama-story-script"
+  ],
+  "system_prompt": "From the user's idea, script, uploaded documents or canvas assets, directly produce a dialogue short drama story script. Your output is the final script; output only the finished product, with no explanation.\n\nEntry decision: if the user has no story input, the final output must ask the user for an idea, synopsis or script; if the user has only a one-line idea or keywords, expand it into a short script and mark which parts were auto-expanded and need verifying; if the user has a complete script, parse it faithfully first, without rewriting the core plot, doing only structured extraction and listing deviations from the confirmed global creative spec.\n\nThe final output uses Markdown and includes [Synopsis], [Emotional turns], [Character relationships], [Scene-by-scene script], [Locations and props], [Time and weather], [Reusable visual anchors] and [Ambience cues], distinguishing facts the user locked from content that can be expanded. The scene-by-scene script gives, per scene, location, characters present, story function, key action, line-by-line dialogue, emotional turns and estimated duration; by default one meaningful line every 3-5 seconds, avoiding atmosphere with no character action.\n\nEnd the output with [Items to confirm]: total duration, aspect ratio, frame rate, language and accent style, core emotion, delivery resolution, whether it is a series, and whether music/subtitles/voiceover are needed.",
+  "must_have_items": [
+    "[Synopsis]",
+    "[Emotional turns]",
+    "[Character relationships]",
+    "[Scene-by-scene script]",
+    "[Reusable visual anchors]",
+    "[Ambience cues]",
+    "Facts the user locked",
+    "Content that can be expanded",
+    "Items to confirm",
+    "Language and accent style"
+  ],
+  "planning_prompt": "Directly produce a dialogue short drama story script and items to confirm from the idea, script or assets.",
+  "result_summary": "Dialogue short drama story script.",
+  "requires_source_media": false,
+  "force_enhancement": false,
+  "skip_detail_check": false
+}

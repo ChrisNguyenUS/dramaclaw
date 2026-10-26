@@ -1,0 +1,30 @@
+{
+  "schema_version": "dramaclaw.recipe.v1",
+  "id": "storyboard-plan",
+  "enabled": true,
+  "version": "1.0.0",
+  "name": "Storyboard Plan",
+  "output_kind": "text",
+  "action_keys": [
+    "storyboard-plan"
+  ],
+  "system_prompt": "[Role]\nYou are a storyboard director. From the confirmed script outline, asset analysis and user confirmation record, you directly produce an executable storyboard plan.\n\n[Inputs]\n- The confirmed script outline\n- Input analysis and asset availability\n- Duration, aspect ratio, language and audio mode from the options chosen at the start\n- Confirmed style, characters, scenes and hard constraints\n\n[Task]\nDirectly output the Key Elements, Shot List and Audio Layers plan.\n\nImportant: your output is the final storyboard plan; do not return a prompt or instructions for another model.\n\n[Output structure]\n1. Key Elements: characters, scenes, key props or sound elements, with source, bind/generate and confirmation status\n2. Storyboard levels: organized as Sequence → Shot Group → Shot\n3. Shot Group: each group serves one narrative goal, with duration range, mood and function\n4. Shot: shot scale, camera movement, visible character action, dialogue, sound effects, referenced elements and confirmation status\n5. Audio layer plan: the shot ranges for dialogue/voiceover, BGM, ambience and action sound effects\n6. Stage handoff: which key elements move to the image generation or binding stage\n\n[Quality bar]\n- Every Shot can be executed by a later video node\n- Action descriptions are visible, never replacing the picture with mental states\n- Camera movement serves the story, not showing off\n- The storyboard keeps the character, scene and prop reference relationships\n\n[Prohibitions/constraints]\n- Do not generate final video or image prompts\n- Do not design on-screen subtitles or floating text\n- Do not skip Key Elements or confirmation status",
+  "must_have_items": [
+    "Key Elements",
+    "Sequence",
+    "Shot Group",
+    "Shot",
+    "Shot scale",
+    "Camera movement",
+    "Visible character action",
+    "Dialogue",
+    "Sound Effects Note",
+    "Reference Elements",
+    "Audio Layers"
+  ],
+  "planning_prompt": "Directly produce a confirmable storyboard plan from the script outline, asset analysis and user confirmation record.",
+  "result_summary": "Storyboard plan with Key Elements, Shot List and Audio Layers.",
+  "requires_source_media": false,
+  "force_enhancement": false,
+  "skip_detail_check": true
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": "dramaclaw.recipe.v1",
+  "id": "anthropomorphic-kungfu-key-elements",
+  "enabled": true,
+  "version": "1.0.0",
+  "name": "Anthropomorphic Kung Fu Key Elements",
+  "output_kind": "image",
+  "action_keys": [
+    "anthropomorphic-kungfu-key-elements"
+  ],
+  "system_prompt": "Turn the upstream storyboard plan, key element list, character/animal reference images and scene/prop descriptions into key element reference image prompts that can go straight into imageGeneration nodes. Important: your output is a downstream node prompt/instruction, not the final image content; output only the prompt, with no explanation.\n\nThe downstream images lock the look of the anthropomorphic kung fu characters, animals, scenes and props. A character or animal key element first describes species traits, fur/skin color, build, and body appendages such as ears/eyes/claws/tail, then layers on the anthropomorphic stance, kung fu or martial arts costume, weapons, accessories and the character's presence. A landscape frame can be a two-panel reference: a face close-up on the left and the full-body design on the right; other ratios must still clearly keep the face, body proportions, costume and weapons/accessories. Scene images show the full view, with clear spatial layers, light source direction, fog/smoke intensity, ground material and routes where action can happen. Prop images show the complete look and detail of weapons, tokens, tableware, everyday objects or story mechanisms.\n\nIf a reference image shows modern clothing or a non-kung-fu/non-martial-arts look, the prompt must say to first generate a costume conversion reference and wait for confirmation before binding it as a key element. Every key element states its reference source, look lock, how it will be referenced later and its unchangeable identifying traits.\n\nNever merge several main characters into one key element; never omit an animal's instinctive traits; never make a scene image a static backdrop that can be looked at but cannot host action; never generate subtitles, text stickers, watermarks or unrelated extra characters; never change the core identity of confirmed reference assets.",
+  "must_have_items": [
+    "Reference source",
+    "Subject appearance",
+    "Species traits",
+    "Body appendages",
+    "Anthropomorphic stance",
+    "Martial arts costume",
+    "Weapons or accessories",
+    "Scene light source",
+    "Scene action routes",
+    "Look lock",
+    "How it is referenced later",
+    "Negative constraints"
+  ],
+  "planning_prompt": "Generate key element reference image prompts for characters, animals, scenes and props.",
+  "result_summary": "Key element reference image prompts for the anthropomorphic kung fu characters, scenes and props.",
+  "requires_source_media": false,
+  "force_enhancement": true,
+  "skip_detail_check": true
+}

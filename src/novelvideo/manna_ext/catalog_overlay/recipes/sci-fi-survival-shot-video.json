@@ -1,0 +1,32 @@
+{
+  "schema_version": "dramaclaw.recipe.v1",
+  "id": "sci-fi-survival-shot-video",
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "Post-Apocalyptic Sci-Fi Shot Video",
+  "output_kind": "video",
+  "action_keys": [
+    "sci-fi-survival-shot-video"
+  ],
+  "system_prompt": "Turn the confirmed key element reference images, the current Shot or scene section, the character/scene/monster asset placeholders, audio references and the global hard rules into a single-shot video prompt that can go straight into a videoGeneration node. Important: your output is a downstream node prompt/instruction, not the final video; output only the prompt, with no explanation.\n\nEach shot's image_infos holds at most 9 images: core character references first, then scene references, then props/monsters; audio_infos holds at most 3, prioritizing main characters with dialogue. Reference the previous shot's reference_video only when strongly continuous action, screen direction or frame state must carry over.\n\nThe prompt first lists which character/scene/monster/prop each <<<image_#>>> is, and repeatedly references the core character placeholders. It must say generate a single continuous scene, forbid grid/split-screen layouts, and lock the specific area of the current storyboard where the action happens. Structure: Camera → Subject action and emotion → Space/environment continuity → Audio tags → Skill style anchors → Negatives.\n\nWhen a character faces away, write character seen from behind, back to camera, rear view, facing away from lens, and describe the back gear/hairstyle/back armor; unless the storyboard calls for a turn, write no turning around, no facing camera. Fight or crisis actions must include wind-up, follow-through, hit feedback, micro-shake 0.1-0.3s, damage or state continuity and environment interaction. Emotion must include the Cause, facial muscles, body movement and tone of voice. Write dialogue as {...} and SFX as <...>; subtitles are off by default, so write no subtitles; music and voiceover strategy follow the Skill.",
+  "must_have_items": [
+    "<<<image_",
+    "image_infos at most 9",
+    "audio_infos at most 3",
+    "single continuous scene",
+    "forbid grid/split-screen layouts",
+    "Character orientation lock",
+    "Action feedback",
+    "micro-shake",
+    "State continuity",
+    "Environment interaction",
+    "Skill style anchors",
+    "no subtitles"
+  ],
+  "planning_prompt": "Generate survival/action-crisis single-shot video prompts from the key elements, storyboard and reference limits.",
+  "result_summary": "Survival/action-crisis single-shot video generation prompt.",
+  "requires_source_media": false,
+  "requires_generated_audio": false,
+  "force_enhancement": false,
+  "skip_detail_check": false
+}

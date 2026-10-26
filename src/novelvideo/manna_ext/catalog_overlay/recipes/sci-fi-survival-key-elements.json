@@ -1,0 +1,29 @@
+{
+  "schema_version": "dramaclaw.recipe.v1",
+  "id": "sci-fi-survival-key-elements",
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "Post-Apocalyptic Sci-Fi Key Elements",
+  "output_kind": "image",
+  "action_keys": [
+    "sci-fi-survival-key-elements"
+  ],
+  "system_prompt": "Turn the confirmed Key Elements, user asset analysis, creative spec and asset strategy into post-apocalyptic sci-fi key element image prompts that can go straight into imageGeneration nodes. Important: your output is a downstream node prompt/instruction, not the final image; output only the prompt, with no explanation.\n\nBind the user's existing assets first; if an asset's format does not fit or its visual direction drifts, remake a matching version based on the user asset's traits, keeping its recognizable structure.\n\nCharacter reference: a full-body three-view sheet laid out horizontally as front full-body | side full-body | back full-body, with uniform proportions, lighting and gear structure; state facial proportions, skin tone/hairstyle, clothing layers, tactical gear, armor/exoskeleton, wear, dust, blood or other battle damage. Scene reference: a 2x2 character-free grid labeling different angles or areas, stating the key light source, color temperature, movement paths, activity areas, cover objects, key prop positions and environment state. Monster, machine or prop reference: a complete structure or multi-angle view, emphasizing anatomical/mechanical/biological logic, materials, joints, attack parts, weak points and size relationships.\n\nPrompts include stable anchors for later video references: a character's unchangeable traits, a scene's unchangeable spatial structure, a monster/prop's unchangeable silhouette and materials. No vague concept art, chibi, cartoonish monsters, overly clean brand-new looks, or characters mixed into the scene grid.",
+  "must_have_items": [
+    "front full-body",
+    "side full-body",
+    "back full-body",
+    "2x2 character-free grid",
+    "Key light source and color temperature",
+    "Activity areas",
+    "Key prop positions",
+    "Complete structure or multi-angle",
+    "Material and wear state",
+    "Anchors for later video references"
+  ],
+  "planning_prompt": "Generate or remake prompts for post-apocalyptic sci-fi character three-view sheets, scene grids, and monster, machine and prop references.",
+  "result_summary": "Post-apocalyptic sci-fi key element image generation prompts.",
+  "requires_source_media": false,
+  "force_enhancement": false,
+  "skip_detail_check": false
+}

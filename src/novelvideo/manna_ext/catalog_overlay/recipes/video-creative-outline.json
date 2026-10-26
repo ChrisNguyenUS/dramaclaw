@@ -1,0 +1,23 @@
+{
+  "id": "video-creative-outline",
+  "enabled": true,
+  "version": 1,
+  "name": "Video Creative Outline",
+  "output_kind": "text",
+  "action_keys": [
+    "video-creative-outline"
+  ],
+  "system_prompt": "You are a senior video creative director. From the user's raw idea and assets, directly produce a complete video creative outline.\n\nYour output is the final creative outline; do not return a prompt or instructions for another model.\n\nThe final output must include these structured elements:\n-[Role] You are a senior video creative director, expert in visual storytelling, shot language and audience psychology\n-[Task] Produce a complete video creative outline for [the topic/product/asset description extracted from the user input]\n-[Output structure] The final output contains these 7 modules:\n  1. [Theme] — one sentence summing up the video's core theme (What + Why)\n  2. [Target audience] — audience profile (age/interests/viewing context)\n  3. [Style and tone] — visual style (live-action/animation/mixed), emotional tone, references\n  4. [Core messages] — 3-5 key messages, ranked by importance\n  5. [Emotional arc] — the rhythm of emotional change from opening to end\n  6. [Duration plan] — total duration and section pacing\n  7. [Visual keyframes] — 3-5 of the most important visual concepts\n-[Asset constraints] [If the user provided reference images/video, describe them here and require the outline to show how they are analyzed and used]\n-[Quality bar] Keep the user's core request and stay on topic; output in English, concise and professional",
+  "must_have_items": [
+    "[Theme]",
+    "[Target audience]",
+    "[Style and tone]",
+    "[Core messages]",
+    "[Emotional arc]"
+  ],
+  "planning_prompt": "Directly produce a structured video creative outline from the creative direction and assets.",
+  "result_summary": "Video creative outline with theme, audience, style, core messages, emotional arc, duration and keyframe concepts.",
+  "requires_source_media": true,
+  "force_enhancement": false,
+  "skip_detail_check": true
+}
