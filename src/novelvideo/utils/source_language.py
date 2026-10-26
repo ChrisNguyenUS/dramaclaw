@@ -33,6 +33,9 @@ def detect_asset_language(text: str) -> AssetLanguage:
     Chinese and English are the only languages in this contract. Any other
     script, a tie, or empty input retains the historical Chinese default.
     """
+    from novelvideo.manna_ext.language import manna_asset_language  # Manna hook
+    if (forced := manna_asset_language()) is not None:  # Manna hook
+        return forced  # Manna hook
     raw_text = str(text or "")
     raw_lines = [line.strip() for line in raw_text.splitlines()]
     has_latin_speaker_cue = any(
@@ -99,11 +102,12 @@ def detect_asset_language(text: str) -> AssetLanguage:
 def asset_language_instruction(language: AssetLanguage) -> str:
     """Return the shared language rule appended to model requests."""
     if language == "en":
+        from novelvideo.manna_ext.language import instruction_suffix  # Manna hook
         return (
             "Write every user-visible prose field in English. "
             "Keep every supplied character and location name verbatim; "
             "never translate, romanize, or rewrite a name."
-        )
+        ) + instruction_suffix()  # Manna hook
     return (
         "所有面向用户的自由文本字段都使用中文。"
         "人物名和地点名必须按输入原样保留，不得翻译、音译或改写。"
@@ -121,6 +125,9 @@ async def detect_episode_asset_language(
     Generated Beat fields are accepted only as a last-resort compatibility
     fallback for detached stores that do not expose episode source content.
     """
+    from novelvideo.manna_ext.language import manna_asset_language  # Manna hook
+    if (forced := manna_asset_language()) is not None:  # Manna hook
+        return forced  # Manna hook
     content_store = getattr(store, "sqlite_store", None) or store
     episode_getter = getattr(content_store, "get_episode", None)
     if callable(episode_getter):
