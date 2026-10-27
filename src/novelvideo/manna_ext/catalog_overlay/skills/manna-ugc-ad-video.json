@@ -1,0 +1,183 @@
+{
+  "schema_version": "dramaclaw.workflow-skill.v1",
+  "id": "manna-ugc-ad-video",
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "UGC Ad Video",
+  "category": "video",
+  "description": "Turns a product and offer into a vertical UGC performance ad: pick a format (hook, unboxing, testimonial, before/after, POV, problem-solution, GRWM, street interview, 3 reasons, A vs B), confirm inputs, generate the storyboard, then generate the shots, audio and final composite.",
+  "triggers": {
+    "keywords": [
+      "UGC ad",
+      "UGC video",
+      "TikTok ad",
+      "Reels ad",
+      "performance ad",
+      "unboxing ad",
+      "testimonial ad",
+      "before after ad",
+      "POV ad",
+      "GRWM ad",
+      "street interview ad",
+      "3 reasons ad",
+      "comparison ad",
+      "social video ad"
+    ],
+    "node_scopes": [
+      "imageGeneration",
+      "videoGeneration",
+      "audioGeneration",
+      "textGeneration"
+    ]
+  },
+  "input_parameters": [
+    {
+      "id": "ugc_format",
+      "label": "UGC format",
+      "type": "single_select",
+      "required": true,
+      "default": "Hook",
+      "options": [
+        "Hook",
+        "Unboxing",
+        "Testimonial",
+        "Before/After",
+        "POV",
+        "Problem-Solution",
+        "GRWM",
+        "Street interview",
+        "3 reasons",
+        "A vs B"
+      ]
+    },
+    {
+      "id": "duration",
+      "label": "Length (seconds)",
+      "type": "single_select",
+      "required": false,
+      "default": "30",
+      "options": [
+        "15",
+        "30",
+        "60"
+      ]
+    },
+    {
+      "id": "aspect_ratio",
+      "label": "Aspect ratio",
+      "type": "single_select",
+      "required": false,
+      "default": "9:16",
+      "options": [
+        "9:16",
+        "1:1",
+        "4:5",
+        "16:9"
+      ]
+    },
+    {
+      "id": "talent",
+      "label": "Talent",
+      "type": "single_select",
+      "required": false,
+      "default": "AI actor",
+      "options": [
+        "AI actor",
+        "Real footage",
+        "No talent (product only)"
+      ]
+    }
+  ],
+  "allowed_recipe_ids": [
+    "manna-ugc-hook",
+    "manna-ugc-unboxing",
+    "manna-ugc-testimonial",
+    "manna-ugc-before-after",
+    "manna-ugc-pov",
+    "manna-ugc-problem-solution",
+    "manna-ugc-grwm",
+    "manna-ugc-street-interview",
+    "manna-ugc-three-reasons",
+    "manna-ugc-a-vs-b",
+    "ad-product-prop-anchor",
+    "storyboard-shot-video",
+    "video-audio-layer"
+  ],
+  "planning": {
+    "planning_notes": "[Gates]\nGate 1: pick the UGC format; map it to its recipe (Hook → manna-ugc-hook, Unboxing → manna-ugc-unboxing, Testimonial → manna-ugc-testimonial, Before/After → manna-ugc-before-after, POV → manna-ugc-pov, Problem-Solution → manna-ugc-problem-solution, GRWM → manna-ugc-grwm, Street interview → manna-ugc-street-interview, 3 reasons → manna-ugc-three-reasons, A vs B → manna-ugc-a-vs-b).\nGate 2: confirm product, audience, offer, talent, length and aspect ratio (default 9:16, 30 s).\nGate 3: show the storyboard shot table and get approval before any generation.\n\n[Execution path]\n1. Run the chosen UGC recipe to write the storyboard.\n2. If product images are provided, anchor the product with ad-product-prop-anchor.\n3. Generate one clip per ai_video shot with storyboard-shot-video (max 8 s per clip, product anchor referenced); footage shots use the user's clips; graphic shots (price card, text, logo, CTA end card) are built in the composite.\n4. Generate music, SFX and voiceover with video-audio-layer after all clips are done.\n5. The canvas compose node assembles clips, captions and audio in storyboard order.",
+    "prompt_guide": "Write directions in English. Dialogue, voiceover, captions and on-screen text follow the project's film language. Keep the phone-shot UGC look: handheld, natural light, real environments, eye-level selfie framing for talking heads.",
+    "conduct_rules": [
+      "Never generate clips before the storyboard is approved",
+      "Keep the confirmed aspect ratio in every image and video step",
+      "Product name, price and offer are quoted verbatim in every downstream prompt",
+      "Never name or show a real competitor brand",
+      "Each video clip binds a continuous storyboard range and is no longer than 8 seconds",
+      "Never pre-mix background music into video clips"
+    ]
+  },
+  "evaluation": {
+    "rating_bands": [
+      {
+        "score": 9,
+        "description": "Scroll-stopping hook, clear product, native UGC feel and a strong CTA"
+      },
+      {
+        "score": 7,
+        "description": "Solid structure with minor pacing or caption issues"
+      },
+      {
+        "score": 5,
+        "description": "Weak hook or unclear product; feels like a polished TV ad, not UGC"
+      },
+      {
+        "score": 3,
+        "description": "Off-brief, wrong format or unusable shots"
+      }
+    ],
+    "visual_review_items": [
+      {
+        "name": "Hook strength",
+        "description": "The first 3 seconds stop the scroll",
+        "weight": 0.3
+      },
+      {
+        "name": "Product clarity",
+        "description": "The product and label are clearly visible",
+        "weight": 0.3
+      },
+      {
+        "name": "UGC authenticity",
+        "description": "Handheld, natural, creator-style look",
+        "weight": 0.2
+      },
+      {
+        "name": "Caption safety",
+        "description": "Captions sit inside the safe area and stay readable",
+        "weight": 0.2
+      }
+    ],
+    "text_review_items": [
+      {
+        "name": "Beat timing",
+        "description": "Beats match the format's second ranges",
+        "weight": 0.4
+      },
+      {
+        "name": "Offer accuracy",
+        "description": "Product, price and offer are exact",
+        "weight": 0.3
+      },
+      {
+        "name": "CTA",
+        "description": "A single clear call to action",
+        "weight": 0.3
+      }
+    ],
+    "quality_threshold": 7.5,
+    "domain_constraints": [
+      "Every shot carries a shot type tag: ai_video, footage or graphic",
+      "Default 9:16 vertical with platform safe areas",
+      "Dialogue and captions follow the project's film language"
+    ]
+  }
+}
