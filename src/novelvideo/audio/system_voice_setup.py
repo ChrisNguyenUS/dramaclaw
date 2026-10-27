@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+from novelvideo.manna_ext import voices as manna_voices  # Manna hook
 from novelvideo.generators.tts_generator import EdgeTTSGenerator
 from novelvideo.project_config import (
     load_effective_narration_style_for_voice,
@@ -41,6 +42,8 @@ MALE_VOICES = (
 
 
 def _system_voice_for_character(character) -> str:
+    if (voice := manna_voices.system_voice_for_gender(getattr(character, "gender", ""), getattr(character, "name", ""))):  # Manna hook
+        return voice  # Manna hook
     gender = str(getattr(character, "gender", "") or "").strip().lower()
     age_group = str(getattr(character, "age_group", "") or "").strip().lower()
     if "女" in gender or gender in {"female", "woman", "girl"}:
@@ -70,7 +73,7 @@ async def _system_voice_content(
     output_path = cache_dir / f"{_safe_voice_filename(voice)}.mp3"
     if not output_path.exists() or output_path.stat().st_size <= 0:
         result = await EdgeTTSGenerator(voice=voice).generate(
-            text=SYSTEM_VOICE_SAMPLE_TEXT,
+            text=(manna_voices.system_voice_overrides() or {}).get("sample_text", SYSTEM_VOICE_SAMPLE_TEXT),  # Manna hook
             output_path=str(output_path),
             generate_subtitle=False,
         )
@@ -149,7 +152,7 @@ async def prepare_missing_system_voices(
         if resolution.audio_path is None:
             content = await _system_voice_content(
                 project_dir=root,
-                voice=NARRATOR_VOICE,
+                voice=(manna_voices.system_voice_overrides() or {}).get("narrator", NARRATOR_VOICE),  # Manna hook
                 cache=content_cache,
             )
             target = root / "assets" / "narrator" / "voice.mp3"
@@ -162,7 +165,7 @@ async def prepare_missing_system_voices(
                 sha256=voice_content_sha256(content),
             )
             prepared.append(
-                {"target": "项目解说人", "voice": NARRATOR_VOICE, "slot": "narrator"}
+                {"target": "项目解说人", "voice": (manna_voices.system_voice_overrides() or {}).get("narrator", NARRATOR_VOICE), "slot": "narrator"}
             )
 
     for character_name, character in character_targets.items():

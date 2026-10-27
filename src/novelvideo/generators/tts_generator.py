@@ -12,6 +12,7 @@ from typing import Any, Optional
 
 from pydantic import BaseModel, Field
 
+from novelvideo.manna_ext import voices as manna_voices  # Manna hook
 from novelvideo.config import get_tts_config
 from novelvideo.egress_context import TrustedEgressContext
 from novelvideo.ports.authz import AdmissionContext
@@ -424,6 +425,7 @@ class EdgeTTSGenerator:
         Returns:
             语音信息列表
         """
+        locale = manna_voices.voice_locale() or locale if locale == "zh-CN" else locale  # Manna hook
         try:
             import edge_tts
 

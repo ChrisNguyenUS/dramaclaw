@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from novelvideo.manna_ext import voices as manna_voices  # Manna hook
 from novelvideo.config import INDEXTTS2_RECORD_MODEL, OUTPUT_DIR
 from novelvideo.media_archive_copy import copy_archived_result
 from novelvideo.generators.indextts2_fal import IndexTTS2FalClient
@@ -617,7 +618,7 @@ async def generate_freezone_audio_speech(
             await _write_edge_tts_speech(
                 output_path=output_path,
                 input_text=clean_text,
-                voice=EDGE_PRESET_VOICE_ALIASES.get(voice_name, voice_name),
+                voice=manna_voices.resolve_preset_voice(voice_name, EDGE_PRESET_VOICE_ALIASES),  # Manna hook
                 egress_context=egress_context,
             )
         else:
