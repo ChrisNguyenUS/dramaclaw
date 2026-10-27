@@ -21,6 +21,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Callable, Optional
 
+from novelvideo.manna_ext.refs import normalize_reference_aliases  # Manna hook
 from novelvideo.shared.provider_errors import (
     classify_provider_video_task_error,
     provider_video_error_code_from_text,
@@ -2455,6 +2456,8 @@ class NewApiVideoGenerator(VideoGeneratorBase):
         Existing model-specific branches still validate and collect their inputs
         during phase one. Only the final wire representation is normalized here.
         """
+        if isinstance(payload.get("prompt"), str):  # Manna hook
+            payload["prompt"] = normalize_reference_aliases(payload["prompt"])  # Manna hook
 
         # Keep the model-level semantics in metadata even after deriving the
         # generic width/height fields. NewAPI model adapters may need the

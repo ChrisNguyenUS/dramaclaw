@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from novelvideo.manna_ext.refs import normalize_reference_aliases  # Manna hook
 from novelvideo.seedance2_i2v.models import (
     Seedance2I2VMode,
     Seedance2VideoConfig,
@@ -23,7 +24,7 @@ def clean_reference_list(values: list[str] | tuple[str, ...] | None) -> list[str
 
 def normalize_seedance2_prompt(prompt: str) -> str:
     return (
-        str(prompt or "")
+        normalize_reference_aliases(str(prompt or ""))  # Manna hook
         .replace("@图片", "图片")
         .replace("@视频", "视频")
         .replace("@音频", "音频")

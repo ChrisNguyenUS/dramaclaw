@@ -8,6 +8,7 @@ import re
 from dataclasses import dataclass
 from typing import Any, Awaitable, Callable
 
+from novelvideo.manna_ext.refs import normalize_reference_aliases  # Manna hook
 from novelvideo.brainclaw_contract import BrainClawProfile
 from novelvideo.models import (
     beat_scene_ref,
@@ -193,7 +194,7 @@ def normalize_seedance2_editor_prompt(prompt: str) -> str:
     """Convert editor-only @ mentions into model-facing reference labels."""
 
     return (
-        _text(prompt)
+        normalize_reference_aliases(_text(prompt))  # Manna hook
         .replace("@图片", "图片")
         .replace("@音频", "音频")
         .replace("@视频", "视频")

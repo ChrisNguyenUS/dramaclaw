@@ -14,7 +14,7 @@ from typing import Optional
 
 from fastapi import HTTPException
 
-from novelvideo.manna_ext import prompts as manna_prompts  # Manna hook
+from novelvideo.manna_ext import prompts as manna_prompts, refs as manna_refs  # Manna hook
 from novelvideo.manna_ext.catalog_en import apply_catalog_en  # Manna hook
 
 from novelvideo.api.schemas import (
@@ -223,7 +223,7 @@ def merge_prompt_with_style_and_camera(
     style: Optional[FreezoneImageStyleConfig],
     camera: Optional[FreezoneImageCameraConfig],
 ) -> str:
-    base = (prompt or "").strip()
+    base = manna_refs.normalize_reference_aliases((prompt or "").strip())  # Manna hook
     style_block = build_style_prompt(style)
     camera_block = build_camera_prompt(camera)
     parts = [part for part in [base, style_block, camera_block] if part]
