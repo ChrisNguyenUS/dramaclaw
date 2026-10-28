@@ -23,7 +23,7 @@ export const SERVER_TEXT_EXACT: Record<string, string> = {
   "角色补充任务已进入队列": "Character fill-in task queued",
   "身份已删除": "Identity deleted",
   "项目不存在或已删除，已切回首页聊天。": "This project no longer exists or was deleted. Switched back to home chat.",
-  "正在整理 Skill 方向...": "Working out the Skill direction...",
+  "正在整理 Skill 方向...": "Organizing the Skill direction...",
   "文本翻译完成": "Text translation complete",
   "开始生成文本": "Starting text generation",
   "文本生成完成": "Text generation complete",

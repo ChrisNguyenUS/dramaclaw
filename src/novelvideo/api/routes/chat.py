@@ -76,6 +76,7 @@ from novelvideo.shared.billing_errors import (
     insufficient_credits_payload,
 )
 from novelvideo.utils.error_redaction import safe_exception_message
+from novelvideo.manna_ext.chat_text import english_chat_text
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -110,10 +111,10 @@ def _user_facing_chat_error(exc: BaseException) -> str:
     # Keep the useful cause, but remove local paths/secrets and cap provider dumps.
     safe = chat_service._redact_local_filesystem_paths(raw).strip()  # type: ignore[attr-defined]
     if not safe:
-        return "本轮处理失败：服务未返回可识别的错误原因，请稍后重试。"
+        return english_chat_text("本轮处理失败：服务未返回可识别的错误原因，请稍后重试。")
     if len(safe) > 800:
         safe = f"{safe[:800].rstrip()}…"
-    return safe
+    return english_chat_text(safe)
 
 
 class ChatScopePayload(BaseModel):
@@ -732,7 +733,7 @@ async def _persist_chat_turn_error(
 ) -> dict[str, Any] | None:
     """Persist a terminal turn error so history reconciliation cannot erase it."""
 
-    content = f"本轮处理失败：{reason}\n\n请根据错误提示处理后重试。"
+    content = english_chat_text(f"本轮处理失败：{reason}\n\n请根据错误提示处理后重试。")
     try:
         project_ctx = (
             await _project_context_for_scope(user, scope)
@@ -2226,7 +2227,7 @@ async def _send_scope_changed(
         project_ctx = None
         if not await _send_json_best_effort(
             websocket,
-            {"type": "error", "message": "项目不存在或已删除，已切回首页聊天。"},
+            {"type": "error", "message": english_chat_text("项目不存在或已删除，已切回首页聊天。")},
         ):
             return None
     if not await _send_json_best_effort(
@@ -3309,7 +3310,7 @@ def _skill_studio_status_frame(
         "scope": scope.to_dict(),
         "turn_id": turn_id,
         "status": status,
-        "message": message or status_messages.get(status) or "正在整理 Skill 方向...",
+        "message": english_chat_text(message or status_messages.get(status) or "正在整理 Skill 方向..."),
     }
 
 

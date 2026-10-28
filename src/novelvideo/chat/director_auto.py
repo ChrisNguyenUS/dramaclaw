@@ -17,6 +17,7 @@ from typing import Any, Iterable
 from novelvideo.chat import service as chat_service
 from novelvideo.chat.live_events import broadcast_project_chat_event
 from novelvideo.project_context import ProjectContext, resolve_project_context
+from novelvideo.manna_ext.chat_text import english_chat_text
 from novelvideo.sqlite_pragmas import configure_sqlite_connection
 from novelvideo.task_state import TaskState, get_task_manager
 
@@ -750,6 +751,7 @@ class DirectorAutoCoordinator:
         )
 
     async def _notify(self, run: DirectorAutoRun, text: str) -> dict[str, Any]:
+        text = english_chat_text(text)  # Manna hook
         ctx = run.context
         message = await asyncio.to_thread(
             chat_service.add_assistant_message,
