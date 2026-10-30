@@ -12,7 +12,8 @@ from novelvideo.manna_ext.language import manna_asset_language
 
 _PREFIX = {"image": "图片", "img": "图片", "video": "视频", "audio": "音频", "text": "文本"}  # i18n-exempt: protocol tokens
 _ALIAS = re.compile(
-    r"(?<![A-Za-z0-9])(@?)(image|img|video|audio|text)\s?(\d{1,2})(?![0-9A-Za-z])",
+    # Not inside a URL or file name (path/., extension after) — "image1.png" stays as written.
+    r"(?<![A-Za-z0-9/._-])(@?)(image|img|video|audio|text)(\s?)(\d{1,2})(?![0-9A-Za-z_/-])(?!\.\w)",
     re.IGNORECASE,
 )
 
@@ -22,8 +23,8 @@ def normalize_reference_aliases(text: str) -> str:
         return text
 
     def _sub(m: re.Match[str]) -> str:
-        at, word, num = m.groups()
-        if not at and word.lower() != "image":
+        at, word, space, num = m.groups()
+        if not at and (word.lower() != "image" or space):  # bare "image 2 seconds" is prose
             return m.group(0)
         return f"@{_PREFIX[word.lower()]}{num}"
 

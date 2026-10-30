@@ -235,3 +235,22 @@ def test_agent_block_sets_manna_identity(english):
     block = agent_language_block("en")
     assert "Manna Director" in block and "Manna Studio" in block
     assert "DramaClaw" in block  # named only to forbid it as a self-name
+
+
+def test_story_script_tasks_carry_vietnamese_rule(monkeypatch):
+    from novelvideo.manna_ext import language as ml
+    from novelvideo.manna_ext import prompts_en
+
+    monkeypatch.setenv("MANNA_ASSET_LANGUAGE", "en")
+    token = ml.bind_film_language("vi")
+    try:
+        tasks = [
+            prompts_en.story_script_task(source_text="s", prompt="p"),
+            prompts_en.video_story_script_task(frame_count=3, prompt="p"),
+            prompts_en.character_story_script_task(image_count=2, prompt="p"),
+        ]
+    finally:
+        ml.reset_film_language(token)
+    for task in tasks:
+        assert ml.VIETNAMESE_FILM_RULE in task
+    assert ml.VIETNAMESE_FILM_RULE not in prompts_en.story_script_task(source_text="s", prompt="p")

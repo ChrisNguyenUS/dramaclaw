@@ -11,6 +11,7 @@ from typing import Any
 
 import yaml
 
+from novelvideo.manna_ext.language import current_film_language, film_language_rule
 from novelvideo.manna_ext.prompts import text
 
 
@@ -56,6 +57,8 @@ def story_script_task(*, source_text: str, prompt: str, character_refs=None) -> 
         parts.append(block)
     parts.append(_t("text_node.story_script_style_hint"))
     parts.append(f"{_t('text_node.source_script_label')}\n{source_text.strip()}")
+    if rule := film_language_rule(current_film_language()):
+        parts.append(rule)  # the agent is a cached singleton: the vi rule rides on the task text
     return "\n\n".join(parts)
 
 
@@ -79,6 +82,8 @@ def video_story_script_task(*, frame_count: int, prompt: str, duration_sec=None,
     if block:
         parts.append(block)
     parts.append(_t("text_node.story_script_style_hint"))
+    if rule := film_language_rule(current_film_language()):
+        parts.append(rule)  # the agent is a cached singleton: the vi rule rides on the task text
     return "\n\n".join(parts)
 
 
@@ -98,6 +103,8 @@ def character_story_script_task(*, image_count: int, prompt: str, source_text: s
     parts.append(_t("text_node.story_script_style_hint"))
     if source_text.strip():
         parts.append(f"{_t('text_node.source_script_label')}\n{source_text.strip()}")
+    if rule := film_language_rule(current_film_language()):
+        parts.append(rule)  # the agent is a cached singleton: the vi rule rides on the task text
     return "\n\n".join(parts)
 
 

@@ -57,3 +57,8 @@ def test_image_prompt_merge_resolves_alias():
     from novelvideo.freezone.route_helpers import merge_prompt_with_style_and_camera
 
     assert merge_prompt_with_style_and_camera("@Image2 in rain", None, None) == "@图片2 in rain"  # i18n-exempt: protocol token
+
+
+def test_bare_alias_skips_urls_filenames_and_durations():
+    for s in ["https://cdn.x/image1.png", "see image1.jpg", "hold the image 2 seconds", "assets/video3.mp4"]:
+        assert n(s) == s
