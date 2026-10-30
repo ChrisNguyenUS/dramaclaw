@@ -37,6 +37,7 @@ from fastapi import (
 from fastapi.responses import FileResponse, JSONResponse
 from starlette.concurrency import run_in_threadpool
 
+from novelvideo.manna_ext import media_catalog as manna_media_catalog  # Manna hook
 from novelvideo.manna_ext.language import bind_film_language_from_state_dir, reset_film_language  # Manna hook
 from novelvideo.api.auth import get_api_user
 from novelvideo.chat import evidence_metrics
@@ -9367,7 +9368,7 @@ def _public_media_model_catalog(
                 ]
             public_entry["request"] = public_request
         result.append(public_entry)
-    return result
+    return manna_media_catalog.english_catalog(result)  # Manna hook
 
 
 def _media_model_unavailable(

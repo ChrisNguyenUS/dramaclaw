@@ -2410,6 +2410,7 @@ src/novelvideo/manna_ext/catalog_overlay/skills/text-to-image.json,Elastic-2.0,2
 src/novelvideo/manna_ext/catalog_overlay/skills/video-tutorial.json,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
 src/novelvideo/manna_ext/chat_text.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
 src/novelvideo/manna_ext/language.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
+src/novelvideo/manna_ext/media_catalog.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
 src/novelvideo/manna_ext/project_defaults.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
 src/novelvideo/manna_ext/prompt_texts.json,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
 src/novelvideo/manna_ext/prompts.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
@@ -2928,6 +2929,7 @@ tests/test_manna_catalog_overlay.py,Elastic-2.0,2026 SuperTale contributors,REUS
 tests/test_manna_chat_text.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
 tests/test_manna_language.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
 tests/test_manna_language_binding.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
+tests/test_manna_media_catalog.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
 tests/test_manna_project_language.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
 tests/test_manna_prompts.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
 tests/test_manna_provider_presets.py,Elastic-2.0,2026 SuperTale contributors,REUSE.toml aggregate annotation
