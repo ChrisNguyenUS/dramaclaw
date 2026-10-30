@@ -762,7 +762,7 @@ async def create_project(
         save_project_config_in_state_dir(
             record.state_dir,
             config={
-                **manna_create_config(body.film_language),  # Manna hook
+                **manna_create_config(getattr(body, "film_language", None)),  # Manna hook
                 "user": user["username"],
                 KNOWLEDGE_PIPELINE_KEY: KNOWLEDGE_PIPELINE_STRUCTURED,
             },
